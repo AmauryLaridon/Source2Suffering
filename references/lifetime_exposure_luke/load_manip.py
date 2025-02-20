@@ -27,7 +27,8 @@ def load_worldbank_unwpp_data():
     # load World Bank life expectancy at birth data (source: https://data.worldbank.org/indicator/SP.DYN.LE00.IN) - not used in final analysis
     worldbank_years        = np.arange(1960,2018) 
     
-    df_worldbank = pd.read_excel('./data/world_bank/world_bank_life_expectancy_by_country_update.xls', header=None)
+    #df_worldbank = pd.read_excel('./data/world_bank/world_bank_life_expectancy_by_country_update.xls', header=None) # the _update.xls file is not available for the moment we keep the version of Wim's code.
+    df_worldbank = pd.read_excel('./data/world_bank/world_bank_life_expectancy_by_country.xls', header=None)
     worldbank_country_data = df_worldbank.iloc[:,4:].values
     worldbank_country_meta = df_worldbank.iloc[:,:4].values
     

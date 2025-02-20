@@ -64,17 +64,17 @@ flags['gmt'] = 'original'    # original: use Wim's stylized trajectory approach 
                             # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
 flags['rm'] = 'rm'       # no_rm: no smoothing of RCP GMTs before mapping
                          # rm: 21-year rolling mean on RCP GMTs 
-flags['version'] = 'pickles_v2'     # pickles: original version, submitted to Nature
+flags['version'] = 'pickles'     # pickles: original version, submitted to Nature
                                         # inconsistent GMT steps (not perfect 0.1 degree intervals)
                                         # GMT steps ranging 1-4 (although study only shows ~1.5-3.5, so runs are inefficient)
                                         # only 99.99% percentile for PIC threshold
-                                    # pickles_v2: version generated after submission to Nature in preparation for criticism/review
+                                    # pickles_v2: version generated after submission to Nature in preparation for criticism/review. Data not available 
                                         # steps fixed in load_manip to be only 1.5-3.5, with clean 0.1 degree intervals
                                         # 5 percentiles for PIC threshold and emergence for each
                                     # pickles_v3: version generated after the 2021 toolchains were taken away from hydra. could not longer use old pickles effectively
 flags['run'] = 0          # 0: do not process ISIMIP runs (i.e. load runs pickle)
                             # 1: process ISIMIP runs (i.e. produce and save runs as pickle)
-flags['mask'] = 0           # 0: do not process country data (i.e. load masks pickle)
+flags['mask'] = 1           # 0: do not process country data (i.e. load masks pickle)
                             # 1: process country data (i.e. produce and save masks as pickle)
 flags['lifetime_exposure_cohort'] = 0       # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
                                             # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)                            
@@ -147,8 +147,9 @@ else: # load processed country data
     print('Loading processed country and region data')
 
     # load country pickle
-    d_countries = pk.load(open('./data/{}/country_info.pkl'.format(flags['version']), 'rb'))
-    
+    # d_countries = pk.load(open('./data/{}/country_info.pkl'.format(flags['version']), 'rb')) Luke's version
+    d_countries = pd.read_pickle('./data/{}/country_info.pkl'.format(flags['version'])) # udpate to correct the "No module named 'pandas.core.indexes.numeric" error
+ 
 # unpack country information
 df_countries = d_countries['info_pop']
 gdf_country_borders = d_countries['borders']
