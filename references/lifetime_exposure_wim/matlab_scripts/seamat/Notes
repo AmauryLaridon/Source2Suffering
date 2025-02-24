@@ -1,0 +1,72 @@
+
+Notes on changes (RP, 8/98)
+
+1) removed 'end' from almost all routines (causes needless warnings in matlab5)
+
+2) In general, I tried to remove restrictions on orientation and size
+   of inputs (i.e. programs can handle scalars and 1- or 2D matrices
+   mixed together).
+
+3) added RELHUMID - computes relative humidity from wet/dry thermometers.
+
+4) ALBEDO: Added code to handle negative sunaltitude (night) and atmospheric 
+   transmittances >1 (occurs when data "bad")
+   
+5) added AS_CONSTS: Gathered all constants together in this script (k,g, rho, 
+   sea surface emissivity, solar constant etc.). Most programs now 
+   call AS_CONSTS first.
+
+6) CDNLP, CDNTC, CDNVE - vectorized the iterative code to compute
+   drag coefficients (improves run-time by a factor of about 100 and
+   simplifies the code). Standardized iteration scheme. Routines now
+   also return u_10 as well as cd_10.
+   
+7) Renamed CDNVERA to CDNVE (to standardize length of name)
+
+8) Rewrote STRESSLP, STRESSTC, STRESSVE to take full advantage of CDN??
+   code (shortens these programs to only a couple of lines by leaving
+   iterative work in CDN??, also "standardizes" code as v1.0 seemed to
+   have different things happening in CDN or STRESS, depending on what
+   drag law was being used.
+   
+9) Rewrote SPSHFTLP, SPSHFTTC, SPSHFTVE to take full advantage of CDN??
+   code (shortens these programs to a few lines), they now also return
+   friction velocity as well as shifted speed.
+
+10) BINAVE vectorized. Also, averaging interval does not have to divide
+   input vector length exactly - the last bin may be "short".
+
+11) LWHF - Correction for Eppley pyrgeometers made only if DSW given as
+    input parameter (for people using other instruments, like me, for 
+    which that correction is inappropriate).
+
+12) SATVAP Added a progam to compute saturation vapour pressure (as opposed
+    saturation specific humidity in QSAT). 
+       
+13) BLWHF - Completely redid the bulk long-wave flux stuff, separating the
+    long-wave bulk formulas into BLWHF, the cloud corrections into CLOUDCOR,
+    and the cloud fraction estimates into REEDCF. For kicks I added all the
+    other bulk formulas discussed in Fung et al.
+
+14) CLSKSWR - testing for latitude band now done correctly, comments
+    corrected.
+
+15) REEDCF - since no-one else calls CLOUDFAC and NSUNANG, I have moved these
+    as subroutines in REEDCF.
+    
+16) HFBULKTC - Mostly rewritten. Variable names now follow convention
+    of Fairall et al (1996). PSITTC and PSIUTC are moved into this
+    m-file since no-one else uses them. LKB created to relate roughness
+    Reynolds numbers for momentum and heat/humidity. Iteration loop
+    simplified. Corrected gustiness code for typos. Output vector now
+    matches documentation. Momentum drag dependence on gustiness
+    corrected.
+
+17) SUNRISE modified to take vector inputs for time, and also to return
+    time of sunset as well as sunrise.  
+   
+18) WAVEDIST modified to used (newer) CDNVE.
+
+19) README updated, slightly rewritten to make it easier to find things (in
+   my opinion)
+   
