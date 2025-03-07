@@ -1,0 +1,213 @@
+Start Job
+Wed Feb  5 21:55:07 CET 2025
+Loading processed country and region data
+running load_isimip
+Loading processed isimip data
+loading da_gs_popdenom
+loading emergence
+running reporting functions
+Afghanistan
+Angola
+Albania
+United Arab Emirates
+Argentina
+Armenia
+Australia
+Austria
+Azerbaijan
+Burundi
+Belgium
+Benin
+Burkina Faso
+Bangladesh
+Bulgaria
+Bahamas
+Bosnia and Herzegovina
+Belarus
+Belize
+Bolivia
+Brazil
+Brunei Darussalam
+Bhutan
+Botswana
+Central African Republic
+Canada
+Switzerland
+Chile
+China
+Cote dIvoire
+Cameroon
+Democratic Republic of the Congo
+Republic of Congo
+Colombia
+Comoros
+Cape Verde
+Costa Rica
+Cuba
+Cyprus
+Czech Republic
+Germany
+Djibouti
+Denmark
+Dominican Republic
+Algeria
+Ecuador
+Egypt
+Eritrea
+Spain
+Estonia
+Ethiopia
+Finland
+Fiji
+France
+Gabon
+United Kingdom
+Georgia
+Ghana
+Guinea
+The Gambia
+Guinea-Bissau
+Equatorial Guinea
+Greece
+Guatemala
+Guyana
+Hong Kong
+Honduras
+Croatia
+Haiti
+Hungary
+Indonesia
+India
+Ireland
+Iran
+Iraq
+Iceland
+Israel
+Italy
+Jamaica
+Jordan
+Japan
+Kazakhstan
+Kenya
+Kyrgyzstan
+Cambodia
+Kiribati
+Republic of Korea
+Kuwait
+Lao PDR
+Lebanon
+Liberia
+Libya
+Sri Lanka
+Lesotho
+Lithuania
+Luxembourg
+Latvia
+Morocco
+Moldova
+Madagascar
+Mexico
+Macedonia
+Mali
+Myanmar
+Montenegro
+Mongolia
+Mozambique
+Mauritania
+Mauritius
+Malawi
+Malaysia
+Namibia
+New Caledonia
+Niger
+Nigeria
+Nicaragua
+Netherlands
+Norway
+Nepal
+New Zealand
+Oman
+Pakistan
+Panama
+Peru
+Philippines
+Papua New Guinea
+Poland
+Puerto Rico
+Dem. Rep. Korea
+Portugal
+Paraguay
+French Polynesia
+Qatar
+Romania
+Russian Federation
+Rwanda
+Saudi Arabia
+Sudan
+Senegal
+Solomon Islands
+Sierra Leone
+El Salvador
+Somalia
+Serbia
+South Sudan
+Sao Tome and Principe
+Suriname
+Slovakia
+Slovenia
+Sweden
+Swaziland
+Syria
+Chad
+Togo
+Thailand
+Tajikistan
+Turkmenistan
+Timor-Leste
+Trinidad and Tobago
+Tunisia
+Turkey
+Tanzania
+Uganda
+Ukraine
+Uruguay
+United States
+Uzbekistan
+Saint Vincent and the Grenadines
+Venezuela
+United States Virgin Islands
+Vietnam
+Vanuatu
+Samoa
+Yemen
+South Africa
+Zambia
+Zimbabwe
+countries merged
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+step 0
+step 10
+step 20
+--- 2.0 minutes for tropicalcyclonedarea emergence loc ---
+step 0
+step 10
+step 20
+--- 0.0 minutes for tropicalcyclonedarea pf in under geo constraints ---
+tropicalcyclonedarea under GMT step 0 has geoconstrained pf of 5.120656415506771 for 1960 and 10.778499982017234 for 2020
+tropicalcyclonedarea under GMT step 0 has regular pf of 2.8966005922177644 for 1960 and 5.7547601812320295 for 2020
+tropicalcyclonedarea under GMT step 10 has geoconstrained pf of 5.031888272529339 for 1960 and 15.52419949098041 for 2020
+tropicalcyclonedarea under GMT step 10 has regular pf of 2.8463547711742856 for 1960 and 8.288493565795955 for 2020
+tropicalcyclonedarea under GMT step 20 has geoconstrained pf of 4.663134503885789 for 1960 and 19.371209956266245 for 2020
+tropicalcyclonedarea under GMT step 20 has regular pf of 2.6377929889136977 for 1960 and 10.34237975338763 for 2020
+End Job

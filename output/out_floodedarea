@@ -1,0 +1,287 @@
+Start Job
+Tue Feb 11 20:46:00 CET 2025
+Loading processed country and region data
+running load_isimip
+Loading processed isimip data
+loading da_gs_popdenom
+loading emergence
+running reporting functions
+Afghanistan
+Angola
+Albania
+United Arab Emirates
+Argentina
+Armenia
+Australia
+Austria
+Azerbaijan
+Burundi
+Belgium
+Benin
+Burkina Faso
+Bangladesh
+Bulgaria
+Bahamas
+Bosnia and Herzegovina
+Belarus
+Belize
+Bolivia
+Brazil
+Brunei Darussalam
+Bhutan
+Botswana
+Central African Republic
+Canada
+Switzerland
+Chile
+China
+Cote dIvoire
+Cameroon
+Democratic Republic of the Congo
+Republic of Congo
+Colombia
+Comoros
+Cape Verde
+Costa Rica
+Cuba
+Cyprus
+Czech Republic
+Germany
+Djibouti
+Denmark
+Dominican Republic
+Algeria
+Ecuador
+Egypt
+Eritrea
+Spain
+Estonia
+Ethiopia
+Finland
+Fiji
+France
+Gabon
+United Kingdom
+Georgia
+Ghana
+Guinea
+The Gambia
+Guinea-Bissau
+Equatorial Guinea
+Greece
+Guatemala
+Guyana
+Hong Kong
+Honduras
+Croatia
+Haiti
+Hungary
+Indonesia
+India
+Ireland
+Iran
+Iraq
+Iceland
+Israel
+Italy
+Jamaica
+Jordan
+Japan
+Kazakhstan
+Kenya
+Kyrgyzstan
+Cambodia
+Kiribati
+Republic of Korea
+Kuwait
+Lao PDR
+Lebanon
+Liberia
+Libya
+Sri Lanka
+Lesotho
+Lithuania
+Luxembourg
+Latvia
+Morocco
+Moldova
+Madagascar
+Mexico
+Macedonia
+Mali
+Myanmar
+Montenegro
+Mongolia
+Mozambique
+Mauritania
+Mauritius
+Malawi
+Malaysia
+Namibia
+New Caledonia
+Niger
+Nigeria
+Nicaragua
+Netherlands
+Norway
+Nepal
+New Zealand
+Oman
+Pakistan
+Panama
+Peru
+Philippines
+Papua New Guinea
+Poland
+Puerto Rico
+Dem. Rep. Korea
+Portugal
+Paraguay
+French Polynesia
+Qatar
+Romania
+Russian Federation
+Rwanda
+Saudi Arabia
+Sudan
+Senegal
+Solomon Islands
+Sierra Leone
+El Salvador
+Somalia
+Serbia
+South Sudan
+Sao Tome and Principe
+Suriname
+Slovakia
+Slovenia
+Sweden
+Swaziland
+Syria
+Chad
+Togo
+Thailand
+Tajikistan
+Turkmenistan
+Timor-Leste
+Trinidad and Tobago
+Tunisia
+Turkey
+Tanzania
+Uganda
+Ukraine
+Uruguay
+United States
+Uzbekistan
+Saint Vincent and the Grenadines
+Venezuela
+United States Virgin Islands
+Vietnam
+Vanuatu
+Samoa
+Yemen
+South Africa
+Zambia
+Zimbabwe
+countries merged
+simulation 1 of 86
+simulation 2 of 86
+simulation 3 of 86
+simulation 4 of 86
+simulation 5 of 86
+simulation 6 of 86
+simulation 7 of 86
+simulation 8 of 86
+simulation 9 of 86
+simulation 10 of 86
+simulation 11 of 86
+simulation 12 of 86
+simulation 13 of 86
+simulation 14 of 86
+simulation 15 of 86
+simulation 16 of 86
+simulation 17 of 86
+simulation 18 of 86
+simulation 19 of 86
+simulation 20 of 86
+simulation 21 of 86
+simulation 22 of 86
+simulation 23 of 86
+simulation 24 of 86
+simulation 25 of 86
+simulation 26 of 86
+simulation 27 of 86
+simulation 28 of 86
+simulation 29 of 86
+simulation 30 of 86
+simulation 31 of 86
+simulation 32 of 86
+simulation 33 of 86
+simulation 34 of 86
+simulation 35 of 86
+simulation 36 of 86
+simulation 37 of 86
+simulation 38 of 86
+simulation 39 of 86
+simulation 40 of 86
+simulation 41 of 86
+simulation 42 of 86
+simulation 43 of 86
+simulation 44 of 86
+simulation 45 of 86
+simulation 46 of 86
+simulation 47 of 86
+simulation 48 of 86
+simulation 49 of 86
+simulation 50 of 86
+simulation 51 of 86
+simulation 52 of 86
+simulation 53 of 86
+simulation 54 of 86
+simulation 55 of 86
+simulation 56 of 86
+simulation 57 of 86
+simulation 58 of 86
+simulation 59 of 86
+simulation 60 of 86
+simulation 61 of 86
+simulation 62 of 86
+simulation 63 of 86
+simulation 64 of 86
+simulation 65 of 86
+simulation 66 of 86
+simulation 67 of 86
+simulation 68 of 86
+simulation 69 of 86
+simulation 70 of 86
+simulation 71 of 86
+simulation 72 of 86
+simulation 73 of 86
+simulation 74 of 86
+simulation 75 of 86
+simulation 76 of 86
+simulation 77 of 86
+simulation 78 of 86
+simulation 79 of 86
+simulation 80 of 86
+simulation 81 of 86
+simulation 82 of 86
+simulation 83 of 86
+simulation 84 of 86
+simulation 85 of 86
+simulation 86 of 86
+step 0
+step 10
+step 20
+--- 11.0 minutes for floodedarea emergence loc ---
+step 0
+step 10
+step 20
+--- 2.0 minutes for floodedarea pf in under geo constraints ---
+floodedarea under GMT step 0 has geoconstrained pf of 1.574982162589605 for 1960 and 8.736425076291363 for 2020
+floodedarea under GMT step 0 has regular pf of 1.5287550556526954 for 1960 and 8.411116840224027 for 2020
+floodedarea under GMT step 10 has geoconstrained pf of 1.5369591078840676 for 1960 and 12.009094694798836 for 2020
+floodedarea under GMT step 10 has regular pf of 1.4918031298362155 for 1960 and 11.561783939869207 for 2020
+floodedarea under GMT step 20 has geoconstrained pf of 1.4761876642815501 for 1960 and 14.17924696048959 for 2020
+floodedarea under GMT step 20 has regular pf of 1.432837926554355 for 1960 and 13.65109046727385 for 2020
+End Job
