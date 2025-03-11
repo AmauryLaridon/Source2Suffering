@@ -14,14 +14,15 @@ import os
 from copy import deepcopy as cp
 
 from settings import *
-ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
+data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
 
-# ---------------------------------------------------------------
-# 1. Functions to load (see ms_load.m)
-# ----------------------------------------------------------------
+# --------------------------------------------------------------------
+# 1. Functions to load (see ms_load.m from original Wim Thiery code)
+# --------------------------------------------------------------------
 
 #%% ----------------------------------------------------------------
 # Load observational data
+# ------------------------------------------------------------------
 def load_worldbank_unwpp_data():
 
     # load World Bank life expectancy at birth data (source: https://data.worldbank.org/indicator/SP.DYN.LE00.IN) - not used in final analysis
@@ -102,6 +103,8 @@ def load_worldbank_unwpp_data():
 
 #%% ----------------------------------------------------------------
 # load Wittgenstein Center population size per age cohort (source: http://dataexplorer.wittgensteincentre.org/wcde-v2/)
+# ------------------------------------------------------------------
+
 def load_wcde_data():
 
     wcde_years          = np.arange(1950,2105,5)       # hard coded from 'wcde_data_orig.xls' len is 31
@@ -118,7 +121,8 @@ def load_wcde_data():
     return wcde_years, wcde_ages, wcde_country_data
 
 #%% ----------------------------------------------------------------
-
+# load AR6 scenarios
+# ------------------------------------------------------------------
 def ar6_scen_grab(
     scens,
     df_GMT_all,
@@ -223,6 +227,8 @@ def ar6_scen_grab(
 
 #%% ----------------------------------------------------------------
 # Load global mean temperature projections and build stylized trajectories
+# ------------------------------------------------------------------
+
 def load_GMT(
     year_start,
     year_end,
@@ -232,7 +238,7 @@ def load_GMT(
 
     # Load global mean temperature projections from SR15 
     # (wim's original scenarios; will use historical obs years from here, 1960-1999, but replace with ar6 trajectories)
-    df_GMT_SR15 = pd.read_excel('./data/temperature_trajectories_SR15/GMT_50pc_manualoutput_4pathways.xlsx', header=1);
+    df_GMT_SR15 = pd.read_excel(data_dir+'temperature_trajectories_SR15/GMT_50pc_manualoutput_4pathways.xlsx', header=1);
     df_GMT_SR15 = df_GMT_SR15.iloc[:4,1:].transpose().rename(columns={
         0 : 'IPCCSR15_IMAGE 3.0.1_SSP1-26_GAS',
         1 : 'IPCCSR15_MESSAGE-GLOBIOM 1.0_ADVANCE_INDC_GAS',
@@ -503,6 +509,8 @@ def load_GMT(
 
 #%% ----------------------------------------------------------------
 # Load SSP population totals
+# ------------------------------------------------------------------
+
 def load_population(
     year_start,
     year_end,
@@ -532,6 +540,8 @@ def load_population(
 
 #%% ----------------------------------------------------------------
 # Load ISIMIP model data
+# ------------------------------------------------------------------
+
 def load_isimip(
     extremes, 
     model_names,
@@ -739,6 +749,8 @@ def load_isimip(
 # Function to open isimip data array and read years from filename
 # (the isimip calendar "days since 1661-1-1 00:00:00" cannot be read by xarray datetime )
 # this implies that years in file need to correspond to years in filename
+# ------------------------------------------------------------------
+
 def open_dataarray_isimip(file_name): 
     
     begin_year = int(file_name.split('_')[-2])
@@ -764,6 +776,8 @@ def open_dataarray_isimip(file_name):
 
 #%% ----------------------------------------------------------------
 # interpolate life expectancies
+# ------------------------------------------------------------------
+
 def get_life_expectancies(
     df_worldbank_country, 
     df_unwpp_country,
@@ -802,6 +816,8 @@ def get_life_expectancies(
 
 #%% ----------------------------------------------------------------
 # interpolate cohortsize per country
+# ------------------------------------------------------------------
+
 def get_cohortsize_countries(
     df_countries, 
 ): 
@@ -840,9 +856,12 @@ def get_cohortsize_countries(
 
 #%% ----------------------------------------------------------------
 # interpolate cohortsize per country (changing to use same start points as original cohort extraction for ages 0-60)
+# ------------------------------------------------------------------
+
 def get_all_cohorts(
     df_countries, 
 ): 
+    
 
     # unpack loaded wcde values; 31 year ranges, 21 age categories
     wcde = load_wcde_data()
@@ -890,6 +909,8 @@ def get_all_cohorts(
 #%% ----------------------------------------------------------------
 # mask population per country based on gridded population and countrymask
 # also communicate country masks as regionmask object 
+# ------------------------------------------------------------------
+
 def get_mask_population(
     da_population, 
     gdf_country_borders, 

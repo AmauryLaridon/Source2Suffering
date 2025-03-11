@@ -1,0 +1,147 @@
+Lmod has detected the following error: The following module(s) are unknown:
+"Python/3.9.6-GCCcore-11.2.0"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Python/3.9.6-GCCcore-11.2.0"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"geopandas/0.11.0-foss-2021b"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "geopandas/0.11.0-foss-2021b"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"openpyxl/3.0.9-GCCcore-11.2.0"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "openpyxl/3.0.9-GCCcore-11.2.0"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"regionmask/0.9.0-foss-2021b"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "regionmask/0.9.0-foss-2021b"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"xarray/0.20.1-foss-2021b"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "xarray/0.20.1-foss-2021b"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"netcdf4-python/1.5.8-foss-2021b"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "netcdf4-python/1.5.8-foss-2021b"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"SciPy-bundle/2021.10-foss-2021b"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "SciPy-bundle/2021.10-foss-2021b"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"matplotlib/3.4.3-foss-2021b"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "matplotlib/3.4.3-foss-2021b"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"Cartopy/0.20.3-foss-2021b"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Cartopy/0.20.3-foss-2021b"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: The following module(s) are unknown:
+"Shapely/1.8.2-foss-2021b"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "Shapely/1.8.2-foss-2021b"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+
+Lmod has detected the following error: Swap failed: "xarray/0.20.1-foss-2021b"
+is not loaded.
+
+If you don't understand the warning or error, contact the helpdesk at
+hpc@vub.be 
+
+

@@ -8,6 +8,9 @@ import numpy as np
 #%% ----------------------------------------------------------------
 def init(): 
 
+    # data directory
+    global data_dir
+    data_dir = "/data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/"
     # initialise age and associated time period of interest
     global ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_inc
     ages = np.arange(60,-1,-1)
@@ -167,7 +170,7 @@ def init():
            'v', 'w', 'x',
            'y', 'z']
     
-    return ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins
+    return data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins
 
 #%% ----------------------------------------------------------------
 # set extremes based on flag (this needs to happen here as it uses the flags dict defined above)
