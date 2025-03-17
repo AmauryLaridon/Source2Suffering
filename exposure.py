@@ -17,7 +17,7 @@ import time
 import matplotlib.pyplot as plt
 from copy import deepcopy as cp
 from settings import *
-ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
+scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
 
 
 #%% ----------------------------------------------------------------
@@ -275,7 +275,7 @@ def calc_exposure_trends(
     countries_3D = rm.mask_3D_geopandas(gdf_country_borders.reset_index(),lon,lat)
     
     # basin shapefiles
-    gdf_basins = gpd.read_file('./data/shapefiles/Major_Basins_of_the_World.shp')
+    gdf_basins = gpd.read_file(data_dir+'shapefiles/Major_Basins_of_the_World.shp')
     gdf_basins = gdf_basins.loc[:,['NAME','geometry']]
     
     # merge basins with multiple entries
@@ -354,7 +354,7 @@ def calc_exposure_trends(
         print('simulation {} of {}'.format(i,len(d_isimip_meta)))
 
         # load AFA data of that run
-        with open('./data/{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
+        with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
             da_AFA = pk.load(f)  
         
         # per GMT step, if max threshold criteria met, run gmt mapping and compute trends
@@ -405,7 +405,7 @@ def calc_exposure_trends(
     ds_e['mean_exposure_trend_basin'] = ds_e['exposure_trend_basin'].mean(dim='run')
 
     # dump pickle of exposure trends
-    with open('./data/{}/{}/exposure_trends_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/exposure_trends_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
         pk.dump(ds_e,f)
 
     return ds_e
@@ -448,7 +448,7 @@ def calc_lifetime_exposure(
         print('simulation {} of {}'.format(i,len(d_isimip_meta)))
 
         # load AFA data of that run
-        with open('./data/{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
+        with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
             da_AFA = pk.load(f)
 
         # --------------------------------------------------------------------
@@ -501,7 +501,7 @@ def calc_lifetime_exposure(
                 }] = d_exposure_perrun_step.values.transpose()             
 
     # dump pickle of lifetime exposure
-    with open('./data/{}/{}/lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
         pk.dump(ds_le,f)
 
     return ds_le
@@ -594,7 +594,7 @@ def calc_cohort_lifetime_exposure(
                         {'time':da_exposure_peryear_percountry['time'][d_isimip_meta[i]['ind_RCP2GMT_strj'][:,step]]}
                     ).assign_coords({'time':year_range}) * da_cohort_size
                     
-        with open('./data/{}/{}/exposure_cohort_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'wb') as f:
+        with open(data_dir+'{}/{}/exposure_cohort_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'wb') as f:
             pk.dump(da_exposure_cohort_strj,f)
             
         # GMT mapping for stylized trajectories in dimension expansion of da_exposure_peryear_percountry
@@ -626,7 +626,7 @@ def calc_cohort_lifetime_exposure(
                         {'time':da_exposure_peryear_percountry['time'][d_isimip_meta[i]['ind_RCP2GMT_strj'][:,step]]}
                     ).assign_coords({'time':year_range}) * xr.full_like(da_cohort_size,1)
         
-        with open('./data/{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'wb') as f:
+        with open(data_dir+'{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'wb') as f:
             pk.dump(da_exposure_peryear_perage_percountry_strj,f)                     
         
         
@@ -651,7 +651,7 @@ def calc_lifetime_exposure_pic(
         print('simulation '+str(n+1)+ ' of '+str(len(d_pic_meta)))
 
         # load AFA data of that run
-        with open('./data/{}/{}/isimip_AFA_pic_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
+        with open(data_dir+'{}/{}/isimip_AFA_pic_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
             da_AFA_pic = pk.load(f)
         
         # get 1960 life expectancy
@@ -706,7 +706,7 @@ def calc_lifetime_exposure_pic(
                 (life_expectancy_1960 - np.floor(life_expectancy_1960))
 
     # save pickles
-    with open('./data/{}/{}/exposure_pic_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/exposure_pic_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
         pk.dump(d_exposure_perrun_pic,f)
 
     return d_exposure_perrun_pic

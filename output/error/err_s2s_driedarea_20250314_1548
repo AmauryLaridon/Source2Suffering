@@ -1,0 +1,41 @@
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/nanfunctions.py:1584: RuntimeWarning: All-NaN slice encountered
+  result = np.apply_along_axis(_nanquantile_1d, axis, a, q,
+/var/spool/slurm/slurmd/job10542514/slurm_script: line 85: 991523 Killed                  python3 main.py

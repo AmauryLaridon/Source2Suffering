@@ -14,7 +14,7 @@ import os
 from copy import deepcopy as cp
 
 from settings import *
-data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
+scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
 
 # --------------------------------------------------------------------
 # 1. Functions to load (see ms_load.m from original Wim Thiery code)
@@ -28,7 +28,7 @@ def load_worldbank_unwpp_data():
     # load World Bank life expectancy at birth data (source: https://data.worldbank.org/indicator/SP.DYN.LE00.IN) - not used in final analysis
     worldbank_years        = np.arange(1960,2018) 
     
-    df_worldbank = pd.read_excel('./data/world_bank/world_bank_life_expectancy_by_country_update.xls', header=None)
+    df_worldbank = pd.read_excel(data_dir+'world_bank/world_bank_life_expectancy_by_country_update.xls', header=None)
     worldbank_country_data = df_worldbank.iloc[:,4:].values
     worldbank_country_meta = df_worldbank.iloc[:,:4].values
     
@@ -39,7 +39,7 @@ def load_worldbank_unwpp_data():
     )
 
     df_worldbank_regions   = pd.read_excel(
-        './data/world_bank/world_bank_life_expectancy_by_country_update.xls', 
+        data_dir+'world_bank/world_bank_life_expectancy_by_country_update.xls', 
         'world regions', 
         header=None
     )
@@ -60,7 +60,7 @@ def load_worldbank_unwpp_data():
     # load United Nations life expectancy at age 5 data, defined as years left to live (source: https://population.un.org/wpp/Download/Standard/Mortality/)
     unwpp_years = np.arange(1952,2017+5,5)  # assume block is 5 instead of reported 6 years to avoid overlap and take middle of that 5-year block (so 1952 for period 1950-1955). Substract 5 to get birth year of 5-year old (a 5-year old in 1952 was born in 1947 and we need the latter). hard coded from 'WPP2019_MORT_F16_1_LIFE_EXPECTANCY_BY_AGE_BOTH_SEXES_orig.xls'
 
-    df_unwpp = pd.read_excel('./data/UN_WPP/WPP2019_MORT_F16_1_LIFE_EXPECTANCY_BY_AGE_BOTH_SEXES.xlsx',header=None)
+    df_unwpp = pd.read_excel(data_dir+'UN_WPP/WPP2019_MORT_F16_1_LIFE_EXPECTANCY_BY_AGE_BOTH_SEXES.xlsx',header=None)
     unwpp_country_data = df_unwpp.values[:,4:]
     
     df_unwpp_country = pd.DataFrame(
@@ -70,7 +70,7 @@ def load_worldbank_unwpp_data():
     )
 
     df_unwpp_region_raw =  pd.read_excel(
-        './data/UN_WPP/WPP2019_MORT_F16_1_LIFE_EXPECTANCY_BY_AGE_BOTH_SEXES.xlsx', 
+        data_dir+'UN_WPP/WPP2019_MORT_F16_1_LIFE_EXPECTANCY_BY_AGE_BOTH_SEXES.xlsx', 
         'world regions', 
         header=None
     )
@@ -110,10 +110,10 @@ def load_wcde_data():
     wcde_years          = np.arange(1950,2105,5)       # hard coded from 'wcde_data_orig.xls' len is 31
     wcde_ages           = np.arange(2,102+5,5)         # hard coded from 'wcde_data_orig.xls' not that we assume +100 to be equal to 100-104, len is 21
 
-    df_wcde             =  pd.read_excel('./data/Wittgenstein_Centre/wcde_data.xlsx',header=None)
+    df_wcde             =  pd.read_excel(data_dir+'Wittgenstein_Centre/wcde_data.xlsx',header=None)
     wcde_country_data   = df_wcde.values[:,4:]
     df_wcde_region      =  pd.read_excel(
-        './data/Wittgenstein_Centre/wcde_data.xlsx', 
+        data_dir+'Wittgenstein_Centre/wcde_data.xlsx', 
         'world regions', 
         header=None
     )
@@ -307,7 +307,7 @@ def load_GMT(
     elif flags['gmt'] == 'ar6':
         
         # for alternative gmt mapping approaches, collect new ar6 scens from IASA explorer
-        df_GMT_ar6 = pd.read_csv('./data/temperature_trajectories_AR6/ar6_c1_c7_nogaps_2000-2100.csv',header=0)
+        df_GMT_ar6 = pd.read_csv(data_dir+'temperature_trajectories_AR6/ar6_c1_c7_nogaps_2000-2100.csv',header=0)
         df_GMT_ar6.loc[:,'Model'] = df_GMT_ar6.loc[:,'Model']+'_'+df_GMT_ar6.loc[:,'Scenario']
         df_GMT_ar6 = df_GMT_ar6.drop(columns=['Scenario','Region','Variable','Unit']).transpose()
         df_GMT_ar6.columns=df_GMT_ar6.loc['Model',:]
@@ -386,7 +386,7 @@ def load_GMT(
         
         # ------------------------- This is original AR6 approach --------------------------
         # for alternative gmt mapping approaches, collect new ar6 scens from IASA explorer
-        df_GMT_ar6 = pd.read_csv('./data/temperature_trajectories_AR6/ar6_c1_c7_nogaps_2000-2100.csv',header=0)
+        df_GMT_ar6 = pd.read_csv(data_dir+'temperature_trajectories_AR6/ar6_c1_c7_nogaps_2000-2100.csv',header=0)
         df_GMT_ar6.loc[:,'Model'] = df_GMT_ar6.loc[:,'Model']+'_'+df_GMT_ar6.loc[:,'Scenario']
         df_GMT_ar6 = df_GMT_ar6.drop(columns=['Scenario','Region','Variable','Unit']).transpose()
         df_GMT_ar6.columns=df_GMT_ar6.loc['Model',:]
@@ -517,8 +517,8 @@ def load_population(
 ):
 
     # load 2D model constants
-    da_population_histsoc = xr.open_dataset('./data/isimip/population/population_histsoc_0p5deg_annual_1861-2005.nc4', decode_times=False)['number_of_people'] 
-    da_population_ssp2soc = xr.open_dataset('./data/isimip/population/corrected_population_ssp2soc_0p5deg_annual_2006-2100.nc4', decode_times=False)['number_of_people'] 
+    da_population_histsoc = xr.open_dataset(data_dir+'isimip/population/population_histsoc_0p5deg_annual_1861-2005.nc4', decode_times=False)['number_of_people'] 
+    da_population_ssp2soc = xr.open_dataset(data_dir+'isimip/population/corrected_population_ssp2soc_0p5deg_annual_2006-2100.nc4', decode_times=False)['number_of_people'] 
 
     # manually adjust time dimension in both data arrays (because original times could not be decoded)
     da_population_histsoc['time'] = np.arange(1861,2006)
@@ -562,11 +562,18 @@ def load_isimip(
         pic_list = []
         d_pic_meta = {}
 
+        if flags['extr']=="all":
+
+            if not os.path.exists(data_dir+'{}/{}'.format(flags['version'],flags['extr'])):
+                    os.mkdir(data_dir+'{}/{}'.format(flags['version'],flags['extr']))
+
         # loop over extremes
         for extreme in extremes:
 
-            if not os.path.exists('./data/{}/{}'.format(flags['version'],flags['extr'])):
-                os.mkdir('./data/{}/{}'.format(flags['version'],flags['extr']))
+            print('Processing for {}'.format(extreme))
+
+            if not os.path.exists(data_dir+'{}/{}'.format(flags['version'],extreme)):
+                os.mkdir(data_dir+'{}/{}'.format(flags['version'],extreme))
 
             # define all models
             models = model_names[extreme]
@@ -575,8 +582,8 @@ def load_isimip(
             for model in models: 
 
                 # store all files starting with model name
-                file_names = sorted(glob.glob('./data/isimip/'+flags['extr']+'/'+model.lower()+'/'+model.lower()+'*rcp*landarea*2099*'))
-
+                #file_names = sorted(glob.glob(data_dir+'isimip/'+flags['extr']+'/'+model.lower()+'/'+model.lower()+'*rcp*landarea*2099*')) #Luke's version
+                file_names = sorted(glob.glob(data_dir+'isimip/'+extreme+'/'+model.lower()+'/'+model.lower()+'*rcp*landarea*2099*'))
                 for file_name in file_names: 
 
                     print('Loading '+file_name.split('\\')[-1]+' ('+str(i)+')')
@@ -593,14 +600,14 @@ def load_isimip(
                     }
 
                     #load associated historical variable
-                    file_name_his = glob.glob('./data/isimip/'+flags['extr']+'/'+model.lower()+'/'+model.lower()+'*'+d_isimip_meta[i]['gcm']+'*_historical_*landarea*')[0]
+                    file_name_his = glob.glob(data_dir+'isimip/'+extreme+'/'+model.lower()+'/'+model.lower()+'*'+d_isimip_meta[i]['gcm']+'*_historical_*landarea*')[0]
                     da_AFA_his = open_dataarray_isimip(file_name_his)
 
                     # load GMT for rcp and historical period - note that these data are in different files
                     if d_isimip_meta[i]['gcm'] == 'hadgem2-es': # .upper() method doesn't work for HadGEM2-ES on linux server (only Windows works here)
-                        file_names_gmt = glob.glob('./data/isimip/DerivedInputData/globalmeans/tas/HadGEM2-ES/*.fldmean.yearmean.txt') # ignore running mean files
+                        file_names_gmt = glob.glob(data_dir+'isimip/DerivedInputData/globalmeans/tas/HadGEM2-ES/*.fldmean.yearmean.txt') # ignore running mean files
                     else:
-                        file_names_gmt = glob.glob('./data/isimip/DerivedInputData/globalmeans/tas/'+d_isimip_meta[i]['gcm'].upper()+'/*.fldmean.yearmean.txt') # ignore running mean files
+                        file_names_gmt = glob.glob(data_dir+'isimip/DerivedInputData/globalmeans/tas/'+d_isimip_meta[i]['gcm'].upper()+'/*.fldmean.yearmean.txt') # ignore running mean files
                     file_name_gmt_fut = [s for s in file_names_gmt if d_isimip_meta[i]['rcp'] in s]
                     file_name_gmt_his = [s for s in file_names_gmt if '_historical_' in s]
                     file_name_gmt_pic = [s for s in file_names_gmt if '_piControl_' in s]
@@ -696,7 +703,7 @@ def load_isimip(
                     if '{}_{}'.format(d_isimip_meta[i]['model'],d_isimip_meta[i]['gcm']) not in pic_list:
 
                         # load associated picontrol variables (can be from up to 4 files)
-                        file_names_pic  = glob.glob('./data/isimip/'+flags['extr']+'/'+model.lower()+'/'+model.lower()+'*'+d_isimip_meta[i]['gcm']+'*_picontrol_*landarea*')
+                        file_names_pic  = glob.glob(data_dir+'isimip/'+extreme+'/'+model.lower()+'/'+model.lower()+'*'+d_isimip_meta[i]['gcm']+'*_picontrol_*landarea*')
 
                         if  isinstance(file_names_pic, str): # single pic file 
                             da_AFA_pic  = open_dataarray_isimip(file_names_pic)
@@ -705,7 +712,8 @@ def load_isimip(
                             da_AFA_pic  = xr.concat(das_AFA_pic, dim='time')
                             
                         # save AFA field as pickle
-                        with open('./data/{}/{}/isimip_AFA_pic_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'wb') as f: # added extreme to string of pickle
+
+                        with open(data_dir+'{}/{}/isimip_AFA_pic_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'wb') as f: # added extreme to string of pickle
                             pk.dump(da_AFA_pic,f)
                             
                         pic_list.append('{}_{}'.format(d_isimip_meta[i]['model'],d_isimip_meta[i]['gcm']))
@@ -719,17 +727,18 @@ def load_isimip(
                         }
                             
                     # save AFA field as pickle
-                    with open('./data/{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'wb') as f: # added extreme to string of pickle
+
+                    with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'wb') as f: # added extreme to string of pickle
                         pk.dump(da_AFA,f)
 
                     # update counter
                     i += 1
         
             # save metadata dictionary as a pickle
-            print('Saving metadata')
-            with open('./data/{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            print('Saving metadata for {}'.format(extreme))
+            with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
                 pk.dump(d_isimip_meta,f)
-            with open('./data/{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
+            with open(data_dir+'{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
                 pk.dump(d_pic_meta,f)
 
     else: 
@@ -738,9 +747,9 @@ def load_isimip(
         print('Loading processed isimip data')
         # loac pickled metadata for isimip and isimip-pic simulations
 
-        with open('./data/{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+        with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
             d_isimip_meta = pk.load(f)
-        with open('./data/{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
             d_pic_meta = pk.load(f)                
 
     return d_isimip_meta,d_pic_meta
@@ -1034,7 +1043,7 @@ def all_country_data(
         year_end,
     )
     
-    gdf_country_borders = gpd.read_file('./data/natural_earth/Cultural_10m/Countries/ne_10m_admin_0_countries.shp')
+    gdf_country_borders = gpd.read_file(data_dir+'natural_earth/Cultural_10m/Countries/ne_10m_admin_0_countries.shp')
     
     # interpolate pop sizes per age cohort for all ages (0-100)
     da_cohort_size = get_all_cohorts(
@@ -1068,9 +1077,9 @@ def all_country_data(
     # save metadata dictionary as a pickle
     print('Saving country data')
     
-    if not os.path.isdir('./data/{}'.format(flags['version'])):
-        os.mkdir('./data/{}'.format(flags['version'],))
-    with open('./data/{}/country_info.pkl'.format(flags['version']), 'wb') as f: # note; 'with' handles file stream closing
+    if not os.path.isdir(data_dir+'{}'.format(flags['version'])):
+        os.mkdir(data_dir+'{}'.format(flags['version'],))
+    with open(data_dir+'{}/country/country_info.pkl'.format(flags['version']), 'wb') as f: # note; 'with' handles file stream closing
         pk.dump(d_countries,f)
         
     return d_countries

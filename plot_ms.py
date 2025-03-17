@@ -39,7 +39,7 @@ import cartopy.feature as feature
 from scipy.stats import ttest_rel
 from scipy.stats import ttest_ind
 from settings import *
-ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
+scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
 
 # %% ----------------------------------------------------------------
 # Conceptual plot for emergence in one location,   
@@ -106,7 +106,7 @@ def plot_conceptual(
     )
 
     # load demography pickle
-    with open('./data/{}/gridscale_dmg_{}.pkl'.format(flags['version'],cntry), 'rb') as f:
+    with open(data_dir+'{}/gridscale/gridscale_dmg_{}.pkl'.format(flags['version'],cntry), 'rb') as f:
         ds_dmg = pk.load(f)                  
 
     # loop over simulations
@@ -115,7 +115,7 @@ def plot_conceptual(
         print('simulation {} of {}'.format(i,len(d_isimip_meta)))
 
         # load AFA data of that run
-        with open('./data/{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
+        with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
             da_AFA = pk.load(f)
             
         # mask to sample country and reduce spatial extent
@@ -173,9 +173,9 @@ def plot_conceptual(
             da_test_city_std.loc[{'birth_year':by,'GMT':step,'time':np.arange(by,by+5)}] = da_test_city_std.loc[{'birth_year':by,'GMT':step}].min(dim='time')        
                 
     # load PIC pickles
-    with open('./data/{}/{}/gridscale_le_pic_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],cntry), 'rb') as f:
+    with open(data_dir+'{}/{}/gridscale_le_pic_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],cntry), 'rb') as f:
         ds_pic = pk.load(f)   
-    with open('./data/{}/{}/{}/gridscale_pic_qntls_{}_{}.pkl'.format(flags['version'],flags['extr'],cntry,flags['extr'],cntry), 'rb') as f:
+    with open(data_dir+'{}/{}/{}/gridscale_pic_qntls_{}_{}.pkl'.format(flags['version'],flags['extr'],cntry,flags['extr'],cntry), 'rb') as f:
         ds_pic_qntl = pk.load(f)
 
     # plotting city lat/lon pixel doesn't give smooth kde
@@ -789,7 +789,7 @@ def plot_conceptual(
     unprecedented=ds_dmg['by_population_y0'].sel(birth_year=np.arange(y1,y2+1),lat=city_lat,lon=city_lon,method='nearest').sum(dim='birth_year').round().item()    
     print('{} thousand unprecedented born in {} and later under pathway {}'.format(unprecedented/10**3,y1,20))        
 
-    f.savefig('./ms_figures/f1_concept_{}_{}.png'.format(flags['version'],cntry),dpi=1000,bbox_inches='tight')
+    f.savefig(script_dir+'/figures/ms_figures/f1_concept_{}_{}.png'.format(flags['version'],cntry),dpi=1000,bbox_inches='tight')
 
 #%% ----------------------------------------------------------------
 # plotting pf heatmaps for grid scale across hazards with and without
@@ -845,9 +845,9 @@ def plot_heatmaps_allhazards(
     # # loop through extremes and concat pop and pop frac
     # list_extrs_pf = []
     # for extr in extremes:
-    #     with open('./data/{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
+    #     with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
     #         ds_pf_gs_extr = pk.load(file)
-    #     with open('./data/{}/{}/isimip_metadata_{}_ar6_new_rm.pkl'.format(flags['version'],extr,extr), 'rb') as file:
+    #     with open(data_dir+'{}/{}/isimip_metadata_{}_ar6_new_rm.pkl'.format(flags['version'],extr,extr), 'rb') as file:
     #         d_isimip_meta = pk.load(file)        
     #     sims_per_step = {}
     #     for step in GMT_labels:
@@ -975,8 +975,8 @@ def plot_heatmaps_allhazards(
     #     if n >= 3:
     #         ax.set_xlabel('Birth year',fontsize=12,color='gray')         
  
-    # f.savefig('./ms_figures/pf_heatmap_combined_simlim_{}.png'.format(flags['version']),dpi=1000,bbox_inches='tight')
-    # f.savefig('./ms_figures/pf_heatmap_combined_simlim_{}.eps'.format(flags['version']),format='eps',bbox_inches='tight')
+    # f.savefig(script_dir+'/figures/ms_figures/pf_heatmap_combined_simlim_{}.png'.format(flags['version']),dpi=1000,bbox_inches='tight')
+    # f.savefig(script_dir+'/figures/ms_figures/pf_heatmap_combined_simlim_{}.eps'.format(flags['version']),format='eps',bbox_inches='tight')
     # plt.show()     
     
     # --------------------------------------------------------------------
@@ -985,7 +985,7 @@ def plot_heatmaps_allhazards(
     # loop through extremes and concat pop and pop frac
     list_extrs_pf = []
     for extr in extremes:
-        with open('./data/{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
+        with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
             ds_pf_gs_extr = pk.load(file)    
         p = ds_pf_gs_extr[unprec_level].loc[{
             'GMT':np.arange(GMT_indices_plot[0],GMT_indices_plot[-1]+1).astype('int'),
@@ -1099,9 +1099,9 @@ def plot_heatmaps_allhazards(
         if n >= 3:
             ax.set_xlabel('Birth year',fontsize=12,color='gray')
     
-    # f.savefig('./ms_figures/pf_heatmap_combined_allsims_{}.png'.format(flags['version']),dpi=1000,bbox_inches='tight')
-    # f.savefig('./ms_figures/pf_heatmap_combined_allsims_{}.pdf'.format(flags['version']),dpi=500,bbox_inches='tight')    
-    # f.savefig('./ms_figures/pf_heatmap_combined_allsims_{}.eps'.format(flags['version']),format='eps',bbox_inches='tight')
+    # f.savefig(script_dir+'/figures/ms_figures/pf_heatmap_combined_allsims_{}.png'.format(flags['version']),dpi=1000,bbox_inches='tight')
+    # f.savefig(script_dir+'/figures/ms_figures/pf_heatmap_combined_allsims_{}.pdf'.format(flags['version']),dpi=500,bbox_inches='tight')    
+    # f.savefig(script_dir+'/figures/ms_figures/pf_heatmap_combined_allsims_{}.eps'.format(flags['version']),format='eps',bbox_inches='tight')
     plt.show()         
 
 #%% ----------------------------------------------------------------
@@ -1488,8 +1488,8 @@ def plot_emergence_union(
     print('2020 percentage of land area \n with emergence of 3 extremes is {}'.format(la_frac_eu_gteq3_2020.item()))    
     print('1960 percentage of land area \n with emergence of 3 extremes {}'.format(la_frac_eu_gteq3_1960.item()))  
         
-    f.savefig('./ms_figures/emergence_union_new_gmt17_50perc.png',dpi=1000,bbox_inches='tight')
-    # f.savefig('./ms_figures/emergence_union_new_25perc.pdf',dpi=500,bbox_inches='tight')
+    f.savefig(script_dir+'/figures/ms_figures/emergence_union_new_gmt17_50perc.png',dpi=1000,bbox_inches='tight')
+    # f.savefig(script_dir+'/figures/ms_figures/emergence_union_new_25perc.pdf',dpi=500,bbox_inches='tight')
 
 # %% ----------------------------------------------------------------
 # Combined plot for heatwaves showing box plots of 1.5, 2.5 and 3.5, 
@@ -1565,9 +1565,9 @@ def plot_combined(
     # get data
     df_list_gs = []
     extr='heatwavedarea'
-    with open('./data/{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
+    with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
         d_isimip_meta = pk.load(file)              
-    with open('./data/{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
+    with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
         ds_pf_gs_plot = pk.load(file)
     da_p_gs_plot = ds_pf_gs_plot['unprec'].loc[{
         'GMT':GMT_indices_plot,
@@ -1773,7 +1773,7 @@ def plot_combined(
     cb.outline.set_linewidth(cb_edgthic)   
     cax00.xaxis.set_label_position('top')                   
 
-    # f.savefig('./ms_figures/combined_plot_{}.png'.format(flags['extr']),dpi=1000,bbox_inches='tight')
+    # f.savefig(script_dir+'/figures/ms_figures/combined_plot_{}.png'.format(flags['extr']),dpi=1000,bbox_inches='tight')
 
     plt.show()            
     
@@ -1870,9 +1870,9 @@ def plot_combined_piechart(
     # get data
     df_list_gs = []
     extr='heatwavedarea'
-    with open('./data/{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
+    with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
         d_isimip_meta = pk.load(file)              
-    with open('./data/{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
+    with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
         ds_pf_gs_plot = pk.load(file)
     da_p_gs_plot = ds_pf_gs_plot[plot_var].loc[{
         'GMT':GMT_indices_plot,
@@ -2356,9 +2356,9 @@ def plot_combined_piechart(
             xycoords=ax0.transAxes
         )
             
-    f.savefig('./ms_figures/combined_plot_piecharts_new_{}.png',dpi=1000,bbox_inches='tight'.format(flags['version']))
-    # f.savefig('./ms_figures/combined_plot_piecharts_50.pdf',dpi=50,bbox_inches='tight')
-    # f.savefig('./ms_figures/combined_plot_piecharts_500.pdf',dpi=500,bbox_inches='tight')
+    f.savefig(script_dir+'/figures/ms_figures/combined_plot_piecharts_new_{}.png',dpi=1000,bbox_inches='tight'.format(flags['version']))
+    # f.savefig(script_dir+'/figures/ms_figures/combined_plot_piecharts_50.pdf',dpi=50,bbox_inches='tight')
+    # f.savefig(script_dir+'/figures/ms_figures/combined_plot_piecharts_500.pdf',dpi=500,bbox_inches='tight')
 
 #%% ----------------------------------------------------------------
 # combined plot showing absolute cohort sizes and pie charts
@@ -2463,9 +2463,9 @@ def plot_combined_population(
     # get data
     df_list_gs = []
     extr='heatwavedarea'
-    with open('./data/{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
+    with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
         d_isimip_meta = pk.load(file)              
-    with open('./data/{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
+    with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
         ds_pf_gs_plot = pk.load(file)
     da_p_gs_plot = ds_pf_gs_plot[plot_var].loc[{
         'GMT':GMT_indices_plot,
@@ -2766,7 +2766,7 @@ def plot_combined_population(
     cb.outline.set_linewidth(cb_edgthic)   
     cax00.xaxis.set_label_position('top')   
 
-    # f.savefig('./ms_figures/f2_combined_plot_popsizes.png',dpi=1000)
+    # f.savefig(script_dir+'/figures/ms_figures/f2_combined_plot_popsizes.png',dpi=1000)
     return gdf_robinson_bounds
     
 #%% ----------------------------------------------------------------
@@ -2855,9 +2855,9 @@ def plot_combined_population_piechart(
     # get data
     df_list_gs = []
     extr='heatwavedarea'
-    with open('./data/{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
+    with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
         d_isimip_meta = pk.load(file)              
-    with open('./data/{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
+    with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
         ds_pf_gs_plot = pk.load(file)
     da_p_gs_plot = ds_pf_gs_plot[plot_var].loc[{
         'GMT':GMT_indices_plot,
@@ -3313,7 +3313,7 @@ def plot_combined_population_piechart(
     cb.outline.set_linewidth(cb_edgthic)   
     cax00.xaxis.set_label_position('top')   
 
-    f.savefig('./ms_figures/combined_plot_popsizes_piecharts.png',dpi=1000)
+    f.savefig(script_dir+'/figures/ms_figures/combined_plot_popsizes_piecharts.png',dpi=1000)
                         
 #%% ----------------------------------------------------------------
 # plot ar6 hexagons with landfrac per extreme and multi extreme panels
@@ -3321,7 +3321,7 @@ def plot_combined_population_piechart(
 def plot_hexagon_landfrac_union(
     d_global_emergence,
 ):                
-    gdf_ar6_hex = gpd.read_file('./data/shapefiles/zones.gpkg').rename(columns={'label': 'Acronym'})
+    gdf_ar6_hex = gpd.read_file(data_dir+'shapefiles/zones.gpkg').rename(columns={'label': 'Acronym'})
     gdf_ar6_hex = gdf_ar6_hex.set_index('Acronym').drop(['id','Continent','Name'],axis=1)
     gdf_ar6_hex = gdf_ar6_hex.drop(labels=['GIC'],axis=0)
 
@@ -3654,14 +3654,14 @@ def plot_hexagon_landfrac_union(
         direction='out'
     )   
 
-    f.savefig('./ms_figures/emergence_landfrac_union_hexagons_{}.png'.format(landfrac_threshold),dpi=1000,bbox_inches='tight')
+    f.savefig(script_dir+'/figures/ms_figures/emergence_landfrac_union_hexagons_{}.png'.format(landfrac_threshold),dpi=1000,bbox_inches='tight')
 
 #%% ----------------------------------------------------------------
 
 def plot_hexagon_multithreshold(
     d_global_emergence,
 ):                   
-    gdf_ar6_hex = gpd.read_file('./data/shapefiles/zones.gpkg').rename(columns={'label': 'Acronym'})
+    gdf_ar6_hex = gpd.read_file(data_dir+'shapefiles/zones.gpkg').rename(columns={'label': 'Acronym'})
     gdf_ar6_hex = gdf_ar6_hex.set_index('Acronym').drop(['id','Continent','Name'],axis=1)
     gdf_ar6_hex = gdf_ar6_hex.drop(labels=['GIC'],axis=0)
 
@@ -3936,7 +3936,7 @@ def plot_hexagon_multithreshold(
     )   
     cb_u.outline.set_color('gray')
 
-    # f.savefig('./ms_figures/emergence_union_hexagons_multithresh.png',dpi=1000,bbox_inches='tight')
+    # f.savefig(script_dir+'/figures/ms_figures/emergence_union_hexagons_multithresh.png',dpi=1000,bbox_inches='tight')
     
 #%% ----------------------------------------------------------------    
 # preparing data for pramid plots    
@@ -3962,7 +3962,7 @@ def pyramid_setup(
     gmt_low=0
     gmt_high=20
     
-    if not os.path.isfile('./data/{}/pyramid_data_gdp.pkl'.format(flags['version'])):
+    if not os.path.isfile(data_dir+'{}/pyramid_data_gdp.pkl'.format(flags['version'])):
     
         # also plot 1960 vs 2020 for gdp (grdi only has 2020)
         population_quantiles_10poorest = []
@@ -4209,7 +4209,7 @@ def pyramid_setup(
             d_pyramid_plot_gdp[e]['0_20']['ttest_20pc_pvals_poor'] = ttest_20pc_pvals_poor_0_vs_20
             d_pyramid_plot_gdp[e]['0_20']['ttest_20pc_pvals_rich'] = ttest_20pc_pvals_rich_0_vs_20                    
                     
-        with open('./data/{}/pyramid_data_gdp.pkl'.format(flags['version']), 'wb') as f:
+        with open(data_dir+'{}/pyramid_data_gdp.pkl'.format(flags['version']), 'wb') as f:
             pk.dump(d_pyramid_plot_gdp,f)   
             
     else:
@@ -4217,7 +4217,7 @@ def pyramid_setup(
         print("gdp pickle already there, delete pyramid_data_gdp.pkl and rerun function if you want to renew this data")
                     
     # grdi vulnerability quantiles ===========================================================
-    if not os.path.isfile('./data/{}/pyramid_data_grdi.pkl'.format(flags['version'])):
+    if not os.path.isfile(data_dir+'{}/pyramid_data_grdi.pkl'.format(flags['version'])):
     
         # also plot 1960 vs 2020 for gdp (grdi only has 2020)
         population_quantiles_10poorest = []
@@ -4466,7 +4466,7 @@ def pyramid_setup(
             d_pyramid_plot_grdi[e]['0_20']['ttest_20pc_pvals_poor'] = ttest_20pc_pvals_poor_0_vs_20
             d_pyramid_plot_grdi[e]['0_20']['ttest_20pc_pvals_rich'] = ttest_20pc_pvals_rich_0_vs_20        
                     
-        with open('./data/{}/pyramid_data_grdi.pkl'.format(flags['version']), 'wb') as f:
+        with open(data_dir+'{}/pyramid_data_grdi.pkl'.format(flags['version']), 'wb') as f:
             pk.dump(d_pyramid_plot_grdi,f)   
                 
     else:
@@ -4520,7 +4520,7 @@ def pyramid_plot(
     GMT = GMT_cp 
     
     # start with GDP ====================================================================================
-    with open('./data/{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
+    with open(data_dir+'{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
         d_pyramid_plot = pk.load(f)    
     
     for e in extremes:    
@@ -4776,7 +4776,7 @@ df_vulnerability_e = df_vulnerability.loc[:,['run','GMT','qntl','vulnerability_i
 df_vulnerability_e.loc[:,e] = df_vulnerability_e.loc[:,e] / 10**6 # convert to millions of people 
 
 # load pyramid plot data
-with open('./data/{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
+with open(data_dir+'{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
     d_pyramid_plot = pk.load(f)    
 d_pyramid_plot_grdi = d_pyramid_plot
 
@@ -5033,7 +5033,7 @@ unit='pple'
 qntl_range = '20'
 
 # start with GDP ====================================================================================
-with open('./data/{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
+with open(data_dir+'{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
     d_pyramid_plot = pk.load(f)    
 
 for e in extremes:    
@@ -5304,7 +5304,7 @@ unit='pple'
 qntl_range = '20'
 
 # start with GDP ====================================================================================
-with open('./data/{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
+with open(data_dir+'{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
     d_pyramid_plot = pk.load(f)    
 
 for e in extremes:    
@@ -5708,7 +5708,7 @@ unit='pple'
 GMT = GMT_cp 
 
 # start with GDP ====================================================================================
-with open('./data/{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
+with open(data_dir+'{}/pyramid_data_{}.pkl'.format(flags['version'],vln_type), 'rb') as f:
     d_pyramid_plot = pk.load(f)    
 
 for e in extremes:    

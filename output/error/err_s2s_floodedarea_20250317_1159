@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 358, in <module>
+    ds_ae_strj, ds_pf_strj = strj_emergence(
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/emergence.py", line 574, in strj_emergence
+    }] = ds_pop_frac_run_step['unprec_exposed_b']
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/dataset.py", line 426, in __setitem__
+    self.dataset[dim_indexers] = value
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/dataset.py", line 1440, in __setitem__
+    value = self._setitem_check(key, value)
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/dataset.py", line 1548, in _setitem_check
+    align(self[key], value, join="exact", copy=False)
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/alignment.py", line 764, in align
+    aligner.align()
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/alignment.py", line 551, in align
+    self.align_indexes()
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/alignment.py", line 397, in align_indexes
+    raise ValueError(
+ValueError: cannot align objects with join='exact' where index/labels/sizes are not equal along these coordinates (dimensions): 'birth_year' ('birth_year',)

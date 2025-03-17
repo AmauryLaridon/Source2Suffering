@@ -26,7 +26,7 @@ import geopandas as gpd
 from scipy import interpolate
 import cartopy.crs as ccrs
 from settings import *
-ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
+scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
 
 #%% ----------------------------------------------------------------
 # make age+time selections to align exposure, cohort exposure and cohort sizes along birth year and time
@@ -448,9 +448,9 @@ def strj_emergence(
     # loop through sims and run emergence analysis
     for i in list(d_isimip_meta.keys()):
         
-        with open('./data/{}/{}/exposure_cohort_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'rb') as f:
+        with open(data_dir+'{}/{}/exposure_cohort_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'rb') as f:
             da_exposure_cohort = pk.load(f)
-        with open('./data/{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'rb') as f:
+        with open(data_dir+'{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'rb') as f:
             da_exposure_peryear_perage_percountry = pk.load(f)
     
         for step in da_exposure_peryear_perage_percountry.GMT.values:
@@ -460,7 +460,7 @@ def strj_emergence(
             if d_isimip_meta[i]['GMT_strj_valid'][step]:
                 
                 # check for pickles before running full proc
-                if not os.path.isfile('./data/{}/{}/ds_exposure_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)):
+                if not os.path.isfile(data_dir+'{}/{}/ds_exposure_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)):
                     
                     # align age + time selections of annual mean exposure along birthyears + time per country, birth cohort, run; to act as mask for birthyears when pic threshold is passed
                     da_exposure_aligned = calc_birthyear_align(
@@ -475,17 +475,17 @@ def strj_emergence(
                     )
                     
                     # pickle
-                    with open('./data/{}/{}/ds_exposure_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
+                    with open(data_dir+'{}/{}/ds_exposure_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
                         pk.dump(ds_exposure_aligned_run_step,f)
                     
                 else:
                     
                     # load pickle
-                    with open('./data/{}/{}/ds_exposure_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
+                    with open(data_dir+'{}/{}/ds_exposure_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
                         ds_exposure_aligned_run_step = pk.load(f)
                 
                 # check for pickles before running
-                if not os.path.isfile('./data/{}/{}/da_emergence_mask_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)) or not os.path.isfile('./data/{}/{}/ds_age_emergence_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)):
+                if not os.path.isfile(data_dir+'{}/{}/da_emergence_mask_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)) or not os.path.isfile(data_dir+'{}/{}/ds_age_emergence_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)):
                     
                     # use birthyear aligned (cumulative) exposure and pic extreme to extract age of emergence and get mask to include all lived timesteps per birthyear that passed pic threshold
                     da_emergence_mask_run_step, ds_age_emergence_run_step = exposure_pic_masking(
@@ -494,19 +494,19 @@ def strj_emergence(
                     )
                     
                     # pickle
-                    with open('./data/{}/{}/da_emergence_mask_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
+                    with open(data_dir+'{}/{}/da_emergence_mask_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
                         pk.dump(da_emergence_mask_run_step,f)
-                    with open('./data/{}/{}/ds_age_emergence_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
+                    with open(data_dir+'{}/{}/ds_age_emergence_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
                         pk.dump(ds_age_emergence_run_step,f)
                     
                 else:
                     
                     # load pickle
-                    with open('./data/{}/{}/da_emergence_mask_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
+                    with open(data_dir+'{}/{}/da_emergence_mask_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
                         da_emergence_mask_run_step = pk.load(f)
                 
                 # check for pickles before running
-                if not os.path.isfile('./data/{}/{}/ds_exposure_cohort_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)):
+                if not os.path.isfile(data_dir+'{}/{}/ds_exposure_cohort_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)):
                 
                     # aligned cohort exposure age+time selections
                     da_exposure_cohort_aligned_run_step = calc_birthyear_align(
@@ -521,17 +521,17 @@ def strj_emergence(
                     )
                     
                     # pickle
-                    with open('./data/{}/{}/ds_exposure_cohort_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
+                    with open(data_dir+'{}/{}/ds_exposure_cohort_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
                         pk.dump(ds_exposure_cohort_aligned_run_step,f)
                         
                 else:
                     
                     # load pickle
-                    with open('./data/{}/{}/ds_exposure_cohort_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
+                    with open(data_dir+'{}/{}/ds_exposure_cohort_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
                         ds_exposure_cohort_aligned_run_step = pk.load(f)
                 
                 # check for pop frac before running; don't load on else since loading at end for total dataset of all runs/GMT steps
-                if not os.path.isfile('./data/{}/{}/ds_pop_frac_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)):
+                if not os.path.isfile(data_dir+'{}/{}/ds_pop_frac_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step)):
                     
                     # population experiencing normal vs unprecedented exposure
                     ds_pop_frac_run_step = calc_unprec_exposure(
@@ -541,7 +541,7 @@ def strj_emergence(
                     )
                     
                     # pickle
-                    with open('./data/{}/{}/ds_pop_frac_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
+                    with open(data_dir+'{}/{}/ds_pop_frac_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'wb') as f:
                         pk.dump(ds_pop_frac_run_step,f)           
                         
                     # regional emergence analysis (make country selection for wetting/drying regions before country sum in calc_unprec_exposure)
@@ -553,10 +553,10 @@ def strj_emergence(
             
             if d_isimip_meta[i]['GMT_strj_valid'][step]: 
             
-                with open('./data/{}/{}/ds_age_emergence_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
+                with open(data_dir+'{}/{}/ds_age_emergence_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
                     ds_age_emergence_run_step = pk.load(f)
-                with open('./data/{}/{}/ds_pop_frac_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
-                    ds_pop_frac_run_step = pk.load(f)                     
+                with open(data_dir+'{}/{}/ds_pop_frac_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
+                    ds_pop_frac_run_step = pk.load(f)        
                 
                 # assign run/GMT to larger dataset
                 ds_age_emergence.loc[{
@@ -625,11 +625,11 @@ def strj_emergence(
     )
         
     # pickle pop frac for individual run
-    with open('./data/{}/{}/pop_frac_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/pop_frac_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
         pk.dump(ds_pop_frac,f)
     
     # pickle age emergence for individual run
-    with open('./data/{}/{}/age_emergence_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/age_emergence_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
         pk.dump(ds_age_emergence,f)
             
     print("--- {} minutes ---".format(
