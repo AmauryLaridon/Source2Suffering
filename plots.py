@@ -1,0 +1,266 @@
+# -----------------------------------------------------------------------------------------------
+# Scripts with plots functions and produce the plots based on the configuration of the Framework
+# -----------------------------------------------------------------------------------------------
+
+#%%  ----------------------------------------------------------------
+# Libraries 
+# ----------------------------------------------------------------
+
+import os
+import sys
+import requests
+from zipfile import ZipFile
+import io
+import xarray as xr
+import pickle as pk
+import time
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from matplotlib.lines import Line2D
+import matplotlib as mpl
+import matplotlib.gridspec as gridspec
+from matplotlib.patches import Rectangle
+from matplotlib.patches import ConnectionPatch
+from matplotlib.patches import Circle, Wedge, Polygon
+from matplotlib.collections import PatchCollection
+import matplotlib.patheffects as pe
+import mapclassify as mc
+from copy import deepcopy as cp
+import matplotlib.pyplot as plt
+from matplotlib.colors import TwoSlopeNorm
+import numpy as np
+import pandas as pd
+import regionmask as rm
+import geopandas as gpd
+from scipy import interpolate
+from scipy import stats as sts
+import cartopy.crs as ccrs
+import seaborn as sns
+import cartopy as cr
+import cartopy.feature as feature
+from scipy.stats import ttest_rel
+from scipy.stats import ttest_ind
+from settings import *
+scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
+
+
+#%%------------------------------------------------------------------------------------
+# Flags - Define the Configuration for the plots 
+#--------------------------------------------------------------------------------------
+
+
+
+
+#%%------------------------------------------------------------------------------------
+# Framework to plots all figures associated to Thiery et al.(2021) 
+#--------------------------------------------------------------------------------------
+
+if Thiery_2021 == True:
+    pass
+
+#%%------------------------------------------------------------------------------------
+# Framework to plots all figures associated to Grant et al.(2025) 
+#--------------------------------------------------------------------------------------
+
+if Grant_2025 == True:
+
+    sys.path.append(os.path.abspath(scripts_dir+"/figures/grant_2025"))
+
+    plot_ms = True # Plots used in the main manuscript of Grant et al.(2025)
+    plot_si = True # Plots used in the supplmentary materials of Grant et al.(2025)
+
+    if plot_ms == True:
+
+        print("--------------------------------------------------")
+        print("Start plot_ms framework from Grant et al.(2025)")
+        print("--------------------------------------------------")
+
+        from plot_ms import *
+
+        # f1 of ms, conceptual figure of city grid cell
+        plot_conceptual(
+            da_cohort_size,
+            countries_mask,
+            countries_regions,
+            d_isimip_meta,
+            flags,
+            df_life_expectancy_5,
+        )
+
+        # f2 of ms, combined heatwave plot
+        plot_combined_piechart(
+            df_GMT_strj,
+            ds_pf_gs,
+            da_gs_popdenom,
+            gdf_country_borders,
+            sims_per_step,
+            flags,
+            df_countries,
+        )
+        
+        # # f2 alternative with both absolute pops below box plots and pie charts
+        # plot_combined_population_piechart(
+        #     df_GMT_strj,
+        #     ds_pf_gs,
+        #     da_gs_popdenom,
+        #     gdf_country_borders,
+        #     sims_per_step,
+        #     flags,
+        #     df_countries,
+        # )    
+        
+        # f2 alternative with absolute pops below box plots and no pie charts
+        # further, returning robinson boundaries for use in pyramid plot maps for consistent map extents (that exclude antarctica)
+        gdf_robinson_bounds = plot_combined_population(
+            df_GMT_strj,
+            ds_pf_gs,
+            da_gs_popdenom,
+            gdf_country_borders,
+            sims_per_step,
+            flags,
+            df_countries,
+        )        
+
+        # f3 of heatmaps across all hazards
+        plot_heatmaps_allhazards(
+            df_GMT_strj,
+            da_gs_popdenom,
+            flags,
+        )
+
+        # f4 of emergence union plot for hazards between 1960 and 2020 in a 2.7 degree world
+        plot_emergence_union(
+            grid_area,
+            da_emergence_mean,
+        )
+
+        # f4 alternative for hexagons and multiple thresholds
+        plot_hexagon_multithreshold(
+            d_global_emergence,
+        )    
+
+        # f4 pyramid plotting
+        # first set up quantiles for plotting
+        pyramid_setup(
+            flags,
+            ds_gdp,
+            ds_grdi,
+            da_cohort_size_1960_2020,
+            ds_vulnerability,
+        )
+        # then run plots
+        for vln_type in ('gdp','grdi'):
+            pyramid_plot(
+                flags,
+                df_GMT_strj,
+                vln_type,
+            )
+
+    if plot_si == True:
+
+        print("--------------------------------------------------")
+        print("Start plot_si framework from Grant et al.(2025)")
+        print("--------------------------------------------------")
+
+        from plot_si import *
+
+        # heatmaps but with simulations limited to common sims (to avoid dry GCM jumps)
+        plot_sf1_heatmaps_allhazards(
+            df_GMT_strj,
+            da_gs_popdenom,
+            flags,
+        )    
+        
+        # pf box plots for 1.5, 2.5 and 3.5 degree world across birth years
+        plot_sf2_boxplots_allhazards(
+            da_gs_popdenom,
+            df_GMT_strj,
+            flags,
+        )      
+        
+        # pf time series for 2.7 degree world across birth years
+        plot_sf3_pf_by_tseries_allhazards(
+            flags,
+            df_GMT_strj,
+            da_gs_popdenom,
+        )          
+        
+        # pf maps for 1..5, 2.5, 3.5 for all hazards
+        plot_sf4_pf_maps_allhazards(
+            da_gs_popdenom,
+            gdf_country_borders,
+            flags,
+        )        
+        
+        # emergence fraction plot for hazards between 1960 and 2020 in a 2.7 degree world
+        plot_sf5_emergence_fracs(
+            grid_area,
+            ds_emergence_mean,
+        )        
+        
+        # plot locations where exposure occurs at all in our dataset
+        plot_sf6_exposure_locations(
+            grid_area,
+            countries_mask,
+            flags,
+        )        
+        
+        # plot heatmaps of pf for country level emergence
+        plot_sf7_heatmaps_allhazards_countryemergence(
+            df_GMT_strj,
+            flags,
+        )     
+        
+        # plot gmt time series for projections (rcp) and for which we map projections onto (ar6)
+        plot_sf8_gmt_pathways(
+            df_GMT_strj,
+            d_isimip_meta,
+        )    
+            
+
+        # pf time series for 2020 birth year across GMTs
+        plot_pf_gmt_tseries_allhazards(
+            df_GMT_strj,
+            da_gs_popdenom,
+            flags,
+        )
+        
+        # plot tseries box plots for 1.5, 2.5 and 3.5 when denominator contrained by exposure extent
+        plot_geoconstrained_boxplots(
+            flags,
+        )    
+        
+        # plot pie charts of all hazards
+        plot_allhazards_piecharts(
+            da_gs_popdenom,
+            df_countries,
+            flags,
+        )
+        
+        # plot cohort sizes in stacked bar chart
+        plot_cohort_sizes(
+            df_countries,
+            da_gs_popdenom,
+        )    
+        
+        # plot hexagon landfracs (will change to only show landfracs for SI)
+        plot_hexagon_landfrac(
+            d_global_emergence,
+        )    
+        
+        # plot heatmaps of delta CF between main text f3 (heatwavedarea panel) and 
+        plot_life_expectancy_testing(
+            df_GMT_strj,
+            GMT_indices_plot,
+            da_gs_popdenom,
+            flags,
+        )    
+
+#%%------------------------------------------------------------------------------------
+# Framework to plots all figures associated to Laridon et al.(2025) 
+#--------------------------------------------------------------------------------------
+
+if Laridon_2025 == True:
+    pass
+
+
+

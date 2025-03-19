@@ -164,6 +164,9 @@ def get_gridscale_regions(
             list_countries = gdf_basin_countries['name'].values
             list_countries = np.sort(np.insert(list_countries,-1,'Egypt'))
             
+        else:
+            list_countries = gdf_country.index.values
+            
     else:
         
         gdf_country = gdf_country_borders.loc[:,'geometry']
@@ -716,7 +719,7 @@ def gridscale_emergence_life_expectancy_constant(
         if not os.path.exists(data_dir+'{}/{}/{}'.format(flags['version'],flags['extr']+'_le_test',cntry)):
             os.makedirs(data_dir+'{}/{}/{}'.format(flags['version'],flags['extr']+'_le_test',cntry)) # testing makedirs
 
-        print(cntry)
+        print('running gridscale emergence for testing analysis for {}'.format(cntry))
         da_smple_cht = da_cohort_size.sel(country=cntry) # cohort absolute sizes in sample country
         da_smple_cht_prp = da_smple_cht / da_smple_cht.sum(dim='ages') # cohort relative sizes in sample country
         da_cntry = xr.DataArray(

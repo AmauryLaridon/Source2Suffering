@@ -1,0 +1,84 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_heatwavedarea - Job ID: 10548014
+Tue Mar 18 15:49:12 CET 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 1.92 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=heatwavedarea
+Using extr value: heatwavedarea
+-----------------------------------------------------------
+         Start to run the Source2Suffering Project
+-----------------------------------------------------------
+Current date and time: 2025-03-18 15:51:20
+-------------------
+Model configuration
+-------------------
+extr: heatwavedarea
+
+gmt: ar6_new
+
+rm: rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+lifetime_exposure_cohort: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 1
+
+vulnerability: 1
+
+plot_ms: 1
+
+plot_si: 1
+
+reporting: 1
+
+testing: 0
+
+--------------------------------------------------
+Start to import settings
+Settings imported
+--------------------------------------------------
+Start to import demographic, GMT and ISIMIP data
+GMT projections loaded
+Loading processed country and region data
+Loading processed isimip data
+ISMIP projections loaded
+--------------------------------------------------
+Start lifetime exposure framework
+Processed lifetime exposures will be loaded in emergence calculation
+Loading processed pic exposures
+--------------------------------------------------
+Start emergence lifetime exposure framework
+End Job
+Tue Mar 18 15:51:49 CET 2025

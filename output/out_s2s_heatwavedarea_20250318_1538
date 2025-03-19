@@ -1,0 +1,702 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_heatwavedarea - Job ID: 10548007
+Tue Mar 18 15:38:12 CET 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 1.94 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=heatwavedarea
+Using extr value: heatwavedarea
+-----------------------------------------------------------
+         Start to run the Source2Suffering Project
+-----------------------------------------------------------
+Current date and time: 2025-03-18 15:40:21
+-------------------
+Model configuration
+-------------------
+extr: heatwavedarea
+
+gmt: ar6_new
+
+rm: rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+lifetime_exposure_cohort: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 1
+
+birthyear_emergence: 0
+
+gridscale: 1
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 1
+
+vulnerability: 1
+
+plot_ms: 1
+
+plot_si: 1
+
+reporting: 1
+
+testing: 0
+
+--------------------------------------------------
+Start to import settings
+Settings imported
+--------------------------------------------------
+Start to import demographic, GMT and ISIMIP data
+GMT projections loaded
+Loading processed country and region data
+Loading processed isimip data
+ISMIP projections loaded
+--------------------------------------------------
+Start lifetime exposure framework
+Processed lifetime exposures will be loaded in emergence calculation
+Loading processed pic exposures
+--------------------------------------------------
+Start emergence lifetime exposure framework
+Compute emergence of cumulative exposures
+Processing GMT step 0 of 21, run 1
+Processing GMT step 1 of 21, run 1
+Processing GMT step 2 of 21, run 1
+Processing GMT step 3 of 21, run 1
+Processing GMT step 4 of 21, run 1
+Processing GMT step 5 of 21, run 1
+Processing GMT step 6 of 21, run 1
+Processing GMT step 7 of 21, run 1
+Processing GMT step 8 of 21, run 1
+Processing GMT step 9 of 21, run 1
+Processing GMT step 10 of 21, run 1
+Processing GMT step 11 of 21, run 1
+Processing GMT step 12 of 21, run 1
+Processing GMT step 13 of 21, run 1
+Processing GMT step 14 of 21, run 1
+Processing GMT step 15 of 21, run 1
+Processing GMT step 16 of 21, run 1
+Processing GMT step 17 of 21, run 1
+Processing GMT step 18 of 21, run 1
+Processing GMT step 19 of 21, run 1
+Processing GMT step 20 of 21, run 1
+Processing GMT step 0 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_0.pkl that has already been computed
+Processing GMT step 1 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_1.pkl that has already been computed
+Processing GMT step 2 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_2.pkl that has already been computed
+Processing GMT step 3 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_3.pkl that has already been computed
+Processing GMT step 4 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_4.pkl that has already been computed
+Processing GMT step 5 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_5.pkl that has already been computed
+Processing GMT step 6 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_6.pkl that has already been computed
+Processing GMT step 7 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_7.pkl that has already been computed
+Processing GMT step 8 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_8.pkl that has already been computed
+Processing GMT step 9 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_9.pkl that has already been computed
+Processing GMT step 10 of 21, run 2
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_2_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_2_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_2_10.pkl that has already been computed
+Processing GMT step 11 of 21, run 2
+Processing GMT step 12 of 21, run 2
+Processing GMT step 13 of 21, run 2
+Processing GMT step 14 of 21, run 2
+Processing GMT step 15 of 21, run 2
+Processing GMT step 16 of 21, run 2
+Processing GMT step 17 of 21, run 2
+Processing GMT step 18 of 21, run 2
+Processing GMT step 19 of 21, run 2
+Processing GMT step 20 of 21, run 2
+Processing GMT step 0 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_0.pkl that has already been computed
+Processing GMT step 1 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_1.pkl that has already been computed
+Processing GMT step 2 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_2.pkl that has already been computed
+Processing GMT step 3 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_3.pkl that has already been computed
+Processing GMT step 4 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_4.pkl that has already been computed
+Processing GMT step 5 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_5.pkl that has already been computed
+Processing GMT step 6 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_6.pkl that has already been computed
+Processing GMT step 7 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_7.pkl that has already been computed
+Processing GMT step 8 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_8.pkl that has already been computed
+Processing GMT step 9 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_9.pkl that has already been computed
+Processing GMT step 10 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_10.pkl that has already been computed
+Processing GMT step 11 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_11.pkl that has already been computed
+Processing GMT step 12 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_12.pkl that has already been computed
+Processing GMT step 13 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_13.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_13.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_13.pkl that has already been computed
+Processing GMT step 14 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_14.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_14.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_14.pkl that has already been computed
+Processing GMT step 15 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_15.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_15.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_15.pkl that has already been computed
+Processing GMT step 16 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_16.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_16.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_16.pkl that has already been computed
+Processing GMT step 17 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_17.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_17.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_17.pkl that has already been computed
+Processing GMT step 18 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_18.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_18.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_18.pkl that has already been computed
+Processing GMT step 19 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_19.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_19.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_19.pkl that has already been computed
+Processing GMT step 20 of 21, run 3
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_3_20.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_3_20.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_3_20.pkl that has already been computed
+Processing GMT step 0 of 21, run 4
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_4_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_4_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_4_0.pkl that has already been computed
+Processing GMT step 1 of 21, run 4
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_4_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_4_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_4_1.pkl that has already been computed
+Processing GMT step 2 of 21, run 4
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_4_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_4_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_4_2.pkl that has already been computed
+Processing GMT step 3 of 21, run 4
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_4_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_4_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_4_3.pkl that has already been computed
+Processing GMT step 4 of 21, run 4
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_4_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_4_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_4_4.pkl that has already been computed
+Processing GMT step 5 of 21, run 4
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_4_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_4_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_4_5.pkl that has already been computed
+Processing GMT step 6 of 21, run 4
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_4_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_4_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_4_6.pkl that has already been computed
+Processing GMT step 7 of 21, run 4
+Processing GMT step 8 of 21, run 4
+Processing GMT step 9 of 21, run 4
+Processing GMT step 10 of 21, run 4
+Processing GMT step 11 of 21, run 4
+Processing GMT step 12 of 21, run 4
+Processing GMT step 13 of 21, run 4
+Processing GMT step 14 of 21, run 4
+Processing GMT step 15 of 21, run 4
+Processing GMT step 16 of 21, run 4
+Processing GMT step 17 of 21, run 4
+Processing GMT step 18 of 21, run 4
+Processing GMT step 19 of 21, run 4
+Processing GMT step 20 of 21, run 4
+Processing GMT step 0 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_0.pkl that has already been computed
+Processing GMT step 1 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_1.pkl that has already been computed
+Processing GMT step 2 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_2.pkl that has already been computed
+Processing GMT step 3 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_3.pkl that has already been computed
+Processing GMT step 4 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_4.pkl that has already been computed
+Processing GMT step 5 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_5.pkl that has already been computed
+Processing GMT step 6 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_6.pkl that has already been computed
+Processing GMT step 7 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_7.pkl that has already been computed
+Processing GMT step 8 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_8.pkl that has already been computed
+Processing GMT step 9 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_9.pkl that has already been computed
+Processing GMT step 10 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_10.pkl that has already been computed
+Processing GMT step 11 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_11.pkl that has already been computed
+Processing GMT step 12 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_12.pkl that has already been computed
+Processing GMT step 13 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_13.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_13.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_13.pkl that has already been computed
+Processing GMT step 14 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_14.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_14.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_14.pkl that has already been computed
+Processing GMT step 15 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_15.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_15.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_15.pkl that has already been computed
+Processing GMT step 16 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_16.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_16.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_16.pkl that has already been computed
+Processing GMT step 17 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_17.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_17.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_17.pkl that has already been computed
+Processing GMT step 18 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_18.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_18.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_18.pkl that has already been computed
+Processing GMT step 19 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_19.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_19.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_19.pkl that has already been computed
+Processing GMT step 20 of 21, run 5
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_5_20.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_5_20.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_5_20.pkl that has already been computed
+Processing GMT step 0 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_0.pkl that has already been computed
+Processing GMT step 1 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_1.pkl that has already been computed
+Processing GMT step 2 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_2.pkl that has already been computed
+Processing GMT step 3 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_3.pkl that has already been computed
+Processing GMT step 4 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_4.pkl that has already been computed
+Processing GMT step 5 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_5.pkl that has already been computed
+Processing GMT step 6 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_6.pkl that has already been computed
+Processing GMT step 7 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_7.pkl that has already been computed
+Processing GMT step 8 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_8.pkl that has already been computed
+Processing GMT step 9 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_9.pkl that has already been computed
+Processing GMT step 10 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_10.pkl that has already been computed
+Processing GMT step 11 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_11.pkl that has already been computed
+Processing GMT step 12 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_12.pkl that has already been computed
+Processing GMT step 13 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_13.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_13.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_13.pkl that has already been computed
+Processing GMT step 14 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_14.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_14.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_14.pkl that has already been computed
+Processing GMT step 15 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_15.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_15.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_15.pkl that has already been computed
+Processing GMT step 16 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_16.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_16.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_16.pkl that has already been computed
+Processing GMT step 17 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_17.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_17.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_17.pkl that has already been computed
+Processing GMT step 18 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_18.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_18.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_18.pkl that has already been computed
+Processing GMT step 19 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_19.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_19.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_19.pkl that has already been computed
+Processing GMT step 20 of 21, run 6
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_6_20.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_6_20.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_6_20.pkl that has already been computed
+Processing GMT step 0 of 21, run 7
+Processing GMT step 1 of 21, run 7
+Processing GMT step 2 of 21, run 7
+Processing GMT step 3 of 21, run 7
+Processing GMT step 4 of 21, run 7
+Processing GMT step 5 of 21, run 7
+Processing GMT step 6 of 21, run 7
+Processing GMT step 7 of 21, run 7
+Processing GMT step 8 of 21, run 7
+Processing GMT step 9 of 21, run 7
+Processing GMT step 10 of 21, run 7
+Processing GMT step 11 of 21, run 7
+Processing GMT step 12 of 21, run 7
+Processing GMT step 13 of 21, run 7
+Processing GMT step 14 of 21, run 7
+Processing GMT step 15 of 21, run 7
+Processing GMT step 16 of 21, run 7
+Processing GMT step 17 of 21, run 7
+Processing GMT step 18 of 21, run 7
+Processing GMT step 19 of 21, run 7
+Processing GMT step 20 of 21, run 7
+Processing GMT step 0 of 21, run 8
+Processing GMT step 1 of 21, run 8
+Processing GMT step 2 of 21, run 8
+Processing GMT step 3 of 21, run 8
+Processing GMT step 4 of 21, run 8
+Processing GMT step 5 of 21, run 8
+Processing GMT step 6 of 21, run 8
+Processing GMT step 7 of 21, run 8
+Processing GMT step 8 of 21, run 8
+Processing GMT step 9 of 21, run 8
+Processing GMT step 10 of 21, run 8
+Processing GMT step 11 of 21, run 8
+Processing GMT step 12 of 21, run 8
+Processing GMT step 13 of 21, run 8
+Processing GMT step 14 of 21, run 8
+Processing GMT step 15 of 21, run 8
+Processing GMT step 16 of 21, run 8
+Processing GMT step 17 of 21, run 8
+Processing GMT step 18 of 21, run 8
+Processing GMT step 19 of 21, run 8
+Processing GMT step 20 of 21, run 8
+Processing GMT step 0 of 21, run 9
+Processing GMT step 1 of 21, run 9
+Processing GMT step 2 of 21, run 9
+Processing GMT step 3 of 21, run 9
+Processing GMT step 4 of 21, run 9
+Processing GMT step 5 of 21, run 9
+Processing GMT step 6 of 21, run 9
+Processing GMT step 7 of 21, run 9
+Processing GMT step 8 of 21, run 9
+Processing GMT step 9 of 21, run 9
+Processing GMT step 10 of 21, run 9
+Processing GMT step 11 of 21, run 9
+Processing GMT step 12 of 21, run 9
+Processing GMT step 13 of 21, run 9
+Processing GMT step 14 of 21, run 9
+Processing GMT step 15 of 21, run 9
+Processing GMT step 16 of 21, run 9
+Processing GMT step 17 of 21, run 9
+Processing GMT step 18 of 21, run 9
+Processing GMT step 19 of 21, run 9
+Processing GMT step 20 of 21, run 9
+Processing GMT step 0 of 21, run 10
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_10_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_10_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_10_0.pkl that has already been computed
+Processing GMT step 1 of 21, run 10
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_10_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_10_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_10_1.pkl that has already been computed
+Processing GMT step 2 of 21, run 10
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_10_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_10_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_10_2.pkl that has already been computed
+Processing GMT step 3 of 21, run 10
+Processing GMT step 4 of 21, run 10
+Processing GMT step 5 of 21, run 10
+Processing GMT step 6 of 21, run 10
+Processing GMT step 7 of 21, run 10
+Processing GMT step 8 of 21, run 10
+Processing GMT step 9 of 21, run 10
+Processing GMT step 10 of 21, run 10
+Processing GMT step 11 of 21, run 10
+Processing GMT step 12 of 21, run 10
+Processing GMT step 13 of 21, run 10
+Processing GMT step 14 of 21, run 10
+Processing GMT step 15 of 21, run 10
+Processing GMT step 16 of 21, run 10
+Processing GMT step 17 of 21, run 10
+Processing GMT step 18 of 21, run 10
+Processing GMT step 19 of 21, run 10
+Processing GMT step 20 of 21, run 10
+Processing GMT step 0 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_0.pkl that has already been computed
+Processing GMT step 1 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_1.pkl that has already been computed
+Processing GMT step 2 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_2.pkl that has already been computed
+Processing GMT step 3 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_3.pkl that has already been computed
+Processing GMT step 4 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_4.pkl that has already been computed
+Processing GMT step 5 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_5.pkl that has already been computed
+Processing GMT step 6 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_6.pkl that has already been computed
+Processing GMT step 7 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_7.pkl that has already been computed
+Processing GMT step 8 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_8.pkl that has already been computed
+Processing GMT step 9 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_9.pkl that has already been computed
+Processing GMT step 10 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_10.pkl that has already been computed
+Processing GMT step 11 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_11.pkl that has already been computed
+Processing GMT step 12 of 21, run 11
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_11_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_11_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_11_12.pkl that has already been computed
+Processing GMT step 13 of 21, run 11
+Processing GMT step 14 of 21, run 11
+Processing GMT step 15 of 21, run 11
+Processing GMT step 16 of 21, run 11
+Processing GMT step 17 of 21, run 11
+Processing GMT step 18 of 21, run 11
+Processing GMT step 19 of 21, run 11
+Processing GMT step 20 of 21, run 11
+Processing GMT step 0 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_0.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_0.pkl that has already been computed
+Processing GMT step 1 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_1.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_1.pkl that has already been computed
+Processing GMT step 2 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_2.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_2.pkl that has already been computed
+Processing GMT step 3 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_3.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_3.pkl that has already been computed
+Processing GMT step 4 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_4.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_4.pkl that has already been computed
+Processing GMT step 5 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_5.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_5.pkl that has already been computed
+Processing GMT step 6 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_6.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_6.pkl that has already been computed
+Processing GMT step 7 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_7.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_7.pkl that has already been computed
+Processing GMT step 8 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_8.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_8.pkl that has already been computed
+Processing GMT step 9 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_9.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_9.pkl that has already been computed
+Processing GMT step 10 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_10.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_10.pkl that has already been computed
+Processing GMT step 11 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_11.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_11.pkl that has already been computed
+Processing GMT step 12 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_12.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_12.pkl that has already been computed
+Processing GMT step 13 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_13.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_13.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_13.pkl that has already been computed
+Processing GMT step 14 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_14.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_14.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_14.pkl that has already been computed
+Processing GMT step 15 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_15.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_15.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_15.pkl that has already been computed
+Processing GMT step 16 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_16.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_16.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_16.pkl that has already been computed
+Processing GMT step 17 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_17.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_17.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_17.pkl that has already been computed
+Processing GMT step 18 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_18.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_18.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_18.pkl that has already been computed
+Processing GMT step 19 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_19.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_19.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_19.pkl that has already been computed
+Processing GMT step 20 of 21, run 12
+Loading pickles_v3/heatwavedarea/ds_exposure_aligned_heatwavedarea_12_20.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/da_emergence_mask_heatwavedarea_12_20.pkl that has already been computed
+Loading pickles_v3/heatwavedarea/ds_exposure_cohort_aligned_heatwavedarea_12_20.pkl that has already been computed
+--- 1.0 minutes ---
+--------------------------------------------------
+Start to compute gridscale emergence
+running gridscale emergence for Afghanistan
+Afghanistan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12

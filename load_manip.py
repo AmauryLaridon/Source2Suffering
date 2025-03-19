@@ -554,7 +554,7 @@ def load_isimip(
     
     if flags['run']: 
 
-        print('Processing isimip')
+        print('Processing ISIMIP data')
 
         # initialise counter, metadata dictionary, pic list, pic meta, and 
         i = 1
@@ -744,7 +744,7 @@ def load_isimip(
     else: 
         
         # loop over extremes
-        print('Loading processed isimip data')
+        print('Loading processed ISIMIP data')
         # loac pickled metadata for isimip and isimip-pic simulations
 
         with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:

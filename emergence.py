@@ -481,6 +481,7 @@ def strj_emergence(
                 else:
                     
                     # load pickle
+                    print('Loading {}/{}/ds_exposure_aligned_{}_{}_{}.pkl that has already been computed'.format(flags['version'],flags['extr'],flags['extr'],i,step))
                     with open(data_dir+'{}/{}/ds_exposure_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
                         ds_exposure_aligned_run_step = pk.load(f)
                 
@@ -502,6 +503,7 @@ def strj_emergence(
                 else:
                     
                     # load pickle
+                    print('Loading {}/{}/da_emergence_mask_{}_{}_{}.pkl that has already been computed'.format(flags['version'],flags['extr'],flags['extr'],i,step))
                     with open(data_dir+'{}/{}/da_emergence_mask_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
                         da_emergence_mask_run_step = pk.load(f)
                 
@@ -527,6 +529,7 @@ def strj_emergence(
                 else:
                     
                     # load pickle
+                    print('Loading {}/{}/ds_exposure_cohort_aligned_{}_{}_{}.pkl that has already been computed'.format(flags['version'],flags['extr'],flags['extr'],i,step))
                     with open(data_dir+'{}/{}/ds_exposure_cohort_aligned_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i,step), 'rb') as f:
                         ds_exposure_cohort_aligned_run_step = pk.load(f)
                 

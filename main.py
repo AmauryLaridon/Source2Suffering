@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 # -----------------------------------------------------------------------------------------------------------
-# Main script to postprocess and visualise # lifetime exposure data for the Source2Suffering project
+# Main script to postprocess and visualise lifetime exposure to climate extremes data
 #
 # Python translation of the MATLAB scripts of Thiery et al. (2021)
-# https://github.com/VUB-HYDR/2021_Thiery_etal_Science
-# The translation of the scripts has been performed by Luke Grant for Grant et al.(2025)
-# _insert_url_ 
+# The translation of the scripts has been first performed by Luke Grant for Grant et al.(2025)
 # The modification of Luke Grant's scripts have been performed by Amaury Laridon for Laridon et al.(2025)
 # -----------------------------------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------------
+# Associated papers
+# -----------------------------------------------------------------------------------------------------------
+#
+# - Thiery et al.(2021) - https://www.science.org/doi/abs/10.1126/science.abi7339
+# - Grant et al.(2025) - in review
+# - Laridon et al.(2025) - in prep
+#
+# -----------------------------------------------------------------------------------------------------------
 # Summary and notes
-
+# -----------------------------------------------------------------------------------------------------------
 # to save the enironment used (with your path to the env directory): 
 # conda env export -p C:\Users\ivand\anaconda3\envs\exposure_env > exposure_env.yml
-
-
+#
 # Data types are defined in the variable names starting with:  
 #     df_     : DataFrame    (pandas)
 #     gdf_    : GeoDataFrame (geopandas)
@@ -23,9 +26,10 @@
 #     d_      : dictionary  
 #     sf_     : shapefile
 #     ...dir  : directory
-      
+# -----------------------------------------------------------------------------------------------------------
+     
 #%%------------------------------------------------------------------------------------
-# import libraries
+# Libraries
 #--------------------------------------------------------------------------------------
 
 import xarray as xr
@@ -40,117 +44,214 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy as cr
 import geopandas as gpd
-#import seaborn as sns # must comment this out for things to work on the server
+import seaborn as sns 
 import datetime
 import time
 import sys
+import subprocess
+import shutil
 
 #%%------------------------------------------------------------------------------------
-# flags - defines the configuration of the main script
+# Flags - Define the Configuration of the Framework 
 #--------------------------------------------------------------------------------------
+
+# Global flags use to configure the framework
 
 global flags
 
 flags = {}
 
-flags['extr'] = 'burntarea'                     # 0: all
-                                                # 1: burntarea
-                                                # 2: cropfailedarea
-                                                # 3: driedarea
-                                                # 4: floodedarea
-                                                # 5: heatwavedarea
-                                                # 6: tropicalcyclonedarea
+# Boolean to produce the exact configuration of the framework and outputs to 
+# reproduce the results of the associated paper
 
-flags['gmt'] = 'ar6_new'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
-                                                # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
-                                                # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
+global Thiery_2021, Grant_2025, Laridon_2025
 
-flags['rm'] = 'rm'                              # no_rm: no smoothing of RCP GMTs before mapping
-                                                # rm: 21-year rolling mean on RCP GMTs
- 
-flags['version'] = 'pickles_v3'                 # pickles: original version, submitted to Nature
-                                                    # inconsistent GMT steps (not perfect 0.1 degree intervals)
-                                                    # GMT steps ranging 1-4 (although study only shows ~1.5-3.5, so runs are inefficient)
-                                                    # only 99.99% percentile for PIC threshold
-                                                # pickles_v2: version generated after submission to Nature in preparation for criticism/review
-                                                    # steps fixed in load_manip to be only 1.5-3.5, with clean 0.1 degree intervals
-                                                    # 5 percentiles for PIC threshold and emergence for each
-                                                # pickles_v3: version generated after the 2021 toolchains were taken away from hydra. could not longer use old pickles effectively
+Thiery_2021 = False 
+Grant_2025 = True 
+Laridon_2025 = False 
 
-flags['run'] = 1                                # 0: do not process ISIMIP runs (i.e. load runs pickle)
-                                                # 1: process ISIMIP runs (i.e. produce and save runs as pickle)
+#--------------------------------------------------------------------------------------
+# Submit jobs that execute main.py with specific configurations - use on HPC only     #
+#--------------------------------------------------------------------------------------
 
-flags['mask'] = 1                               # 0: do not process country data (i.e. load masks pickle)
-                                                # 1: process country data (i.e. produce and save masks as pickle)
+# Use for specific paper's configuration jobs
+env_value_paper = os.getenv("CONFIG_PAPER_VALUE")
+if env_value_paper:
+    Thiery_2021 = False 
+    Grant_2025 = False 
+    Laridon_2025 = False 
+    if env_value_paper == "thiery_2021":
+        Thiery_2021 = True
+    if env_value_paper == "grant_2025":
+        Grant_2025 = True
+    if env_value_paper == "laridon_2025":
+        Laridon_2025 = True    
 
-flags['lifetime_exposure_cohort'] = 1           # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
-                                                # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
-                                                                     
-flags['lifetime_exposure_pic'] = 1              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
-                                                # 1: process ISIMIP runs to compute picontrol exposure (i.e. produce and save exposure as pickle)
+    print(f"Using paper configuration value: {env_value_paper}")
 
-flags['emergence'] = 1                          # 0: do not process ISIMIP runs to compute cohort emergence (i.e. load cohort exposure pickle)
-                                                # 1: process ISIMIP runs to compute cohort emergence (i.e. produce and save exposure as pickle)
+#%%------------------------------------------------------------------------------------
+# Configuration of the Framework to reproduce the papers
+#--------------------------------------------------------------------------------------
 
-flags['birthyear_emergence'] = 0                # 0: only run calc_birthyear_align with birth years from 1960-2020
-                                                # 1: run calc_birthyear_align with birth years from 1960-2100. Produces an error.      
-                        
-flags['gridscale'] = 1                          # 0: do not process grid scale analysis, load pickles
-                                                # 1: process grid scale analysis
+if Thiery_2021==True:
+    flags['extr'] = 'all'
+    flags['gmt'] = 'original'
+    flags['rm'] = 'no_rm'
+    flags['version'] = 'pickles'
+    flags['run'] = 0
+    flags['mask'] = 0
+    flags['lifetime_exposure_cohort'] = 0
+    flags['lifetime_exposure_pic'] = 0
+    flags['emergence'] = 0
+    flags['birthyear_emergence'] = 0
+    flags['gridscale'] = 0
+    flags['gridscale_le_test'] = 0
+    flags['gridscale_country_subset'] = 0
+    flags['global_emergence_recollect'] = 0
+    flags['global_avg_emergence'] = 0
+    flags['gdp_deprivation'] = 0
+    flags['vulnerability'] = 0
+    flags['plots'] = 1
+    flags['reporting'] = 1
 
-flags['gridscale_le_test'] = 1                  # 0: do not process the grid scale analysis testing diff versions of constant life expectancy
-                                                # 1: process grid scale analysis testing diff versions of constant life expectancy    
-                                                             
-flags['gridscale_country_subset'] = 1           # 0: run gridscale analysis on all countries
-                                                # 1: run gridscale analysis on subset of countries determined in "get_gridscale_regions" 
+if Grant_2025==True:
+    flags['extr'] = 'heatwavedarea'
+    flags['gmt'] = 'ar6_new'
+    flags['rm'] = 'rm'
+    flags['version'] = 'pickles_v3'
+    flags['run'] = 0
+    flags['mask'] = 0
+    flags['lifetime_exposure_cohort'] = 0
+    flags['lifetime_exposure_pic'] = 0
+    flags['emergence'] = 0
+    flags['birthyear_emergence'] = 0
+    flags['gridscale'] = 0
+    flags['gridscale_le_test'] = 0
+    flags['gridscale_country_subset'] = 0
+    flags['global_emergence_recollect'] = 0
+    flags['global_avg_emergence'] = 0
+    flags['gdp_deprivation'] = 0
+    flags['vulnerability'] = 0
+    flags['plots'] = 1
+    flags['reporting'] = 1
 
-flags['global_emergence_recollect'] = 1         # 0: do not load pickles of global emergence masks
-                                                # 1: load pickles                  
+if Laridon_2025==True:
+    print('Configuration of the Framework for Laridon et al.(2025) not settle')
 
-flags['global_avg_emergence'] = 1  
+#%%------------------------------------------------------------------------------------
+# Flags - Manual Configuration of the Framework
+#--------------------------------------------------------------------------------------
 
-flags['gdp_deprivation'] = 1                    # 0: do not process/load lifetime GDP/GRDI average
-                                                # 1: load lifetime GDP average analysis     
-                                       
-flags['vulnerability'] = 1                      # 0: do not process subsets of d_collect_emergence vs gdp & deprivation quantiles
-                                                # 1: process/load d_collect_emergence vs gdp & deprivation quantiles for vulnerability analysis
+if not Thiery_2021 and not Grant_2025 and not Laridon_2025:
 
-flags['plot_ms'] = 1                            # 1 yes plot, 0 no plot
+    flags['extr'] = 'heatwavedarea'                # 0: all
+                                                    # 1: burntarea
+                                                    # 2: cropfailedarea
+                                                    # 3: driedarea
+                                                    # 4: floodedarea
+                                                    # 5: heatwavedarea
+                                                    # 6: tropicalcyclonedarea
 
-flags['plot_si'] = 1
+    flags['gmt'] = 'ar6_new'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
+                                                    # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
+                                                    # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
 
-flags['reporting'] = 1  
+    flags['rm'] = 'rm'                              # no_rm: no smoothing of RCP GMTs before mapping
+                                                    # rm: 21-year rolling mean on RCP GMTs
+    
+    flags['version'] = 'pickles_v3'                 # pickles: original version, submitted to Nature
+                                                        # inconsistent GMT steps (not perfect 0.1 degree intervals)
+                                                        # GMT steps ranging 1-4 (although study only shows ~1.5-3.5, so runs are inefficient)
+                                                        # only 99.99% percentile for PIC threshold
+                                                    # pickles_v2: version generated after submission to Nature in preparation for criticism/review
+                                                        # steps fixed in load_manip to be only 1.5-3.5, with clean 0.1 degree intervals
+                                                        # 5 percentiles for PIC threshold and emergence for each
+                                                    # pickles_v3: version generated after the 2021 toolchains were taken away from hydra. could not longer use old pickles effectively
 
-flags['testing'] = 0   
+    flags['run'] = 0                                # 0: do not process ISIMIP runs (i.e. load runs pickle)
+                                                    # 1: process ISIMIP runs (i.e. produce and save runs as pickle)
 
+    flags['mask'] = 0                               # 0: do not process country data (i.e. load masks pickle)
+                                                    # 1: process country data (i.e. produce and save masks as pickle)
 
-# Submit jobs that execute main.py with specific climate extremes - use on HPC only #
+    flags['lifetime_exposure_cohort'] = 0           # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
+                                                    # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
+                                                                        
+    flags['lifetime_exposure_pic'] = 0              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
+                                                    # 1: process ISIMIP runs to compute picontrol exposure (i.e. produce and save exposure as pickle)
 
-env_value = os.getenv("EXTR_VALUE")
-if env_value:  # Si EXTR_VALUE est définie et non vide, on l'utilise
-    flags["extr"] = env_value
+    flags['emergence'] = 0                          # 0: do not process ISIMIP runs to compute cohort emergence (i.e. load cohort exposure pickle)
+                                                    # 1: process ISIMIP runs to compute cohort emergence (i.e. produce and save exposure as pickle)
 
-print(f"Using extr value: {flags['extr']}")
+    #--------------------- Produce Error ----------------------
 
-# ------------------------------------------------------------------
-# Running the code
-# ------------------------------------------------------------------
+    flags['birthyear_emergence'] = 0                # 0: only run calc_birthyear_align with birth years from 1960-2020
+                                                    # 1: run calc_birthyear_align with birth years from 1960-2100. Produces an error.  
+                                                
+    #----------------------------------------------------------
+
+                            
+    flags['gridscale'] = 0                          # 0: do not process grid scale analysis, load pickles
+                                                    # 1: process grid scale analysis
+
+    flags['gridscale_le_test'] = 0                  # 0: do not process the grid scale analysis testing diff versions of constant life expectancy
+                                                    # 1: process grid scale analysis testing diff versions of constant life expectancy    
+                                                                
+    flags['gridscale_country_subset'] = 0           # 0: run gridscale analysis on all countries
+                                                    # 1: run gridscale analysis on subset of countries determined in "get_gridscale_regions" 
+
+    #--------------------- Produce Error ----------------------
+
+    flags['global_emergence_recollect'] = 0         # 0: do not load pickles of global emergence masks used for vulnerability assessment
+                                                    # 1: load pickles                  
+
+    flags['global_avg_emergence'] = 0               # 0: do not run d_global_emergence used for SI Figures of Grant et al.(2025)
+                                                    # 1: run averaging on d_global_emergence to produce SI figure of Grant et al.(2025) of emergence fractions. Only activate when extr = 'all' (to verify later)
+
+    flags['gdp_deprivation'] = 0                    # 0: do not process/load lifetime GDP/GRDI average
+                                                    # 1: load lifetime GDP average analysis     
+                                        
+    flags['vulnerability'] = 0                      # 0: do not process subsets of d_collect_emergence vs gdp & deprivation quantiles
+                                                    # 1: process/load d_collect_emergence vs gdp & deprivation quantiles for vulnerability analysis
+
+    #----------------------------------------------------------
+    # Flags - Outputs
+    #----------------------------------------------------------
+
+    flags['plots'] = 1                               # 0 do not produce and save plots 
+                                                     # 1 produce and load plots 
+
+    flags['reporting'] = 0                          # 0 do not produce results for reporting 
+                                                    # 1 produce results for reporting
+    
+    # Use for specific climate extreme jobs - HPC only
+    env_value_extr = os.getenv("EXTR_VALUE")
+    if env_value_extr:  
+        flags["extr"] = env_value_extr
+
+        print(f"Using extr value: {flags['extr']}")
+
+#--------------------------------------------------------------------------------------
+# Init
+#--------------------------------------------------------------------------------------
 
 print("-----------------------------------------------------------")
 print("         Start to run the Source2Suffering Project")
 print("-----------------------------------------------------------")
 print("Current date and time:", datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 start_time = time.time() # Record the start time of execution
-print("-------------------")
+print("-----------------------------------------------------------")
 print("Model configuration")
-print("-------------------")
+print("-----------------------------------------------------------")
 for key, value in flags.items():
     print(f"{key}: {value}\n")
-#%% ----------------------------------------------------------------
-# settings
-# ------------------------------------------------------------------
+#%%------------------------------------------------------------------------------------
+# Settings
+#--------------------------------------------------------------------------------------
 print("--------------------------------------------------")
 print("Start to import settings")
+print("--------------------------------------------------")
+
 
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
@@ -160,11 +261,13 @@ set_extremes(flags)
 
 print("Settings imported")
 
-#%% ----------------------------------------------------------------
-# load and manipulate demographic, GMT and ISIMIP data
+#%%------------------------------------------------------------------------------------
+# Load and manipulate demographic, GMT and ISIMIP data
 # ------------------------------------------------------------------
 print("--------------------------------------------------")
-print("Start to import demographic, GMT and ISIMIP data")
+print("Start to import Demographic, GMT and ISIMIP data")
+print("--------------------------------------------------")
+
 
 from load_manip import *
 
@@ -186,16 +289,20 @@ print("GMT projections loaded")
 
 if flags['mask']: # compute and process country info
 
-    print('Processing country info')
+    print('Processing country data')
 
     d_countries = all_country_data(flags)
 
+    print('Country data loaded')
+
 else: # load processed country data
 
-    print('Loading processed country and region data')
+    print('Loading processed country data')
 
     # load country pickle
     d_countries = pk.load(open(data_dir+'{}/country/country_info.pkl'.format(flags['version']), 'rb'))
+
+    print('Country data loaded')
     
 # unpack country information
 df_countries = d_countries['info_pop']
@@ -228,15 +335,16 @@ for step in GMT_labels:
         if d_isimip_meta[i]['GMT_strj_valid'][step]:
             sims_per_step[step].append(i)
 
-print("ISMIP projections loaded")
+print("ISMIP data loaded")
 
 
-#%% ----------------------------------------------------------------
-# Compute exposure per lifetime at country-scale
-# ------------------------------------------------------------------
+#%%------------------------------------------------------------------------------------
+# Lifetime Exposure framework
+#--------------------------------------------------------------------------------------
 
 print("--------------------------------------------------")
-print("Start lifetime exposure framework")
+print("Start Lifetime Exposure framework")
+print("--------------------------------------------------")
 
 from exposure import *
 
@@ -245,7 +353,7 @@ from exposure import *
 
 if flags['lifetime_exposure_cohort']:
 
-    print("Computing lifetime exposure across cohorts")
+    print("Computing Lifetime Exposure across cohorts")
     start_time = time.time()
     
     
@@ -267,7 +375,7 @@ if flags['lifetime_exposure_cohort']:
     
 else:  # load processed cohort exposure data
     
-    print('Processed lifetime exposures will be loaded in emergence calculation')
+    print('Loading processed Lifetime Exposures across cohorts will be done in emergence calculation')
 
 #--------------------------------------------------------------------
 # process picontrol lifetime exposure
@@ -275,7 +383,7 @@ else:  # load processed cohort exposure data
 if flags['lifetime_exposure_pic']:
     
     start_time = time.time()
-    print('Computing pic exposures')
+    print('Computing PIC Lifetime Exposures across cohorts')
     
     # takes 38 mins crop failure
     d_exposure_perrun_pic = calc_lifetime_exposure_pic(
@@ -295,7 +403,7 @@ if flags['lifetime_exposure_pic']:
 
 else: # load processed pic data
     
-    print('Loading processed pic exposures')
+    print('Loading PIC Lifetime Exposures across cohorts')
 
     with open(data_dir+'{}/{}/exposure_pic_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
         d_exposure_perrun_pic = pk.load(f)
@@ -306,21 +414,23 @@ ds_exposure_pic = calc_exposure_mmm_pic_xr(
     'pic',
 )
 
-#%% ----------------------------------------------------------------
-# compute lifetime emergence
-# ------------------------------------------------------------------
+#%%------------------------------------------------------------------------------------
+# Emergence Lifetime Exposure framework
+#--------------------------------------------------------------------------------------
 
 print("--------------------------------------------------")
-print("Start emergence lifetime exposure framework")
+print("Start Emergence Lifetime Exposure framework")
+print("--------------------------------------------------")
+
 
 from emergence import *
 
-# --------------------------------------------------------------------
-# process emergence of cumulative exposures, mask cohort exposures for time steps of emergence
-
 if flags['emergence']:
 
-    print("Compute emergence of cumulative exposures")
+    # --------------------------------------------------------------------
+    # process emergence of cumulative exposures, mask cohort exposures for time steps of emergence
+
+    print("Computing Emergence of cumulative exposures")
     
     if flags['birthyear_emergence']:
         
@@ -365,6 +475,8 @@ if flags['emergence']:
     )
         
 else: # load pickles
+
+    print("Loading Emergence of cumulative exposures")
     
     pass
     
@@ -374,50 +486,53 @@ else: # load pickles
     
     # pop frac
     with open(data_dir+'{}/{}/pop_frac_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-        ds_pf_strj = pk.load(f)                
+        ds_pf_strj = pk.load(f)              
     
-sys.exit(0)
 
-#%% ----------------------------------------------------------------
-# grid scale emergence
-# ------------------------------------------------------------------
+#%%------------------------------------------------------------------------------------
+# Grid Scale Emergence
+#--------------------------------------------------------------------------------------
 
 print("--------------------------------------------------")
-print("Start to compute gridscale emergence")
-
-from gridscale import *
-
-# list of countries to run gridscale analysis on (sometimes doing subsets across basiss/regions in floods/droughts)
-gridscale_countries = get_gridscale_regions(
-    grid_area,
-    flags,
-    gdf_country_borders,
-)
-
-# birth year aligned cohort sizes for gridscale analysis (summed over lat/lon per country)
-if not os.path.isfile(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version'])):
-
-    da_gs_popdenom = get_gridscale_popdenom(
-        gridscale_countries,
-        da_cohort_size,
-        countries_mask,
-        countries_regions,
-        da_population,
-        df_life_expectancy_5,
-    )
-
-    # pickle birth year aligned cohort sizes for gridscale analysis (summed per country)
-    with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'wb') as f:
-        pk.dump(da_gs_popdenom,f)  
-        
-else:
-    
-    # load pickle birth year aligned cohort sizes for gridscale analysis (summed per country, i.e. not lat/lon explicit)
-    with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
-        da_gs_popdenom = pk.load(f)               
+print("Start Gridscale Emergence framework")
+print("--------------------------------------------------")
 
 # run gridscale emergence analysis
 if flags['gridscale']:
+
+    from gridscale import *
+
+    print("Computing Gridscale Emergence of cumulative exposures")
+
+    # list of countries to run gridscale analysis on (sometimes doing subsets across basiss/regions in floods/droughts)
+    gridscale_countries = get_gridscale_regions(
+        grid_area,
+        flags,
+        gdf_country_borders,
+    )
+
+    # birth year aligned cohort sizes for gridscale analysis (summed over lat/lon per country)
+    if not os.path.isfile(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version'])):
+
+        da_gs_popdenom = get_gridscale_popdenom(
+            gridscale_countries,
+            da_cohort_size,
+            countries_mask,
+            countries_regions,
+            da_population,
+            df_life_expectancy_5,
+        )
+
+        # pickle birth year aligned cohort sizes for gridscale analysis (summed per country)
+        with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'wb') as f:
+            pk.dump(da_gs_popdenom,f)  
+            
+    else:
+        
+        # load pickle birth year aligned cohort sizes for gridscale analysis (summed per country, i.e. not lat/lon explicit)
+        with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
+            da_gs_popdenom = pk.load(f)               
+
     
     ds_pf_gs = gridscale_emergence(
         d_isimip_meta,
@@ -433,6 +548,7 @@ if flags['gridscale']:
     
 else:
     
+    print("Loading Gridscale Emergence of cumulative exposures")
     # # load pickled aggregated lifetime exposure, age emergence and pop frac datasets
     # with open(data_dir+'{}/{}/gridscale_aggregated_lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
     #     ds_le_gs = pk.load(f)
@@ -440,6 +556,8 @@ else:
         ds_pf_gs = pk.load(f)
         
 if flags['gridscale_le_test']:
+
+    print("Computing Test of Gridscale Emergence of cumulative exposures")
     
     ds_pf_gs_le_test = gridscale_emergence_life_expectancy_constant(
         d_isimip_meta,
@@ -455,6 +573,8 @@ if flags['gridscale_le_test']:
     
 else:
     
+    print("Loading Test of Gridscale Emergence of cumulative exposures")
+
     with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_le_test_{}.pkl'.format(flags['version'],flags['extr']+'_le_test',flags['extr']), 'rb') as f:
         ds_pf_gs_le_test = pk.load(f)    
             
@@ -471,6 +591,12 @@ else:
 
 # read in all global emergence masks (d_global_emergence is then used for vulnerability assessment, but only possible on hpc because it is large for some hazards)
 if flags['global_emergence_recollect']:
+
+    print("--------------------------------------------------")
+    print("Start Global Emergence Mask for Vulnerability framework")
+    print("--------------------------------------------------")
+
+    from gridscale import *
 
     # temporarily commented out extremes in this function outside heatwaved area to test new means extraction below
     d_global_emergence = collect_global_emergence(
@@ -501,6 +627,12 @@ if flags['global_emergence_recollect']:
     
 
 if flags['global_avg_emergence']:
+
+    print("--------------------------------------------------")
+    print("Start Averaging of Emergence framework")
+    print("--------------------------------------------------")
+
+    from gridscale import *
       
     # run averaging on d_global_emergence to produce SI figure of emergence fractions
     ds_emergence_mean = get_mean_emergence(
@@ -512,6 +644,12 @@ if flags['global_avg_emergence']:
     
 # load/proc GDP and deprivation data
 if flags['gdp_deprivation']:
+
+    print("--------------------------------------------------")
+    print("Start GDP/GRDI framework")
+    print("--------------------------------------------------")
+
+    from gridscale import *
     
     ds_gdp, ds_grdi = load_gdp_deprivation(
         flags,
@@ -525,6 +663,12 @@ if flags['gdp_deprivation']:
     
 # vulnerability subsetting
 if flags['vulnerability']:  
+
+    print("--------------------------------------------------")
+    print("Start Vulnerability framework")
+    print("--------------------------------------------------")
+
+    from gridscale import *
 
     # get spatially explicit cohort sizes for all birth years in analysis
     da_cohort_size_1960_2020 = get_spatially_explicit_cohorts_1960_2020(
@@ -564,211 +708,50 @@ if flags['vulnerability']:
         d_global_emergence,
     )
     
-if flags['testing']:
-    
-    pass    
-    
 
-#%% ----------------------------------------------------------------
-# main text plots
-# ------------------------------------------------------------------       
+#%%------------------------------------------------------------------------------------
+# Outputs - Plots
+#--------------------------------------------------------------------------------------
 
-print("--------------------------------------------------")
-print("Start to plot")
+if flags['plots']:
 
-if flags['plot_ms']:
+    print('try to execute new plots script')
+    adr = scripts_dir+"/plots.py"
+    with open(adr) as f:
+        scr = f.read()
+    exec(scr)
 
-    from plot_ms import *
+    #python_path = shutil.which("python")
+    #subprocess.run([python_path, scripts_dir+"/plots.py"])
 
-    # f1 of ms, conceptual figure of city grid cell
-    plot_conceptual(
-        da_cohort_size,
-        countries_mask,
-        countries_regions,
-        d_isimip_meta,
-        flags,
-        df_life_expectancy_5,
-    )
+    print("executing new plots script ok")
 
-    # f2 of ms, combined heatwave plot
-    plot_combined_piechart(
-        df_GMT_strj,
-        ds_pf_gs,
-        da_gs_popdenom,
-        gdf_country_borders,
-        sims_per_step,
-        flags,
-        df_countries,
-    )
-    
-    # # f2 alternative with both absolute pops below box plots and pie charts
-    # plot_combined_population_piechart(
-    #     df_GMT_strj,
-    #     ds_pf_gs,
-    #     da_gs_popdenom,
-    #     gdf_country_borders,
-    #     sims_per_step,
-    #     flags,
-    #     df_countries,
-    # )    
-    
-    # f2 alternative with absolute pops below box plots and no pie charts
-    # further, returning robinson boundaries for use in pyramid plot maps for consistent map extents (that exclude antarctica)
-    gdf_robinson_bounds = plot_combined_population(
-        df_GMT_strj,
-        ds_pf_gs,
-        da_gs_popdenom,
-        gdf_country_borders,
-        sims_per_step,
-        flags,
-        df_countries,
-    )        
+    #################################################################################
+    #result = subprocess.run([python_path, "plot.py"], capture_output=True, text=True)
+    #print("Output :", result.stdout)
+    #print("Error :", result.stderr)  
+    #################################################################################
 
-    # f3 of heatmaps across all hazards
-    plot_heatmaps_allhazards(
-        df_GMT_strj,
-        da_gs_popdenom,
-        flags,
-    )
+else : 
+    print("No plots performed and saved")
 
-    # f4 of emergence union plot for hazards between 1960 and 2020 in a 2.7 degree world
-    plot_emergence_union(
-        grid_area,
-        da_emergence_mean,
-    )
-
-    # f4 alternative for hexagons and multiple thresholds
-    plot_hexagon_multithreshold(
-        d_global_emergence,
-    )    
-
-    # f4 pyramid plotting
-    # first set up quantiles for plotting
-    pyramid_setup(
-        flags,
-        ds_gdp,
-        ds_grdi,
-        da_cohort_size_1960_2020,
-        ds_vulnerability,
-    )
-    # then run plots
-    for vln_type in ('gdp','grdi'):
-        pyramid_plot(
-            flags,
-            df_GMT_strj,
-            vln_type,
-        )
-    
-#%% ----------------------------------------------------------------
-# supplementary text plots
-# ------------------------------------------------------------------  
-
-if flags['plot_si']:
-
-    from plot_si import *
-    
-    # heatmaps but with simulations limited to common sims (to avoid dry GCM jumps)
-    plot_sf1_heatmaps_allhazards(
-        df_GMT_strj,
-        da_gs_popdenom,
-        flags,
-    )    
-    
-    # pf box plots for 1.5, 2.5 and 3.5 degree world across birth years
-    plot_sf2_boxplots_allhazards(
-        da_gs_popdenom,
-        df_GMT_strj,
-        flags,
-    )      
-    
-    # pf time series for 2.7 degree world across birth years
-    plot_sf3_pf_by_tseries_allhazards(
-        flags,
-        df_GMT_strj,
-        da_gs_popdenom,
-    )          
-    
-    # pf maps for 1..5, 2.5, 3.5 for all hazards
-    plot_sf4_pf_maps_allhazards(
-        da_gs_popdenom,
-        gdf_country_borders,
-        flags,
-    )        
-    
-    # emergence fraction plot for hazards between 1960 and 2020 in a 2.7 degree world
-    plot_sf5_emergence_fracs(
-        grid_area,
-        ds_emergence_mean,
-    )        
-    
-    # plot locations where exposure occurs at all in our dataset
-    plot_sf6_exposure_locations(
-        grid_area,
-        countries_mask,
-        flags,
-    )        
-    
-    # plot heatmaps of pf for country level emergence
-    plot_sf7_heatmaps_allhazards_countryemergence(
-        df_GMT_strj,
-        flags,
-    )     
-    
-    # plot gmt time series for projections (rcp) and for which we map projections onto (ar6)
-    plot_sf8_gmt_pathways(
-        df_GMT_strj,
-        d_isimip_meta,
-    )    
-        
-
-    # pf time series for 2020 birth year across GMTs
-    plot_pf_gmt_tseries_allhazards(
-        df_GMT_strj,
-        da_gs_popdenom,
-        flags,
-    )
-    
-    # plot tseries box plots for 1.5, 2.5 and 3.5 when denominator contrained by exposure extent
-    plot_geoconstrained_boxplots(
-        flags,
-    )    
-    
-    # plot pie charts of all hazards
-    plot_allhazards_piecharts(
-        da_gs_popdenom,
-        df_countries,
-        flags,
-    )
-    
-    # plot cohort sizes in stacked bar chart
-    plot_cohort_sizes(
-        df_countries,
-        da_gs_popdenom,
-    )    
-    
-    # plot hexagon landfracs (will change to only show landfracs for SI)
-    plot_hexagon_landfrac(
-        d_global_emergence,
-    )    
-    
-    # plot heatmaps of delta CF between main text f3 (heatwavedarea panel) and 
-    plot_life_expectancy_testing(
-        df_GMT_strj,
-        GMT_indices_plot,
-        da_gs_popdenom,
-        flags,
-    )    
-    
-
-#%% ----------------------------------------------------------------
+#%%------------------------------------------------------------------------------------
 # sample analytics for L.Grant (2025) paper
-# ------------------------------------------------------------------
-
-print("--------------------------------------------------")
-print("Perform analytics for L.Grant(2025) paper")
+#--------------------------------------------------------------------------------------
 
 if flags['reporting']:
-    
+
+
+    print("--------------------------------------------------")
+    print("Start Reporting framework")
+    print("--------------------------------------------------")
+
+
+    print("--------------------------------------------------")
+    print("Analytics for L.Grant(2025) paper")
+    print("--------------------------------------------------")
+
+
     from reporting import *
     
     # estimates of land area and (potential) pf for 1960 and 2020 emergencve of multiple hazards
