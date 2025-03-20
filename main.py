@@ -715,7 +715,10 @@ if flags['vulnerability']:
 
 if flags['plots']:
 
-    print('try to execute new plots script')
+    print("--------------------------------------------------")
+    print("Start Plots framework")
+    print("--------------------------------------------------")
+
     adr = scripts_dir+"/plots.py"
     with open(adr) as f:
         scr = f.read()
