@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 520, in <module>
-    ds_gdp, ds_grdi = load_gdp_deprivation(
-NameError: name 'load_gdp_deprivation' is not defined

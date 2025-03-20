@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: grant_2025 - Job ID: 10550388
+Thu Mar 20 16:03:29 CET 2025
+--- System Hardware Info ---
+Running on partition: skylake_mpi
+CPU Model:          Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
+Number of CPU Cores: 2
+Total RAM: 187Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. Integrated Matrox G200eW3 Graphics Controller (rev 04)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project

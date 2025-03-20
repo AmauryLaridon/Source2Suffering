@@ -104,7 +104,7 @@ def plot_sf1_heatmaps_allhazards(
         sims_per_step = {}
         for step in GMT_labels:
             sims_per_step[step] = []
-            print('step {}'.format(step))
+            #print('step {}'.format(step))
             for i in list(d_isimip_meta.keys()):
                 if d_isimip_meta[i]['GMT_strj_valid'][step]:
                     sims_per_step[step].append(i)  
@@ -227,7 +227,7 @@ def plot_sf1_heatmaps_allhazards(
         if n >= 3:
             ax.set_xlabel('Birth year',fontsize=12,color='gray')         
  
-    f.savefig('./si_figures/final/sf1.png'.format(flags['version']),dpi=1000,bbox_inches='tight')
+    f.savefig(scripts_dir+'/figures/grant_2025/si_figures/sf1.png'.format(flags['version']),dpi=1000,bbox_inches='tight')
     # f.savefig('./si_figures/pf_heatmap_combined_simlim_{}.eps'.format(flags['version']),format='eps',bbox_inches='tight')
     plt.show()   
 
@@ -430,7 +430,7 @@ def plot_sf3_pf_by_tseries_allhazards(
         sims_per_step = {}
         for step in GMT_labels:
             sims_per_step[step] = []
-            print('step {}'.format(step))
+            #print('step {}'.format(step))
             for i in list(d_isimip_meta.keys()):
                 if d_isimip_meta[i]['GMT_strj_valid'][step]:
                     sims_per_step[step].append(i)         
@@ -554,7 +554,7 @@ def plot_sf3_pf_by_tseries_allhazards(
         l+=1  
         
         # f.savefig('./si_figures/pf_2.7_tseries_allhazards.png',dpi=1000)
-        f.savefig('./si_figures/final/sf3.png',dpi=500)
+        f.savefig(scripts_dir+'/figures/grant_2025/si_figures/sf3.png',dpi=500)
 
 # %% ---------------------------------------------------------------
 # population fractions box plot tseries for all hazards
@@ -610,7 +610,7 @@ def plot_sf2_boxplots_allhazards(
         sims_per_step = {}
         for step in GMT_labels:
             sims_per_step[step] = []
-            print('step {}'.format(step))
+            #print('step {}'.format(step))
             for i in list(d_isimip_meta.keys()):
                 if d_isimip_meta[i]['GMT_strj_valid'][step]:
                     sims_per_step[step].append(i)    
@@ -739,7 +739,7 @@ def plot_sf2_boxplots_allhazards(
         l+=1
           
         # f.savefig('./si_figures/pf_boxplots_allhazards.png',dpi=1000)
-        f.savefig('./si_figures/final/sf2.png',dpi=500)
+        f.savefig(scripts_dir+'/figures/grant_2025/si_figures/sf2.png',dpi=500)
 
 # %% ---------------------------------------------------------------
 # population fractions maps for all hazards for 2020 birth cohort
@@ -924,7 +924,7 @@ def plot_sf4_pf_maps_allhazards(
     cb.outline.set_linewidth(cb_edgthic)
     cax.yaxis.set_label_position('right')
 
-    fig.savefig('./si_figures/final/sf4.png',dpi=1000,bbox_inches='tight')    
+    fig.savefig(scripts_dir+'/figures/grant_2025/si_figures/sf4.png',dpi=1000,bbox_inches='tight')    
     
 # %% ---------------------------------------------------------------
 # population fractions box plot tseries for all hazards when computed with geoconstraints
@@ -1373,7 +1373,7 @@ def plot_sf5_emergence_fracs(
     # la_frac_eu_gteq3 = xr.where(eu>=3,grid_area,0).sum(dim=('lat','lon')) / grid_area.where(mask==0).sum(dim=('lat','lon'))
     # print(la_frac_eu_gteq3)    
         
-    f.savefig('./si_figures/final/sf5.png',dpi=1000,bbox_inches='tight')    
+    f.savefig(scripts_dir+'/figures/grant_2025/si_figures/sf5.png',dpi=1000,bbox_inches='tight')    
     
 #%% ----------------------------------------------------------------
 # plot of locations of exposure for showing geograpical constraints
@@ -1724,7 +1724,7 @@ def plot_sf8_gmt_pathways(
     )               
             
     # f.savefig('./si_figures/GMT_trajectories.png',bbox_inches='tight',dpi=1000)    
-    f.savefig('./si_figures/final/sf8.png',bbox_inches='tight',dpi=500)    
+    f.savefig(scripts_dir+'/figures/grant_2025/si_figures/sf8.png',bbox_inches='tight',dpi=500)    
     
 #%% ----------------------------------------------------------------
 # plot heatmaps for countrylevel emergence
@@ -1933,7 +1933,7 @@ def plot_sf7_heatmaps_allhazards_countryemergence(
         if n >= 3:
             ax.set_xlabel('Birth year',fontsize=12,color='gray')    
 
-    f.savefig('./si_figures/final/sf7.png',dpi=1000,bbox_inches='tight')
+    f.savefig(scripts_dir+'/figures/grant_2025/si_figures/sf7.png',dpi=1000,bbox_inches='tight')
     # f.savefig(script_dir+'/figures/grant_2025/ms_figures/pf_heatmap_combined_allsims.eps',format='eps',bbox_inches='tight')
     plt.show()         
 

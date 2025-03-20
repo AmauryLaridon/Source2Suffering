@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 390, in <module>
-    gridscale_countries = get_gridscale_regions(
-  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/gridscale.py", line 172, in get_gridscale_regions
-    return list_countries
-UnboundLocalError: local variable 'list_countries' referenced before assignment

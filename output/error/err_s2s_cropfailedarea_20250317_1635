@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 505, in <module>
-    ds_emergence_mean = get_mean_emergence(
-  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/gridscale.py", line 2132, in get_mean_emergence
-    }] = d_global_emergence[extr][str(df_GMT_strj.loc[2100,step])]['emergence_per_run_{}'.format(extr)].loc[{
-KeyError: 'burntarea'

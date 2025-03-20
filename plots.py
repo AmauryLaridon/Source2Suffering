@@ -44,13 +44,6 @@ scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start
 
 
 #%%------------------------------------------------------------------------------------
-# Flags - Define the Configuration for the plots 
-#--------------------------------------------------------------------------------------
-
-
-
-
-#%%------------------------------------------------------------------------------------
 # Framework to plots all figures associated to Thiery et al.(2021) 
 #--------------------------------------------------------------------------------------
 
@@ -75,9 +68,9 @@ if Grant_2025 == True:
         print("--------------------------------------------------")
 
         from plot_ms import *
-        from main import *
 
         # f1 of ms, conceptual figure of city grid cell
+        print("Performing Plot f1 of Grant et al.(2025)")
         plot_conceptual(
             da_cohort_size,
             countries_mask,
@@ -88,6 +81,7 @@ if Grant_2025 == True:
         )
 
         # f2 of ms, combined heatwave plot
+        print("Performing Plot f2 of Grant et al.(2025)")
         plot_combined_piechart(
             df_GMT_strj,
             ds_pf_gs,
@@ -111,6 +105,7 @@ if Grant_2025 == True:
         
         # f2 alternative with absolute pops below box plots and no pie charts
         # further, returning robinson boundaries for use in pyramid plot maps for consistent map extents (that exclude antarctica)
+        print("Performing Plot f2_alt of Grant et al.(2025)")
         gdf_robinson_bounds = plot_combined_population(
             df_GMT_strj,
             ds_pf_gs,
@@ -122,39 +117,40 @@ if Grant_2025 == True:
         )        
 
         # f3 of heatmaps across all hazards
+        print("Performing Plot f3 of Grant et al.(2025)")
         plot_heatmaps_allhazards(
             df_GMT_strj,
             da_gs_popdenom,
             flags,
         )
 
-        # f4 of emergence union plot for hazards between 1960 and 2020 in a 2.7 degree world
-        plot_emergence_union(
-            grid_area,
-            da_emergence_mean,
-        )
+        # # f4 of emergence union plot for hazards between 1960 and 2020 in a 2.7 degree world
+        # plot_emergence_union(
+        #     grid_area,
+        #     da_emergence_mean,
+        # )
 
-        # f4 alternative for hexagons and multiple thresholds
-        plot_hexagon_multithreshold(
-            d_global_emergence,
-        )    
+        # # f4 alternative for hexagons and multiple thresholds
+        # plot_hexagon_multithreshold(
+        #     d_global_emergence,
+        # )    
 
-        # f4 pyramid plotting
-        # first set up quantiles for plotting
-        pyramid_setup(
-            flags,
-            ds_gdp,
-            ds_grdi,
-            da_cohort_size_1960_2020,
-            ds_vulnerability,
-        )
-        # then run plots
-        for vln_type in ('gdp','grdi'):
-            pyramid_plot(
-                flags,
-                df_GMT_strj,
-                vln_type,
-            )
+        # # f4 pyramid plotting
+        # # first set up quantiles for plotting
+        # pyramid_setup(
+        #     flags,
+        #     ds_gdp,
+        #     ds_grdi,
+        #     da_cohort_size_1960_2020,
+        #     ds_vulnerability,
+        # )
+        # # then run plots
+        # for vln_type in ('gdp','grdi'):
+        #     pyramid_plot(
+        #         flags,
+        #         df_GMT_strj,
+        #         vln_type,
+        #     )
 
     if plot_si == True:
 
@@ -165,6 +161,7 @@ if Grant_2025 == True:
         from plot_si import *
 
         # heatmaps but with simulations limited to common sims (to avoid dry GCM jumps)
+        print("Performing Plot sf1 of Grant et al.(2025)")
         plot_sf1_heatmaps_allhazards(
             df_GMT_strj,
             da_gs_popdenom,
@@ -172,6 +169,7 @@ if Grant_2025 == True:
         )    
         
         # pf box plots for 1.5, 2.5 and 3.5 degree world across birth years
+        print("Performing Plot sf2 of Grant et al.(2025)")
         plot_sf2_boxplots_allhazards(
             da_gs_popdenom,
             df_GMT_strj,
@@ -179,6 +177,7 @@ if Grant_2025 == True:
         )      
         
         # pf time series for 2.7 degree world across birth years
+        print("Performing Plot sf3 of Grant et al.(2025)")
         plot_sf3_pf_by_tseries_allhazards(
             flags,
             df_GMT_strj,
@@ -186,6 +185,7 @@ if Grant_2025 == True:
         )          
         
         # pf maps for 1..5, 2.5, 3.5 for all hazards
+        print("Performing Plot sf4 of Grant et al.(2025)")
         plot_sf4_pf_maps_allhazards(
             da_gs_popdenom,
             gdf_country_borders,
@@ -193,25 +193,34 @@ if Grant_2025 == True:
         )        
         
         # emergence fraction plot for hazards between 1960 and 2020 in a 2.7 degree world
-        plot_sf5_emergence_fracs(
-            grid_area,
-            ds_emergence_mean,
-        )        
+        # ! Needs to flags['global_avg_emergence'] to be activated to produce this plot 
+        if flags['global_avg_emergence']:
+            print("Performing Plot sf5 of Grant et al.(2025)")
+            plot_sf5_emergence_fracs(
+                grid_area,
+                ds_emergence_mean,
+            )        
+        else: 
+            print("Can not produce Plot sf5 of Grant et al.(2025) because flags['global_avg_emergence']=0")
         
         # plot locations where exposure occurs at all in our dataset
-        plot_sf6_exposure_locations(
-            grid_area,
-            countries_mask,
-            flags,
-        )        
+        print("Performing Plot sf6 of Grant et al.(2025)")
+        print("Plot sf6 can not be produced. Data are missing.")
+        # plot_sf6_exposure_locations(
+        #     grid_area,
+        #     countries_mask,
+        #     flags,
+        # )        
         
         # plot heatmaps of pf for country level emergence
+        print("Performing Plot sf7 of Grant et al.(2025)")
         plot_sf7_heatmaps_allhazards_countryemergence(
             df_GMT_strj,
             flags,
         )     
         
         # plot gmt time series for projections (rcp) and for which we map projections onto (ar6)
+        print("Performing Plot sf8 of Grant et al.(2025)")
         plot_sf8_gmt_pathways(
             df_GMT_strj,
             d_isimip_meta,
@@ -219,42 +228,57 @@ if Grant_2025 == True:
             
 
         # pf time series for 2020 birth year across GMTs
-        plot_pf_gmt_tseries_allhazards(
-            df_GMT_strj,
-            da_gs_popdenom,
-            flags,
-        )
+        print("Performing Plot sfa of Grant et al.(2025)")
+        print("Plot sfa can not be produced. Errors in the original script.")
+        # plot_pf_gmt_tseries_allhazards(
+        #     df_GMT_strj,
+        #     da_gs_popdenom,
+        #     flags,
+        # )
         
         # plot tseries box plots for 1.5, 2.5 and 3.5 when denominator contrained by exposure extent
-        plot_geoconstrained_boxplots(
-            flags,
-        )    
+        print("Performing Plot sfb of Grant et al.(2025)")
+        print("Plot sfb can not be produced. Data are missing.")
+        # plot_geoconstrained_boxplots(
+        #     flags,
+        # )    
         
         # plot pie charts of all hazards
-        plot_allhazards_piecharts(
+        print("Performing Plot sfc of Grant et al.(2025)")
+        if flags['extr']=='all':
+            plot_allhazards_piecharts(
             da_gs_popdenom,
             df_countries,
             flags,
         )
+        else:
+            print("Plot sfc can not be produced. Data are missing.")
+        
         
         # plot cohort sizes in stacked bar chart
-        plot_cohort_sizes(
-            df_countries,
-            da_gs_popdenom,
-        )    
+        print("Performing Plot sfd of Grant et al.(2025)")
+        print("Plot sfb can not be produced. Data are missing.")
+        # plot_cohort_sizes(
+        #     df_countries,
+        #     da_gs_popdenom,
+        # )    
         
         # plot hexagon landfracs (will change to only show landfracs for SI)
-        plot_hexagon_landfrac(
-            d_global_emergence,
-        )    
+        print("Performing Plot sfe of Grant et al.(2025)")
+        print("Plot sfe can not be produced. Data are missing.")
+        # plot_hexagon_landfrac(
+        #     d_global_emergence,
+        # )    
         
         # plot heatmaps of delta CF between main text f3 (heatwavedarea panel) and 
-        plot_life_expectancy_testing(
-            df_GMT_strj,
-            GMT_indices_plot,
-            da_gs_popdenom,
-            flags,
-        )    
+        print("Performing Plot sff of Grant et al.(2025)")
+        print("Plot sfa can not be produced. Errors in the original script.")
+        # plot_life_expectancy_testing(
+        #     df_GMT_strj,
+        #     GMT_indices_plot,
+        #     da_gs_popdenom,
+        #     flags,
+        # )    
 
 #%%------------------------------------------------------------------------------------
 # Framework to plots all figures associated to Laridon et al.(2025) 
@@ -263,5 +287,10 @@ if Grant_2025 == True:
 if Laridon_2025 == True:
     pass
 
+#%%------------------------------------------------------------------------------------
+# Framework to plots not configured 
+#--------------------------------------------------------------------------------------
 
+if not(Thiery_2021 or Grant_2025 or Laridon_2025):
+    print("No pre-defined Plots Framework")
 
