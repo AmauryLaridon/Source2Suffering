@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------------------------
-Start Job - Job Name: thiery_2021 - Job ID: 10550420
-Thu Mar 20 16:13:14 CET 2025
+Start Job - Job Name: thiery_2021 - Job ID: 10551340
+Fri Mar 21 09:47:09 CET 2025
 --- System Hardware Info ---
 Running on partition: skylake
 CPU Model:          Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
@@ -11,14 +11,14 @@ GPU Info: Matrox Electronics Systems Ltd. Integrated Matrox G200eW3 Graphics Con
 System Architecture: x86_64
 -------------------------------------------------------------------------------------------------
 Start loading the modules for the Source2Suffering Project
-Execution time to load the modules: 3.39 minutes
+Execution time to load the modules: 3.48 minutes
 -------------------------------------------------------------------------------------------------
 Start executing the scripts
 Running main.py with configuration for the paper=thiery_2021
 -----------------------------------------------------------
          Start to run the Source2Suffering Project
 -----------------------------------------------------------
-Current date and time: 2025-03-20 16:16:59
+Current date and time: 2025-03-21 09:50:51
 -----------------------------------------------------------
 Model configuration - thiery_2021
 -----------------------------------------------------------
@@ -30,13 +30,13 @@ rm: no_rm
 
 version: pickles
 
-run: 1
+run: 0
 
-mask: 1
+mask: 0
 
-lifetime_exposure_cohort: 1
+lifetime_exposure_cohort: 0
 
-lifetime_exposure_pic: 1
+lifetime_exposure_pic: 0
 
 emergence: 0
 
@@ -67,5 +67,28 @@ Settings imported
 --------------------------------------------------
 Start to import Demographic, GMT and ISIMIP data
 --------------------------------------------------
+GMT projections loaded
+Loading processed country data
+Country data loaded
+Loading processed ISIMIP data
+ISMIP data loaded
+--------------------------------------------------
+Start Lifetime Exposure framework
+--------------------------------------------------
+Loading processed Lifetime Exposures across cohorts will be done in emergence calculation
+Loading PIC Lifetime Exposures across cohorts
+--------------------------------------------------
+Start Plots framework
+--------------------------------------------------
+--------------------------------------------------
+Start Reporting framework
+--------------------------------------------------
+-----------------------------------------------------------
+   End of computations for the Source2Suffering Project
+-----------------------------------------------------------
+Script execution time: 24.7 seconds
+Script execution time: 0.4 minutes
+Script execution time: 0.0 hours
+-----------------------------------------------------------
 End Job
-Thu Mar 20 16:17:06 CET 2025
+Fri Mar 21 09:51:16 CET 2025

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 282, in <module>
+    df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_strj = load_GMT(
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/load_manip.py", line 273, in load_GMT
+    GMT_steps = np.arange(0,GMT_max+GMT_inc/2,GMT_inc)
+UnboundLocalError: local variable 'GMT_max' referenced before assignment

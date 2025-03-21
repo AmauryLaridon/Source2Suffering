@@ -66,8 +66,8 @@ flags = {}
 
 global Thiery_2021, Grant_2025, Laridon_2025
 
-Thiery_2021 = False 
-Grant_2025 = True 
+Thiery_2021 = True 
+Grant_2025 = False 
 Laridon_2025 = False
 env_value_paper= 0 
 
@@ -97,10 +97,10 @@ if Thiery_2021==True:
     flags['gmt'] = 'original'
     flags['rm'] = 'no_rm'
     flags['version'] = 'pickles'
-    flags['run'] = 1
-    flags['mask'] = 1
-    flags['lifetime_exposure_cohort'] = 1
-    flags['lifetime_exposure_pic'] = 1
+    flags['run'] = 0
+    flags['mask'] = 0
+    flags['lifetime_exposure_cohort'] = 0
+    flags['lifetime_exposure_pic'] = 0
     flags['emergence'] = 0
     flags['birthyear_emergence'] = 0
     flags['gridscale'] = 0
@@ -118,15 +118,15 @@ if Grant_2025==True:
     flags['gmt'] = 'ar6_new'
     flags['rm'] = 'rm'
     flags['version'] = 'pickles_v3'
-    flags['run'] = 1
-    flags['mask'] = 1
-    flags['lifetime_exposure_cohort'] = 1
-    flags['lifetime_exposure_pic'] = 1
-    flags['emergence'] = 1
+    flags['run'] = 0
+    flags['mask'] = 0
+    flags['lifetime_exposure_cohort'] = 0
+    flags['lifetime_exposure_pic'] = 0
+    flags['emergence'] = 0
     flags['birthyear_emergence'] = 0
     flags['gridscale'] = 1
-    flags['gridscale_le_test'] = 1
-    flags['gridscale_country_subset'] = 1
+    flags['gridscale_le_test'] = 0
+    flags['gridscale_country_subset'] = 0
     flags['global_emergence_recollect'] = 0
     flags['global_avg_emergence'] = 0
     flags['gdp_deprivation'] = 0
@@ -422,287 +422,291 @@ ds_exposure_pic = calc_exposure_mmm_pic_xr(
 # Emergence Lifetime Exposure framework
 #--------------------------------------------------------------------------------------
 
-print("--------------------------------------------------")
-print("Start Emergence Lifetime Exposure framework")
-print("--------------------------------------------------")
+if Grant_2025==True:
+
+    print("--------------------------------------------------")
+    print("Start Emergence Lifetime Exposure framework")
+    print("--------------------------------------------------")
 
 
-from emergence import *
+    from emergence import *
 
-if flags['emergence']:
+    if flags['emergence']:
 
-    # --------------------------------------------------------------------
-    # process emergence of cumulative exposures, mask cohort exposures for time steps of emergence
+        # --------------------------------------------------------------------
+        # process emergence of cumulative exposures, mask cohort exposures for time steps of emergence
 
-    print("Computing Emergence of cumulative exposures")
-    
-    if flags['birthyear_emergence']:
+        print("Computing Emergence of cumulative exposures")
         
-        by_emergence = np.arange(1960,2101)
+        if flags['birthyear_emergence']:
+            
+            by_emergence = np.arange(1960,2101)
+            
+        else:
+            
+            by_emergence = birth_years        
         
-    else:
+        if not os.path.isfile(data_dir+'{}/country/cohort_sizes.pkl'.format(flags['version'])):
+            
+            # need new cohort dataset that has total population per birth year (using life expectancy info; each country has a different end point)
+            da_cohort_aligned = calc_birthyear_align(
+                da_cohort_size,
+                df_life_expectancy_5,
+                by_emergence,
+            )
+            
+            # convert to dataset and add weights
+            ds_cohorts = ds_cohort_align(
+                da_cohort_size,
+                da_cohort_aligned,
+            )
+            
+            # pickle birth year aligned cohort sizes and global mean life expectancy
+            with open(data_dir+'{}/country/cohort_sizes.pkl'.format(flags['version']), 'wb') as f:
+                pk.dump(ds_cohorts,f)  
+
+        else:
+            
+            # load pickled birth year aligned cohort sizes and global mean life expectancy
+            with open(data_dir+'{}/country/cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
+                ds_cohorts = pk.load(f)                             
         
-        by_emergence = birth_years        
-    
-    if not os.path.isfile(data_dir+'{}/country/cohort_sizes.pkl'.format(flags['version'])):
-        
-        # need new cohort dataset that has total population per birth year (using life expectancy info; each country has a different end point)
-        da_cohort_aligned = calc_birthyear_align(
-            da_cohort_size,
+        ds_ae_strj, ds_pf_strj = strj_emergence(
+            d_isimip_meta,
             df_life_expectancy_5,
+            ds_exposure_pic,
+            ds_cohorts,
             by_emergence,
+            flags,
         )
-        
-        # convert to dataset and add weights
-        ds_cohorts = ds_cohort_align(
-            da_cohort_size,
-            da_cohort_aligned,
-        )
-        
-        # pickle birth year aligned cohort sizes and global mean life expectancy
-        with open(data_dir+'{}/country/cohort_sizes.pkl'.format(flags['version']), 'wb') as f:
-            pk.dump(ds_cohorts,f)  
+            
+    else: # load pickles
 
-    else:
+        print("Loading Emergence of cumulative exposures")
         
-        # load pickled birth year aligned cohort sizes and global mean life expectancy
+        pass
+        
+        # birth year aligned population
         with open(data_dir+'{}/country/cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
-            ds_cohorts = pk.load(f)                             
-    
-    ds_ae_strj, ds_pf_strj = strj_emergence(
-        d_isimip_meta,
-        df_life_expectancy_5,
-        ds_exposure_pic,
-        ds_cohorts,
-        by_emergence,
-        flags,
-    )
+            ds_cohorts = pk.load(f)
         
-else: # load pickles
-
-    print("Loading Emergence of cumulative exposures")
-    
-    pass
-    
-    # birth year aligned population
-    with open(data_dir+'{}/country/cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
-        ds_cohorts = pk.load(f)
-    
-    # pop frac
-    with open(data_dir+'{}/{}/pop_frac_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-        ds_pf_strj = pk.load(f)              
+        # pop frac
+        with open(data_dir+'{}/{}/pop_frac_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+            ds_pf_strj = pk.load(f)              
     
 
 #%%------------------------------------------------------------------------------------
 # Grid Scale Emergence
 #--------------------------------------------------------------------------------------
 
-print("--------------------------------------------------")
-print("Start Gridscale Emergence framework")
-print("--------------------------------------------------")
+if Grant_2025==True:
 
-from gridscale import *
+    print("--------------------------------------------------")
+    print("Start Gridscale Emergence framework")
+    print("--------------------------------------------------")
 
-# list of countries to run gridscale analysis on (sometimes doing subsets across basiss/regions in floods/droughts)
-gridscale_countries = get_gridscale_regions(
-    grid_area,
-    flags,
-    gdf_country_borders,
-)
+    from gridscale import *
 
-# birth year aligned cohort sizes for gridscale analysis (summed over lat/lon per country)
-if not os.path.isfile(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version'])):
-
-    #print('getting da_gs_popdenom')
-    da_gs_popdenom = get_gridscale_popdenom(
-        gridscale_countries,
-        da_cohort_size,
-        countries_mask,
-        countries_regions,
-        da_population,
-        df_life_expectancy_5,
+    # list of countries to run gridscale analysis on (sometimes doing subsets across basiss/regions in floods/droughts)
+    gridscale_countries = get_gridscale_regions(
+        grid_area,
+        flags,
+        gdf_country_borders,
     )
 
-    # pickle birth year aligned cohort sizes for gridscale analysis (summed per country)
-    with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'wb') as f:
-        pk.dump(da_gs_popdenom,f)  
-        
-else:
-    
-    # load pickle birth year aligned cohort sizes for gridscale analysis (summed per country, i.e. not lat/lon explicit)
-    #print('loading da_gs_popdenom')
-    with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
-        da_gs_popdenom = pk.load(f)
+    # birth year aligned cohort sizes for gridscale analysis (summed over lat/lon per country)
+    if not os.path.isfile(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version'])):
 
-# run gridscale emergence analysis
-if flags['gridscale']:
-              
-    print("Computing Gridscale Emergence of cumulative exposures")
-    
-    ds_pf_gs = gridscale_emergence(
-        d_isimip_meta,
-        d_pic_meta,
-        flags,
-        gridscale_countries,
-        da_cohort_size,
-        countries_regions,
-        countries_mask,
-        df_life_expectancy_5,
-        da_population,
-    )  
-    
-else:
-    
-    print("Loading Gridscale Emergence of cumulative exposures")
-    # # load pickled aggregated lifetime exposure, age emergence and pop frac datasets
-    # with open(data_dir+'{}/{}/gridscale_aggregated_lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-    #     ds_le_gs = pk.load(f)
-    with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-        ds_pf_gs = pk.load(f)
+        #print('getting da_gs_popdenom')
+        da_gs_popdenom = get_gridscale_popdenom(
+            gridscale_countries,
+            da_cohort_size,
+            countries_mask,
+            countries_regions,
+            da_population,
+            df_life_expectancy_5,
+        )
 
-        
-if flags['gridscale_le_test']:
-
-    print("Computing Test of Gridscale Emergence of cumulative exposures")
-    
-    ds_pf_gs_le_test = gridscale_emergence_life_expectancy_constant(
-        d_isimip_meta,
-        d_pic_meta,
-        flags,
-        gridscale_countries,
-        da_cohort_size,
-        countries_regions,
-        countries_mask,
-        df_life_expectancy_5,
-        da_population,
-    )        
-    
-else:
-    
-    print("Loading Test of Gridscale Emergence of cumulative exposures")
-
-    with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_le_test_{}.pkl'.format(flags['version'],flags['extr']+'_le_test',flags['extr']), 'rb') as f:
-        ds_pf_gs_le_test = pk.load(f)    
+        # pickle birth year aligned cohort sizes for gridscale analysis (summed per country)
+        with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'wb') as f:
+            pk.dump(da_gs_popdenom,f)  
             
-
-# read in all global emergence masks (d_global_emergence is then used for vulnerability assessment, but only possible on hpc because it is large for some hazards)
-if flags['global_emergence_recollect']:
-
-    print("--------------------------------------------------")
-    print("Start Global Emergence Mask for Vulnerability framework")
-    print("--------------------------------------------------")
-
-    from gridscale import *
-
-    # temporarily commented out extremes in this function outside heatwaved area to test new means extraction below
-    d_global_emergence = collect_global_emergence(
-        grid_area,
-        flags,
-        countries_mask,
-        countries_regions,
-        gridscale_countries,
-        df_GMT_strj,
-    )
-    
-    # temporarily commented out extremes in this function outside heatwaved area to test new means extraction below
-    d_global_pic_qntls = collect_pic_qntls(
-        grid_area,
-        flags,
-        gridscale_countries,
-        countries_mask,
-        countries_regions,
-    )  
-    
-    d_global_pic_qntls_extra = collect_pic_qntls_extra(
-        grid_area,
-        flags,
-        gridscale_countries,
-        countries_mask,
-        countries_regions,
-    )    
-    
-
-if flags['global_avg_emergence']:
-
-    print("--------------------------------------------------")
-    print("Start Averaging of Emergence framework")
-    print("--------------------------------------------------")
-
-    from gridscale import *
-      
-    # run averaging on d_global_emergence to produce SI figure of emergence fractions
-    ds_emergence_mean = get_mean_emergence(
-        df_GMT_strj,
-        flags,
-        da_population,
-        d_global_emergence,
-    )    
-    
-# load/proc GDP and deprivation data
-if flags['gdp_deprivation']:
-
-    print("--------------------------------------------------")
-    print("Start GDP/GRDI framework")
-    print("--------------------------------------------------")
-
-    from gridscale import *
-    
-    ds_gdp, ds_grdi = load_gdp_deprivation(
-        flags,
-        grid_area,
-        da_population,
-        countries_mask,
-        countries_regions,
-        gridscale_countries,
-        df_life_expectancy_5,
-    )
-    
-# vulnerability subsetting
-if flags['vulnerability']:  
-
-    print("--------------------------------------------------")
-    print("Start Vulnerability framework")
-    print("--------------------------------------------------")
-
-    from gridscale import *
-
-    # get spatially explicit cohort sizes for all birth years in analysis
-    da_cohort_size_1960_2020 = get_spatially_explicit_cohorts_1960_2020(
-        flags,
-        gridscale_countries,
-        countries_mask,
-        countries_regions,
-        da_cohort_size,
-        da_population,
-    )
-    
-    # adds data arrays to ds_gdp and ds_grdi with ranked vulnerability binned by population (i.e. ranges of ranked vulnerability, physically distributed, grouped/binned by population size)            
-    ds_gdp_qntls, ds_grdi_qntls = get_vulnerability_quantiles(
-        flags,
-        grid_area,
-        da_cohort_size_1960_2020,
-        ds_gdp,
-        ds_grdi,
-    )
+    else:
         
-    # just a dummy d_global_emergence to run emergence_by_vulnerability
-    # try:
-    #     d_global_emergence
-    # except NameError:
-    #     print('to save memory on my laptop, d_global_emergence is not unpickled. defining a dummy var for emergence_by_vulnerability')
-    #     d_global_emergence={}
-    # else:
-    #     pass
+        # load pickle birth year aligned cohort sizes for gridscale analysis (summed per country, i.e. not lat/lon explicit)
+        #print('loading da_gs_popdenom')
+        with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
+            da_gs_popdenom = pk.load(f)
 
-    # dataset of emergence numbers selected by quantiles of vulnerability, both with grdi and gdp
-    ds_vulnerability = emergence_by_vulnerability(
-        flags,
-        df_GMT_strj,
-        ds_gdp_qntls,
-        ds_grdi_qntls,
-        da_cohort_size_1960_2020,
-        d_global_emergence,
-    )
+    # run gridscale emergence analysis
+    if flags['gridscale']:
+                
+        print("Computing Gridscale Emergence of cumulative exposures")
+        
+        ds_pf_gs = gridscale_emergence(
+            d_isimip_meta,
+            d_pic_meta,
+            flags,
+            gridscale_countries,
+            da_cohort_size,
+            countries_regions,
+            countries_mask,
+            df_life_expectancy_5,
+            da_population,
+        )  
+        
+    else:
+        
+        print("Loading Gridscale Emergence of cumulative exposures")
+        # # load pickled aggregated lifetime exposure, age emergence and pop frac datasets
+        # with open(data_dir+'{}/{}/gridscale_aggregated_lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+        #     ds_le_gs = pk.load(f)
+        with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+            ds_pf_gs = pk.load(f)
+
+            
+    if flags['gridscale_le_test']:
+
+        print("Computing Test of Gridscale Emergence of cumulative exposures")
+        
+        ds_pf_gs_le_test = gridscale_emergence_life_expectancy_constant(
+            d_isimip_meta,
+            d_pic_meta,
+            flags,
+            gridscale_countries,
+            da_cohort_size,
+            countries_regions,
+            countries_mask,
+            df_life_expectancy_5,
+            da_population,
+        )        
+        
+    else:
+        
+        print("Loading Test of Gridscale Emergence of cumulative exposures")
+
+        with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_le_test_{}.pkl'.format(flags['version'],flags['extr']+'_le_test',flags['extr']), 'rb') as f:
+            ds_pf_gs_le_test = pk.load(f)    
+                
+
+    # read in all global emergence masks (d_global_emergence is then used for vulnerability assessment, but only possible on hpc because it is large for some hazards)
+    if flags['global_emergence_recollect']:
+
+        print("--------------------------------------------------")
+        print("Start Global Emergence Mask for Vulnerability framework")
+        print("--------------------------------------------------")
+
+        from gridscale import *
+
+        # temporarily commented out extremes in this function outside heatwaved area to test new means extraction below
+        d_global_emergence = collect_global_emergence(
+            grid_area,
+            flags,
+            countries_mask,
+            countries_regions,
+            gridscale_countries,
+            df_GMT_strj,
+        )
+        
+        # temporarily commented out extremes in this function outside heatwaved area to test new means extraction below
+        d_global_pic_qntls = collect_pic_qntls(
+            grid_area,
+            flags,
+            gridscale_countries,
+            countries_mask,
+            countries_regions,
+        )  
+        
+        d_global_pic_qntls_extra = collect_pic_qntls_extra(
+            grid_area,
+            flags,
+            gridscale_countries,
+            countries_mask,
+            countries_regions,
+        )    
+        
+
+    if flags['global_avg_emergence']:
+
+        print("--------------------------------------------------")
+        print("Start Averaging of Emergence framework")
+        print("--------------------------------------------------")
+
+        from gridscale import *
+        
+        # run averaging on d_global_emergence to produce SI figure of emergence fractions
+        ds_emergence_mean = get_mean_emergence(
+            df_GMT_strj,
+            flags,
+            da_population,
+            d_global_emergence,
+        )    
+        
+    # load/proc GDP and deprivation data
+    if flags['gdp_deprivation']:
+
+        print("--------------------------------------------------")
+        print("Start GDP/GRDI framework")
+        print("--------------------------------------------------")
+
+        from gridscale import *
+        
+        ds_gdp, ds_grdi = load_gdp_deprivation(
+            flags,
+            grid_area,
+            da_population,
+            countries_mask,
+            countries_regions,
+            gridscale_countries,
+            df_life_expectancy_5,
+        )
+        
+    # vulnerability subsetting
+    if flags['vulnerability']:  
+
+        print("--------------------------------------------------")
+        print("Start Vulnerability framework")
+        print("--------------------------------------------------")
+
+        from gridscale import *
+
+        # get spatially explicit cohort sizes for all birth years in analysis
+        da_cohort_size_1960_2020 = get_spatially_explicit_cohorts_1960_2020(
+            flags,
+            gridscale_countries,
+            countries_mask,
+            countries_regions,
+            da_cohort_size,
+            da_population,
+        )
+        
+        # adds data arrays to ds_gdp and ds_grdi with ranked vulnerability binned by population (i.e. ranges of ranked vulnerability, physically distributed, grouped/binned by population size)            
+        ds_gdp_qntls, ds_grdi_qntls = get_vulnerability_quantiles(
+            flags,
+            grid_area,
+            da_cohort_size_1960_2020,
+            ds_gdp,
+            ds_grdi,
+        )
+            
+        # just a dummy d_global_emergence to run emergence_by_vulnerability
+        # try:
+        #     d_global_emergence
+        # except NameError:
+        #     print('to save memory on my laptop, d_global_emergence is not unpickled. defining a dummy var for emergence_by_vulnerability')
+        #     d_global_emergence={}
+        # else:
+        #     pass
+
+        # dataset of emergence numbers selected by quantiles of vulnerability, both with grdi and gdp
+        ds_vulnerability = emergence_by_vulnerability(
+            flags,
+            df_GMT_strj,
+            ds_gdp_qntls,
+            ds_grdi_qntls,
+            da_cohort_size_1960_2020,
+            d_global_emergence,
+        )
     
 
 #%%------------------------------------------------------------------------------------

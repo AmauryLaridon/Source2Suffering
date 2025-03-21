@@ -235,7 +235,6 @@ def load_GMT(
     year_range,
     flags,
 ):
-
     # Load global mean temperature projections from SR15 
     # (wim's original scenarios; will use historical obs years from here, 1960-1999, but replace with ar6 trajectories)
     df_GMT_SR15 = pd.read_excel(data_dir+'temperature_trajectories_SR15/GMT_50pc_manualoutput_4pathways.xlsx', header=1);
@@ -267,6 +266,7 @@ def load_GMT(
     # stylized trajectories
     if flags['gmt'] == 'original':
     
+        GMT_max = 3.5
         GMT_fut_strtyr = int(df_GMT_15.index.where(df_GMT_15==df_GMT_20).max())+1
         ind_fut_strtyr = int(np.argwhere(np.asarray(df_GMT_15.index)==GMT_fut_strtyr))
         GMT_min = df_GMT_15.loc[GMT_fut_strtyr-1]
