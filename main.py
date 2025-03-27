@@ -16,8 +16,6 @@
 # -----------------------------------------------------------------------------------------------------------
 # Summary and notes
 # -----------------------------------------------------------------------------------------------------------
-# to save the enironment used (with your path to the env directory): 
-# conda env export -p C:\Users\ivand\anaconda3\envs\exposure_env > exposure_env.yml
 #
 # Data types are defined in the variable names starting with:  
 #     df_     : DataFrame    (pandas)
@@ -66,9 +64,9 @@ flags = {}
 
 global Thiery_2021, Grant_2025, Laridon_2025
 
-Thiery_2021 = True 
-Grant_2025 = False 
-Laridon_2025 = False
+Thiery_2021 = False 
+Grant_2025 = False      # define to True if you want to run parts of the framework that relies on the emergence and gridscale
+Laridon_2025 = True
 env_value_paper= 0 
 
 #--------------------------------------------------------------------------------------
@@ -93,14 +91,14 @@ if env_value_paper:
 #--------------------------------------------------------------------------------------
 
 if Thiery_2021==True:
-    flags['extr'] = 'all'
+    flags['extr'] = 'heatwavedarea'
     flags['gmt'] = 'original'
     flags['rm'] = 'no_rm'
     flags['version'] = 'pickles'
-    flags['run'] = 0
-    flags['mask'] = 0
-    flags['lifetime_exposure_cohort'] = 0
-    flags['lifetime_exposure_pic'] = 0
+    flags['run'] = 1
+    flags['mask'] = 1
+    flags['lifetime_exposure_cohort'] = 1
+    flags['lifetime_exposure_pic'] = 1
     flags['emergence'] = 0
     flags['birthyear_emergence'] = 0
     flags['gridscale'] = 0
@@ -110,11 +108,11 @@ if Thiery_2021==True:
     flags['global_avg_emergence'] = 0
     flags['gdp_deprivation'] = 0
     flags['vulnerability'] = 0
-    flags['plots'] = 1
-    flags['reporting'] = 1
+    flags['plots'] = 0
+    flags['reporting'] = 0
 
 if Grant_2025==True:
-    flags['extr'] = 'all'
+    flags['extr'] = 'heatwavedarea'
     flags['gmt'] = 'ar6_new'
     flags['rm'] = 'rm'
     flags['version'] = 'pickles_v3'
@@ -135,13 +133,13 @@ if Grant_2025==True:
     flags['reporting'] = 1
 
 if Laridon_2025==True:
-    print('Configuration of the Framework for Laridon et al.(2025) not settle')
+    print('Configuration of the Framework for Laridon et al.(2025) not settle going to Manual Configuration')
 
 #%%------------------------------------------------------------------------------------
 # Flags - Manual Configuration of the Framework
 #--------------------------------------------------------------------------------------
 
-if not Thiery_2021 and not Grant_2025 and not Laridon_2025:
+if not env_value_paper:
 
     flags['extr'] = 'heatwavedarea'                # 0: all
                                                     # 1: burntarea
@@ -151,7 +149,7 @@ if not Thiery_2021 and not Grant_2025 and not Laridon_2025:
                                                     # 5: heatwavedarea
                                                     # 6: tropicalcyclonedarea
 
-    flags['gmt'] = 'ar6_new'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
+    flags['gmt'] = 'ar6_new'                            # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
                                                     # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
                                                     # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
 
@@ -176,7 +174,7 @@ if not Thiery_2021 and not Grant_2025 and not Laridon_2025:
     flags['lifetime_exposure_cohort'] = 0           # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
                                                                         
-    flags['lifetime_exposure_pic'] = 0              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
+    flags['lifetime_exposure_pic'] = 1              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute picontrol exposure (i.e. produce and save exposure as pickle)
 
     flags['emergence'] = 0                          # 0: do not process ISIMIP runs to compute cohort emergence (i.e. load cohort exposure pickle)
@@ -217,7 +215,7 @@ if not Thiery_2021 and not Grant_2025 and not Laridon_2025:
     # Flags - Outputs
     #----------------------------------------------------------
 
-    flags['plots'] = 1                               # 0 do not produce and save plots 
+    flags['plots'] = 0                               # 0 do not produce and save plots 
                                                      # 1 produce and load plots 
 
     flags['reporting'] = 1                          # 0 do not produce results for reporting 
@@ -267,7 +265,7 @@ print("Settings imported")
 
 #%%------------------------------------------------------------------------------------
 # Load and manipulate demographic, GMT and ISIMIP data
-# ------------------------------------------------------------------
+#--------------------------------------------------------------------------------------
 print("--------------------------------------------------")
 print("Start to import Demographic, GMT and ISIMIP data")
 print("--------------------------------------------------")
@@ -277,6 +275,8 @@ from load_manip import *
 
 # ------------------------------------------------------------------
 # Load global mean temperature projections
+# ------------------------------------------------------------------
+
 global df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_strj
 
 df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_strj = load_GMT(
@@ -288,8 +288,9 @@ df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_strj = load_GMT(
 
 print("GMT projections loaded")
 
-# --------------------------------------------------------------------
+# ------------------------------------------------------------------
 # Load and manipulate life expectancy, cohort and mortality data
+# ------------------------------------------------------------------
 
 if flags['mask']: # compute and process country info
 
@@ -315,12 +316,11 @@ da_population = d_countries['population_map']
 df_birthyears = d_countries['birth_years']
 df_life_expectancy_5 = d_countries['life_expectancy_5']
 da_cohort_size = d_countries['cohort_size']
-countries_regions, countries_mask = d_countries['mask']    
- 
+countries_regions, countries_mask = d_countries['mask']  
+
 # ------------------------------------------------------------------
 # load ISIMIP model data
-global grid_area
-grid_area = xr.open_dataarray(data_dir+'isimip/clm45_area.nc4')
+# ------------------------------------------------------------------
 
 d_isimip_meta,d_pic_meta = load_isimip(
     extremes,
@@ -331,6 +331,15 @@ d_isimip_meta,d_pic_meta = load_isimip(
     df_GMT_strj,
     flags,
 )
+
+global nruns, ncountries, nyears
+
+nruns = len(d_isimip_meta) # number of available impact models runs used for this extreme
+ncountries = np.shape(df_countries[0]) # number of available contries for the assessment
+nyears = len(year_range) # number of years for the assessment
+
+# stores for each GMT steps how many and which isimip simulations are available for remaping #
+# only used for analysis 
 
 sims_per_step = {}
 for step in GMT_labels:
@@ -354,6 +363,7 @@ from exposure import *
 
 # ------------------------------------------------------------------
 # process lifetime exposure across cohorts
+# ------------------------------------------------------------------
 
 if flags['lifetime_exposure_cohort']:
 
@@ -372,24 +382,36 @@ if flags['lifetime_exposure_cohort']:
         flags,
     )
     
-    print("--- {} minutes to compute cohort exposure ---".format(
+    print("--- {} minutes to compute Lifetime Exposure across Cohorts for all countries ---".format(
         np.floor((time.time() - start_time) / 60),
         )
           )
-    
-else:  # load processed cohort exposure data
-    
-    print('Loading processed Lifetime Exposures across cohorts will be done in emergence calculation')
 
-#--------------------------------------------------------------------
-# process picontrol lifetime exposure
+# ------------------------------------------------------------------
+# load lifetime exposure across cohorts
+# ------------------------------------------------------------------
+
+    
+else: # load processed cohort exposure data
+    
+    print('Loading processed Lifetime Exposures across cohorts. !Not yet settle!')
+
+    # for i in len(d_isimip_meta):
+
+          # add a way to store those but needs to be uptaded later
+
+    #     with open(data_dir+'{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+    #         d_exposure_perrun_pic = pk.load(f)
+
+# --------------------------------------------------------------------
+# process lifetime exposure across cohorts for PIC climate conditions
+# --------------------------------------------------------------------
 
 if flags['lifetime_exposure_pic']:
     
-    start_time = time.time()
     print('Computing PIC Lifetime Exposures across cohorts')
+    start_time = time.time()
     
-    # takes 38 mins crop failure
     d_exposure_perrun_pic = calc_lifetime_exposure_pic(
         d_pic_meta, 
         df_countries, 
@@ -400,18 +422,27 @@ if flags['lifetime_exposure_pic']:
         flags,
     )
     
-    print("--- {} minutes for PIC exposure ---".format(
+    print("--- {} minutes to compute Lifetime Exposure across Cohorts for all countries under PIC climate conditions for the 1960 demographics ---".format(
         np.floor((time.time() - start_time) / 60),
         )
           )    
 
-else: # load processed pic data
+# --------------------------------------------------------------------
+# load lifetime exposure across cohorts for PIC climate conditions
+# --------------------------------------------------------------------
+
+else:  
     
     print('Loading PIC Lifetime Exposures across cohorts')
 
     with open(data_dir+'{}/{}/exposure_pic_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
         d_exposure_perrun_pic = pk.load(f)
 
+# --------------------------------------------------------------------
+# Multi-model mean of exposure
+# --------------------------------------------------------------------
+
+# computation of multi-model mean of the exposure
 ds_exposure_pic = calc_exposure_mmm_pic_xr(
     d_exposure_perrun_pic,
     'country',
@@ -430,6 +461,9 @@ if Grant_2025==True:
 
 
     from emergence import *
+
+    global grid_area
+    grid_area = xr.open_dataarray(data_dir+'isimip/clm45_area.nc4')
 
     if flags['emergence']:
 

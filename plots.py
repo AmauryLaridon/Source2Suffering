@@ -44,11 +44,32 @@ scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start
 
 
 #%%------------------------------------------------------------------------------------
-# Framework to plots all figures associated to Thiery et al.(2021) 
+# Framework to plots all figures associated to Thiery et al.(2021)
+# This framework has not been reproduced for the moment. 
 #--------------------------------------------------------------------------------------
 
 if Thiery_2021 == True:
-    pass
+    
+    sys.path.append(os.path.abspath(scripts_dir+"/figures/thiery_2021"))
+
+    #Configuration of the plots#
+
+    plot_fig1 = 0 # 0: do not plot figure 1 of paper
+                  # 1: plot figure 1 of paper
+    plot_fig2 = 0 # 0: do not plot figure 2 of paper
+                  # 1: plot figure 2 of paper
+
+    print("-------------------------------------------------------")
+    print("Start plot_ms_and_si framework from Thiery et al.(2021)")
+    print("-------------------------------------------------------")
+
+    from plot_ms_and_si import *
+    
+    if plot_fig1 :
+
+        print("Performing Plot f1 of Thiery et al.(2021)")
+        plot_fig1()
+    
 
 #%%------------------------------------------------------------------------------------
 # Framework to plots all figures associated to Grant et al.(2025) 
@@ -57,6 +78,8 @@ if Thiery_2021 == True:
 if Grant_2025 == True:
 
     sys.path.append(os.path.abspath(scripts_dir+"/figures/grant_2025"))
+
+    #Configuration of the plots#
 
     plot_ms = True # Plots used in the main manuscript of Grant et al.(2025)
     plot_si = True # Plots used in the supplmentary materials of Grant et al.(2025)
@@ -285,7 +308,24 @@ if Grant_2025 == True:
 #--------------------------------------------------------------------------------------
 
 if Laridon_2025 == True:
-    pass
+
+    sys.path.append(os.path.abspath(scripts_dir+"/figures/laridon_2025"))
+
+    #Configuration of the plots#
+
+    plot_fig1 = 0 # 0: do not plot figure 1 of paper
+                  # 1: plot figure 1 of paper
+
+    print("--------------------------------------------------------")
+    print("Start plot_ms_and_si framework from Laridon et al.(2025)")
+    print("--------------------------------------------------------")
+
+    from plot_ms_and_si import *
+    
+    if plot_fig1 :
+
+        print("Performing Plot f1 of Laridon et al.(2021)")
+        plot_fig1()
 
 #%%------------------------------------------------------------------------------------
 # Framework to plots not configured 

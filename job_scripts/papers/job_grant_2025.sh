@@ -3,7 +3,7 @@
 #SBATCH --job-name=grant_2025
 #SBATCH --ntasks=2
 #SBATCH --mem=160G
-#SBATCH --time=120:00:00
+#SBATCH --time=72:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=amaury.laridon@vub.be
 #SBATCH --output=/dev/null

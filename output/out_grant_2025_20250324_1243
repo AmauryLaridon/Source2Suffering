@@ -1,0 +1,2800 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: grant_2025 - Job ID: 10553764
+Mon Mar 24 12:43:05 CET 2025
+--- System Hardware Info ---
+Running on partition: skylake_mpi
+CPU Model:          Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
+Number of CPU Cores: 2
+Total RAM: 187Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. Integrated Matrox G200eW3 Graphics Controller (rev 04)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 3.44 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with configuration for the paper=grant_2025
+-----------------------------------------------------------
+         Start to run the Source2Suffering Project
+-----------------------------------------------------------
+Current date and time: 2025-03-24 12:46:56
+-----------------------------------------------------------
+Model configuration - grant_2025
+-----------------------------------------------------------
+extr: heatwavedarea
+
+gmt: ar6_new
+
+rm: rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+lifetime_exposure_cohort: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 1
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+plots: 1
+
+reporting: 1
+
+--------------------------------------------------
+Start to import settings
+--------------------------------------------------
+Settings imported
+--------------------------------------------------
+Start to import Demographic, GMT and ISIMIP data
+--------------------------------------------------
+GMT projections loaded
+Loading processed country data
+Country data loaded
+Loading processed ISIMIP data
+ISMIP data loaded
+--------------------------------------------------
+Start Lifetime Exposure framework
+--------------------------------------------------
+Loading processed Lifetime Exposures across cohorts will be done in emergence calculation
+Loading PIC Lifetime Exposures across cohorts
+--------------------------------------------------
+Start Emergence Lifetime Exposure framework
+--------------------------------------------------
+Loading Emergence of cumulative exposures
+--------------------------------------------------
+Start Gridscale Emergence framework
+--------------------------------------------------
+Computing Gridscale Emergence of cumulative exposures
+running gridscale emergence for Afghanistan
+Afghanistan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Angola
+Angola
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Albania
+Albania
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for United Arab Emirates
+United Arab Emirates
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Argentina
+Argentina
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Armenia
+Armenia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Australia
+Australia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Austria
+Austria
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Azerbaijan
+Azerbaijan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Burundi
+Burundi
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Belgium
+Belgium
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Benin
+Benin
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Burkina Faso
+Burkina Faso
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Bangladesh
+Bangladesh
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Bulgaria
+Bulgaria
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Bahamas
+Bahamas
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Bosnia and Herzegovina
+Bosnia and Herzegovina
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Belarus
+Belarus
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Belize
+Belize
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Bolivia
+Bolivia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Brazil
+Brazil
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Brunei Darussalam
+Brunei Darussalam
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Bhutan
+Bhutan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Botswana
+Botswana
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Central African Republic
+Central African Republic
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Canada
+Canada
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Switzerland
+Switzerland
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Chile
+Chile
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for China
+China
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Cote dIvoire
+Cote dIvoire
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Cameroon
+Cameroon
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Democratic Republic of the Congo
+Democratic Republic of the Congo
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Republic of Congo
+Republic of Congo
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Colombia
+Colombia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Comoros
+Comoros
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Cape Verde
+Cape Verde
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Costa Rica
+Costa Rica
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Cuba
+Cuba
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Cyprus
+Cyprus
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Czech Republic
+Czech Republic
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Germany
+Germany
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Djibouti
+Djibouti
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Denmark
+Denmark
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Dominican Republic
+Dominican Republic
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Algeria
+Algeria
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Ecuador
+Ecuador
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Egypt
+Egypt
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Eritrea
+Eritrea
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Spain
+Spain
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Estonia
+Estonia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Ethiopia
+Ethiopia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Finland
+Finland
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Fiji
+Fiji
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for France
+France
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Gabon
+Gabon
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for United Kingdom
+United Kingdom
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Georgia
+Georgia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Ghana
+Ghana
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Guinea
+Guinea
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for The Gambia
+The Gambia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Guinea-Bissau
+Guinea-Bissau
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Equatorial Guinea
+Equatorial Guinea
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Greece
+Greece
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Guatemala
+Guatemala
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Guyana
+Guyana
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Hong Kong
+Hong Kong
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Honduras
+Honduras
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Croatia
+Croatia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Haiti
+Haiti
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Hungary
+Hungary
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Indonesia
+Indonesia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for India
+India
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Ireland
+Ireland
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Iran
+Iran
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Iraq
+Iraq
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Iceland
+Iceland
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Israel
+Israel
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Italy
+Italy
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Jamaica
+Jamaica
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Jordan
+Jordan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Japan
+Japan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Kazakhstan
+Kazakhstan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Kenya
+Kenya
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Kyrgyzstan
+Kyrgyzstan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Cambodia
+Cambodia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Kiribati
+Kiribati
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Republic of Korea
+Republic of Korea
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Kuwait
+Kuwait
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Lao PDR
+Lao PDR
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Lebanon
+Lebanon
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Liberia
+Liberia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Libya
+Libya
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Sri Lanka
+Sri Lanka
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Lesotho
+Lesotho
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Lithuania
+Lithuania
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Luxembourg
+Luxembourg
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Latvia
+Latvia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Morocco
+Morocco
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Moldova
+Moldova
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Madagascar
+Madagascar
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Mexico
+Mexico
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Macedonia
+Macedonia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Mali
+Mali
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Myanmar
+Myanmar
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Montenegro
+Montenegro
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Mongolia
+Mongolia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Mozambique
+Mozambique
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Mauritania
+Mauritania
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Mauritius
+Mauritius
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Malawi
+Malawi
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Malaysia
+Malaysia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Namibia
+Namibia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for New Caledonia
+New Caledonia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Niger
+Niger
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Nigeria
+Nigeria
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Nicaragua
+Nicaragua
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Netherlands
+Netherlands
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Norway
+Norway
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Nepal
+Nepal
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for New Zealand
+New Zealand
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Oman
+Oman
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Pakistan
+Pakistan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Panama
+Panama
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Peru
+Peru
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Philippines
+Philippines
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Papua New Guinea
+Papua New Guinea
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Poland
+Poland
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Puerto Rico
+Puerto Rico
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Dem. Rep. Korea
+Dem. Rep. Korea
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Portugal
+Portugal
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Paraguay
+Paraguay
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for French Polynesia
+French Polynesia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Qatar
+Qatar
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Romania
+Romania
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Russian Federation
+Russian Federation
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Rwanda
+Rwanda
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Saudi Arabia
+Saudi Arabia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Sudan
+Sudan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Senegal
+Senegal
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Solomon Islands
+Solomon Islands
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Sierra Leone
+Sierra Leone
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for El Salvador
+El Salvador
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Somalia
+Somalia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Serbia
+Serbia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for South Sudan
+South Sudan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Sao Tome and Principe
+Sao Tome and Principe
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Suriname
+Suriname
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Slovakia
+Slovakia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Slovenia
+Slovenia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Sweden
+Sweden
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Swaziland
+Swaziland
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Syria
+Syria
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Chad
+Chad
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Togo
+Togo
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Thailand
+Thailand
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Tajikistan
+Tajikistan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Turkmenistan
+Turkmenistan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Timor-Leste
+Timor-Leste
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Trinidad and Tobago
+Trinidad and Tobago
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Tunisia
+Tunisia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Turkey
+Turkey
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Tanzania
+Tanzania
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Uganda
+Uganda
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Ukraine
+Ukraine
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Uruguay
+Uruguay
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for United States
+United States
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Uzbekistan
+Uzbekistan
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Saint Vincent and the Grenadines
+Saint Vincent and the Grenadines
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Venezuela
+Venezuela
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for United States Virgin Islands
+United States Virgin Islands
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Vietnam
+Vietnam
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Vanuatu
+Vanuatu
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Samoa
+Samoa
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Yemen
+Yemen
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for South Africa
+South Africa
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Zambia
+Zambia
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+running gridscale emergence for Zimbabwe
+Zimbabwe
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+Loading Test of Gridscale Emergence of cumulative exposures
+--------------------------------------------------
+Start Plots framework
+--------------------------------------------------
+--------------------------------------------------
+Start plot_ms framework from Grant et al.(2025)
+--------------------------------------------------
+Performing Plot f1 of Grant et al.(2025)
+Conceptual plot for Belgium
+Loading simulation 1 of 12
+Loading simulation 2 of 12
+Loading simulation 3 of 12
+Loading simulation 4 of 12
+Loading simulation 5 of 12
+Loading simulation 6 of 12
+Loading simulation 7 of 12
+Loading simulation 8 of 12
+Loading simulation 9 of 12
+Loading simulation 10 of 12
+Loading simulation 11 of 12
+Loading simulation 12 of 12
+728.834 thousand unprecedented born in 1988.0 and later under pathway 0
+963.573 thousand unprecedented born in 1977.0 and later under pathway 20
+Performing Plot f2 of Grant et al.(2025)
+Performing Plot f2_alt of Grant et al.(2025)
+Performing Plot f3 of Grant et al.(2025)
+--------------------------------------------------
+Start plot_si framework from Grant et al.(2025)
+--------------------------------------------------
+Performing Plot sf1 of Grant et al.(2025)
+Performing Plot sf2 of Grant et al.(2025)
+Performing Plot sf3 of Grant et al.(2025)
+Performing Plot sf4 of Grant et al.(2025)
+Can not produce Plot sf5 of Grant et al.(2025) because flags['global_avg_emergence']=0
+Performing Plot sf6 of Grant et al.(2025)
+Plot sf6 can not be produced. Data are missing.
+Performing Plot sf7 of Grant et al.(2025)
+Performing Plot sf8 of Grant et al.(2025)
+Performing Plot sfa of Grant et al.(2025)
+Plot sfa can not be produced. Errors in the original script.
+Performing Plot sfb of Grant et al.(2025)
+Plot sfb can not be produced. Data are missing.
+Performing Plot sfc of Grant et al.(2025)
+Plot sfc can not be produced. Data are missing.
+Performing Plot sfd of Grant et al.(2025)
+Plot sfb can not be produced. Data are missing.
+Performing Plot sfe of Grant et al.(2025)
+Plot sfe can not be produced. Data are missing.
+Performing Plot sff of Grant et al.(2025)
+Plot sfa can not be produced. Errors in the original script.
+--------------------------------------------------
+Start Reporting framework
+--------------------------------------------------
+---------------------------------------------------------
+Start grant_2025_report framework from Grant et al.(2025)
+---------------------------------------------------------
+---------------------------------------------------------
+Report 1 not produced because flags['global_avg_emergence']=0
+---------------------------------------------------------
+Report 2 : Gridscale cohort sizes per birth year.
+Save gridscale_cohort_global.pkl in data/{version}/country
+---------------------------------------------------------
+Report 3 : Grid exposure locations for all simulations.
+Save exposure_occurrence_{extr}.pkl in data/{version}/{extr}
+---------------------------------------------------------
+Report 4: Collect maps of emergence locations
+step 0
+step 10
+step 20
+--- 0.0 minutes for heatwavedarea emergence loc ---
+Save emergence_locs_perrun_{extr}_{step}.pkl in /data/{version}/{extr}
+---------------------------------------------------------
+Report 5: Population fraction estimates per run for selected GMTs when constraining denominator by geography
+--- 0.0 minutes for heatwavedarea pf in under geo constraints ---
+Save pf_geoconstrained_{extr}.pkl in data/{version}/{extr}
+---------------------------------------------------------
+Report 6: Print geographically constrained pf Vs regular pf
+heatwavedarea under GMT step 0 has geoconstrained pf of 17.528030566901652 for 1960 and 51.76214982692785 for 2020
+heatwavedarea under GMT step 0 has regular pf of 17.36173327637267 for 1960 and 51.770829051930555 for 2020
+heatwavedarea under GMT step 10 has geoconstrained pf of 15.950650001357133 for 1960 and 78.68292912110442 for 2020
+heatwavedarea under GMT step 10 has regular pf of 15.799595696877702 for 1960 and 78.69642134976658 for 2020
+heatwavedarea under GMT step 20 has geoconstrained pf of 16.65087282818163 for 1960 and 92.34477651670245 for 2020
+heatwavedarea under GMT step 20 has regular pf of 16.492846670033423 for 1960 and 92.3604857335699 for 2020
+---------------------------------------------------------
+Report 7: Check for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level
+Not execute due to bugs in the original script
+---------------------------------------------------------
+Report 8: Print LaTeX table on ensemble members per hazard
+No LaTeX output in the configuration (see reporting.py)
+---------------------------------------------------------
+Report 9: Number of children (born between 2003-2020) living ULE between 1.5 and 2.7°C warming
+burntarea
+in 1.5 degree pathway, 148.0 chidren live unprecedented exposure to burntarea
+in 2.7 degree pathway, 165.0 children live unprecedented exposure to burntarea
+17.0 more million children will live through unprecedented exposure to burntarea
+
+cropfailedarea
+in 1.5 degree pathway, 398.0 chidren live unprecedented exposure to cropfailedarea
+in 2.7 degree pathway, 496.0 children live unprecedented exposure to cropfailedarea
+98.0 more million children will live through unprecedented exposure to cropfailedarea
+
+driedarea
+in 1.5 degree pathway, 112.0 chidren live unprecedented exposure to driedarea
+in 2.7 degree pathway, 138.0 children live unprecedented exposure to driedarea
+26.0 more million children will live through unprecedented exposure to driedarea
+
+floodedarea
+in 1.5 degree pathway, 165.0 chidren live unprecedented exposure to floodedarea
+in 2.7 degree pathway, 229.0 children live unprecedented exposure to floodedarea
+64.0 more million children will live through unprecedented exposure to floodedarea
+
+heatwavedarea
+in 1.5 degree pathway, 1084.0 chidren live unprecedented exposure to heatwavedarea
+in 2.7 degree pathway, 1697.0 children live unprecedented exposure to heatwavedarea
+613.0 more million children will live through unprecedented exposure to heatwavedarea
+
+tropicalcyclonedarea
+in 1.5 degree pathway, 129.0 chidren live unprecedented exposure to tropicalcyclonedarea
+in 2.7 degree pathway, 206.0 children live unprecedented exposure to tropicalcyclonedarea
+76.0 more million children will live through unprecedented exposure to tropicalcyclonedarea
+
+894.0
+---------------------------------------------------------
+Report 10: Ratio of pfs
+ratio in pf for burntarea in 2.7 degree 
+ scenario between 2020 and 1960 is 5.4 (meaning, pf_2020/pf_1960)
+change in pf for burntarea and 2020 cohort 
+ between 1.5 and 2.7 pathways is 1.2
+1.5 degree scenario pf for burntarea is 7.472032984087389
+3.5 degree scenario pf for burntarea is 9.618959914812924
+
+ratio in pf for cropfailedarea in 2.7 degree 
+ scenario between 2020 and 1960 is 3.9 (meaning, pf_2020/pf_1960)
+change in pf for cropfailedarea and 2020 cohort 
+ between 1.5 and 2.7 pathways is 1.3
+1.5 degree scenario pf for cropfailedarea is 19.392644570550736
+3.5 degree scenario pf for cropfailedarea is 29.007605618694583
+
+ratio in pf for driedarea in 2.7 degree 
+ scenario between 2020 and 1960 is 2.5 (meaning, pf_2020/pf_1960)
+change in pf for driedarea and 2020 cohort 
+ between 1.5 and 2.7 pathways is 1.3
+1.5 degree scenario pf for driedarea is 5.3332043867218415
+3.5 degree scenario pf for driedarea is 7.5544178386494565
+
+ratio in pf for floodedarea in 2.7 degree 
+ scenario between 2020 and 1960 is 7.4 (meaning, pf_2020/pf_1960)
+change in pf for floodedarea and 2020 cohort 
+ between 1.5 and 2.7 pathways is 1.5
+1.5 degree scenario pf for floodedarea is 8.43313045852367
+3.5 degree scenario pf for floodedarea is 13.664338655695202
+
+ratio in pf for heatwavedarea in 2.7 degree 
+ scenario between 2020 and 1960 is 5.0 (meaning, pf_2020/pf_1960)
+change in pf for heatwavedarea and 2020 cohort 
+ between 1.5 and 2.7 pathways is 1.6
+1.5 degree scenario pf for heatwavedarea is 51.70325700987579
+3.5 degree scenario pf for heatwavedarea is 92.202528092411
+
+ratio in pf for tropicalcyclonedarea in 2.7 degree 
+ scenario between 2020 and 1960 is 3.2 (meaning, pf_2020/pf_1960)
+change in pf for tropicalcyclonedarea and 2020 cohort 
+ between 1.5 and 2.7 pathways is 1.7
+1.5 degree scenario pf for tropicalcyclonedarea is 5.746805044172136
+3.5 degree scenario pf for tropicalcyclonedarea is 10.31506614160507
+
+---------------------------------------------------------
+Report 11: Number of million people unprecedented
+Not execute due to bugs in the original script
+---------------------------------------------------------
+Report 12: Not execute because needs data from {version} = 'pickles_v2'
+---------------------------------------------------------
+Report 13: LaTeX tables of CF per extreme and GMT pathway
+No LaTeX output in the configuration (see reporting.py)
+---------------------------------------------------------
+Report 14: Large LaTeX tables on CF data per country, birth year and 1.5, 2.5 and 3.5 degree scenario
+Not execute due to bugs in the original script
+No LaTeX output in the configuration (see reporting.py)
+---------------------------------------------------------
+Report 15: Data for boxplots of heatwaves in f2
+panel a: box plot time series numbers
+GMT is 1.5
+median absolute number of ULE (in millions) is 57.94459104611415
+median pf is 48.23392706823048
+mean absolute number of ULE is 62.193557519977695
+mean pf is 51.77082905193056
+GMT is 2.5
+median absolute number of ULE (in millions) is 93.6714984837376
+median pf is 77.97352858424314
+mean absolute number of ULE is 94.53992716484409
+mean pf is 78.6964213497666
+GMT is 3.5
+median absolute number of ULE (in millions) is 111.4383898818484
+median pf is 92.7629494508715
+mean absolute number of ULE is 110.95490041857181
+mean pf is 92.3604857335699
+panel e,f,g: country numbers
+GMT is 1.5
+number of countries with pf > 50% is : 103
+number of countries with pf > 90% is : 40
+number of countries with pf = 100% is : 18
+GMT is 2.5
+number of countries with pf > 50% is : 157
+number of countries with pf > 90% is : 114
+number of countries with pf = 100% is : 72
+GMT is 3.5
+number of countries with pf > 50% is : 167
+number of countries with pf > 90% is : 155
+number of countries with pf = 100% is : 113
+---------------------------------------------------------
+Report 16: Data for f3
+heatwavedarea
+pf for 2020 under 3.5 degree pathway is 92.3604857335699
+cropfailedarea
+pf for 2020 under 3.5 degree pathway is 29.089535197681176
+burntarea
+pf for 2020 under 3.5 degree pathway is 9.60242367341912
+driedarea
+pf for 2020 under 3.5 degree pathway is 7.574431612050603
+floodedarea
+pf for 2020 under 3.5 degree pathway is 13.65109046727385
+tropicalcyclonedarea
+pf for 2020 under 3.5 degree pathway is 10.34237975338763
+---------------------------------------------------------
+Report 17: Data for f4
+Not execute because data are missing
+-----------------------------------------------------------
+   End of computations for the Source2Suffering Project
+-----------------------------------------------------------
+Script execution time: 14509.7 seconds
+Script execution time: 241.8 minutes
+Script execution time: 4.0 hours
+-----------------------------------------------------------
+End Job
+Mon Mar 24 16:48:47 CET 2025

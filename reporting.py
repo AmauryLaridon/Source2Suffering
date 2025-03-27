@@ -32,10 +32,22 @@ scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start
 
 #%%------------------------------------------------------------------------------------
 # Framework to compute and print all the reports associated to Thiery et al.(2021) 
+# This framework has not been reproduced for the moment. 
 #--------------------------------------------------------------------------------------
 
 if Thiery_2021 == True:
+
+    print("-----------------------------------------------------------")
+    print("Start thiery_2021_report framework from Thiery et al.(2021)")
+    print("-----------------------------------------------------------")
+
+    sys.path.append(os.path.abspath(scripts_dir+"/output/papers/thiery_2021"))
+    from thiery_2021_report import *
+
     pass
+
+    
+    
 
 #%%------------------------------------------------------------------------------------
 # Framework to compute and print all the reports associated to Grant et al.(2025) 
@@ -230,7 +242,128 @@ if Grant_2025 == True:
 #--------------------------------------------------------------------------------------
 
 if Laridon_2025 == True:
-    pass
+
+    source2suffering = True
+    laridon_2025_report = False
+
+    if source2suffering == True:
+
+        print("---------------------------------------------------------")
+        print("Start Source2Suffering framework from Thiery et al.(2021)")
+        print("---------------------------------------------------------")
+
+        # Configuration of the reports #
+
+        valRomania = 1      # 0: do not produce reports for 
+                            # 1: plot figure 1 of paper
+        valNorLic = 0       # 0: do not produce reports for testimony in Norwegian lawsuit
+                            # 1: produce reports for testimony in Norwegian lawsuit
+        valNorAppea = 0     # 0: do not produce reports for Norwegian lawsuit - written report June 2024 for appeal
+                            # 1: produce reports for Norwegian lawsuit - written report June 2024 for appeal
+        valNorECtHR = 0     # 0: do not produce reports for Norwegian lawsuit - written report ECtHR June 2024 for appeal
+                            # 1: produce reports for Norwegian lawsuit - written report ECtHR June 2024 for appeal
+
+        from source2suffering import *
+    
+        if valRomania == 1:
+
+            # -------------------------------------------------------------------------- #
+            # Define Total emissions of the fossiel fuel project under study             #
+            # -------------------------------------------------------------------------- #
+            
+            # TOTAL emissions UK oil and gas fields (MtCO2e: add E6 to express as tCO2e) #
+            CO2_emissions_NeptunDeep = 207e6
+
+            # -------------------------------------------------------------------------- #
+            # Define Transient Climate response to cumulative emission                   #
+            # -------------------------------------------------------------------------- #
+
+            # Expert advice (27/03/2024): Je kan 1.65°C per 1000 PgC gebruiken, maar 
+            # (mocht dat nuttig zijn) kan je ook transparant gecommuniceerde hogere 
+            # percentielen gebruiken. Die geven namelijk een risicoperspectief. 
+            # Bijvoorbeeld, 2.2°C per 1000 PgC is nog steeds enkel het 66ste 
+            # percentiel. Dat is niet per se extreem. Deze methode is wel vooral 
+            # toepasbaar op CO2 and niet CO2-eq. Dus als er veel methaan in die 
+            # emissies zit dan zou je dat een beetje moeten aanpassen.
+            
+            TCRE = 0.45 / 1e12 # 1.65°C / 3.7 = 0,45°C per 1000 Gt CO2eq
+
+            # -------------------------------------------------------------------------- #
+            # Define Mortality cost of Carbon                                            #
+            # -------------------------------------------------------------------------- #
+
+            # 4,434 metric tons of carbon dioxide in 2020 cfr. (Bressler, 2021) 
+            # causes one excess death globally in expectation between 2020-2100 
+            mortality_cost_carbon = 4434 
+            
+            # -------------------------------------------------------------------------- #
+            # Question 1: call function to compute the number of people facing one       #
+            # extra heatwave due to the total emissions of the three fields              #
+            # -------------------------------------------------------------------------- #
+
+            valc_nr_children_facing_extra_heatwave_NeptunDeep = emissions2npeople(
+                CO2_emissions_NeptunDeep, TCRE, exposure_perregion_BE, birth_years, 2010, 2020, 
+                GMT_BE, valp_cohort_size_abs, 1, 5)  # 5 is for heatwave
+
+            # Include a small add-on table for the reference years 1960-1970
+
+            valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = emissions2npeople(
+                CO2_emissions_NeptunDeep, TCRE, exposure_perregion_BE, birth_years, 1960, 1970, 
+                GMT_BE, valp_cohort_size_abs, 1, 5)  # 5 is for heatwaves
+
+            valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]
+
+            valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
+                valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
+                round(valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref * 100)
+            ]
+
+            # -------------------------------------------------------------------------- #
+            # Question 2: call function to compute the number of people facing one       #
+            # extra ... due to emissions                                                 #
+            # -------------------------------------------------------------------------- #
+
+            impacts = {1: "wildfire", 2: "crop failure", 3: "drought", 4: "river floods", 5: "heatwaves", 6: "tropical cyclones"}
+            valc_impacts_NeptunDeep = {}
+            valc_impacts_NeptunDeep_ref = {}
+
+            for key, impact in impacts.items():
+                valc_impacts_NeptunDeep[impact] = mf_emissions2npeople(
+                    CO2_emissions_NeptunDeep, TCRE, exposure_perregion_BE, birth_years, 2010, 2020, 
+                    GMT_BE, valp_cohort_size_abs, 1, key)
+        
+                # Include a small add-on table for the reference years 1960-1970
+
+                valc_impacts_NeptunDeep_ref[impact] = mf_emissions2npeople(
+                    CO2_emissions_NeptunDeep, TCRE, exposure_perregion_BE, birth_years, 1960, 1970, 
+                    GMT_BE, valp_cohort_size_abs, 1, key)
+                valc_impacts_NeptunDeep_ref[impact] = valc_impacts_NeptunDeep_ref[impact][-1]
+                valc_impacts_NeptunDeep_ref[impact] = [
+                    valc_impacts_NeptunDeep_ref[impact],
+                    round(valc_impacts_NeptunDeep[impact][-1] / valc_impacts_NeptunDeep_ref[impact] * 100)
+                ]
+    
+            # -------------------------------------------------------------------------- #
+            # Question 3: compute the number of heat-related deaths between              #
+            # today and 2100 due to the total emissions of the three fields              #
+            # -------------------------------------------------------------------------- #
+
+            valc_mortality_NeptunDeep = (CO2_emissions_NeptunDeep / mortality_cost_carbon // 1000) * 1000
+
+
+    
+    if laridon_2025_report == True:
+
+        print("----------------------------------------------------------")
+        print("Start Source2Suffering framework from Laridon et al.(2025)")
+        print("----------------------------------------------------------")
+        
+        sys.path.append(os.path.abspath(scripts_dir+"/output/papers/laridon_2025"))
+        from laridon_2025_report import *
+        
+        print('Framework to report for Laridon et al.(2025) not yet configured')
+
+        pass
 
 
 #%%------------------------------------------------------------------------------------
@@ -238,4 +371,4 @@ if Laridon_2025 == True:
 #--------------------------------------------------------------------------------------
 
 if not(Thiery_2021 or Grant_2025 or Laridon_2025):
-    print("No pre-defined Report Framework")
+    print("No pre-defined Report Framework outside Thiery et al.(2021), Grant et al.(2025) or Laridon et al.(2025).")
