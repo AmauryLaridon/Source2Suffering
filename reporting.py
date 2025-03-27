@@ -29,13 +29,12 @@ import cartopy.crs as ccrs
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
 
-
 #%%------------------------------------------------------------------------------------
 # Framework to compute and print all the reports associated to Thiery et al.(2021) 
 # This framework has not been reproduced for the moment. 
 #--------------------------------------------------------------------------------------
 
-if Thiery_2021 == True:
+if Thiery_2021:
 
     print("-----------------------------------------------------------")
     print("Start thiery_2021_report framework from Thiery et al.(2021)")
@@ -53,7 +52,7 @@ if Thiery_2021 == True:
 # Framework to compute and print all the reports associated to Grant et al.(2025) 
 #--------------------------------------------------------------------------------------
 
-if Grant_2025 == True:
+if Grant_2025:
 
     print("---------------------------------------------------------")
     print("Start grant_2025_report framework from Grant et al.(2025)")
@@ -241,12 +240,12 @@ if Grant_2025 == True:
 # Framework to compute and print all the reports associated to Laridon et al.(2025) 
 #--------------------------------------------------------------------------------------
 
-if Laridon_2025 == True:
+if Laridon_2025:
 
     source2suffering = True
     laridon_2025_report = False
 
-    if source2suffering == True:
+    if source2suffering:
 
         print("---------------------------------------------------------")
         print("Start Source2Suffering framework from Thiery et al.(2021)")
@@ -265,7 +264,7 @@ if Laridon_2025 == True:
 
         from source2suffering import *
     
-        if valRomania == 1:
+        if valRomania:
 
             # -------------------------------------------------------------------------- #
             # Define Total emissions of the fossiel fuel project under study             #
@@ -352,7 +351,7 @@ if Laridon_2025 == True:
 
 
     
-    if laridon_2025_report == True:
+    if laridon_2025_report:
 
         print("----------------------------------------------------------")
         print("Start Source2Suffering framework from Laridon et al.(2025)")

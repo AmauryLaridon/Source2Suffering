@@ -65,8 +65,8 @@ flags = {}
 global Thiery_2021, Grant_2025, Laridon_2025
 
 Thiery_2021 = False 
-Grant_2025 = False      # define to True if you want to run parts of the framework that relies on the emergence and gridscale
-Laridon_2025 = True
+Grant_2025 = True      # define to True if you want to run parts of the framework that relies on the emergence and gridscale
+Laridon_2025 = False
 env_value_paper= 0 
 
 #--------------------------------------------------------------------------------------
@@ -89,51 +89,52 @@ if env_value_paper:
 #%%------------------------------------------------------------------------------------
 # Configuration of the Framework to reproduce the papers
 #--------------------------------------------------------------------------------------
+if env_value_paper:
 
-if Thiery_2021==True:
-    flags['extr'] = 'heatwavedarea'
-    flags['gmt'] = 'original'
-    flags['rm'] = 'no_rm'
-    flags['version'] = 'pickles'
-    flags['run'] = 1
-    flags['mask'] = 1
-    flags['lifetime_exposure_cohort'] = 1
-    flags['lifetime_exposure_pic'] = 1
-    flags['emergence'] = 0
-    flags['birthyear_emergence'] = 0
-    flags['gridscale'] = 0
-    flags['gridscale_le_test'] = 0
-    flags['gridscale_country_subset'] = 0
-    flags['global_emergence_recollect'] = 0
-    flags['global_avg_emergence'] = 0
-    flags['gdp_deprivation'] = 0
-    flags['vulnerability'] = 0
-    flags['plots'] = 0
-    flags['reporting'] = 0
+    if Thiery_2021==True:
+        flags['extr'] = 'heatwavedarea'
+        flags['gmt'] = 'original'
+        flags['rm'] = 'no_rm'
+        flags['version'] = 'pickles'
+        flags['run'] = 1
+        flags['mask'] = 1
+        flags['lifetime_exposure_cohort'] = 1
+        flags['lifetime_exposure_pic'] = 1
+        flags['emergence'] = 0
+        flags['birthyear_emergence'] = 0
+        flags['gridscale'] = 0
+        flags['gridscale_le_test'] = 0
+        flags['gridscale_country_subset'] = 0
+        flags['global_emergence_recollect'] = 0
+        flags['global_avg_emergence'] = 0
+        flags['gdp_deprivation'] = 0
+        flags['vulnerability'] = 0
+        flags['plots'] = 0
+        flags['reporting'] = 0
 
-if Grant_2025==True:
-    flags['extr'] = 'heatwavedarea'
-    flags['gmt'] = 'ar6_new'
-    flags['rm'] = 'rm'
-    flags['version'] = 'pickles_v3'
-    flags['run'] = 0
-    flags['mask'] = 0
-    flags['lifetime_exposure_cohort'] = 0
-    flags['lifetime_exposure_pic'] = 0
-    flags['emergence'] = 0
-    flags['birthyear_emergence'] = 0
-    flags['gridscale'] = 1
-    flags['gridscale_le_test'] = 0
-    flags['gridscale_country_subset'] = 0
-    flags['global_emergence_recollect'] = 0
-    flags['global_avg_emergence'] = 0
-    flags['gdp_deprivation'] = 0
-    flags['vulnerability'] = 0
-    flags['plots'] = 1
-    flags['reporting'] = 1
+    if Grant_2025==True:
+        flags['extr'] = 'heatwavedarea'
+        flags['gmt'] = 'ar6_new'
+        flags['rm'] = 'rm'
+        flags['version'] = 'pickles_v3'
+        flags['run'] = 0
+        flags['mask'] = 0
+        flags['lifetime_exposure_cohort'] = 0
+        flags['lifetime_exposure_pic'] = 0
+        flags['emergence'] = 0
+        flags['birthyear_emergence'] = 0
+        flags['gridscale'] = 1
+        flags['gridscale_le_test'] = 0
+        flags['gridscale_country_subset'] = 0
+        flags['global_emergence_recollect'] = 0
+        flags['global_avg_emergence'] = 0
+        flags['gdp_deprivation'] = 0
+        flags['vulnerability'] = 0
+        flags['plots'] = 1
+        flags['reporting'] = 1
 
-if Laridon_2025==True:
-    print('Configuration of the Framework for Laridon et al.(2025) not settle going to Manual Configuration')
+    if Laridon_2025==True:
+        print('Configuration of the Framework for Laridon et al.(2025) not settle going to Manual Configuration')
 
 #%%------------------------------------------------------------------------------------
 # Flags - Manual Configuration of the Framework
@@ -174,7 +175,7 @@ if not env_value_paper:
     flags['lifetime_exposure_cohort'] = 0           # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
                                                                         
-    flags['lifetime_exposure_pic'] = 1              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
+    flags['lifetime_exposure_pic'] = 0              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute picontrol exposure (i.e. produce and save exposure as pickle)
 
     flags['emergence'] = 0                          # 0: do not process ISIMIP runs to compute cohort emergence (i.e. load cohort exposure pickle)
@@ -215,7 +216,7 @@ if not env_value_paper:
     # Flags - Outputs
     #----------------------------------------------------------
 
-    flags['plots'] = 0                               # 0 do not produce and save plots 
+    flags['plots'] = 1                               # 0 do not produce and save plots 
                                                      # 1 produce and load plots 
 
     flags['reporting'] = 1                          # 0 do not produce results for reporting 
@@ -335,7 +336,7 @@ d_isimip_meta,d_pic_meta = load_isimip(
 global nruns, ncountries, nyears
 
 nruns = len(d_isimip_meta) # number of available impact models runs used for this extreme
-ncountries = np.shape(df_countries[0]) # number of available contries for the assessment
+ncountries = df_countries.shape[0] # number of available contries for the assessment
 nyears = len(year_range) # number of years for the assessment
 
 # stores for each GMT steps how many and which isimip simulations are available for remaping #
@@ -349,7 +350,6 @@ for step in GMT_labels:
             sims_per_step[step].append(i)
 
 print("ISMIP data loaded")
-
 
 #%%------------------------------------------------------------------------------------
 # Lifetime Exposure framework
@@ -370,17 +370,19 @@ if flags['lifetime_exposure_cohort']:
     print("Computing Lifetime Exposure across cohorts")
     start_time = time.time()
     
+
+    if Grant_2025:
     
-    # calculate exposure per country and per cohort
-    calc_cohort_lifetime_exposure(
-        d_isimip_meta,
-        df_countries,
-        countries_regions,
-        countries_mask,
-        da_population,
-        da_cohort_size,
-        flags,
-    )
+        # calculate exposure per country and per cohort
+        calc_cohort_lifetime_exposure(
+            d_isimip_meta,
+            df_countries,
+            countries_regions,
+            countries_mask,
+            da_population,
+            da_cohort_size,
+            flags,
+        )
     
     print("--- {} minutes to compute Lifetime Exposure across Cohorts for all countries ---".format(
         np.floor((time.time() - start_time) / 60),
@@ -393,15 +395,21 @@ if flags['lifetime_exposure_cohort']:
 
     
 else: # load processed cohort exposure data
+
+    if Grant_2025:
     
-    print('Loading processed Lifetime Exposures across cohorts. !Not yet settle!')
+        print('Loading processed Lifetime Exposures across cohorts. !Not yet settle!')
 
-    # for i in len(d_isimip_meta):
+    else:
 
-          # add a way to store those but needs to be uptaded later
+        print('Loading processed Lifetime Exposures across cohorts. !Not yet settle!')
 
-    #     with open(data_dir+'{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-    #         d_exposure_perrun_pic = pk.load(f)
+        # for i in len(d_isimip_meta):
+
+            # add a way to store those but needs to be uptaded later
+
+        #     with open(data_dir+'{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+        #         d_exposure_perrun_pic = pk.load(f)
 
 # --------------------------------------------------------------------
 # process lifetime exposure across cohorts for PIC climate conditions
@@ -442,12 +450,13 @@ else:
 # Multi-model mean of exposure
 # --------------------------------------------------------------------
 
-# computation of multi-model mean of the exposure
-ds_exposure_pic = calc_exposure_mmm_pic_xr(
-    d_exposure_perrun_pic,
-    'country',
-    'pic',
-)
+if Grant_2025:
+    # computation of multi-model mean of the exposure
+    ds_exposure_pic = calc_exposure_mmm_pic_xr(
+        d_exposure_perrun_pic,
+        'country',
+        'pic',
+    )
 
 #%%------------------------------------------------------------------------------------
 # Emergence Lifetime Exposure framework

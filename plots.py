@@ -42,13 +42,12 @@ from scipy.stats import ttest_ind
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
 
-
 #%%------------------------------------------------------------------------------------
 # Framework to plots all figures associated to Thiery et al.(2021)
 # This framework has not been reproduced for the moment. 
 #--------------------------------------------------------------------------------------
 
-if Thiery_2021 == True:
+if Thiery_2021:
     
     sys.path.append(os.path.abspath(scripts_dir+"/figures/thiery_2021"))
 
@@ -75,7 +74,7 @@ if Thiery_2021 == True:
 # Framework to plots all figures associated to Grant et al.(2025) 
 #--------------------------------------------------------------------------------------
 
-if Grant_2025 == True:
+if Grant_2025:
 
     sys.path.append(os.path.abspath(scripts_dir+"/figures/grant_2025"))
 
@@ -84,7 +83,7 @@ if Grant_2025 == True:
     plot_ms = True # Plots used in the main manuscript of Grant et al.(2025)
     plot_si = True # Plots used in the supplmentary materials of Grant et al.(2025)
 
-    if plot_ms == True:
+    if plot_ms:
 
         print("--------------------------------------------------")
         print("Start plot_ms framework from Grant et al.(2025)")
@@ -175,7 +174,7 @@ if Grant_2025 == True:
         #         vln_type,
         #     )
 
-    if plot_si == True:
+    if plot_si:
 
         print("--------------------------------------------------")
         print("Start plot_si framework from Grant et al.(2025)")
@@ -307,7 +306,7 @@ if Grant_2025 == True:
 # Framework to plots all figures associated to Laridon et al.(2025) 
 #--------------------------------------------------------------------------------------
 
-if Laridon_2025 == True:
+if Laridon_2025:
 
     sys.path.append(os.path.abspath(scripts_dir+"/figures/laridon_2025"))
 
