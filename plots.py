@@ -81,9 +81,15 @@ if Grant_2025:
     #Configuration of the plots#
 
     plot_ms = True # Plots used in the main manuscript of Grant et al.(2025)
-    plot_si = True # Plots used in the supplmentary materials of Grant et al.(2025)
+    plot_si = False # Plots used in the supplmentary materials of Grant et al.(2025)
 
     if plot_ms:
+
+        grant2025_fig1 = False
+        grant2025_fig2 = False
+        grant2025_fig2_alt = False
+        grant2025_fig2_alt_mod = True
+        grant2025_fig3 = False
 
         print("--------------------------------------------------")
         print("Start plot_ms framework from Grant et al.(2025)")
@@ -91,28 +97,32 @@ if Grant_2025:
 
         from plot_ms import *
 
-        # f1 of ms, conceptual figure of city grid cell
-        print("Performing Plot f1 of Grant et al.(2025)")
-        plot_conceptual(
-            da_cohort_size,
-            countries_mask,
-            countries_regions,
-            d_isimip_meta,
-            flags,
-            df_life_expectancy_5,
-        )
+        if grant2025_fig1:
 
-        # f2 of ms, combined heatwave plot
-        print("Performing Plot f2 of Grant et al.(2025)")
-        plot_combined_piechart(
-            df_GMT_strj,
-            ds_pf_gs,
-            da_gs_popdenom,
-            gdf_country_borders,
-            sims_per_step,
-            flags,
-            df_countries,
-        )
+            # f1 of ms, conceptual figure of city grid cell
+            print("Performing Plot f1 of Grant et al.(2025)")
+            plot_conceptual(
+                da_cohort_size,
+                countries_mask,
+                countries_regions,
+                d_isimip_meta,
+                flags,
+                df_life_expectancy_5,
+            )
+
+        if grant2025_fig2:
+
+            # f2 of ms, combined heatwave plot
+            print("Performing Plot f2 of Grant et al.(2025)")
+            plot_combined_piechart(
+                df_GMT_strj,
+                ds_pf_gs,
+                da_gs_popdenom,
+                gdf_country_borders,
+                sims_per_step,
+                flags,
+                df_countries,
+            )
         
         # # f2 alternative with both absolute pops below box plots and pie charts
         # plot_combined_population_piechart(
@@ -125,26 +135,45 @@ if Grant_2025:
         #     df_countries,
         # )    
         
-        # f2 alternative with absolute pops below box plots and no pie charts
-        # further, returning robinson boundaries for use in pyramid plot maps for consistent map extents (that exclude antarctica)
-        print("Performing Plot f2_alt of Grant et al.(2025)")
-        gdf_robinson_bounds = plot_combined_population(
-            df_GMT_strj,
-            ds_pf_gs,
-            da_gs_popdenom,
-            gdf_country_borders,
-            sims_per_step,
-            flags,
-            df_countries,
-        )        
+        if grant2025_fig2_alt:
 
-        # f3 of heatmaps across all hazards
-        print("Performing Plot f3 of Grant et al.(2025)")
-        plot_heatmaps_allhazards(
-            df_GMT_strj,
-            da_gs_popdenom,
-            flags,
-        )
+            # f2 alternative with absolute pops below box plots and no pie charts
+            # further, returning robinson boundaries for use in pyramid plot maps for consistent map extents (that exclude antarctica)
+            print("Performing Plot f2_alt of Grant et al.(2025)")
+            gdf_robinson_bounds = plot_combined_population(
+                df_GMT_strj,
+                ds_pf_gs,
+                da_gs_popdenom,
+                gdf_country_borders,
+                sims_per_step,
+                flags,
+                df_countries,
+            )        
+        
+        if grant2025_fig2_alt_mod:
+
+            # f2 alternative with absolute pops below box plots and no pie charts
+            # further, returning robinson boundaries for use in pyramid plot maps for consistent map extents (that exclude antarctica)
+            print("Performing Plot f2_alt update of Grant et al.(2025)")
+            gdf_robinson_bounds = plot_combined_population_update(
+                df_GMT_strj,
+                ds_pf_gs,
+                da_gs_popdenom,
+                gdf_country_borders,
+                sims_per_step,
+                flags,
+                df_countries,
+            )  
+
+        if grant2025_fig3:
+
+            # f3 of heatmaps across all hazards
+            print("Performing Plot f3 of Grant et al.(2025)")
+            plot_heatmaps_allhazards(
+                df_GMT_strj,
+                da_gs_popdenom,
+                flags,
+            )
 
         # # f4 of emergence union plot for hazards between 1960 and 2020 in a 2.7 degree world
         # plot_emergence_union(

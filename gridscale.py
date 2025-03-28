@@ -39,44 +39,43 @@ from pf_gridscale import *
 # Execute gridscale                                               #
 # --------------------------------------------------------------- #
 
+# list of countries to run gridscale analysis on (sometimes doing subsets across basiss/regions in floods/droughts)
+gridscale_countries = get_gridscale_regions(
+    grid_area,
+    flags,
+    gdf_country_borders,
+)
+
+# print(gridscale_countries)
+# print(type(gridscale_countries))
+# print(np.shape(gridscale_countries))
+
+# birth year aligned cohort sizes for gridscale analysis (summed over lat/lon per country)
+if not os.path.isfile(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version'])):
+
+    da_gs_popdenom = get_gridscale_popdenom(
+        gridscale_countries,
+        da_cohort_size,
+        countries_mask,
+        countries_regions,
+        da_population,
+        df_life_expectancy_5,
+    )
+
+    # pickle birth year aligned cohort sizes for gridscale analysis (summed per country)
+    with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(da_gs_popdenom,f)  
+        
+else:
+    
+    # load pickle birth year aligned cohort sizes for gridscale analysis (summed per country, i.e. not lat/lon explicit)
+    #print('loading da_gs_popdenom')
+    with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
+        da_gs_popdenom = pk.load(f)
+
 if flags['gridscale']:
             
     print("Computing Gridscale Emergence of cumulative exposures")
-
-    # list of countries to run gridscale analysis on (sometimes doing subsets across basiss/regions in floods/droughts)
-    gridscale_countries = get_gridscale_regions(
-        grid_area,
-        flags,
-        gdf_country_borders,
-    )
-
-    print(gridscale_countries)
-    print(type(gridscale_countries))
-    print(np.shape(gridscale_countries))
-
-    # birth year aligned cohort sizes for gridscale analysis (summed over lat/lon per country)
-    if not os.path.isfile(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version'])):
-
-        #print('getting da_gs_popdenom')
-        da_gs_popdenom = get_gridscale_popdenom(
-            gridscale_countries,
-            da_cohort_size,
-            countries_mask,
-            countries_regions,
-            da_population,
-            df_life_expectancy_5,
-        )
-
-        # pickle birth year aligned cohort sizes for gridscale analysis (summed per country)
-        with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'wb') as f:
-            pk.dump(da_gs_popdenom,f)  
-            
-    else:
-        
-        # load pickle birth year aligned cohort sizes for gridscale analysis (summed per country, i.e. not lat/lon explicit)
-        #print('loading da_gs_popdenom')
-        with open(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version']), 'rb') as f:
-            da_gs_popdenom = pk.load(f)
     
     ds_pf_gs = gridscale_emergence(
         d_isimip_meta,

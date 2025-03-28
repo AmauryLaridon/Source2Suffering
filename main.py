@@ -187,13 +187,13 @@ if not env_value_paper:
     #----------------------------------------------------------#
 
                             
-    flags['gridscale'] = 1                          # 0: do not process grid scale analysis, load pickles
+    flags['gridscale'] = 0                          # 0: do not process grid scale analysis, load pickles
                                                     # 1: process grid scale analysis
 
     flags['gridscale_le_test'] = 0                  # 0: do not process the grid scale analysis testing diff versions of constant life expectancy
                                                     # 1: process grid scale analysis testing diff versions of constant life expectancy    
                                                                 
-    flags['gridscale_country_subset'] = 1           # 0: run gridscale analysis on all countries
+    flags['gridscale_country_subset'] = 0           # 0: run gridscale analysis on all countries
                                                     # 1: run gridscale analysis on subset of countries determined in "get_gridscale_regions" and settings countries. Can only work if flags['gridscale'] = 1
 
     #--------------------- Produce Error ----------------------#
@@ -214,7 +214,7 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['plots'] = 0                               # 0 do not produce and save plots 
+    flags['plots'] = 1                               # 0 do not produce and save plots 
                                                      # 1 produce and load plots 
 
     flags['reporting'] = 0                          # 0 do not produce results for reporting 
