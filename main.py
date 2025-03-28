@@ -128,8 +128,8 @@ if env_value_paper:
         flags['global_avg_emergence'] = 0
         flags['gdp_deprivation'] = 0
         flags['vulnerability'] = 0
-        flags['plots'] = 1
-        flags['reporting'] = 1
+        flags['plots'] = 0
+        flags['reporting'] = 0
 
     if Laridon_2025==True:
         print('Configuration of the Framework for Laridon et al.(2025) not settle going to Manual Configuration')
@@ -187,14 +187,14 @@ if not env_value_paper:
     #----------------------------------------------------------#
 
                             
-    flags['gridscale'] = 0                          # 0: do not process grid scale analysis, load pickles
+    flags['gridscale'] = 1                          # 0: do not process grid scale analysis, load pickles
                                                     # 1: process grid scale analysis
 
     flags['gridscale_le_test'] = 0                  # 0: do not process the grid scale analysis testing diff versions of constant life expectancy
                                                     # 1: process grid scale analysis testing diff versions of constant life expectancy    
                                                                 
-    flags['gridscale_country_subset'] = 0           # 0: run gridscale analysis on all countries
-                                                    # 1: run gridscale analysis on subset of countries determined in "get_gridscale_regions" 
+    flags['gridscale_country_subset'] = 1           # 0: run gridscale analysis on all countries
+                                                    # 1: run gridscale analysis on subset of countries determined in "get_gridscale_regions" and settings countries. Can only work if flags['gridscale'] = 1
 
     #--------------------- Produce Error ----------------------#
 
@@ -214,10 +214,10 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['plots'] = 1                               # 0 do not produce and save plots 
+    flags['plots'] = 0                               # 0 do not produce and save plots 
                                                      # 1 produce and load plots 
 
-    flags['reporting'] = 1                          # 0 do not produce results for reporting 
+    flags['reporting'] = 0                          # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
     
     # Use for specific climate extreme jobs - HPC only
@@ -232,13 +232,13 @@ if not env_value_paper:
 #------------------------------------------------------------------------------------------------------------#
 
 print("------------------------------------------------------------------------------------------------------")
-print("                            Start to run the Source2Suffering Project                                 ")
+print("|                            Start to run the Source2Suffering Project                               |")
 print("------------------------------------------------------------------------------------------------------")
 print("Current date and time:", datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 start_time = time.time() # Record the start time of execution
 if env_value_paper:
     print("-------------------------------------------------------------------------------")
-    print(f"Model configuration - {env_value_paper}")
+    print(f"|Model configuration - {env_value_paper}")
     print("-------------------------------------------------------------------------------")
 else:
     print("-------------------------------------------------------------------------------")
@@ -251,7 +251,7 @@ print("-------------------------------------------------------------------------
 print("Start to import settings")
 
 from settings import *
-scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins = init()
+scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
 set_extremes(flags) # set extremes based on flag (this needs to happen here as it uses the flags dict defined above)
 
@@ -266,7 +266,7 @@ with open(adr_load_manip) as f:
 exec(exe_load_manip)
 
 #%%------------------------------------------------------------------------------------
-# Lifetime Exposure framework
+#                           Lifetime Exposure framework                               #
 #--------------------------------------------------------------------------------------
 
 print("-------------------------------------------------------------------------------")
@@ -278,7 +278,7 @@ with open(adr_exposure) as f:
 exec(exe_exposure)
 
 #%%------------------------------------------------------------------------------------
-# Emergence Lifetime Exposure framework
+#                       Emergence Lifetime Exposure framework                         #
 #--------------------------------------------------------------------------------------
 
 if Grant_2025==True:
@@ -292,7 +292,7 @@ if Grant_2025==True:
     exec(exe_emergence)
 
 #%%------------------------------------------------------------------------------------
-# Grid Scale Emergence
+#                                Grid Scale Emergence                                 #
 #--------------------------------------------------------------------------------------
 
 if Grant_2025==True:
@@ -307,7 +307,7 @@ if Grant_2025==True:
 
 
 #%%------------------------------------------------------------------------------------
-# Outputs - Plots
+#                                   Outputs - Plots                                   #
 #--------------------------------------------------------------------------------------
 
 if flags['plots']:
@@ -325,7 +325,7 @@ else :
     print("No plots performed and saved")
 
 #%%------------------------------------------------------------------------------------
-# Outputs - Reporting
+#                                 Outputs - Reporting                                 #
 #--------------------------------------------------------------------------------------
 
 if flags['reporting']:
@@ -344,10 +344,10 @@ else :
     print("No reporting performed and saved")
 
 #%%------------------------------------------------------------------------------------
-# Conclusion
+#                                      Conclusion                                     #
 #--------------------------------------------------------------------------------------
 print("------------------------------------------------------------------------------------------------------")
-print("|                        End of computations for the Source2Suffering Project                         |")
+print("|                        End of computations for the Source2Suffering Project                        |")
 print("------------------------------------------------------------------------------------------------------")
 # Calculate the script's execution time
 end_time = time.time()

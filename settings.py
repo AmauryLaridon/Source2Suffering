@@ -29,6 +29,11 @@ def init():
     birth_years = np.arange(year_start,year_ref+1)     
     year_end = 2113 # based on maximum life expectancy reported in UN WPP
     year_range = np.arange(year_start,year_end+1)
+
+    # set the countries for which we want to perform the assessment in case flags['gridscale_country_subset']=1
+    # set countries ='' or flags['gridscale_country_subset']=1 to assess for all countries. 
+    global countries
+    countries ='Norway'
     
     # PIC sampling information
     global pic_life_extent, nboots, resample_dim, pic_by, pic_qntl
@@ -177,7 +182,7 @@ def init():
            'v', 'w', 'x',
            'y', 'z']
     
-    return scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins
+    return scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries
 
 #%% ----------------------------------------------------------------
 # set extremes based on flag (this needs to happen here as it uses the flags dict defined above)
