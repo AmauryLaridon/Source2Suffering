@@ -2,9 +2,9 @@
 # Functions to compute lifetime exposure to climate extreme                   #
 # --------------------------------------------------------------------------- #
 
-# --------------------------------------------------------------- #
+#%%---------------------------------------------------------------#
 # Libraries                                                       #
-# --------------------------------------------------------------- #
+# ----------------------------------------------------------------#
 
 import sys
 from operator import index
@@ -24,12 +24,12 @@ from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
 
-# ---------------------------------------------------------------------- #
+#------------------------------------------------------------------------#
 # Convert Area Fraction Affected (AFA) to per-country                    #
 # number of extremes affecting one individual across life span           #
 # Translation of ms_exposure.m from Thiery et al.(2021) in Python done   # 
 # by Amaury Laridon for Laridon et al.(2025)                             #
-# ---------------------------------------------------------------------- #
+#------------------------------------------------------------------------#
 
 # # get exposure
 # if flags['lifetime_exposure_cohort'] == 1 or flags['lifetime_exposure_pic']==1:
@@ -116,15 +116,19 @@ scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start
 # ---------------------------------------------------------------------- #
 
 
-#%% ----------------------------------------------------------------
-# linear regression
+#%%---------------------------------------------------------------#
+# Linear regression                                               #
+#-----------------------------------------------------------------#
+
 def lreg(x, y):
     # Wrapper around scipy linregress to use in apply_ufunc
     slope, intercept, r_value, p_value, std_err = sts.linregress(x, y)
     return np.array([slope, p_value, r_value])
 
-#%% ----------------------------------------------------------------
-# apply vectorized linear regression
+#%%---------------------------------------------------------------#
+# Apply vectorized linear regression                              #
+#-----------------------------------------------------------------#
+
 def vectorize_lreg(da_y,
                 da_x=None):
     
@@ -149,8 +153,10 @@ def vectorize_lreg(da_y,
     slope = cp(stats.sel(parameter=0))
     return slope
 
-#%% ----------------------------------------------------------------
-# bootstrapping function 
+#%%---------------------------------------------------------------#
+# Bootstrapping function                                          #
+#-----------------------------------------------------------------#
+
 def resample(
     da, 
     resample_dim,
@@ -173,8 +179,11 @@ def resample(
     smp_da[resample_dim] = np.arange(1960,1960+life_extent)
     return smp_da
 
-#%% ----------------------------------------------------------------
-# *improved function to compute extreme event exposure across a person's lifetime
+#%%---------------------------------------------------------------#
+# Improved function to compute extreme event exposure across a    #
+# person's lifetime                                               #
+#-----------------------------------------------------------------#
+
 def calc_life_exposure(
     df_exposure,
     df_life_expectancy,
@@ -208,8 +217,10 @@ def calc_life_exposure(
 
     return exposure_birthyears_percountry
 
-#%% ----------------------------------------------------------------
-# calculated weighted fieldmean per country mask
+#%%---------------------------------------------------------------#
+# Calculated weighted fieldmean per country mask                  #
+#-----------------------------------------------------------------#
+
 def calc_weighted_fldmean(
     da, 
     weights, 
@@ -240,8 +251,10 @@ def calc_weighted_fldmean(
 
     return da_weighted_fldmean
 
-#%% ----------------------------------------------------------------
-# get member countries per region
+#%%---------------------------------------------------------------#
+# Get member countries per region                                 #
+#-----------------------------------------------------------------#
+
 def get_countries_of_region(
     region, 
     df_countries,
@@ -260,8 +273,11 @@ def get_countries_of_region(
 
     return member_countries    
 
-#%% ----------------------------------------------------------------
-# function to compute multi-model mean across ISIMIP simulations based on mf_exposure_mmm.m
+#%%---------------------------------------------------------------#
+# Function to compute multi-model mean across ISIMIP simulations  #
+# based on mf_exposure_mmm.m (see Thiery et al.(2021))            #
+#-----------------------------------------------------------------#
+
 def calc_exposure_mmm_xr(
     ds_le,
 ):
@@ -296,8 +312,12 @@ def calc_exposure_mmm_xr(
     
     return ds_le
     
-#%% ----------------------------------------------------------------
-# function to compute multi-model mean across ISIMIP simulations based on mf_exposure_mmm.m
+#%%---------------------------------------------------------------#
+# Function to compute multi-model mean across ISIMIP simulations  #
+# based on mf_exposure_mmm.m (see Thiery et al.(2021))            #
+#-----------------------------------------------------------------#
+
+
 def calc_exposure_mmm_pic_xr(
     d_exposure_pic,
     dim_1_name,
@@ -352,9 +372,11 @@ def calc_exposure_mmm_pic_xr(
 
     return ds_exposure_pic_stats
 
-#%% ----------------------------------------------------------------
-# convert Area Fraction Affected (AFA) to 
-# per-country number of extremes affecting one individual across life span
+#%%---------------------------------------------------------------#
+# Convert Area Fraction Affected (AFA) to per-country number of   #
+# extremes affecting one individual across life span              #
+#-----------------------------------------------------------------#
+
 def calc_exposure_trends(
     d_isimip_meta,
     grid_area,
@@ -508,9 +530,11 @@ def calc_exposure_trends(
 
     return ds_e
         
-#%% ----------------------------------------------------------------
-# convert Area Fraction Affected (AFA) to 
-# per-country number of extremes affecting one individual across life span
+#%%---------------------------------------------------------------#
+# Convert Area Fraction Affected (AFA) to per-country number of   #
+# extremes affecting one individual across life span              #
+#-----------------------------------------------------------------#
+
 def calc_lifetime_exposure(
     d_isimip_meta, 
     df_countries, 
@@ -604,9 +628,12 @@ def calc_lifetime_exposure(
 
     return ds_le
         
-#%% ----------------------------------------------------------------
-# convert Area Fraction Affected (AFA) to 
-# per-cohort number of extremes affecting one individual across life span
+#%%---------------------------------------------------------------#
+# Convert Area Fraction Affected (AFA) to                         #
+# per-cohort number of extremes affecting one individual across   #
+# life span                                                       #
+#-----------------------------------------------------------------#
+
 def calc_cohort_lifetime_exposure(
     d_isimip_meta,
     df_countries,
@@ -759,10 +786,13 @@ def calc_cohort_lifetime_exposure(
         with open(data_dir+'{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],i), 'wb') as f:
             pk.dump(da_exposure_peryear_perage_percountry_strj,f)                     
         
-#%% ----------------------------------------------------------------
-# convert PIC Area Fraction Affected (AFA) to 
-# per-country number of extremes affecting one individual across life span
-# under PIC conditions for climate and 1960 demography
+#%%---------------------------------------------------------------#
+# Convert PIC Area Fraction Affected (AFA) to                     #
+# per-country number of extremes affecting one individual         #
+# across life span under PIC conditions for climate               #
+# and 1960 demography                                             #
+#-----------------------------------------------------------------#
+
 def calc_lifetime_exposure_pic(
     d_pic_meta, 
     df_countries, 

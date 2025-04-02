@@ -1,6 +1,6 @@
-# -----------------------------------------------------------------------------------------------#
-# Functions to compute and print the different reports needed in the Laridon et al.(2025) paper  #
-# -----------------------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------------------------#
+# Functions to compute and print the different reports needed in the Source2Suffering Project  #
+# ---------------------------------------------------------------------------------------------#
 
 #%%---------------------------------------------------------------#
 # Libraries                                                       #
@@ -33,3 +33,5 @@ scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start
 #%% ----------------------------------------------------------------#
 # Sample analytics for paper                                        #
 # ------------------------------------------------------------------#
+
+print("Framework to reproduce the reports for the Source2Suffering Project not yet developped in python.")

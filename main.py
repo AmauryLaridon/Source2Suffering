@@ -57,14 +57,14 @@ global flags
 
 flags = {}
 
-# Boolean to produce the exact configuration of the framework and outputs to 
-# reproduce the results of the associated paper
+# Boolean to produce the exact configuration of the framework based on the different papers and methodologies 
 
-global Thiery_2021, Grant_2025, Laridon_2025
+global Thiery_2021, Grant_2025, Laridon_2025, Source2Suffering
 
 Thiery_2021 = False 
 Grant_2025 = True      
 Laridon_2025 = False
+Source2Suffering = False
 env_value_paper= 0 
 
 #-------------------------------------------------------------------------------------#
@@ -75,14 +75,17 @@ env_value_paper= 0
 env_value_paper = os.getenv("CONFIG_PAPER_VALUE")
 if env_value_paper:
     Thiery_2021 = False 
-    Grant_2025 = False 
-    Laridon_2025 = False 
+    Grant_2025 = True 
+    Laridon_2025 = False
+    Source2Suffering = False 
     if env_value_paper == "thiery_2021":
         Thiery_2021 = True
     if env_value_paper == "grant_2025":
         Grant_2025 = True
     if env_value_paper == "laridon_2025":
-        Laridon_2025 = True    
+        Laridon_2025 = True 
+    if env_value_paper == "source2suffering":
+        Source2Suffering = True   
 
 #%%------------------------------------------------------------------------------------#
 # Configuration of the Framework to reproduce the papers                               #
@@ -111,7 +114,7 @@ if env_value_paper:
         flags['reporting'] = 0
 
     if Grant_2025==True:
-        flags['extr'] = 'heatwavedarea'
+        flags['extr'] = 'all'
         flags['gmt'] = 'ar6_new'
         flags['rm'] = 'rm'
         flags['version'] = 'pickles_v3'
@@ -119,9 +122,9 @@ if env_value_paper:
         flags['mask'] = 0
         flags['lifetime_exposure_cohort'] = 0
         flags['lifetime_exposure_pic'] = 0
-        flags['emergence'] = 0
+        flags['emergence'] = 1
         flags['birthyear_emergence'] = 0
-        flags['gridscale'] = 0
+        flags['gridscale'] = 1
         flags['gridscale_le_test'] = 0
         flags['gridscale_country_subset'] = 0
         flags['global_emergence_recollect'] = 0
@@ -132,6 +135,9 @@ if env_value_paper:
         flags['reporting'] = 0
 
     if Laridon_2025==True:
+        print('Configuration of the Framework for Laridon et al.(2025) not settle going to Manual Configuration')
+    
+    if Source2Suffering==True:
         print('Configuration of the Framework for Laridon et al.(2025) not settle going to Manual Configuration')
 
 #%%------------------------------------------------------------------------------------#
@@ -217,7 +223,7 @@ if not env_value_paper:
     flags['plots'] = 1                               # 0 do not produce and save plots 
                                                      # 1 produce and load plots 
 
-    flags['reporting'] = 0                          # 0 do not produce results for reporting 
+    flags['reporting'] = 1                          # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
     
     # Use for specific climate extreme jobs - HPC only

@@ -1,13 +1,19 @@
-# ----------------------------------------------------------------
-# Settings
-# These are global variables to be used throughout the whole project
-# ----------------------------------------------------------------
+# -----------------------------------------------------------------------#
+# Subscript to configure the settings of the lifetime exposure framework #
+# These are global variables to be used throughout the whole project     #
+# -----------------------------------------------------------------------#
+
+#%%-------------------------------------------------------------- #
+# Libraries                                                       #
+# --------------------------------------------------------------- #
+
 
 import numpy as np
 import os
 
-#%% ----------------------------------------------------------------
+#%% ---------------------------------------------------------------- #
 def init(): 
+    """Init function that define all the global variables"""
 
     # scripts directory
     global scripts_dir
@@ -33,7 +39,7 @@ def init():
     # set the countries for which we want to perform the assessment in case flags['gridscale_country_subset']=1
     # set countries ='' or flags['gridscale_country_subset']=1 to assess for all countries. 
     global countries
-    countries ='Norway'
+    countries =''
     
     # PIC sampling information
     global pic_life_extent, nboots, resample_dim, pic_by, pic_qntl

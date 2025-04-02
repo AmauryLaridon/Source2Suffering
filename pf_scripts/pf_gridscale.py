@@ -2,9 +2,9 @@
 # Functions to compute gridscale analysis                                     #
 # --------------------------------------------------------------------------- #
 
-# --------------------------------------------------------------- #
+#%%---------------------------------------------------------------#
 # Libraries                                                       #
-# --------------------------------------------------------------- #
+#-----------------------------------------------------------------#
 
 import os
 import glob
@@ -34,10 +34,14 @@ scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start
 
 
 
-#%% ----------------------------------------------------------------   
-# Function to open isimip data array and read years from filename
-# (the isimip calendar "days since 1661-1-1 00:00:00" cannot be read by xarray datetime )
-# this implies that years in file need to correspond to years in filename
+#%%---------------------------------------------------------------#
+# Function to open isimip data array and read years from filename #
+# (the isimip calendar "days since 1661-1-1 00:00:00" cannot be   #
+# read by xarray datetime )                                       #
+# this implies that years in file need to correspond              #
+# to years in filename                                            #
+#-----------------------------------------------------------------#
+
 def open_dataarray_isimip(file_name): 
     
     begin_year = int(file_name.split('_')[-2])
@@ -56,9 +60,9 @@ def open_dataarray_isimip(file_name):
     
     return da
 
-#%% ----------------------------------------------------------------
-# bootstrapping function 
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Bootstrapping function                                          #
+#-----------------------------------------------------------------#
 
 def resample(
     da, 
@@ -83,9 +87,9 @@ def resample(
     return smp_da
 
 
-#%% ----------------------------------------------------------------
-# function for returning countries for grid scale analysis
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Function for returning countries for grid scale analysis        #
+#-----------------------------------------------------------------#
 
 def get_gridscale_regions(
     grid_area,
@@ -177,8 +181,15 @@ def get_gridscale_regions(
             list_countries = gdf_basin_countries['name'].values
             list_countries = np.sort(np.insert(list_countries,-1,'Egypt'))
             
-        else:
-            list_countries = gdf_country.index.values
+        elif flags['extr'] == 'all':
+
+            gdf_country = gdf_country_borders.loc[:,'geometry']
+            
+            if countries:
+                list_countries=countries
+            else:
+                list_countries = gdf_country.index.values
+            
             
     else:
         
@@ -187,9 +198,9 @@ def get_gridscale_regions(
             
     return list_countries
 
-#%% ----------------------------------------------------------------
-# grid scale emergence function
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Grid scale emergence function                                   #
+# ----------------------------------------------------------------#
 
 def gridscale_emergence(
     d_isimip_meta,
@@ -679,9 +690,10 @@ def gridscale_emergence(
         
     return ds_pf
 
-#%% ----------------------------------------------------------------
-# grid scale emergence function for testing analysis on constant life expectancy
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Grid scale emergence function for testing analysis on constant  #
+# life expectancy                                                 #
+# ----------------------------------------------------------------#
 
 def gridscale_emergence_life_expectancy_constant(
     d_isimip_meta,
@@ -1400,9 +1412,9 @@ def gridscale_emergence_life_expectancy_constant(
 
 
 
-#%% ----------------------------------------------------------------
-# grid scale population per birthyear
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Grid scale population per birthyear                             #
+# ----------------------------------------------------------------#
 
 def get_gridscale_popdenom(
     list_countries,
@@ -1478,9 +1490,9 @@ def get_gridscale_popdenom(
     da_cntry_pops = xr.concat(cntry_pops,dim='country').assign_coords({'country':list_countries})     
     return da_cntry_pops
 
-#%% ----------------------------------------------------------------
-# grid scale emergence union
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Grid scale emergence union                                      #
+# ----------------------------------------------------------------#
 
 def get_gridscale_union(
     da_population,
@@ -1666,9 +1678,10 @@ def get_gridscale_union(
         
     return da_emergence_mean_subset,da_emergence_union_subset
 
-#%% ----------------------------------------------------------------
-# proc emergences into global array for ar6 hexagons and otherwise
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Process emergences into global array                            #
+# for ar6 hexagons and otherwise#                                 #
+# ----------------------------------------------------------------#
 
 def collect_global_emergence(
     grid_area,
@@ -1797,9 +1810,10 @@ def collect_global_emergence(
                 
     return d_emergence_masks # note, this used to return d_global_emergence. adjusted this temporarily for the vulnerability analysis
 
-#%% ----------------------------------------------------------------
-# proc pic quantiles into global array for sensitivity analysis
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Process pic quantiles into global array for                     #
+# sensitivity analysis                                            #
+# ----------------------------------------------------------------#
 
 def collect_pic_qntls(
     grid_area,
@@ -1918,9 +1932,10 @@ def collect_pic_qntls(
                 
     return d_pic_qntls
 
-#%% ----------------------------------------------------------------
-# proc pic quantiles into global array for sensitivity analysis; extra extreme pic quantiles
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Process pic quantiles into global array for sensitivity         #
+# analysis; extra extreme pic quantiles                           #
+# ----------------------------------------------------------------#
 
 def collect_pic_qntls_extra(
     grid_area,
@@ -2085,9 +2100,10 @@ def collect_pic_qntls_extra(
                 
     return d_pic_qntls
 
-#%% ----------------------------------------------------------------
-# proc emergences into averages across simulations for emergence fractions in ensemble
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Process emergences into averages across simulations             #
+# for emergence fractions in ensemble                             #
+# ----------------------------------------------------------------#
 
 def get_mean_emergence(
     df_GMT_strj,
@@ -2157,9 +2173,9 @@ def get_mean_emergence(
         with open(data_dir+'{}/emergence_means.pkl'.format(flags['version']), 'rb') as f:
                 ds_emergence_mean = pk.load(f)     
 
-#%% ----------------------------------------------------------------
-# proc gdp
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Process GDP                                                     #
+# ----------------------------------------------------------------#
 
 def load_gdp_deprivation(
     flags,
@@ -2458,7 +2474,10 @@ def load_gdp_deprivation(
     return ds_gdp,ds_grdi
     
          
-# %%
+#%%---------------------------------------------------------------#
+# Process timeseries of vulnerability                             #
+#-----------------------------------------------------------------#
+
 def timeseries_vulnerability(
     
 ):
@@ -2677,7 +2696,9 @@ def timeseries_vulnerability(
         
         plt.show()         
         
-# %%        
+#%%---------------------------------------------------------------#
+# Plot maps of GDP and GRDI                                       #
+#-----------------------------------------------------------------#
 def plot_maps_gdp_grdi():
     pass
     
@@ -2747,9 +2768,10 @@ def plot_maps_gdp_grdi():
     #     ax.coastlines()
     # plt.show()                
     
-#%% ----------------------------------------------------------------
-# get quantiles of vulnerability (gdp and grdi) based on population
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Get quantiles of vulnerability (gdp and grdi)                   #
+# based on population                                             #
+# ----------------------------------------------------------------#
 
 def get_vulnerability_quantiles(
     flags,
@@ -2968,9 +2990,10 @@ def get_vulnerability_quantiles(
         
     return ds_gdp_qntls, ds_grdi_qntls
 
-#%% ----------------------------------------------------------------
-# get quantiles of vulnerability (gdp and grdi) based on population
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# get quantiles of vulnerability (gdp and grdi)                   #
+# based on population                                             #
+# ----------------------------------------------------------------#
 
 # vulnerability subsets of emergence (so crossing quantiles above with emergence masks to see unprecedented populations based on your vulnerablity group)
 def emergence_by_vulnerability(
@@ -3095,7 +3118,9 @@ def emergence_by_vulnerability(
             
     return ds_vulnerability
 
-# %%=========================================================================
+#%%---------------------------------------------------------------#
+# Process spatially explicit cohorts for 1960 to 2020             #
+#-----------------------------------------------------------------#
 
 def get_spatially_explicit_cohorts_1960_2020(
     flags,

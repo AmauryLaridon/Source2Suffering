@@ -2,9 +2,9 @@
 # Functions to compute emergence analysis                                     #
 # --------------------------------------------------------------------------- #
 
-# --------------------------------------------------------------- #
+#%%---------------------------------------------------------------#
 # Libraries                                                       #
-# --------------------------------------------------------------- #
+# ----------------------------------------------------------------#
 
 import os
 import requests
@@ -27,10 +27,14 @@ import cartopy.crs as ccrs
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
-#%% ----------------------------------------------------------------
-# make age+time selections to align exposure, cohort exposure and cohort sizes along birth year and time
-# this is new version that should be faster because I limit the alignment to 1960 to 2020 (birth_years instead of year range)
-# Jan 18 2023 briefly added extra statements to handle those born up to 2100
+#%%---------------------------------------------------------------#
+# Make age+time selections to align exposure, cohort exposure and #
+# cohort sizes along birth year and time this is new version that #
+# should be faster because we limit the alignment to 1960 to 2020 #
+# (birth_years instead of year range) Jan 18 2023 briefly added   #
+# extra statements to handle those born up to 2100                #
+#-----------------------------------------------------------------#
+
 def calc_birthyear_align(
     da,
     df_life_expectancy,
@@ -96,8 +100,11 @@ def calc_birthyear_align(
     da_all = xr.concat(country_list,dim='country')
     
     return da_all
-#%% ----------------------------------------------------------------
-# create dataset out of birthyear aligned cohort exposure and regular rexposure, add cumulative exposure, 
+#%%---------------------------------------------------------------#
+# Create dataset out of birthyear aligned cohort exposure and     # 
+# regular rexposure, add cumulative exposure                      #
+#-----------------------------------------------------------------#
+
 def ds_exposure_align(
     da,
 ):
@@ -117,8 +124,10 @@ def ds_exposure_align(
      
     return ds_exposure_cohort
 
-#%% ----------------------------------------------------------------
-# create dataset out of birthyear aligned cohort sizes
+#%%---------------------------------------------------------------#
+# Create dataset out of birthyear aligned cohort sizes            #
+#-----------------------------------------------------------------#
+
 def ds_cohort_align(
     da,
     da_aligned,
@@ -151,8 +160,11 @@ def ds_cohort_align(
      
     return ds_cohort_sizes
 
-#%% ----------------------------------------------------------------
-# function to generate mask of unprecedented timesteps per birth year and age of emergence
+#%%---------------------------------------------------------------#
+# Function to generate mask of unprecedented timesteps per        #
+# birth year and age of emergence                                 #
+#-----------------------------------------------------------------#
+
 def exposure_pic_masking(
     ds_emergence_mask,
     ds_exposure_pic,
@@ -203,8 +215,10 @@ def exposure_pic_masking(
     
     return da_emergence_mask,ds_age_emergence
 
-#%% ----------------------------------------------------------------
-# function to find number of people with unprecedented exposure 
+#%%---------------------------------------------------------------#
+# Function to find number of people with unprecedented exposure   #
+#-----------------------------------------------------------------#
+
 def calc_unprec_exposure(
     ds_exposure_cohort,
     da_emergence_mask,
@@ -263,8 +277,10 @@ def calc_unprec_exposure(
      
     return ds_pop_frac
 
-#%% ----------------------------------------------------------------
-# function to run stats on pop frac across runs
+#%%---------------------------------------------------------------#
+# Function to run stats on pop frac across runs                   #
+#-----------------------------------------------------------------#
+
 def pop_frac_stats(
     ds_pop_frac,
     ds_cohorts,
@@ -316,8 +332,10 @@ def pop_frac_stats(
     
     return ds_pop_frac
 
-#%% ----------------------------------------------------------------
-# get timing and EMF of exceedence of pic-defined extreme
+#%%---------------------------------------------------------------#
+# Get timing and EMF of exceedence of pic-defined extreme         #
+#-----------------------------------------------------------------#
+
 def calc_exposure_emergence(
     ds_exposure,
     ds_exposure_pic,
@@ -353,7 +371,10 @@ def calc_exposure_emergence(
     return gdf_exposure_emergence_birth_year
 
 
-#%% ----------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Computation of the emergences for stylized trajectories         #
+#-----------------------------------------------------------------#
+
 def strj_emergence(
     d_isimip_meta,
     df_life_expectancy_5,

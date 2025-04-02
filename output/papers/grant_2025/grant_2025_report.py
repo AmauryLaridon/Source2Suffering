@@ -1,10 +1,10 @@
-# ----------------------------------------------------------------------------------------
-# Script to compute and print the different reports needed in the Grant et al.(2025) paper
-# ----------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------#
+# Functions to compute and print the different reports needed in the Grant et al.(2025) paper  #
+# ---------------------------------------------------------------------------------------------#
 
-#%%  ----------------------------------------------------------------
-# Libraries  
-# ----------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Libraries                                                       #
+#-----------------------------------------------------------------#
 
 import os
 import requests
@@ -30,13 +30,13 @@ import cartopy.crs as ccrs
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
-#%% ----------------------------------------------------------------
-# sample analytics for paper
-# ------------------------------------------------------------------
+#%% ----------------------------------------------------------------#
+# Sample analytics for paper                                        #
+# ------------------------------------------------------------------#
 
-#%% ----------------------------------------------------------------
-# multi-hazard emergence estimates
-# ------------------------------------------------------------------
+#%% ----------------------------------------------------------------#
+# Multi-hazard emergence estimates                                  #
+# ------------------------------------------------------------------#
 
 def multi_hazard_emergence(
     grid_area,
@@ -124,9 +124,10 @@ def multi_hazard_emergence(
     print('1960 percentage of land area \n with emergence of {} extremes \n is {} in a {} GMT pathway'.format(multiextrn,la_frac_eu_gteq3_1960.item(),str(np.round(df_GMT_strj.loc[2100,gmt],1))))  
     print('2020 percentage of land area \n with emergence of {} extremes \n is {} in a {} GMT pathway'.format(multiextrn,la_frac_eu_gteq3_2020.item(),str(np.round(df_GMT_strj.loc[2100,gmt],1))))    
 
-#%% ----------------------------------------------------------------
-# grid scale cohort sizes per birth year (copied from jupyter and only useable there)
-# ------------------------------------------------------------------
+#%% ----------------------------------------------------------------#
+# Grid scale cohort sizes per birth year (copied from jupyter       #
+# and only useable there)                                           #
+# ------------------------------------------------------------------#
 
 def gridscale_cohort_sizes(
     flags,
@@ -173,9 +174,9 @@ def gridscale_cohort_sizes(
     with open(data_dir+'{}/country/gridscale_cohort_global.pkl'.format(flags['version']), 'wb') as f:
         pk.dump(ds_gridscale_cohortsize,f)   
         
-#%% ----------------------------------------------------------------
-# grid exposure locations for all sims 
-# ------------------------------------------------------------------        
+#%% ----------------------------------------------------------------#
+# Grid exposure locations for all sims                              #
+# ------------------------------------------------------------------#
         
 def exposure_locs(
     flags,
@@ -225,12 +226,13 @@ def exposure_locs(
             pk.dump(da_exposure_occurence,file)      
             
             
-#%% ----------------------------------------------------------------
-# emergence locations in specific runs for 1.5, 2.5, 2.7 and 3.5
-# used for geographically constrained PF to recompute with different 
-# denominator (used for numerator with grid scale pop to compare against
-# pop of regions pinged by exposure in da_exposure_occurrence)
-# ------------------------------------------------------------------                    
+#%% ----------------------------------------------------------------#
+# Emergence locations in specific runs for 1.5, 2.5, 2.7 and 3.5    #
+# used for geographically constrained PF to recompute with          #
+# different denominator (used for numerator with grid scale pop to  #
+# compare against pop of regions pinged                             #
+# by exposure in da_exposure_occurrence)                            #
+# ------------------------------------------------------------------#                   
 
 def emergence_locs_perrun(
     flags,
@@ -361,11 +363,11 @@ def emergence_locs_perrun(
             )
             )    
         
-#%% ----------------------------------------------------------------
-# population fraction estimates per run and for selected GMTs 
-# when constraining denominator by geography ie exposed locations
-# in our dataset
-# ------------------------------------------------------------------            
+#%% ----------------------------------------------------------------#
+# Population fraction estimates per run and for selected GMTs       # 
+# when constraining denominator by geography ie exposed locations   #
+# in our dataset                                                    #
+# ------------------------------------------------------------------#           
 
 def pf_geoconstrained(
     flags,
@@ -473,9 +475,9 @@ def pf_geoconstrained(
             )
             )                
 
-#%% ----------------------------------------------------------------
-# read in geoconstrained pf and print for 1960 and 2020 across GMTs
-# ------------------------------------------------------------------                           
+#%% ----------------------------------------------------------------#
+# Read in geoconstrained pf and print for 1960 and 2020 across GMTs #
+# ------------------------------------------------------------------#                          
                    
 def print_pf_geoconstrained(
     flags,    
@@ -522,10 +524,11 @@ def print_pf_geoconstrained(
             print('{} under GMT step {} has geoconstrained pf of {} for 1960 and {} for 2020'.format(extr,step,pf_geo.loc[{'birth_year':1960}].item(),pf_geo.loc[{'birth_year':2020}].item()))
             print('{} under GMT step {} has regular pf of {} for 1960 and {} for 2020'.format(extr,step,pf.loc[{'birth_year':1960}].item(),pf.loc[{'birth_year':2020}].item()))
             
-#%% ----------------------------------------------------------------
-# checking for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level
-# low sensitivity to ttest_ind() or ttest_rel() choice
-# ------------------------------------------------------------------        
+#%% ----------------------------------------------------------------#
+# Checking for signifiance of change in means between 1960 and 2020 #
+# pf per event and for a GMT level low sensitivity to               #
+# ttest_ind() or ttest_rel() choice                                 #
+# ------------------------------------------------------------------#       
     
 def paired_ttest(
     flags,
@@ -595,9 +598,9 @@ def paired_ttest(
         print('{} p value for difference of means: {}'.format(extr,result.pvalue))
         print('')
             
-#%% ----------------------------------------------------------------
-# print latex table of ensemble members per hazard and gmt pathway
-# ------------------------------------------------------------------      
+#%% ----------------------------------------------------------------#
+# Print latex table of ensemble members per hazard and gmt pathway  #
+# ------------------------------------------------------------------#     
 
 def print_latex_table_ensemble_sizes(
     flags,
@@ -655,10 +658,10 @@ def print_latex_table_ensemble_sizes(
     print(texdata,end="")
     print("\\end{tabular}")                
 
-#%% ----------------------------------------------------------------
-# millions excess children between 1.5 and 2.7 deg warming by 2100
-# living unprecedented exposure to events
-# ------------------------------------------------------------------  
+#%% ----------------------------------------------------------------#
+# Millions excess children between 1.5 and 2.7 deg warming by 2100  #
+# living unprecedented exposure to events                           #
+# ------------------------------------------------------------------# 
 
 def print_millions_excess(
     flags,
@@ -687,12 +690,14 @@ def print_millions_excess(
     gmts2100 = np.round(df_GMT_strj.loc[2100,gmts].values,1)   
     gmt_dict = dict(zip(gmts,gmts2100))
     sumlist=[]
+
     for extr in extremes:
         
-        print(extr)
-        with open(data_dir+'pickles_v2/{}/isimip_metadata_{}_{}_{}.pkl'.format(extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
+        print("\n")
+        print("Assessment for climate extreme : {}".format(extr))
+        with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
             d_isimip_meta = pk.load(file)    
-        with open(data_dir+'pickles_v2/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(extr,extr), 'rb') as f:
+        with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as f:
             ds_pf_gs = pk.load(f)            
 
         sims_per_step = {}
@@ -704,25 +709,29 @@ def print_millions_excess(
         # millions children unprecedented in 1.5 pathway
         step=0
         unprec_15 = ds_pf_gs['unprec_{}'.format(pic_qntl_str)].sum(dim='country').loc[{'GMT':step,'run':sims_per_step[step],'birth_year':np.arange(2003,2021)}].sum(dim='birth_year').mean(dim='run') / 10**6
-        print('in 1.5 degree pathway, {} chidren live unprecedented exposure to {}'.format(np.around(unprec_15.item()),extr))
+        print('In 1.5 degree pathway, {} million children will live unprecedented exposure to {}'.format(np.around(unprec_15.item()),extr))
         
         # millions children unprecedented in 2.7 pathway
-        step=12
-        unprec_27 = ds_pf_gs['unprec_{}'.format(pic_qntl_str)].sum(dim='country').loc[{'GMT':step,'run':sims_per_step[step],'birth_year':np.arange(2003,2021)}].sum(dim='birth_year').mean(dim='run') / 10**6
-        print('in 2.7 degree pathway, {} children live unprecedented exposure to {}'.format(np.around(unprec_27.item()),extr))    
-            
+        if flags['version']=="pickles_v2":
+            steps = 12 # Luke comment : 2.7°C, whereas 17 is 3.2°C in new scheme
+        if flags['version']=="pickles_v3":
+            steps = 17 # Luke comment : 2.7°C, whereas 17 is 3.2°C in new scheme
+            unprec_27 = ds_pf_gs['unprec_{}'.format(pic_qntl_str)].sum(dim='country').loc[{'GMT':step,'run':sims_per_step[step],'birth_year':np.arange(2003,2021)}].sum(dim='birth_year').mean(dim='run') / 10**6
+            print('In 2.7 degree pathway, {} million children will live unprecedented exposure to {}'.format(np.around(unprec_27.item()),extr))    
+                
         # difference between 1.5 and 2.7 deg pathways
-        print('{} more million children will live through unprecedented exposure to {}'.format(np.around((unprec_27.item()-unprec_15.item())),extr))
+        print('There will be {} more million children that will live through unprecedented exposure to {} in the 2.7°C GMT pathway instead of the 1.5°C GMT pathway'.format(np.around((unprec_27.item()-unprec_15.item())),extr))
         print('')
         
         sumlist.append(np.around((unprec_27.item()-unprec_15.item())))
         
     print(np.sum(sumlist))
     
-#%% ----------------------------------------------------------------
-# ratio of pfs reporting
-# ------------------------------------------------------------------  
+#%% ----------------------------------------------------------------#
+# Ratio of Population fractions (PFS) reporting                     #
+#-------------------------------------------------------------------#
 def print_pf_ratios_and_abstract_numbers(
+    flags,
     df_GMT_strj,
     da_gs_popdenom,
 ):
@@ -748,16 +757,19 @@ def print_pf_ratios_and_abstract_numbers(
         'tropicalcyclonedarea': '$\mathregular{PF_{Tropical cyclones}}$',
     }        
 
-    # gmt choice
+    # GMT choice
     GMT_low = 0 # 1.5 degrees
     GMT_high = 20 # 3.5 degrees
-    GMT_cp = 12 # 2.7 degrees, whereas 17 is 3.2 in new scheme
+    if flags['version']=="pickles_v2":
+        GMT_cp = 12 # 2.7 Luke comment : degrees, whereas 17 is 3.2 in new scheme
+    if flags['version']=="pickles_v3":
+        GMT_cp = 17 # 2.7 Luke comment : degrees, whereas 17 is 3.2 in new scheme
     unprec_level="unprec_99.99"
 
     # loop through extremes and concat pop and pop frac
     list_extrs_pf = []
     for extr in extremes:
-        with open(data_dir+'pickles_v2/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(extr,extr), 'rb') as file:
+        with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as file:
             ds_pf_gs_extr = pk.load(file)    
         p = ds_pf_gs_extr[unprec_level].loc[{
             'GMT':np.arange(GMT_indices_plot[0],GMT_indices_plot[-1]+1).astype('int'),
@@ -784,7 +796,8 @@ def print_pf_ratios_and_abstract_numbers(
         
         pf_2020_1960_ratio = np.around(pf_2020 / pf_1960,1)
         
-        print('ratio in pf for {} in 2.7 degree \n scenario between 2020 and 1960 is {} (meaning, pf_2020/pf_1960)'.format(extr,pf_2020_1960_ratio))
+        print("\n")
+        print('Ratio in Population Fraction (PF) for {} in 2.7°C pathway between 2020 and 1960 birth cohort is {} (meaning, pf_2020_2.7°C/pf_1960_2.7°C)'.format(extr,pf_2020_1960_ratio))
         
         # looking across GMTs for 2020
         pf15 = ds_pf_gs_extrs.loc[{
@@ -807,17 +820,15 @@ def print_pf_ratios_and_abstract_numbers(
         
         pf_27_15_ratio = np.around(pf27 / pf15,1)    
         
-        print('change in pf for {} and 2020 cohort \n between 1.5 and 2.7 pathways is {}'.format(extr,pf_27_15_ratio))
+        print('Change in Population Fraction (PF) for {} in the 2020 cohort between 1.5 and 2.7 pathways is {} (meaning, pf_2020_2.7°C/pf_2020_1.5°C)'.format(extr,pf_27_15_ratio))
         
-        print('1.5 degree scenario pf for {} is {}'.format(extr,pf15))
-        print('3.5 degree scenario pf for {} is {}'.format(extr,pf35))
-        
-        print('')  
-        
+        print('PF for {} under 1.5°C pathway is {} for the 2020 birth cohort'.format(extr,pf15))
+        print('PF for {} under 3.5°C pathway is {} for the 2020 birth cohort'.format(extr,pf35))
+                
 
-#%% ----------------------------------------------------------------
-# print number of unprecedented people
-# ------------------------------------------------------------------          
+#%% ----------------------------------------------------------------#
+# Print number of unprecedented people                              #
+# ------------------------------------------------------------------#         
         
 def print_absolute_unprecedented(
     ds_pf_gs,     
@@ -829,9 +840,9 @@ def print_absolute_unprecedented(
     print('{} million'.format(unprec.item()/10**6))               
     
 
-#%% ----------------------------------------------------------------
-# get pickle of cities that are valid for f1 concept plot
-# ------------------------------------------------------------------  
+#%% ----------------------------------------------------------------#
+# Get pickle of cities that are valid for f1 concept plot           #
+# ------------------------------------------------------------------# 
 
 def find_valid_cities(
      df_countries,
@@ -1006,9 +1017,10 @@ def find_valid_cities(
             df_valid_cities = pk.load(f)        
             
             
-#%% ----------------------------------------------------------------
-# generating large latex tables on CF data per country, birth year and 1.5, 2.5 and 3.5 degree scenario
-# ------------------------------------------------------------------
+#%% ----------------------------------------------------------------#
+# Generating large latex tables on CF data per country, birth year  #
+# and 1.5, 2.5 and 3.5 degree scenario                              #
+# ------------------------------------------------------------------#
 
 def print_latex_table_unprecedented(
     flags,
@@ -1041,13 +1053,12 @@ def print_latex_table_unprecedented(
         'tropicalcyclonedarea': 'tropical cyclones',
     }  
 
-    # data
     for extr in extremes:
         
         # open dictionary of metadata for sim means and CF data per extreme
-        with open(data_dir+'pickles_v2/{}/isimip_metadata_{}_{}_{}.pkl'.format(extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
+        with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],extr,extr,flags['gmt'],flags['rm']), 'rb') as file:
             d_isimip_meta = pk.load(file)     
-        with open(data_dir+'pickles_v2/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(extr,extr), 'rb') as f:
+        with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_{}.pkl'.format(flags['version'],extr,extr), 'rb') as f:
             ds_pf_gs = pk.load(f)           
 
         sims_per_step = {}
@@ -1082,7 +1093,13 @@ def print_latex_table_unprecedented(
             print('')
             
             df_latex = df_cf_gs_plot[df_cf_gs_plot['GMT']==step].copy()
-            df_cntry_by = df_latex.loc[:,['country','birth_year','P (CF)']].set_index('country')
+
+            if flags['gridscale_country_subset']:
+
+                df_latex = df_latex[df_latex["country"] == countries]
+                df_cntry_by = df_latex.loc[:, ['country', 'birth_year', 'P (CF)']].set_index('country')
+            else:
+                df_cntry_by = df_latex.loc[:,['country','birth_year','P (CF)']].set_index('country')
 
             for by in bys:
                 df_cntry_by[by] = df_cntry_by[df_cntry_by['birth_year']==by].loc[:,['P (CF)']]
@@ -1118,10 +1135,12 @@ def print_latex_table_unprecedented(
             print(texdata,end='')
             print('\\end{longtable}')
             print('\\normalsize') 
-            print('\\clearpage')             
-#%% ----------------------------------------------------------------
-# generating large latex tables on CF data per country, birth year and 1.5, 2.5 and 3.5 degree scenario
-# ------------------------------------------------------------------
+            print('\\clearpage')   
+                         
+#%% ----------------------------------------------------------------#
+# Generating large latex tables on CF data per country, birth year  #
+# and 1.5, 2.5 and 3.5 degree scenario                              #
+# ------------------------------------------------------------------#
 
 def print_latex_table_unprecedented_sideways(
     flags,
@@ -1232,9 +1251,9 @@ def print_latex_table_unprecedented_sideways(
             print('\\end{longtable}')
             print('\\normalsize') 
             print('\\clearpage')             
-#%% ----------------------------------------------------------------
-# pyramid info
-# ------------------------------------------------------------------
+#%% ----------------------------------------------------------------#
+# Pyramid info                                                      #
+# ------------------------------------------------------------------#
 
 def print_pyramid_info(
     flags,
@@ -1280,9 +1299,9 @@ def print_pyramid_info(
                 print('percentage of ULE for richest is: \n {}'.format(rich_unprec / rich_pop * 100))
                 print('p values significant: \n {}'.format(pvalues_poor < sl))
                 
-#%% ----------------------------------------------------------------
-# f2 numbers
-# ------------------------------------------------------------------                
+#%% ----------------------------------------------------------------#
+# f2 numbers                                                        #
+#-------------------------------------------------------------------#
 
 def print_f2_info(
     ds_pf_gs,
@@ -1363,9 +1382,9 @@ def print_f2_info(
         print('number of countries with pf > 90% is : {}'.format(len(gdf_p['pf'][gdf_p['pf']>90])))
         print('number of countries with pf = 100% is : {}'.format(len(gdf_p['pf'][gdf_p['pf']==100])))  
 
-#%% ----------------------------------------------------------------
-# f3 numbers
-# ------------------------------------------------------------------
+#%% ----------------------------------------------------------------#
+# f3 numbers                                                        #
+#-------------------------------------------------------------------#
         
 def print_f3_info(
     flags,
@@ -1400,9 +1419,9 @@ def print_f3_info(
         print(extr)
         print('pf for 2020 under 3.5 degree pathway is {}'.format(ds_pf_gs_extrs.loc[{'hazard':extr,'birth_year':2020,'GMT':20}].item()))            
 
-#%% ----------------------------------------------------------------
-# save the children info
-# ------------------------------------------------------------------
+#%% ----------------------------------------------------------------#
+# Save the children info                                            #
+#-------------------------------------------------------------------#
 
 # 1.	Difference of exposure to all six climate extremes at 1.5, 2.7 and 3.5°C for children born in 2020 (in absolute numbers & percent)
 # 2.	Number of countries and regions affected by unprecedented heatwave exposure for more than 50% of the children born in 2020
@@ -1901,9 +1920,9 @@ def save_the_children_stuff(
     df_geom_pf_35.to_file(data_dir+'save_the_children/data_6/CF_heatwaves_3.5.shp')         
 
 
-#%% ----------------------------------------------------------------
-# testing f1 vs f4 inconsistency for belgium
-# ------------------------------------------------------------------
+#%% ----------------------------------------------------------------#
+# Testing f1 vs f4 inconsistency for belgium                        #
+# ------------------------------------------------------------------#
 def testing_f1_v_f4():
     cntry='Belgium'
     extr='heatwavedarea'

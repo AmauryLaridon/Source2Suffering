@@ -3,9 +3,9 @@
 # (see ms_load.m from original Wim Thiery code)                               #
 # --------------------------------------------------------------------------- #
 
-# --------------------------------------------------------------- #
+#%%---------------------------------------------------------------#
 # Libraries                                                       #
-# --------------------------------------------------------------- #
+# ----------------------------------------------------------------#
 
 import numpy as np
 import xarray as xr
@@ -21,9 +21,9 @@ from copy import deepcopy as cp
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
-#%% -------------------------------------------------------------- #
-# Load observational data                                          #
-# ---------------------------------------------------------------- #
+#%%---------------------------------------------------------------#
+# Load observational data                                         #
+# ----------------------------------------------------------------#
 def load_worldbank_unwpp_data():
 
     # load World Bank life expectancy at birth data (source: https://data.worldbank.org/indicator/SP.DYN.LE00.IN) - not used in final analysis
@@ -102,9 +102,10 @@ def load_worldbank_unwpp_data():
     
     return meta, worldbank, unwpp
 
-#%% ----------------------------------------------------------------
-# load Wittgenstein Center population size per age cohort (source: http://dataexplorer.wittgensteincentre.org/wcde-v2/)
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Load Wittgenstein Center population size per age cohort         #
+# (source: http://dataexplorer.wittgensteincentre.org/wcde-v2/)   #
+# ----------------------------------------------------------------#
 
 def load_wcde_data():
 
@@ -121,9 +122,9 @@ def load_wcde_data():
 
     return wcde_years, wcde_ages, wcde_country_data
 
-#%% ----------------------------------------------------------------
-# load AR6 scenarios
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Load AR6 scenarios                                              #
+# ----------------------------------------------------------------#
 def ar6_scen_grab(
     scens,
     df_GMT_all,
@@ -226,9 +227,10 @@ def ar6_scen_grab(
 
     return df_GMT_lb, df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_30, df_GMT_40
 
-#%% ----------------------------------------------------------------
-# Load global mean temperature projections and build stylized trajectories
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Load global mean temperature projections and build              #
+# stylized trajectories                                           #
+# ----------------------------------------------------------------#
 
 def load_GMT(
     year_start,
@@ -508,9 +510,9 @@ def load_GMT(
 
     return df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_strj
 
-#%% ----------------------------------------------------------------
-# Load SSP population totals
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Load SSP population totals                                      #
+# ----------------------------------------------------------------#
 
 def load_population(
     year_start,
@@ -539,9 +541,9 @@ def load_population(
 
     return da_population
 
-#%% ----------------------------------------------------------------
-# Load ISIMIP model data
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Load ISIMIP model data                                          #
+# ----------------------------------------------------------------#
 
 def load_isimip(
     extremes, 
@@ -755,11 +757,12 @@ def load_isimip(
 
     return d_isimip_meta,d_pic_meta
 
-#%% ----------------------------------------------------------------   
-# Function to open isimip data array and read years from filename
-# (the isimip calendar "days since 1661-1-1 00:00:00" cannot be read by xarray datetime )
-# this implies that years in file need to correspond to years in filename
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Function to open isimip data array and read years from filename #
+# (the isimip calendar "days since 1661-1-1 00:00:00" cannot be   #
+# read by xarray datetime ) this implies that years in file need  #
+# to correspond to years in filename                              #
+# ----------------------------------------------------------------#
 
 def open_dataarray_isimip(file_name): 
     
@@ -779,14 +782,14 @@ def open_dataarray_isimip(file_name):
     
     return da
 
-# ---------------------------------------------------------------
-# 2. Functions to manipulate (see ms_manip.m)
-# ----------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# 2. Functions to manipulate (see ms_manip.m)                     #
+# ----------------------------------------------------------------#
 
 
-#%% ----------------------------------------------------------------
-# interpolate life expectancies
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Interpolate life expectancies                                   #
+# ----------------------------------------------------------------#
 
 def get_life_expectancies(
     df_worldbank_country, 
@@ -824,9 +827,9 @@ def get_life_expectancies(
 
     return df_birthyears, df_life_expectancy_5
 
-#%% ----------------------------------------------------------------
-# interpolate cohortsize per country
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Interpolate cohortsize per country                              #
+# ----------------------------------------------------------------#
 
 def get_cohortsize_countries(
     df_countries, 
@@ -864,9 +867,10 @@ def get_cohortsize_countries(
     return d_cohort_size
 
 
-#%% ----------------------------------------------------------------
-# interpolate cohortsize per country (changing to use same start points as original cohort extraction for ages 0-60)
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# interpolate cohortsize per country (changing to use same start  #
+# points as original cohort extraction for ages 0-60)             #
+# ----------------------------------------------------------------#
 
 def get_all_cohorts(
     df_countries, 
@@ -916,10 +920,10 @@ def get_all_cohorts(
     
     return da_cohort_size
 
-#%% ----------------------------------------------------------------
-# mask population per country based on gridded population and countrymask
-# also communicate country masks as regionmask object 
-# ------------------------------------------------------------------
+#%%---------------------------------------------------------------#
+# Mask population per country based on gridded population and     #
+# countrymask also communicate country masks as regionmask object # 
+# ----------------------------------------------------------------#
 
 def get_mask_population(
     da_population, 
@@ -961,8 +965,11 @@ def get_mask_population(
 
     return  df_countries, countries_regions, countries_mask, gdf_country_borders
 
-#%% ----------------------------------------------------------------
-# get countries per region, returns dictionary with regions as keys and countries as values
+#%%---------------------------------------------------------------#
+# Get countries per region, returns dictionary with regions       #
+# as keys and countries as values                                 #
+#-----------------------------------------------------------------#
+
 def get_countries_per_region(
     df_countries, 
     df_regions,
@@ -979,8 +986,11 @@ def get_countries_per_region(
             
     return d_region_countries
 
-#%% ----------------------------------------------------------------
-# Get life expectancy, birth years and cohort weights per region, as well as countries per region
+#%%---------------------------------------------------------------#
+# Get life expectancy, birth years and cohort weights per region, #
+# as well as countries per region                                 #
+#-----------------------------------------------------------------#
+
 def get_regions_data(
     df_countries, 
     df_regions, 
@@ -1014,8 +1024,10 @@ def get_regions_data(
     
     return d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohort_weights_regions
 
-#%% ---------------------------------------------------------------
-# Country data
+#%%---------------------------------------------------------------#
+# Country data                                                    #
+#-----------------------------------------------------------------#
+
 
 def all_country_data(
     flags,

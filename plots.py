@@ -1,10 +1,10 @@
-# -----------------------------------------------------------------------------------------------
-# Scripts with plots functions and produce the plots based on the configuration of the Framework
-# -----------------------------------------------------------------------------------------------
+# ------------------------------------------#
+# Subscripts to execute the plots functions #
+# ------------------------------------------#
 
-#%%  ----------------------------------------------------------------
-# Libraries 
-# ----------------------------------------------------------------
+#%%-------------------------------------------------------------- #
+# Libraries                                                       #
+# --------------------------------------------------------------- #
 
 import os
 import sys
@@ -42,11 +42,10 @@ from scipy.stats import ttest_ind
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
-#%%------------------------------------------------------------------------------------
-# Framework to plots all figures associated to Thiery et al.(2021)
-# This framework has not been reproduced for the moment. 
-#--------------------------------------------------------------------------------------
-
+#%%-----------------------------------------------------------------------#
+# Framework to plots all figures associated to Thiery et al.(2021)        #
+# This framework has not been reproduced for the moment.                  #
+#-------------------------------------------------------------------------#
 if Thiery_2021:
     
     sys.path.append(os.path.abspath(scripts_dir+"/figures/thiery_2021"))
@@ -70,9 +69,9 @@ if Thiery_2021:
         plot_fig1()
     
 
-#%%------------------------------------------------------------------------------------
-# Framework to plots all figures associated to Grant et al.(2025) 
-#--------------------------------------------------------------------------------------
+#%%-----------------------------------------------------------------------#
+# Framework to plots all figures associated to Grant et al.(2025)         #
+#-------------------------------------------------------------------------#
 
 if Grant_2025:
 
@@ -80,16 +79,17 @@ if Grant_2025:
 
     #Configuration of the plots#
 
-    plot_ms = True # Plots used in the main manuscript of Grant et al.(2025)
-    plot_si = False # Plots used in the supplmentary materials of Grant et al.(2025)
+    plot_ms = 0                     # Plots used in the main manuscript of Grant et al.(2025)
+
+    plot_si = 0                     # Plots used in the supplmentary materials of Grant et al.(2025)
 
     if plot_ms:
 
-        grant2025_fig1 = False
-        grant2025_fig2 = False
-        grant2025_fig2_alt = False
+        grant2025_fig1 = True
+        grant2025_fig2 = True
+        grant2025_fig2_alt = True
         grant2025_fig2_alt_mod = True
-        grant2025_fig3 = False
+        grant2025_fig3 = True
 
         print("--------------------------------------------------")
         print("Start plot_ms framework from Grant et al.(2025)")
@@ -329,11 +329,63 @@ if Grant_2025:
         #     GMT_indices_plot,
         #     da_gs_popdenom,
         #     flags,
-        # )    
+        # )
+    
+#%%-----------------------------------------------------------------------#
+# Framework to plots all figures associated to Assessment                 #
+#-------------------------------------------------------------------------#
 
-#%%------------------------------------------------------------------------------------
-# Framework to plots all figures associated to Laridon et al.(2025) 
-#--------------------------------------------------------------------------------------
+# Assessment based on Grant et al.(2025) version 
+if Grant_2025: 
+
+    Norway_BiCC2 = False             # Plots used for the BiCC2 Norway law suit assessment
+    
+    if Norway_BiCC2:
+
+        sys.path.append(os.path.abspath(scripts_dir+"/figures/assessment"))
+
+        from plot_assessment import *
+
+        Norway_BiCC2_fig1 = 1      # 0: do not plot figure 1 for BiCC2 Norway law suit
+                                   # 1: plot figure 1 for BiCC2 Norway law suit
+
+        #--- WORK IN PROGRESS not working ---#
+        Norway_BiCC2_fig2 = 0      # 0: do not plot figure 2 for BiCC2 Norway law suit
+                                   # 1: plot figure 2 for BiCC2 Norway law suit
+        #------------------------------------#
+
+        if Norway_BiCC2_fig1:
+
+            print("Performing Plot f1 BiCC2 Norway Assessmennt")
+
+            plot_Norway_BiCC2_fig1(
+                da_cohort_size,
+                countries_mask,
+                countries_regions,
+                d_isimip_meta,
+                flags,
+                df_life_expectancy_5,
+            )
+        
+        if Norway_BiCC2_fig2:
+
+            print("Performing Plot f2 BiCC2 Norway Assessmennt")
+
+            plot_Norway_BiCC2_fig2(
+                df_GMT_strj,
+                ds_pf_gs,
+                da_gs_popdenom,
+                gdf_country_borders,
+                sims_per_step,
+                flags,
+                df_countries,
+            )
+
+
+
+#%%-----------------------------------------------------------------------#
+# Framework to plots all figures associated to Laridon et al.(2025)       #
+#-------------------------------------------------------------------------#
 
 if Laridon_2025:
 
@@ -355,10 +407,27 @@ if Laridon_2025:
         print("Performing Plot f1 of Laridon et al.(2021)")
         plot_fig1()
 
-#%%------------------------------------------------------------------------------------
-# Framework to plots not configured 
-#--------------------------------------------------------------------------------------
+#%%-----------------------------------------------------------------------#
+# Framework to plots all figures associated to Source2Suffering           #
+#-------------------------------------------------------------------------#
+if Source2Suffering:
+    
+    sys.path.append(os.path.abspath(scripts_dir+"/figures/source2suffering"))
 
-if not(Thiery_2021 or Grant_2025 or Laridon_2025):
-    print("No pre-defined Plots Framework")
+    #Configuration of the plots#
+
+    print("-------------------------------------------------------")
+    print("Start plots for Source2Suffering Project")
+    print("-------------------------------------------------------")
+
+    from plot_source2suffering import *
+    
+    pass 
+
+#%%-----------------------------------------------------------------------#
+# Framework to plots not configured                                       #
+#-------------------------------------------------------------------------#
+
+if not(Thiery_2021 or Grant_2025 or Laridon_2025 or Source2Suffering):
+    print("No pre-defined Plots Framework outside Thiery et al.(2021), Grant et al.(2025), Laridon et al.(2025) or Source2Suffering Project.")
 

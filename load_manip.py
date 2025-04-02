@@ -2,10 +2,10 @@
 # Subscript to execute the functions to load and manipulate data              #
 # --------------------------------------------------------------------------- #
 
-
-# --------------------------------------------------------------- #
+#%%-------------------------------------------------------------- #
 # Libraries                                                       #
 # --------------------------------------------------------------- #
+
 import numpy as np
 import xarray as xr
 import pandas as pd
@@ -61,13 +61,53 @@ else: # load processed country data
     print('Country data loaded')
     
 # unpack country information
-df_countries = d_countries['info_pop']
-gdf_country_borders = d_countries['borders']
-da_population = d_countries['population_map']
-df_birthyears = d_countries['birth_years']
-df_life_expectancy_5 = d_countries['life_expectancy_5']
-da_cohort_size = d_countries['cohort_size']
-countries_regions, countries_mask = d_countries['mask']  
+
+if flags['gridscale_country_subset']:
+
+    #--------------WORK IN PROGRESS for country_subset---------#
+
+    # df_countries = d_countries['info_pop']
+    # print("Under development gridscale_country_subset - Apply the framework for heatwavedarea analysis only on specific countries : {}".format(countries))                                                                   # In case we would like to perform the analysis only on a subset of coutries define
+    # ind_countries = df_countries.reset_index(drop=True).index[df_countries["name"] == countries][0]      # in settings.py and pf_gridscale.py we need to retrieve the indices of that country for outputs
+    # df_countries = df_countries.loc[df_countries['name'] == countries]
+
+    # gdf_country_borders = d_countries['borders']
+    # gdf_country_borders = gdf_country_borders.iloc[ind_countries]
+
+    # da_population = d_countries['population_map']
+
+    # df_birthyears = d_countries['birth_years']
+    # print(type(df_birthyears))
+    # print(df_birthyears.loc[ind_countries])
+    # df_birthyears = df_birthyears.loc[ind_countries]
+
+    # df_life_expectancy_5 = d_countries['life_expectancy_5']
+    # df_life_expectancy_5 = df_life_expectancy_5[df_life_expectancy_5['name'] == countries]
+
+    # da_cohort_size = d_countries['cohort_size']
+    # da_cohort_size = da_cohort_size[ind_countries,:,:]
+
+    # countries_regions, countries_mask = d_countries['mask']  
+
+    #------------------------------------------------------------#
+
+    df_countries = d_countries['info_pop']
+    gdf_country_borders = d_countries['borders']
+    da_population = d_countries['population_map']
+    df_birthyears = d_countries['birth_years']
+    df_life_expectancy_5 = d_countries['life_expectancy_5']
+    da_cohort_size = d_countries['cohort_size']
+    countries_regions, countries_mask = d_countries['mask']
+
+else: 
+
+    df_countries = d_countries['info_pop']
+    gdf_country_borders = d_countries['borders']
+    da_population = d_countries['population_map']
+    df_birthyears = d_countries['birth_years']
+    df_life_expectancy_5 = d_countries['life_expectancy_5']
+    da_cohort_size = d_countries['cohort_size']
+    countries_regions, countries_mask = d_countries['mask'] 
 
 # --------------------------------------------------------------- #
 # load ISIMIP model data                                          #
