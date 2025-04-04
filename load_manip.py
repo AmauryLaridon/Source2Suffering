@@ -10,6 +10,7 @@ import numpy as np
 import xarray as xr
 import pandas as pd
 import geopandas as gpd
+import regionmask as rm
 import pickle as pk
 from scipy import interpolate
 import regionmask
@@ -93,6 +94,7 @@ if flags['gridscale_country_subset']:
 
     df_countries = d_countries['info_pop']
     gdf_country_borders = d_countries['borders']
+    da_regions = df_countries['region'].unique()
     da_population = d_countries['population_map']
     df_birthyears = d_countries['birth_years']
     df_life_expectancy_5 = d_countries['life_expectancy_5']
@@ -103,6 +105,7 @@ else:
 
     df_countries = d_countries['info_pop']
     gdf_country_borders = d_countries['borders']
+    da_regions = df_countries['region'].unique()
     da_population = d_countries['population_map']
     df_birthyears = d_countries['birth_years']
     df_life_expectancy_5 = d_countries['life_expectancy_5']
@@ -123,11 +126,31 @@ d_isimip_meta,d_pic_meta = load_isimip(
     flags,
 )
 
-global nruns, ncountries, nyears
+global nruns, ncountries, nregions, nyears
 
-nruns = len(d_isimip_meta) # number of available impact models runs used for this extreme
-ncountries = df_countries.shape[0] # number of available contries for the assessment
-nyears = len(year_range) # number of years for the assessment
+nruns = len(d_isimip_meta)                      # number of available impact models runs used for this extreme
+ncountries = df_countries.shape[0]              # number of available contries for the assessment  
+nregions = len(da_regions)                      # number of regions 
+nyears = len(year_range)                        # number of years for the assessment
+
+
+# --------------------------------------------------------------- #
+# load AR6 Regions                                                #
+# --------------------------------------------------------------- #
+
+grid_area = xr.open_dataarray(data_dir+'isimip/grid_resolution/clm45_area.nc4')
+
+# arrays of lat/lon values
+lat = grid_area.lat.values
+lon = grid_area.lon.values
+
+# 3d mask for ar6 regions
+ar6_regs_3D = rm.defined_regions.ar6.land.mask_3D(lon,lat)
+
+# 3d mask for countries
+countries_3D = rm.mask_3D_geopandas(gdf_country_borders.reset_index(),lon,lat)
+
+ar6_regions = ar6_regs_3D.names.values
 
 # stores for each GMT steps how many and which isimip simulations are available for remaping #
 # only used for analysis 

@@ -265,12 +265,11 @@ def gridscale_emergence(
 
     for cntry in list_countries:
         
-        print('running gridscale emergence for {}'.format(cntry))
+        print('Running gridscale emergence for {}'.format(cntry))
         
         if not os.path.exists(data_dir+'{}/{}/{}'.format(flags['version'],flags['extr'],cntry)):
             os.makedirs(data_dir+'{}/{}/{}'.format(flags['version'],flags['extr'],cntry)) # testing makedirs
 
-        print(cntry)
         da_smple_cht = da_cohort_size.sel(country=cntry) # cohort absolute sizes in sample country
         da_smple_cht_prp = da_smple_cht / da_smple_cht.sum(dim='ages') # cohort relative sizes in sample country
         da_cntry = xr.DataArray(

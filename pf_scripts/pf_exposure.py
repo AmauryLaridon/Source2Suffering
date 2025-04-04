@@ -23,91 +23,32 @@ from copy import deepcopy as cp
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
+#-----------------------------------------------------------------------------#
+# Translation in Python of tools from ms_exposure.m by Thiery et al.(2021)    # 
+# Work done by Amaury Laridon for Laridon et al.(2025)                        #
+#-----------------------------------------------------------------------------#
 
-#------------------------------------------------------------------------#
-# Convert Area Fraction Affected (AFA) to per-country                    #
-# number of extremes affecting one individual across life span           #
-# Translation of ms_exposure.m from Thiery et al.(2021) in Python done   # 
-# by Amaury Laridon for Laridon et al.(2025)                             #
-#------------------------------------------------------------------------#
+# def exposure_perregion():
 
-# # get exposure
-# if flags['lifetime_exposure_cohort'] == 1 or flags['lifetime_exposure_pic']==1:
-
-#     from main import nruns, ncountries, nyears
-
-#     #----- init of all the arrays that will contain the data ----- #
-
-#     # exposure per year #
-#     exposure_peryear_percountry = np.full((nruns, ncountries, nyears), np.nan)
-#     exposure_peryear_perregion = np.full((nruns, nregions, nyears), np.nan)
-
-#     # land fraction per year and per region #
-#     landfrac_peryear_perregion = np.full((nruns, nregions, nyears), np.nan)
-#     landfrac_peryear_perregion_15 = np.full((nruns, nregions, nyears), np.nan)
-#     landfrac_peryear_perregion_20 = np.full((nruns, nregions, nyears), np.nan)
-#     landfrac_peryear_perregion_NDC = np.full((nruns, nregions, nyears), np.nan)
-#     landfrac_peryear_perregion_OS = np.full((nruns, nregions, nyears), np.nan)
-#     landfrac_peryear_perregion_noOS = np.full((nruns, nregions, nyears), np.nan)
-
-#     # exposure per run # 
-#     exposure_perrun_RCP = np.full((nruns, ncountries, nbirthyears), np.nan)
-#     exposure_perrun_15 = np.full((nruns, ncountries, nbirthyears), np.nan)
-#     exposure_perrun_20 = np.full((nruns, ncountries, nbirthyears), np.nan)
-#     exposure_perrun_NDC = np.full((nruns, ncountries, nbirthyears), np.nan)
-#     exposure_perrun_OS = np.full((nruns, ncountries, nbirthyears), np.nan)
-#     exposure_perrun_noOS = np.full((nruns, ncountries, nbirthyears), np.nan)
-#     exposure_perrun_R26eval = np.full((nruns, ncountries, nbirthyears), np.nan)
-
-#     # exposure per region per run # 
-#     exposure_perregion_perrun_RCP = np.full((nruns, nregions, nbirthyears), np.nan)
-#     exposure_perregion_perrun_15 = np.full((nruns, nregions, nbirthyears), np.nan)
-#     exposure_perregion_perrun_20 = np.full((nruns, nregions, nbirthyears), np.nan)
-#     exposure_perregion_perrun_NDC = np.full((nruns, nregions, nbirthyears), np.nan)
-#     exposure_perregion_perrun_OS = np.full((nruns, nregions, nbirthyears), np.nan)
-#     exposure_perregion_perrun_noOS = np.full((nruns, nregions, nbirthyears), np.nan)
-#     exposure_perregion_perrun_R26eval = np.full((nruns, nregions, nbirthyears), np.nan)
-
-#     # exposure per region per run for BE #
-#     exposure_perregion_perrun_BE = np.full((nruns, nregions, nbirthyears, nGMTsteps), np.nan)
-
-#     # RCP2GMT data for mapping # 
-#     RCP2GMT_maxdiff_15 = np.full((nruns, 1), np.nan)
-#     RCP2GMT_maxdiff_20 = np.full((nruns, 1), np.nan)
-#     RCP2GMT_maxdiff_NDC = np.full((nruns, 1), np.nan)
-#     RCP2GMT_maxdiff_OS = np.full((nruns, 1), np.nan)
-#     RCP2GMT_maxdiff_noOS = np.full((nruns, 1), np.nan)
-#     RCP2GMT_maxdiff_R26eval = np.full((nruns, 1), np.nan)
-
-#     # ---------------------------------------------------------------- #
-
-#     # loop over simulations
-#     for i in range(nruns):
-        
-#         # print country name to screen
-#         print('Simulation {} of {}'.format(i,nruns))
-
-#         # Get ISIMIP GMT indices closest to GMT trajectories        
-#         RCP2GMT_diff_15 = np.abs(isimip[i].GMT[:, np.newaxis] - GMT_15).min(axis=0)
-#         RCP2GMT_diff_20 = np.abs(isimip[i].GMT[:, np.newaxis] - GMT_20).min(axis=0)
-#         RCP2GMT_diff_NDC = np.abs(isimip[i].GMT[:, np.newaxis] - GMT_NDC).min(axis=0)
-#         RCP2GMT_diff_OS = np.abs(isimip[i].GMT[:, np.newaxis] - GMT_OS).min(axis=0)
-#         RCP2GMT_diff_noOS = np.abs(isimip[i].GMT[:, np.newaxis] - GMT_noOS).min(axis=0)
-#         RCP2GMT_diff_R26eval = np.abs(isimip[i].GMT[:, np.newaxis] - isimip[0].GMT).min(axis=0)
-
-#         # Get maximum T difference between RCP and GMT trajectories (to remove rows later)
-#         RCP2GMT_maxdiff_15[i, 0] = np.nanmax(RCP2GMT_diff_15)
-#         RCP2GMT_maxdiff_20[i, 0] = np.nanmax(RCP2GMT_diff_20)
-#         RCP2GMT_maxdiff_NDC[i, 0] = np.nanmax(RCP2GMT_diff_NDC)
-#         RCP2GMT_maxdiff_OS[i, 0] = np.nanmax(RCP2GMT_diff_OS)
-#         RCP2GMT_maxdiff_noOS[i, 0] = np.nanmax(RCP2GMT_diff_noOS)
-#         RCP2GMT_maxdiff_R26eval[i, 0] = np.nanmax(RCP2GMT_diff_R26eval)
-
-#         # load AFA data of that run
-#         # In Python, you would load data using an appropriate method, e.g., numpy, pandas, or scipy
-#         # Example: data = np.load(f'ncfiles/workspaces/mw_isimip_AFA_{i}.npy')
+#     pass 
 
 
+
+
+
+
+# # part of the loop done in ms_exposure.m
+
+# % loop over regions
+# for j=1:nregions 
+
+#     % get weighted spatial average
+#     exposure_perregion_perrun_BE(i,j,:,l) = sum(exposure_percountry_perrun_BE(i, regions.ind_member_countries{j, 1}, :, l) .* regions.cohort_weights{j}, 2, 'omitnan') ./ sum(regions.cohort_weights{j}, 2, 'omitnan');
+
+# end
+
+
+# part of Luke's code that might be usefull
 
 
 # ---------------------------------------------------------------------- #
@@ -181,7 +122,8 @@ def resample(
 
 #%%---------------------------------------------------------------#
 # Improved function to compute extreme event exposure across a    #
-# person's lifetime                                               #
+# person's lifetime. Translation of W.Thiery's lifetime_exposure()#
+# Matlab function done by L.Grant.                                #
 #-----------------------------------------------------------------#
 
 def calc_life_exposure(
@@ -230,7 +172,7 @@ def calc_weighted_fldmean(
 ):
 
     # one country provided, easy masking
-    # only keeps the AFA data for the country under study
+    # only keeps the AFA data for the country under study, for the others a NaN value is attributedppui
     if not flag_region : 
         da_masked = da.where(countries_mask == ind_country)
 
@@ -317,7 +259,6 @@ def calc_exposure_mmm_xr(
 # based on mf_exposure_mmm.m (see Thiery et al.(2021))            #
 #-----------------------------------------------------------------#
 
-
 def calc_exposure_mmm_pic_xr(
     d_exposure_pic,
     dim_1_name,
@@ -373,8 +314,9 @@ def calc_exposure_mmm_pic_xr(
     return ds_exposure_pic_stats
 
 #%%---------------------------------------------------------------#
-# Convert Area Fraction Affected (AFA) to per-country number of   #
-# extremes affecting one individual across life span              #
+# Convert Area Fraction Affected (AFA) to per-country and bassins #
+# number of extremes affecting one individual across life span.   #
+# Compute also the trend of these exposure                        #
 #-----------------------------------------------------------------#
 
 def calc_exposure_trends(
@@ -471,7 +413,7 @@ def calc_exposure_trends(
     # loop over simulations
     for i in list(d_isimip_meta.keys()): 
 
-        print('simulation {} of {}'.format(i,len(d_isimip_meta)))
+        print('ISIMIP Simulation {} of {}'.format(i,len(d_isimip_meta)))
 
         # load AFA data of that run
         with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
@@ -530,10 +472,16 @@ def calc_exposure_trends(
 
     return ds_e
         
-#%%---------------------------------------------------------------#
-# Convert Area Fraction Affected (AFA) to per-country number of   #
-# extremes affecting one individual across life span              #
-#-----------------------------------------------------------------#
+#%%----------------------------------------------------------------#
+# Convert Area Fraction Affected (AFA) to per-country number of    #
+# extremes affecting one individual across life span               #
+# Original W.Thiery's lifetime exposure function translated by     # 
+# L.Grant even thought not used for Grant et al.(2025) since the   #
+# lifetime exposure is computed in the emergence analysis          #
+# This function is used for the Source2Suffering and Laridon       #
+# et al.(2025) analysis for backward compatibility with W.Thiery's #
+# results                                                          #
+#----------------------------------------------------------------- #
 
 def calc_lifetime_exposure(
     d_isimip_meta, 
@@ -567,14 +515,15 @@ def calc_lifetime_exposure(
     # loop over simulations
     for i in list(d_isimip_meta.keys()): 
 
-        print('simulation {} of {}'.format(i,len(d_isimip_meta)))
+        print('ISIMIP Simulation {} of {}'.format(i,len(d_isimip_meta)))
 
         # load AFA data of that run
         with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
             da_AFA = pk.load(f)
 
-        # --------------------------------------------------------------------
-        # per country 
+        #---------------------------------------------------------------------#
+        # Per country                                                         #
+        #---------------------------------------------------------------------#
 
         # initialise dicts
         d_exposure_peryear_percountry = {}
@@ -582,7 +531,7 @@ def calc_lifetime_exposure(
         # get spatial average
         for j, country in enumerate(df_countries['name']):
 
-            print('processing country '+str(j+1)+' of '+str(len(df_countries)), end='\r')
+            print('Processing country '+str(j+1)+' of '+str(len(df_countries)), end='\r')
             
             # calculate mean per country weighted by population
             ind_country = countries_regions.map_keys(country)
@@ -596,15 +545,23 @@ def calc_lifetime_exposure(
                 flag_region=False,
             )
                         
-        # --------------------------------------------------------------------
-        # convert dict to dataframe for vectorizing and integrate exposures then map to GMTs        
+        #---------------------------------------------------------------------#
+        # Convert dict to dataframe for vectorizing and integrate exposures   # 
+        #---------------------------------------------------------------------#
+       
         frame = {k:v.values for k,v in d_exposure_peryear_percountry.items()}
         df_exposure = pd.DataFrame(frame,index=year_range)           
-        
-        # if max threshold criteria met, run gmt mapping
+
+        #---------------------------------------------------------------------#
+        # Computations for Burning Embers diagram by mapping the GMTs         #
+        #---------------------------------------------------------------------#   
+             
         for step in GMT_labels:
-            
+
+            # if max threshold criteria met, run gmt mapping
             if d_isimip_meta[i]['GMT_strj_valid'][step]:
+
+                print("Simulations used for re-mapping for GMT index = {}".format([step]))
             
                 # reindexing original exposure array based on GMT-mapping indices
                 d_exposure_perrun_step = df_exposure.apply(
@@ -614,7 +571,7 @@ def calc_lifetime_exposure(
                         col.name,
                     ),
                     axis=0,
-                )            
+                )
         
                 # convert dataframe to data array of lifetime exposure (le) per country and birth year
                 ds_le['lifetime_exposure'].loc[{
@@ -631,7 +588,9 @@ def calc_lifetime_exposure(
 #%%---------------------------------------------------------------#
 # Convert Area Fraction Affected (AFA) to                         #
 # per-cohort number of extremes affecting one individual across   #
-# life span                                                       #
+# life span to try to analyse the "age of emergence"              #
+# by being time/age explicit to assess this. Did not come to      #
+# fruition and not retain for further usage in Grant et al.(2025) #
 #-----------------------------------------------------------------#
 
 def calc_cohort_lifetime_exposure(
@@ -647,7 +606,7 @@ def calc_cohort_lifetime_exposure(
     # loop over simulations
     for i in list(d_isimip_meta.keys()): 
 
-        print('Simulation {} of {}'.format(i,len(d_isimip_meta)))
+        print('ISIMIP Simulation {} of {}'.format(i,len(d_isimip_meta)))
 
         # load AFA data of that run
         with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
@@ -808,7 +767,7 @@ def calc_lifetime_exposure_pic(
     # loop over simulations
     for n,i in enumerate(list(d_pic_meta.keys())):
 
-        print('simulation '+str(n+1)+ ' of '+str(len(d_pic_meta)))
+        print('PIC Simulation '+str(n+1)+ ' of '+str(len(d_pic_meta)))
 
         # load AFA data of that run
         with open(data_dir+'{}/{}/isimip_AFA_pic_{}_{}.pkl'

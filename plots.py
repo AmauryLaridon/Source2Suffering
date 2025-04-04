@@ -416,14 +416,39 @@ if Source2Suffering:
 
     #Configuration of the plots#
 
+    plot_fig1 = 0 # 0: do not plot figure 1 for development
+                  # 1: plot figure 1 for development
+    plot_fig2 = 1 # 0: do not plot figure 2 for development
+                  # 1: plot figure 2 for development
+
     print("-------------------------------------------------------")
     print("Start plots for Source2Suffering Project")
     print("-------------------------------------------------------")
 
     from plot_source2suffering import *
     
-    pass 
+    if plot_fig1:
 
+        print("Performing Plot f1 for Development")
+
+        with open(data_dir+'{}/{}/lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+            dataset_le = pk.load(f)
+
+        plot_dev_fig1(ds=dataset_le,country='Belgium',run=6,GMT=20)
+        plot_dev_fig1(ds=dataset_le,country='Belgium',run=6,GMT=1)
+        plot_dev_fig1(ds=dataset_le,country='Belgium',run=3,GMT=20)
+        plot_dev_fig1(ds=dataset_le,country='Egypt',run=3,GMT=20)
+    
+    if plot_fig2:
+    
+        print("Performing Plot f2 for Development")
+
+        with open(data_dir+'{}/{}/exposure_trends_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+            dataset_le_exposure_trends = pk.load(f)
+
+        plot_dev_fig2(ds=dataset_le_exposure_trends,var_name='exposure_trend_ar6',coords_dict={'run':6,'GMT':20,'region':'N.Europe'})
+
+    
 #%%-----------------------------------------------------------------------#
 # Framework to plots not configured                                       #
 #-------------------------------------------------------------------------#

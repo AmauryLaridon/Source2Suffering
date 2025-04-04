@@ -11,8 +11,8 @@
 
 timestamp=$(date +"%Y%m%d_%H%M")
 
-output_file="/data/brussel/vo/000/bvo00012/vsc11137/source2suffering/output/out_laridon_2025_${timestamp}"
-error_file="/data/brussel/vo/000/bvo00012/vsc11137/source2suffering/output/error/err_laridon_2025_${timestamp}"
+output_file="/data/brussel/vo/000/bvo00012/vsc11137/source2suffering/output/job_output/out_laridon_2025_${timestamp}"
+error_file="/data/brussel/vo/000/bvo00012/vsc11137/source2suffering/output/job_error/err_laridon_2025_${timestamp}"
 
 exec > >(tee -a "$output_file") 2> >(tee -a "$error_file" >&2)
 

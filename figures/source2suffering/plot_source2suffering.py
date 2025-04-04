@@ -155,3 +155,79 @@ plt.close(fig)
 # Functions                                                          #
 # -------------------------------------------------------------------#
 
+def plot_dev_fig1(ds, country, run, GMT):
+    """
+    Plot lifetime exposure for a specific country, run, and GMT value.
+
+    Parameters:
+    - ds (xarray.Dataset): Dataset contenant la variable 'lifetime_exposure'
+    - country (str): Nom du pays (ex: 'Belgium')
+    - run (int): Numéro de simulation (ex: 6)
+    - GMT (str or int): Niveau GMT (ex: '21')
+    """
+    
+    exposure = ds['lifetime_exposure'].sel(
+        country=country,
+        run=run,
+        GMT=GMT  
+    )
+
+    
+    birth_years = ds['birth_year'].values
+
+    # Plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(birth_years, exposure, marker='o', linestyle='-')
+    plt.title(f"Lifetime Exposure in {country} (Run {run}, GMT {GMT})")
+    plt.xlabel("Birth Year")
+    plt.ylabel("Lifetime Exposure")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/fig1_lifetime_exposure_{}_GMT_{}_isimip_sim{}.png'.format(country,GMT,run))
+
+def plot_dev_fig2(ds, var_name, coords_dict):
+    """
+    Function to plot a variable from the dataset ds based on given coordinates.
+
+    Parameters:
+    - ds (xr.Dataset): The dataset containing the variable to plot.
+    - var_name (str): The name of the variable to plot (e.g., 'exposure_trend_ar6', 'mean_exposure_trend_ar6', etc.).
+    - coords_dict (dict): Dictionary of coordinates for slicing the dataset. The dictionary should contain 
+                          keys corresponding to the coordinate names and their respective values.
+                          Example: {'run': 1, 'GMT': 0, 'region': 'Africa', 'year': 2000}
+
+    Returns:
+    - None
+    """
+
+    # Ensure the variable exists in the dataset
+    if var_name not in ds.data_vars:
+        print(f"Error: The variable '{var_name}' does not exist in the dataset.")
+        return
+
+    # Apply the slicing based on the provided coordinates
+    sliced_data = ds[var_name]
+
+    # Create the title showing the coordinates being used for slicing
+    title = f"Plot of {var_name} for " + ", ".join([f"{k}={v}" for k, v in coords_dict.items()])
+    
+    # Loop over the coordinates in the dictionary and apply them
+    for coord, value in coords_dict.items():
+        if coord not in sliced_data.coords:
+            print(f"Error: The coordinate '{coord}' does not exist in the variable's dimensions.")
+            return
+        # Slice the data for each coordinate
+        sliced_data = sliced_data.sel({coord: value}, drop=True)
+
+    # Plot the data (Assuming the remaining dimensions after slicing are 'year' and 'value')
+    plt.figure(figsize=(10, 6))
+    plt.plot(sliced_data['year'], sliced_data.values)
+    plt.xlabel('Year')
+    plt.ylabel(var_name)
+    plt.title(title)
+    plt.grid(True)
+    # Save the plot with a dynamic filename based on the coordinates
+    if var_name == 'exposure_trend_ar6':
+        filename = scripts_dir + '/figures/source2suffering/development/fig2_lifetime_exposure_trends_isimip_sim{}_GMT_{}_region_{}.png'.format(
+        coords_dict.get('run', 'NA'),coords_dict.get('GMT', 'NA'), coords_dict.get('region', 'NA'))
+    plt.savefig(filename)

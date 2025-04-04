@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name=load_modules 
-#SBATCH --output /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/output/out_loadmodules
-#SBATCH --error /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/output/error/err_load_modules
+#SBATCH --output /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/output/job_output/out_loadmodules
+#SBATCH --error /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/output/job_error/err_load_modules
 #SBATCH --mem=1G
 #SBATCH --ntasks=1
 #SBATCH --time=1:00:00
@@ -13,7 +13,6 @@ echo Start loading the modules for the Source2Suffering Project
 date
 
 # load modules
-# based on Luke job script job_le_burntarea_newmodules.sh
 
 module load Python/3.10.4-GCCcore-11.3.0 # new
 module load geopandas/0.12.2-foss-2022a

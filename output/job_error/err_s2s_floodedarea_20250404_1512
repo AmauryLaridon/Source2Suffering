@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 272, in <module>
+    exec(exe_load_manip)
+  File "<string>", line 144, in <module>
+NameError: name 'rm' is not defined

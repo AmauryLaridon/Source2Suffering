@@ -62,9 +62,9 @@ flags = {}
 global Thiery_2021, Grant_2025, Laridon_2025, Source2Suffering
 
 Thiery_2021 = False 
-Grant_2025 = True      
+Grant_2025 = False      
 Laridon_2025 = False
-Source2Suffering = False
+Source2Suffering = True
 env_value_paper= 0 
 
 #-------------------------------------------------------------------------------------#
@@ -77,7 +77,7 @@ if env_value_paper:
     Thiery_2021 = False 
     Grant_2025 = True 
     Laridon_2025 = False
-    Source2Suffering = False 
+    Source2Suffering = True 
     if env_value_paper == "thiery_2021":
         Thiery_2021 = True
     if env_value_paper == "grant_2025":
@@ -146,7 +146,7 @@ if env_value_paper:
 
 if not env_value_paper:
 
-    flags['extr'] = 'heatwavedarea'                # 0: all
+    flags['extr'] = 'heatwavedarea'                 # 0: all
                                                     # 1: burntarea
                                                     # 2: cropfailedarea
                                                     # 3: driedarea
@@ -154,7 +154,7 @@ if not env_value_paper:
                                                     # 5: heatwavedarea
                                                     # 6: tropicalcyclonedarea
 
-    flags['gmt'] = 'ar6_new'                            # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
+    flags['gmt'] = 'ar6_new'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
                                                     # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
                                                     # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
 
@@ -193,7 +193,7 @@ if not env_value_paper:
     #----------------------------------------------------------#
 
                             
-    flags['gridscale'] = 0                          # 0: do not process grid scale analysis, load pickles
+    flags['gridscale'] = 0                          # 0: do not process 1d scale analysis, load pickles
                                                     # 1: process grid scale analysis
 
     flags['gridscale_le_test'] = 0                  # 0: do not process the grid scale analysis testing diff versions of constant life expectancy
@@ -220,10 +220,10 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['plots'] = 1                               # 0 do not produce and save plots 
-                                                     # 1 produce and load plots 
+    flags['plots'] = 1                              # 0 do not produce and save plots 
+                                                    # 1 produce and load plots 
 
-    flags['reporting'] = 1                          # 0 do not produce results for reporting 
+    flags['reporting'] = 0                          # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
     
     # Use for specific climate extreme jobs - HPC only

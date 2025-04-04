@@ -1,0 +1,102 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_heatwavedarea - Job ID: 10584308
+Fri Apr  4 11:47:34 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 5.5P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 2.00 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=heatwavedarea
+Using extr value: heatwavedarea
+------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                               |
+------------------------------------------------------------------------------------------------------
+Current date and time: 2025-04-04 11:49:54
+-------------------------------------------------------------------------------
+Model configuration - Manual
+-------------------------------------------------------------------------------
+extr: heatwavedarea
+
+gmt: ar6_new
+
+rm: rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+lifetime_exposure_cohort: 1
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+plots: 0
+
+reporting: 0
+
+-------------------------------------------------------------------------------
+Start to import settings
+Settings imported
+-------------------------------------------------------------------------------
+Start to import and manipulate Demographic, GMT and ISIMIP data
+GMT projections loaded
+Loading processed country data
+Country data loaded
+Loading processed ISIMIP data
+ISMIP data loaded
+-------------------------------------------------------------------------------
+Start Lifetime Exposure framework
+Computing Lifetime Exposure across cohorts
+simulation 1 of 12
+simulation 2 of 12
+simulation 3 of 12
+simulation 4 of 12
+simulation 5 of 12
+simulation 6 of 12
+simulation 7 of 12
+simulation 8 of 12
+simulation 9 of 12
+simulation 10 of 12
+simulation 11 of 12
+simulation 12 of 12
+--- 19.0 minutes to compute Lifetime Exposure across Cohorts for all countries ---
+Loading PIC Lifetime Exposures across cohorts
+No plots performed and saved
+No reporting performed and saved
+------------------------------------------------------------------------------------------------------
+|                        End of computations for the Source2Suffering Project                        |
+------------------------------------------------------------------------------------------------------
+Script execution time: 1141.4 seconds
+Script execution time: 19.0 minutes
+Script execution time: 0.3 hours
+------------------------------------------------------------------------------------------------------
+End Job
+Fri Apr  4 12:09:20 CEST 2025
+-------------------------------------------------------------------------------------------------

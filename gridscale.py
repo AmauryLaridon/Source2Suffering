@@ -45,10 +45,6 @@ gridscale_countries = get_gridscale_regions(
     gdf_country_borders,
 )
 
-# print(gridscale_countries)
-# print(type(gridscale_countries))
-# print(np.shape(gridscale_countries))
-
 # birth year aligned cohort sizes for gridscale analysis (summed over lat/lon per country)
 if not os.path.isfile(data_dir+'{}/country/gs_cohort_sizes.pkl'.format(flags['version'])):
 
@@ -115,11 +111,13 @@ if flags['gridscale_le_test']:
     )        
     
 else:
-    
-    print("Loading Test of Gridscale Emergence of cumulative exposures")
 
-    with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_le_test_{}.pkl'.format(flags['version'],flags['extr']+'_le_test',flags['extr']), 'rb') as f:
-        ds_pf_gs_le_test = pk.load(f)    
+    pass 
+    
+    # print("Loading Test of Gridscale Emergence of cumulative exposures")
+
+    # with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_le_test_{}.pkl'.format(flags['version'],flags['extr']+'_le_test',flags['extr']), 'rb') as f:
+    #     ds_pf_gs_le_test = pk.load(f)    
             
 
 # read in all global emergence masks (d_global_emergence is then used for vulnerability assessment, but only possible on hpc because it is large for some hazards)

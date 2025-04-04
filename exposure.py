@@ -34,20 +34,59 @@ if flags['lifetime_exposure_cohort']:
 
     print("Computing Lifetime Exposure across cohorts")
     start_time = time.time()
-    
 
-    if Grant_2025:
-    
-        # calculate exposure per country and per cohort
-        calc_cohort_lifetime_exposure(
+    if Thiery_2021 or Source2Suffering:
+
+        # function translate by A.Laridon from Thiery et al.(2021) #
+
+        # calc_lifetime_exposure(
+        #     d_isimip_meta,
+        #     df_countries,
+        #     countries_regions,
+        #     countries_mask,
+        #     da_population,
+        #     df_life_expectancy_5,
+        #     flags,)
+
+        # function translate by L.Grant from Thiery et al.(2021) #
+         
+        # calc_lifetime_exposure(
+        #     d_isimip_meta,
+        #     df_countries,
+        #     countries_regions,
+        #     countries_mask,
+        #     da_population,
+        #     df_life_expectancy_5,
+        #     flags,)
+        
+        grid_area = xr.open_dataarray(data_dir+'isimip/grid_resolution/clm45_area.nc4')
+
+        calc_exposure_trends(
             d_isimip_meta,
-            df_countries,
-            countries_regions,
-            countries_mask,
-            da_population,
-            da_cohort_size,
-            flags,
-        )
+            grid_area,
+            gdf_country_borders,
+            flags
+            )
+    
+    
+    if Grant_2025:
+        
+        print("Lifetime Exposure computations will be performed in the emergence analysis")
+
+        # function developped by L.Grant for Grant et al.(2025) #
+        # calculate exposure per country and per cohort to try to analyse the "age of emergence"
+        # by being time/age explicit to assess this. Did not come to fruition and not retain for further
+        # usage in Grant et al.(2025)
+
+        # calc_cohort_lifetime_exposure(
+        #     d_isimip_meta,
+        #     df_countries,
+        #     countries_regions,
+        #     countries_mask,
+        #     da_population,
+        #     da_cohort_size,
+        #     flags,
+        # )
     
     print("--- {} minutes to compute Lifetime Exposure across Cohorts for all countries ---".format(
         np.floor((time.time() - start_time) / 60),
@@ -63,18 +102,14 @@ else: # load processed cohort exposure data
 
     if Grant_2025:
     
-        print('Loading processed Lifetime Exposures across cohorts. !Not yet settle!')
+        print('Loading processed Lifetime Exposures across cohorts will be done in the emergence analysis')
 
-    else:
+    elif Thiery_2021 or Source2Suffering:
 
-        print('Loading processed Lifetime Exposures across cohorts. !Not yet settle!')
+        print('Loading processed Lifetime Exposure to {}'.format(flags['extr']))
 
-        # for i in len(d_isimip_meta):
-
-            # add a way to store those but needs to be uptaded later
-
-        #     with open(data_dir+'{}/{}/exposure_peryear_perage_percountry_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-        #         d_exposure_perrun_pic = pk.load(f)
+        with open(data_dir+'{}/{}/lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+            ds_le = pk.load(f)
 
 # --------------------------------------------------------------- #
 # Process lifetime exposure across cohorts for                    #
@@ -118,6 +153,7 @@ else:
 # --------------------------------------------------------------- #
 
 if Grant_2025:
+
     # computation of multi-model mean of the exposure
     ds_exposure_pic = calc_exposure_mmm_pic_xr(
         d_exposure_perrun_pic,
