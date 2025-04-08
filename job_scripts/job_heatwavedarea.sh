@@ -3,7 +3,7 @@
 #SBATCH --job-name=s2s_heatwavedarea
 #SBATCH --ntasks=2
 #SBATCH --mem=160G
-#SBATCH --time=48:00:00
+#SBATCH --time=6:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=amaury.laridon@vub.be
 #SBATCH --output=/dev/null
@@ -60,8 +60,9 @@ module load SciPy-bundle/2022.05-foss-2022a
 module load matplotlib/3.5.2-foss-2022a
 module load Cartopy/0.20.3-foss-2022a
 module load Shapely/1.8.2-foss-2022a
-# module swap xarray/0.20.1-foss-2021b xarray/2022.6.0-foss-2021b
 module load Seaborn/0.12.1-foss-2022a
+module load imageio/2.22.2-foss-2022a 
+module load ncview/2.1.8-gompi-2022a
 
 end_time_mod=$(date +%s.%N)  # Capture the end time
 execution_time_mod=$(echo "$end_time_mod - $start_time_mod" | bc)

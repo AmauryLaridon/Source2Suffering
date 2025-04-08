@@ -99,7 +99,7 @@ if env_value_paper:
         flags['version'] = 'pickles'
         flags['run'] = 1
         flags['mask'] = 1
-        flags['lifetime_exposure_cohort'] = 1
+        flags['lifetime_exposure'] = 1
         flags['lifetime_exposure_pic'] = 1
         flags['emergence'] = 0
         flags['birthyear_emergence'] = 0
@@ -120,7 +120,7 @@ if env_value_paper:
         flags['version'] = 'pickles_v3'
         flags['run'] = 0
         flags['mask'] = 0
-        flags['lifetime_exposure_cohort'] = 0
+        flags['lifetime_exposure'] = 0
         flags['lifetime_exposure_pic'] = 0
         flags['emergence'] = 1
         flags['birthyear_emergence'] = 0
@@ -145,6 +145,8 @@ if env_value_paper:
 #--------------------------------------------------------------------------------------#
 
 if not env_value_paper:
+
+    #--------------------- Configuration ----------------------#
 
     flags['extr'] = 'heatwavedarea'                 # 0: all
                                                     # 1: burntarea
@@ -176,21 +178,25 @@ if not env_value_paper:
     flags['mask'] = 0                               # 0: do not process country data (i.e. load masks pickle)
                                                     # 1: process country data (i.e. produce and save masks as pickle)
 
-    flags['lifetime_exposure_cohort'] = 0           # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
+    #--------- Thiery et al.(2021) Lifetime Exposure ----------#
+    
+    flags['lifetime_exposure'] = 0                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
                                                                         
     flags['lifetime_exposure_pic'] = 0              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute picontrol exposure (i.e. produce and save exposure as pickle)
 
-    flags['emergence'] = 0                          # 0: do not process ISIMIP runs to compute cohort emergence (i.e. load cohort exposure pickle)
-                                                    # 1: process ISIMIP runs to compute cohort emergence (i.e. produce and save exposure as pickle)
+    #--------- Grant et al.(2025) Emergence of ULE ------------#
+    
+    flags['emergence'] = 0                          # 0: do not process ISIMIP runs to compute cohort emergence of unprecedentend lifetime exposure (i.e. load cohort exposure pickle)
+                                                    # 1: process ISIMIP runs to compute cohort emergence of unprecedentend lifetime exposure (i.e. produce and save exposure as pickle)
 
     #--------------------- Produce Error ----------------------#
 
     flags['birthyear_emergence'] = 0                # 0: only run calc_birthyear_align with birth years from 1960-2020
                                                     # 1: run calc_birthyear_align with birth years from 1960-2100. Produces an error.  
                                                 
-    #----------------------------------------------------------#
+    #--------- Grant et al.(2025) Gridscale analysis ----------#
 
                             
     flags['gridscale'] = 0                          # 0: do not process 1d scale analysis, load pickles
@@ -202,6 +208,7 @@ if not env_value_paper:
     flags['gridscale_country_subset'] = 0           # 0: run gridscale analysis on all countries
                                                     # 1: run gridscale analysis on subset of countries determined in "get_gridscale_regions" and settings countries. Can only work if flags['gridscale'] = 1
 
+    #------------- Grant et al.(2025) analysis ----------------#
     #--------------------- Produce Error ----------------------#
 
     flags['global_emergence_recollect'] = 0         # 0: do not load pickles of global emergence masks used for vulnerability assessment

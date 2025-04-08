@@ -33,10 +33,6 @@ scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start
 #     pass 
 
 
-
-
-
-
 # # part of the loop done in ms_exposure.m
 
 # % loop over regions
@@ -70,29 +66,26 @@ def lreg(x, y):
 # Apply vectorized linear regression                              #
 #-----------------------------------------------------------------#
 
-def vectorize_lreg(da_y,
-                da_x=None):
-    
+def vectorize_lreg(da_y, da_x=None):
     if da_x is not None:
-        
         pass
-    
     else:
-        
         da_list = []
         for t in da_y.time.values:
-            da_list.append(xr.where(da_y.sel(time=t).notnull(),t,da_y.sel(time=t)))
-        da_x = xr.concat(da_list,dim='time')
-        
-    stats = xr.apply_ufunc(lreg, da_x, da_y,
-                        input_core_dims=[['time'], ['time']],
-                        output_core_dims=[["parameter"]],
-                        vectorize=True,
-                        dask="parallelized",
-                        output_dtypes=['float64'],
-                        output_sizes={"parameter": 3})
-    slope = cp(stats.sel(parameter=0))
-    return slope
+            da_list.append(xr.where(da_y.sel(time=t).notnull(), t, da_y.sel(time=t)))
+        da_x = xr.concat(da_list, dim='time')
+
+    stats = xr.apply_ufunc(
+        lreg,
+        da_x,
+        da_y,
+        input_core_dims=[['time'], ['time']],
+        output_core_dims=[["parameter"]],
+        vectorize=True,
+        dask="parallelized",
+        dask_gufunc_kwargs={"output_sizes": {"parameter": 3}},  
+        output_dtypes=['float64']
+    )
 
 #%%---------------------------------------------------------------#
 # Bootstrapping function                                          #
@@ -326,6 +319,9 @@ def calc_exposure_trends(
     flags,
 ):
 
+    # time step in year used for the assessment
+    time_res = 1
+
     # arrays of lat/lon values
     lat = grid_area.lat.values
     lon = grid_area.lon.values
@@ -355,47 +351,47 @@ def calc_exposure_trends(
     basins_3D = rm.mask_3D_geopandas(gdf_basins,lon,lat) # 3d mask for basins
 
     # dataset for exposure trends
-    ds_e = xr.Dataset(
+    ds_le_trends_regions = xr.Dataset(
         data_vars={
             'exposure_trend_ar6': (
                 ['run','GMT','region','year'],
                 np.full(
-                    (len(list(d_isimip_meta.keys())),len(GMT_labels),len(ar6_regs_3D.region.data),len(np.arange(year_start,year_ref+1,20))),
+                    (len(list(d_isimip_meta.keys())),len(GMT_labels),len(ar6_regs_3D.region.data),len(np.arange(year_start,year_ref+1,time_res))),
                     fill_value=np.nan,
                 ),
             ),
             'mean_exposure_trend_ar6': (
                 ['GMT','region','year'],
                 np.full(
-                    (len(GMT_labels),len(ar6_regs_3D.region.data),len(np.arange(year_start,year_ref+1,20))),
+                    (len(GMT_labels),len(ar6_regs_3D.region.data),len(np.arange(year_start,year_ref+1,time_res))),
                     fill_value=np.nan,
                 ),
             ),                                
             'exposure_trend_country': (
                 ['run','GMT','country','year'],
                 np.full(
-                    (len(list(d_isimip_meta.keys())),len(GMT_labels),len(countries_3D.region.data),len(np.arange(year_start,year_ref+1,20))),
+                    (len(list(d_isimip_meta.keys())),len(GMT_labels),len(countries_3D.region.data),len(np.arange(year_start,year_ref+1,time_res))),
                     fill_value=np.nan,
                 ),
             ),
             'mean_exposure_trend_country': (
                 ['GMT','country','year'],
                 np.full(
-                    (len(GMT_labels),len(countries_3D.region.data),len(np.arange(year_start,year_ref+1,20))),
+                    (len(GMT_labels),len(countries_3D.region.data),len(np.arange(year_start,year_ref+1,time_res))),
                     fill_value=np.nan,
                 ),
             ),         
             'exposure_trend_basin': (
                 ['run','GMT','basin','year'],
                 np.full(
-                    (len(list(d_isimip_meta.keys())),len(GMT_labels),len(basins_3D.region.data),len(np.arange(year_start,year_ref+1,20))),
+                    (len(list(d_isimip_meta.keys())),len(GMT_labels),len(basins_3D.region.data),len(np.arange(year_start,year_ref+1,time_res))),
                     fill_value=np.nan,
                 ),
             ),
             'mean_exposure_trend_basin': (
                 ['GMT','basin','year'],
                 np.full(
-                    (len(GMT_labels),len(basins_3D.region.data),len(np.arange(year_start,year_ref+1,20))),
+                    (len(GMT_labels),len(basins_3D.region.data),len(np.arange(year_start,year_ref+1,time_res))),
                     fill_value=np.nan,
                 ),
             ),                                                             
@@ -406,7 +402,7 @@ def calc_exposure_trends(
             'basin': ('basin', basins_3D.region.data),
             'run': ('run', list(d_isimip_meta.keys())),
             'GMT': ('GMT', GMT_labels),
-            'year': ('year', np.arange(year_start,year_ref+1,20))
+            'year': ('year', np.arange(year_start,year_ref+1,time_res))
         }
     )
     
@@ -423,7 +419,9 @@ def calc_exposure_trends(
         for step in GMT_labels:
                 
             if d_isimip_meta[i]['GMT_strj_valid'][step]:
-            
+
+                print("Simulations used for re-mapping for GMT index = {}".format([step]))
+
                 # reindexing original exposure array based on GMT-mapping indices
                 da_AFA_step = da_AFA.reindex(
                     {'time':da_AFA['time'][d_isimip_meta[i]['ind_RCP2GMT_strj'][:,step]]}
@@ -435,10 +433,10 @@ def calc_exposure_trends(
                 da_AFA_basin_weighted_sum = da_AFA_step.weighted(basins_3D*grid_area/10**6).sum(dim=('lat','lon'))
         
                 # regressions on separate 80 year periods of area sums
-                for y in np.arange(year_start,year_ref+1,20):
+                for y in np.arange(year_start,year_ref+1,time_res):
                     
                     # ar6 regions
-                    ds_e['exposure_trend_ar6'].loc[{
+                    ds_le_trends_regions['exposure_trend_ar6'].loc[{
                         'run':i,
                         'GMT':step,
                         'region':ar6_regs_3D.region.data,
@@ -446,7 +444,7 @@ def calc_exposure_trends(
                     }] = vectorize_lreg(da_AFA_ar6_weighted_sum.loc[{'time':np.arange(y,y+81)}])
                     
                     # countries
-                    ds_e['exposure_trend_country'].loc[{
+                    ds_le_trends_regions['exposure_trend_country'].loc[{
                         'run':i,
                         'GMT':step,
                         'country':countries_3D.region.data,
@@ -454,7 +452,7 @@ def calc_exposure_trends(
                     }] = vectorize_lreg(da_AFA_country_weighted_sum.loc[{'time':np.arange(y,y+81)}])
                     
                     # basins
-                    ds_e['exposure_trend_basin'].loc[{
+                    ds_le_trends_regions['exposure_trend_basin'].loc[{
                         'run':i,
                         'GMT':step,
                         'basin':basins_3D.region.data,
@@ -462,15 +460,15 @@ def calc_exposure_trends(
                     }] = vectorize_lreg(da_AFA_basin_weighted_sum.loc[{'time':np.arange(y,y+81)}])
     
     # take means of trends in exposed area
-    ds_e['mean_exposure_trend_ar6'] = ds_e['exposure_trend_ar6'].mean(dim='run')
-    ds_e['mean_exposure_trend_country'] = ds_e['exposure_trend_country'].mean(dim='run')
-    ds_e['mean_exposure_trend_basin'] = ds_e['exposure_trend_basin'].mean(dim='run')
+    ds_le_trends_regions['mean_exposure_trend_ar6'] = ds_le_trends_regions['exposure_trend_ar6'].mean(dim='run')
+    ds_le_trends_regions['mean_exposure_trend_country'] = ds_le_trends_regions['exposure_trend_country'].mean(dim='run')
+    ds_le_trends_regions['mean_exposure_trend_basin'] = ds_le_trends_regions['exposure_trend_basin'].mean(dim='run')
 
     # dump pickle of exposure trends
-    with open(data_dir+'{}/{}/exposure_trends_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
-        pk.dump(ds_e,f)
+    with open(data_dir+'{}/{}/lifetime_exposure_trends_regions.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+        pk.dump(ds_le_trends_regions,f)
 
-    return ds_e
+    return ds_le_trends_regions
         
 #%%----------------------------------------------------------------#
 # Convert Area Fraction Affected (AFA) to per-country number of    #
@@ -492,9 +490,11 @@ def calc_lifetime_exposure(
     df_life_expectancy_5,
     flags,
 ):
+    # perform the per region computations or not
+    region = False 
 
     # nan dataset of lifetime exposure
-    ds_le = xr.Dataset(
+    ds_le_percountry_perrun_GMT = xr.Dataset(
         data_vars={
             'lifetime_exposure': (
                 ['run','GMT','country','birth_year'],
@@ -511,6 +511,26 @@ def calc_lifetime_exposure(
             'GMT': ('GMT', GMT_labels)
         }
     )
+
+    if region:
+
+        ds_le_perregion_perrun_GMT = xr.Dataset(
+            data_vars={
+                'lifetime_exposure': (
+                    ['run','GMT','region','birth_year'],
+                    np.full(
+                        (len(list(d_isimip_meta.keys())),len(GMT_labels),nregions,len(birth_years)),
+                        fill_value=np.nan,
+                    ),
+                )
+            },
+            coords={
+                'region': ('region', da_regions),
+                'birth_year': ('birth_year', birth_years),
+                'run': ('run', np.arange(1,len(list(d_isimip_meta.keys()))+1)),
+                'GMT': ('GMT', GMT_labels)
+            }
+        )
     
     # loop over simulations
     for i in list(d_isimip_meta.keys()): 
@@ -574,16 +594,50 @@ def calc_lifetime_exposure(
                 )
         
                 # convert dataframe to data array of lifetime exposure (le) per country and birth year
-                ds_le['lifetime_exposure'].loc[{
+                ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{
                     'run':i,
                     'GMT':step,
-                }] = d_exposure_perrun_step.values.transpose()             
+                }] = d_exposure_perrun_step.values.transpose()   
 
-    # dump pickle of lifetime exposure
-    with open(data_dir+'{}/{}/lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
-        pk.dump(ds_le,f)
+                #---------------------------------------------------------------------#
+                # Per region                                                          #
+                #---------------------------------------------------------------------#
 
-    return ds_le
+                if region:
+
+                    # On calcule l'exposition par région, pondérée par la taille de la cohorte
+                    for r, region in enumerate(da_regions.values):
+        
+                        countries_in_region = [c for c in df_countries['name'].values if countries_regions[c] == region]
+
+                        country_indices = [np.where(ds_le_percountry_perrun_GMT.country.values == c)[0][0] for c in countries_in_region]
+                        cohort_indices = [np.where(df_countries['name'].values == c)[0][0] for c in countries_in_region]
+
+                        cohort_weights = da_cohort_size.isel(country=cohort_indices).sum(dim='ages')  # dims: country x time
+                        cohort_weights = cohort_weights.sel(time=cohort_weights.time.isin(birth_years)).rename({'time': 'birth_year'})
+
+                        exposure = ds_le_percountry_perrun_GMT['lifetime_exposure'].sel(run=i, GMT=step).isel(country=country_indices)
+
+                        weighted = exposure * cohort_weights
+                        weighted_mean = weighted.sum(dim='country', skipna=True) / cohort_weights.sum(dim='country', skipna=True)
+
+                        ds_le_perregion_perrun_GMT['lifetime_exposure'].loc[{
+                            'run': i,
+                            'GMT': step,
+                            'region': r,
+                        }] = weighted_mean
+
+    # dump pickle of lifetime exposure per country and per region
+    with open(data_dir+'{}/{}/lifetime_exposure_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+        pk.dump(ds_le_percountry_perrun_GMT,f)
+    
+    if region :
+        with open(data_dir+'{}/{}/lifetime_exposure_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+            pk.dump(ds_le_perregion_perrun_GMT,f)
+
+        return ds_le_percountry_perrun_GMT, ds_le_perregion_perrun_GMT
+    
+    return ds_le_percountry_perrun_GMT
         
 #%%---------------------------------------------------------------#
 # Convert Area Fraction Affected (AFA) to                         #

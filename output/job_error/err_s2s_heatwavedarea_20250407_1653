@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 335, in <module>
+    exec(exe_plots)
+  File "<string>", line 428, in <module>
+  File "/data/brussel/vo/000/bvo00012/vsc11137/source2suffering/figures/source2suffering/plot_source2suffering.py", line 46, in <module>
+    import imageio
+ModuleNotFoundError: No module named 'imageio'

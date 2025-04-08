@@ -30,7 +30,7 @@ from pf_exposure import *
 # Execute lifetime exposure across cohorts                        #
 # ----------------------------------------------------------------#
 
-if flags['lifetime_exposure_cohort']:
+if flags['lifetime_exposure']:
 
     print("Computing Lifetime Exposure across cohorts")
     start_time = time.time()
@@ -39,34 +39,27 @@ if flags['lifetime_exposure_cohort']:
 
         # function translate by A.Laridon from Thiery et al.(2021) #
 
-        # calc_lifetime_exposure(
-        #     d_isimip_meta,
-        #     df_countries,
-        #     countries_regions,
-        #     countries_mask,
-        #     da_population,
-        #     df_life_expectancy_5,
-        #     flags,)
-
         # function translate by L.Grant from Thiery et al.(2021) #
          
-        # calc_lifetime_exposure(
-        #     d_isimip_meta,
-        #     df_countries,
-        #     countries_regions,
-        #     countries_mask,
-        #     da_population,
-        #     df_life_expectancy_5,
-        #     flags,)
-        
-        grid_area = xr.open_dataarray(data_dir+'isimip/grid_resolution/clm45_area.nc4')
-
-        calc_exposure_trends(
+        calc_lifetime_exposure(
             d_isimip_meta,
-            grid_area,
-            gdf_country_borders,
-            flags
-            )
+            df_countries,
+            countries_regions,
+            countries_mask,
+            da_population,
+            df_life_expectancy_5,
+            flags,)
+        
+        # calc_exposure_trends() only produces NaN values as output #
+
+        #grid_area = xr.open_dataarray(data_dir+'isimip/grid_resolution/clm45_area.nc4')
+
+        # calc_exposure_trends(
+        #     d_isimip_meta,
+        #     grid_area,
+        #     gdf_country_borders,
+        #     flags
+        #     )
     
     
     if Grant_2025:

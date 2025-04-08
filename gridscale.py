@@ -96,7 +96,7 @@ else:
         
 if flags['gridscale_le_test']:
 
-    print("Computing Test of Gridscale Emergence of cumulative exposures")
+    print("Computing Test of Gridscale Emergence with other life expectancy for cumulative exposures")
     
     ds_pf_gs_le_test = gridscale_emergence_life_expectancy_constant(
         d_isimip_meta,
@@ -110,10 +110,10 @@ if flags['gridscale_le_test']:
         da_population,
     )        
     
-else:
-
-    pass 
+else: 
     
+    pass 
+
     # print("Loading Test of Gridscale Emergence of cumulative exposures")
 
     # with open(data_dir+'{}/{}/gridscale_aggregated_pop_frac_le_test_{}.pkl'.format(flags['version'],flags['extr']+'_le_test',flags['extr']), 'rb') as f:

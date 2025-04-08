@@ -1,0 +1,209 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_heatwavedarea - Job ID: 10587114
+Mon Apr  7 14:08:38 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 1.86 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=heatwavedarea
+Using extr value: heatwavedarea
+------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                               |
+------------------------------------------------------------------------------------------------------
+Current date and time: 2025-04-07 14:10:51
+-------------------------------------------------------------------------------
+Model configuration - Manual
+-------------------------------------------------------------------------------
+extr: heatwavedarea
+
+gmt: ar6_new
+
+rm: rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+lifetime_exposure: 1
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+plots: 1
+
+reporting: 0
+
+-------------------------------------------------------------------------------
+Start to import settings
+Settings imported
+-------------------------------------------------------------------------------
+Start to import and manipulate Demographic, GMT and ISIMIP data
+GMT projections loaded
+Loading processed country data
+Country data loaded
+Loading processed ISIMIP data
+ISMIP data loaded
+-------------------------------------------------------------------------------
+Start Lifetime Exposure framework
+Computing Lifetime Exposure across cohorts
+ISIMIP Simulation 1 of 12
+ISIMIP Simulation 2 of 12
+Simulations used for re-mapping for GMT index = [0]
+Simulations used for re-mapping for GMT index = [1]
+Simulations used for re-mapping for GMT index = [2]
+Simulations used for re-mapping for GMT index = [3]
+Simulations used for re-mapping for GMT index = [4]
+Simulations used for re-mapping for GMT index = [5]
+Simulations used for re-mapping for GMT index = [6]
+Simulations used for re-mapping for GMT index = [7]
+Simulations used for re-mapping for GMT index = [8]
+Simulations used for re-mapping for GMT index = [9]
+Simulations used for re-mapping for GMT index = [10]
+ISIMIP Simulation 3 of 12
+Simulations used for re-mapping for GMT index = [0]
+Simulations used for re-mapping for GMT index = [1]
+Simulations used for re-mapping for GMT index = [2]
+Simulations used for re-mapping for GMT index = [3]
+Simulations used for re-mapping for GMT index = [4]
+Simulations used for re-mapping for GMT index = [5]
+Simulations used for re-mapping for GMT index = [6]
+Simulations used for re-mapping for GMT index = [7]
+Simulations used for re-mapping for GMT index = [8]
+Simulations used for re-mapping for GMT index = [9]
+Simulations used for re-mapping for GMT index = [10]
+Simulations used for re-mapping for GMT index = [11]
+Simulations used for re-mapping for GMT index = [12]
+Simulations used for re-mapping for GMT index = [13]
+Simulations used for re-mapping for GMT index = [14]
+Simulations used for re-mapping for GMT index = [15]
+Simulations used for re-mapping for GMT index = [16]
+Simulations used for re-mapping for GMT index = [17]
+Simulations used for re-mapping for GMT index = [18]
+Simulations used for re-mapping for GMT index = [19]
+Simulations used for re-mapping for GMT index = [20]
+ISIMIP Simulation 4 of 12
+Simulations used for re-mapping for GMT index = [0]
+Simulations used for re-mapping for GMT index = [1]
+Simulations used for re-mapping for GMT index = [2]
+Simulations used for re-mapping for GMT index = [3]
+Simulations used for re-mapping for GMT index = [4]
+Simulations used for re-mapping for GMT index = [5]
+Simulations used for re-mapping for GMT index = [6]
+ISIMIP Simulation 5 of 12
+Simulations used for re-mapping for GMT index = [0]
+Simulations used for re-mapping for GMT index = [1]
+Simulations used for re-mapping for GMT index = [2]
+Simulations used for re-mapping for GMT index = [3]
+Simulations used for re-mapping for GMT index = [4]
+Simulations used for re-mapping for GMT index = [5]
+Simulations used for re-mapping for GMT index = [6]
+Simulations used for re-mapping for GMT index = [7]
+Simulations used for re-mapping for GMT index = [8]
+Simulations used for re-mapping for GMT index = [9]
+Simulations used for re-mapping for GMT index = [10]
+Simulations used for re-mapping for GMT index = [11]
+Simulations used for re-mapping for GMT index = [12]
+Simulations used for re-mapping for GMT index = [13]
+Simulations used for re-mapping for GMT index = [14]
+Simulations used for re-mapping for GMT index = [15]
+Simulations used for re-mapping for GMT index = [16]
+Simulations used for re-mapping for GMT index = [17]
+Simulations used for re-mapping for GMT index = [18]
+Simulations used for re-mapping for GMT index = [19]
+Simulations used for re-mapping for GMT index = [20]
+ISIMIP Simulation 6 of 12
+Simulations used for re-mapping for GMT index = [0]
+Simulations used for re-mapping for GMT index = [1]
+Simulations used for re-mapping for GMT index = [2]
+Simulations used for re-mapping for GMT index = [3]
+Simulations used for re-mapping for GMT index = [4]
+Simulations used for re-mapping for GMT index = [5]
+Simulations used for re-mapping for GMT index = [6]
+Simulations used for re-mapping for GMT index = [7]
+Simulations used for re-mapping for GMT index = [8]
+Simulations used for re-mapping for GMT index = [9]
+Simulations used for re-mapping for GMT index = [10]
+Simulations used for re-mapping for GMT index = [11]
+Simulations used for re-mapping for GMT index = [12]
+Simulations used for re-mapping for GMT index = [13]
+Simulations used for re-mapping for GMT index = [14]
+Simulations used for re-mapping for GMT index = [15]
+Simulations used for re-mapping for GMT index = [16]
+Simulations used for re-mapping for GMT index = [17]
+Simulations used for re-mapping for GMT index = [18]
+Simulations used for re-mapping for GMT index = [19]
+Simulations used for re-mapping for GMT index = [20]
+ISIMIP Simulation 7 of 12
+ISIMIP Simulation 8 of 12
+ISIMIP Simulation 9 of 12
+ISIMIP Simulation 10 of 12
+Simulations used for re-mapping for GMT index = [0]
+Simulations used for re-mapping for GMT index = [1]
+Simulations used for re-mapping for GMT index = [2]
+ISIMIP Simulation 11 of 12
+Simulations used for re-mapping for GMT index = [0]
+Simulations used for re-mapping for GMT index = [1]
+Simulations used for re-mapping for GMT index = [2]
+Simulations used for re-mapping for GMT index = [3]
+Simulations used for re-mapping for GMT index = [4]
+Simulations used for re-mapping for GMT index = [5]
+Simulations used for re-mapping for GMT index = [6]
+Simulations used for re-mapping for GMT index = [7]
+Simulations used for re-mapping for GMT index = [8]
+Simulations used for re-mapping for GMT index = [9]
+Simulations used for re-mapping for GMT index = [10]
+Simulations used for re-mapping for GMT index = [11]
+Simulations used for re-mapping for GMT index = [12]
+ISIMIP Simulation 12 of 12
+Simulations used for re-mapping for GMT index = [0]
+Simulations used for re-mapping for GMT index = [1]
+Simulations used for re-mapping for GMT index = [2]
+Simulations used for re-mapping for GMT index = [3]
+Simulations used for re-mapping for GMT index = [4]
+Simulations used for re-mapping for GMT index = [5]
+Simulations used for re-mapping for GMT index = [6]
+Simulations used for re-mapping for GMT index = [7]
+Simulations used for re-mapping for GMT index = [8]
+Simulations used for re-mapping for GMT index = [9]
+Simulations used for re-mapping for GMT index = [10]
+Simulations used for re-mapping for GMT index = [11]
+Simulations used for re-mapping for GMT index = [12]
+Simulations used for re-mapping for GMT index = [13]
+Simulations used for re-mapping for GMT index = [14]
+Simulations used for re-mapping for GMT index = [15]
+Simulations used for re-mapping for GMT index = [16]
+Simulations used for re-mapping for GMT index = [17]
+Simulations used for re-mapping for GMT index = [18]
+Simulations used for re-mapping for GMT index = [19]
+Simulations used for re-mapping for GMT index = [20]
+End Job
+Mon Apr  7 14:52:49 CEST 2025
+-------------------------------------------------------------------------------------------------

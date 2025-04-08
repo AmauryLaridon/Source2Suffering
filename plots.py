@@ -416,7 +416,7 @@ if Source2Suffering:
 
     #Configuration of the plots#
 
-    plot_fig1 = 0 # 0: do not plot figure 1 for development
+    plot_fig1 = 1 # 0: do not plot figure 1 for development
                   # 1: plot figure 1 for development
     plot_fig2 = 1 # 0: do not plot figure 2 for development
                   # 1: plot figure 2 for development
@@ -431,7 +431,7 @@ if Source2Suffering:
 
         print("Performing Plot f1 for Development")
 
-        with open(data_dir+'{}/{}/lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/lifetime_exposure_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
             dataset_le = pk.load(f)
 
         plot_dev_fig1(ds=dataset_le,country='Belgium',run=6,GMT=20)
@@ -443,10 +443,10 @@ if Source2Suffering:
     
         print("Performing Plot f2 for Development")
 
-        with open(data_dir+'{}/{}/exposure_trends_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-            dataset_le_exposure_trends = pk.load(f)
+        with open(data_dir+'{}/{}/lifetime_exposure_trends_regions.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_trends_regions = pk.load(f)
 
-        plot_dev_fig2(ds=dataset_le_exposure_trends,var_name='exposure_trend_ar6',coords_dict={'run':6,'GMT':20,'region':'N.Europe'})
+        plot_dev_fig2(ds=ds_le_trends_regions,var_name='exposure_trend_ar6',coords_dict={'run':6,'GMT':20,'region':17})
 
     
 #%%-----------------------------------------------------------------------#

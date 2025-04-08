@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 291, in <module>
+    exec(exe_exposure)
+  File "<string>", line 55, in <module>
+  File "/data/brussel/vo/000/bvo00012/vsc11137/source2suffering/pf_scripts/pf_exposure.py", line 469, in calc_exposure_trends
+    pk.dump(ds_le_and_regions,f)
+NameError: name 'ds_le_and_regions' is not defined

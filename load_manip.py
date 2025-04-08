@@ -144,13 +144,23 @@ grid_area = xr.open_dataarray(data_dir+'isimip/grid_resolution/clm45_area.nc4')
 lat = grid_area.lat.values
 lon = grid_area.lon.values
 
-# 3d mask for ar6 regions
-ar6_regs_3D = rm.defined_regions.ar6.land.mask_3D(lon,lat)
+# 3d mask for ar6 regions. Gives a True of the gridcell fall into the specific region
+da_ar6_regs_3D = rm.defined_regions.ar6.land.mask_3D(lon,lat)
+# names of the ar6 regions 
+da_ar6_regions_names = da_ar6_regs_3D.names.values
+da_ar6_regions_index = np.arange(0,len(da_ar6_regions_names),1)
+# create dictionnary with the index as key and names of the regions as values
+d_ar6_regions = dict(zip(da_ar6_regions_index, da_ar6_regions_names))
 
-# 3d mask for countries
-countries_3D = rm.mask_3D_geopandas(gdf_country_borders.reset_index(),lon,lat)
 
-ar6_regions = ar6_regs_3D.names.values
+# 3d mask for ar6 countries. Gives a True of the gridcell fall into the specific country
+da_ar6_countries_3D = rm.mask_3D_geopandas(gdf_country_borders.reset_index(),lon,lat)
+# indices of the 177 ar6 countries
+da_ar6_countries_names = da_ar6_countries_3D.region.values
+
+# --------------------------------------------------------------- #
+# GMT steps tool                                                  #
+# --------------------------------------------------------------- #
 
 # stores for each GMT steps how many and which isimip simulations are available for remaping #
 # only used for analysis 
