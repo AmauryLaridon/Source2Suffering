@@ -48,6 +48,7 @@ if flags['lifetime_exposure']:
             countries_mask,
             da_population,
             df_life_expectancy_5,
+            da_regions,
             flags,)
         
         # calc_exposure_trends() only produces NaN values as output #
