@@ -852,7 +852,7 @@ def find_valid_cities(
      d_isimip_meta,
      flags,
 ):
-    if not os.path.isfile(data_dir+'pickles_v2/valid_cities.pkl'):
+    if not os.path.isfile(data_dir+'{}/valid_cities.pkl'.format(flags['version'])):
         # excel file of cities, their coords and population
         df_cities = pd.read_excel(data_dir+'city_locations/worldcities.xlsx')
         df_cities = df_cities.drop(columns=['city_ascii','iso2','iso3','admin_name','capital','id']).nlargest(n=200,columns=['population'])
@@ -862,7 +862,6 @@ def find_valid_cities(
         cntry_concat = []
         for cntry in list(df_countries.index):
             
-            #print(cntry)
             da_smple_cht = da_cohort_size.sel(country=cntry) # cohort absolute sizes in sample country
             da_smple_cht_prp = da_smple_cht / da_smple_cht.sum(dim='ages') # cohort relative sizes in sample country
             da_cntry = xr.DataArray(
@@ -900,12 +899,12 @@ def find_valid_cities(
             )
 
             # load demography pickle
-            with open(data_dir+'pickles_v2/gridscale/gridscale_dmg_{}.pkl'.format(cntry), 'rb') as f:
+            with open(data_dir+'{}/gridscale/gridscale_dmg_{}.pkl'.format(flags['version'],cntry), 'rb') as f:
                 ds_dmg = pk.load(f)   
 
             # load PIC pickle
-            with open(data_dir+'pickles_v2/{}/gridscale_le_pic_{}_{}.pkl'.format(flags['extr'],flags['extr'],cntry), 'rb') as f:
-                ds_pic = pk.load(f)                   
+            with open(data_dir+'{}/{}/{}/gridscale_le_pic_{}_{}.pkl'.format(flags['version'],flags['extr'],cntry,flags['extr'],cntry), 'rb') as f:
+                ds_pic = pk.load(f)     
 
             # loop over simulations
             for i in list(d_isimip_meta.keys()): 
@@ -913,7 +912,7 @@ def find_valid_cities(
                 # print('simulation {} of {}'.format(i,len(d_isimip_meta)))
 
                 # load AFA data of that run
-                with open(data_dir+'pickles_v2/{}/isimip_AFA_{}_{}.pkl'.format(flags['extr'],flags['extr'],str(i)), 'rb') as f:
+                with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
                     da_AFA = pk.load(f)
 
                 # mask to sample country and reduce spatial extent
@@ -965,7 +964,7 @@ def find_valid_cities(
                 city_lon = df_cntry.loc[city_i,'lng']
 
                 # pic
-                da_pic_city_9999 = ds_pic['99.99'].sel({'lat':city_lat,'lon':city_lon},method='nearest').item()            
+                da_pic_city_9999 = ds_pic['lifetime_exposure'].sel({'lat':city_lat,'lon':city_lon},method='nearest').item()            
 
                 # mean for city            
                 da_test_city = ds_spatial['cumulative_exposure'].sel({'lat':city_lat,'lon':city_lon},method='nearest').mean(dim='run')
@@ -1008,12 +1007,12 @@ def find_valid_cities(
         df_valid_cities = df_valid_cities.sort_values(by=['population'],ascending=False)
         print("Valid cities ", df_valid_cities)    
         # pickle selection of cities
-        with open(data_dir+'pickles_v2/valid_cities.pkl', 'wb') as f:
+        with open(data_dir+'{}/country/valid_cities.pkl'.format(flags['version']), 'wb') as f:
             pk.dump(df_valid_cities,f)   
             
     else:
         
-        with open(data_dir+'pickles_v2/valid_cities.pkl', 'rb') as f:
+        with open(data_dir+'{}/country/valid_cities.pkl'.format(flags['version']), 'rb') as f:
             df_valid_cities = pk.load(f)        
             
             

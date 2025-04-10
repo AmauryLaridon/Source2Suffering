@@ -492,7 +492,7 @@ def calc_lifetime_exposure(
     flags,
 ):
     # perform the per region computations or not
-    region = True 
+    region = False 
 
     #---------------------------------------------------------------------#
     # Init                                                                #
@@ -608,14 +608,17 @@ def calc_lifetime_exposure(
                     'GMT':step,
                 }] = d_exposure_perrun_step.values.transpose() 
     
-            #---------------------------------------------------------------------#
-            # Per region                                                          #
-            #---------------------------------------------------------------------#
+            # #---------------------------------------------------------------------#
+            # # Per region                                                          #
+            # #---------------------------------------------------------------------#
 
-            for region_ind, region in enumerate(da_regions):
+            # for region_ind, region in enumerate(da_regions):
 
-                ds_le_perregion_perrun_GMT['lifetime_exposure'].loc[{'run':i,'GMT':step,'region':region,'birth_year':slice(None)}] = 
-                    np.nansum(ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{'run':i,'GMT':step,'country':ds_regions['ind_member_countries'].loc[{'region':region_ind}]}] * ds_regions['cohort_weights'].loc[{'region':region_ind}], axis=1) / np.nansum(ds_regions['cohort_weights'].loc[{?}], axis=1)
+            #     ds_le_perregion_perrun_GMT['lifetime_exposure'].loc[{'run':i,'GMT':step,'region':region,'birth_year':slice(None)}] = 
+
+            #         np.nansum(ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{'run':i,'GMT':step,'country':ds_regions['ind_member_countries'], 'birth_year':slice(None)}] * ds_regions['cohort_weights'].loc[{'region':region_ind}], axis=1) 
+            #         / 
+            #         np.nansum(ds_regions['cohort_weights'].loc[{'region':slice(None)}], axis=1)
 
 
 

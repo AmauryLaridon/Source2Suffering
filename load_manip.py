@@ -113,18 +113,18 @@ else:
     da_cohort_size = d_countries['cohort_size']
     countries_regions, countries_mask = d_countries['mask'] 
 
-print(type(da_cohort_size))
-print(np.shape(da_cohort_size))
-print(da_cohort_size)
-print("---------------")
+# print(type(da_cohort_size))
+# print(np.shape(da_cohort_size))
+# print(da_cohort_size)
+# print("---------------")
 
-d_cohort_size = get_cohortsize_countries(df_countries)
+# d_cohort_size = get_cohortsize_countries(df_countries)
 
-print(type(d_cohort_size))
-print(np.shape(d_cohort_size))
-print(d_cohort_size["Zimbabwe"])
+# print(type(d_cohort_size))
+# print(np.shape(d_cohort_size))
+# print(d_cohort_size["Zimbabwe"])
 
-sys.exit(0)
+#sys.exit(0)
 # --------------------------------------------------------------- #
 # load Regions                                                    #
 # --------------------------------------------------------------- #
@@ -270,13 +270,13 @@ ds_regions['member_countries'] = xr.DataArray(
 
 #--------------------------- Configuration of ds_regions['cohort_weights']  ---------------------------#
 
-sys.exit(0)
+# sys.exit(0)
 
-tmp1 = []
-tmp2 = []
-tmp1 = 0
+# tmp1 = []
+# tmp2 = []
+# tmp1 = 0
 
-da_cohort_size[country,ind_2020,ages]
+# da_cohort_size[country,ind_2020,ages]
 
 
 # Liste pour accumuler les cohort_weights par région
@@ -310,145 +310,21 @@ da_cohort_size[country,ind_2020,ages]
 # cohort_weights = xr.concat(all_weights, dim="region")
 # cohort_weights = cohort_weights.assign_coords(region=region_labels)
 
-sys.exit(0)
-
-
-
-
-
-
-
-
-
-
-
-
-
-#------------------------- Tentative construction ds_regions en load regions.mat ----------------------#
-# from scipy.io import loadmat
-
-# d_regions = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/regions_original.mat',squeeze_me=True)
-
-# #print(d_regions.keys())
-
-# d_regions = {k: v for k, v in d_regions.items() if not k.startswith('__')}
-
-# nregions = len(d_regions['name'])
-
-# print("---------")
-# print("Shape:", d_regions["cohort_weights"].shape)
-# print("---------")
-# print(d_regions["cohort_weights"][0,:,:])
-# print("---------")
-
-# sys.exit(0)
-
-#d_regions['life_expectancy_0'] = np.array([d_regions['life_expectancy_0']])
-#print(d_regions)
-# print(np.shape(d_regions['birth_years'][0]))
-# print(d_regions['birth_years'])
-# print(np.shape(d_regions['life_expectancy_0'][0]))
-# print(d_regions['life_expectancy_0'])
-
-#-----------------------------------------------#
-
-#-------- Construct ind_member_countries -----#
-
-# regions["ind_member_countries"] = []
-# regions["member_countries"] = []
-
-# for region_name in regions["name"]:
-#     # Identifie les pays appartenant à la région ou au groupe de revenu
-#     ind_member_countries = (
-#         (countries["region"] == region_name) |
-#         (countries["incomegroup"] == region_name)
-#     )
-
-#     # Si la région est "World", tous les pays sont membres
-#     if region_name == "World":
-#         ind_member_countries = np.ones(len(countries["name"]), dtype=bool)
-
-#     # Enregistre les indices et les noms des pays membres
-#     regions["ind_member_countries"].append(ind_member_countries)
-#     member_countries = np.array(countries["name"])[ind_member_countries]
-#     regions["member_countries"].append(member_countries)
-
-
-
-# ### reconstruction manuelle de cohort_weights ###
-
-
-
-# ds_regions = xr.Dataset(
-
-#             data_vars={
-#                 'abbreviation' : (['region'], d_regions['abbreviation']),
-#                 'name': (['region'], d_regions['name']),
-#                 'birth_years': (['region'], d_regions['birth_years']),
-# #               'life_expectancy_0': (['region'], d_regions['life_expectancy_0']),
-# #                'life_expectancy_5': (['region'], d_regions['life_expectancy_5']),
-# #                'ind_member_countries': (['region'], d_regions['ind_member_countries']),
-# #                'member_countries': (['region'], d_regions['member_countries']),
-# #                'cohort_weights': (['region'], d_regions['cohort_weights']),
-# #                'mask': (['region'], d_regions['mask']),
-#             },
-
-#             coords={
-#                 'region': np.arange(1,nregions+1,1),
-#             }
-
-#         )
-
-# print("------------")
-# print(ds_regions)
-# print("------------")
-
-# for var_name, var_data in ds_regions.data_vars.items():
-#     print(f"Variable: {var_name}, shape: {var_data.shape}")
-
-
-#------------- ChatGPT version of conversion to DataArray from Dict ---------------#
-
-# d_regions_raw = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/regions.mat', squeeze_me=True)
-
-# # Nettoyer le dictionnaire : enlever les clés internes de MATLAB
-# d_regions = {k: v for k, v in d_regions_raw.items() if not k.startswith('__')}
-
-# # Préparer les dimensions et coordonnées
-# nregions = len(d_regions['name'])
-# n_birth_years = len(d_regions['birth_years'])
-
-# # On suppose que les dimensions sont cohérentes dans les objets concernés
-# region_coords = np.arange(nregions)
-# birth_year_coords = d_regions['birth_years']
-
-# # Construction du Dataset
-# ds_regions = xr.Dataset(
-#     {
-#         "abbreviation": (["region"], d_regions["abbreviation"]),
-#         "name": (["region"], d_regions["name"]),
-#         "name_2lines": (["region"], d_regions["name_2lines"]),
-#         "name_short": (["region"], d_regions["name_short"]),
-#         "life_expectancy_0": (["region", "birth_year"], d_regions["life_expectancy_0"]),
-#         "life_expectancy_5": (["region", "birth_year"], d_regions["life_expectancy_5"]),
-#         "cohort_weights": (["region", "country", "birth_year"], d_regions["cohort_weights"]),
-#         "mask": (["region", "country"], d_regions["mask"]),
-#         "ind_member_countries": (["region"], d_regions["ind_member_countries"]),
-#         "member_countries": (["region"], d_regions["member_countries"])
-#     },
-#     coords={
-#         "region": region_coords,
-#         "birth_year": birth_year_coords
-#     }
-# )
-
-# ds_regions.attrs["description"] = "Dataset converted from regions.mat"
-
-# ds_regions.isel(region=0).to_dict()  # Afficher un exemple pour vérification
 
 #---------------------------------------------------------------------------------------#
 
+d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohort_weights_regions = get_regions_data(
+    df_countries, 
+    df_regions, 
+    df_worldbank_region, 
+    df_unwpp_region, 
+    d_cohort_size,
+)
 
+print(d_region_countries)
+print(df_birthyears_regions)
+print(df_life_expectancy_5_regions)
+print(d_cohort_weights_regions)
 
 
 # --------------------------------------------------------------- #

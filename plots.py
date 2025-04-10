@@ -339,6 +339,7 @@ if Grant_2025:
 if Grant_2025: 
 
     Norway_BiCC2 = False             # Plots used for the BiCC2 Norway law suit assessment
+    Website = False                   # Plots used for the website assessment
     
     if Norway_BiCC2:
 
@@ -346,8 +347,9 @@ if Grant_2025:
 
         from plot_assessment import *
 
-        Norway_BiCC2_fig1 = 1      # 0: do not plot figure 1 for BiCC2 Norway law suit
+        Norway_BiCC2_fig1 = 0      # 0: do not plot figure 1 for BiCC2 Norway law suit
                                    # 1: plot figure 1 for BiCC2 Norway law suit
+    
 
         #--- WORK IN PROGRESS not working ---#
         Norway_BiCC2_fig2 = 0      # 0: do not plot figure 2 for BiCC2 Norway law suit
@@ -381,6 +383,28 @@ if Grant_2025:
                 df_countries,
             )
 
+
+    if Website:
+
+        sys.path.append(os.path.abspath(scripts_dir+"/figures/assessment"))
+
+        from plot_assessment import *
+
+        website_fig1 = 1        # 0: do not plot figure 1 for BiCC2 Norway law suit
+                                # 1: plot figure 1 for BiCC2 Norway law suit
+
+        if website_fig1:
+
+            print("Performing Plot f1 website assessmennt")
+
+            plot_website_fig1(
+                da_cohort_size,
+                countries_mask,
+                countries_regions,
+                d_isimip_meta,
+                flags,
+                df_life_expectancy_5,
+            )
 
 
 #%%-----------------------------------------------------------------------#
