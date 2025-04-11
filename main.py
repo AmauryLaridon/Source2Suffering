@@ -62,9 +62,9 @@ flags = {}
 global Thiery_2021, Grant_2025, Laridon_2025, Source2Suffering
 
 Thiery_2021 = False 
-Grant_2025 = True      
+Grant_2025 = False      
 Laridon_2025 = False
-Source2Suffering = False
+Source2Suffering = True
 env_value_paper= 0 
 
 #-------------------------------------------------------------------------------------#
@@ -180,7 +180,7 @@ if not env_value_paper:
 
     #--------- Thiery et al.(2021) Lifetime Exposure ----------#
     
-    flags['lifetime_exposure'] = 0                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
+    flags['lifetime_exposure'] = 1                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
                                                                         
     flags['lifetime_exposure_pic'] = 0              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)

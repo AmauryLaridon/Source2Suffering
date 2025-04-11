@@ -488,11 +488,11 @@ def calc_lifetime_exposure(
     countries_mask, 
     da_population, 
     df_life_expectancy_5,
-    da_regions,
+    ds_regions,
     flags,
 ):
     # perform the per region computations or not
-    region = False 
+    region = True 
 
     #---------------------------------------------------------------------#
     # Init                                                                #
@@ -519,7 +519,7 @@ def calc_lifetime_exposure(
 
     if region:
 
-        nregions = len(da_regions)
+        nregions = len(ds_regions['name'])
 
         ds_le_perregion_perrun_GMT = xr.Dataset(
             data_vars={
@@ -532,7 +532,7 @@ def calc_lifetime_exposure(
                 )
             },
             coords={
-                'region': ('region', da_regions),
+                'region': ('region', np.arange(0,nregions,1)),
                 'birth_year': ('birth_year', birth_years),
                 'run': ('run', np.arange(1,len(list(d_isimip_meta.keys()))+1)),
                 'GMT': ('GMT', GMT_labels)
@@ -612,14 +612,9 @@ def calc_lifetime_exposure(
             # # Per region                                                          #
             # #---------------------------------------------------------------------#
 
-            # for region_ind, region in enumerate(da_regions):
+            for region_ind, region in enumerate(ds_regions):
 
-            #     ds_le_perregion_perrun_GMT['lifetime_exposure'].loc[{'run':i,'GMT':step,'region':region,'birth_year':slice(None)}] = 
-
-            #         np.nansum(ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{'run':i,'GMT':step,'country':ds_regions['ind_member_countries'], 'birth_year':slice(None)}] * ds_regions['cohort_weights'].loc[{'region':region_ind}], axis=1) 
-            #         / 
-            #         np.nansum(ds_regions['cohort_weights'].loc[{'region':slice(None)}], axis=1)
-
+                ds_le_perregion_perrun_GMT['lifetime_exposure'].loc[{'run':i,'GMT':step,'region':region,'birth_year':slice(None)}] =  np.nansum(ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{'run':i,'GMT':step,'country':ds_regions['member_countries'].loc[{'region':region}], 'birth_year':slice(None)}] * d_cohort_weights_regions[ds_regions['name'].loc[{'region':region}]], axis=1) / np.nansum(d_cohort_weights_regions[ds_regions['name'].loc[{'region':region}]], axis=1)
 
 
     # dump pickle of lifetime exposure per country

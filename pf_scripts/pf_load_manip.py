@@ -1088,12 +1088,36 @@ def all_country_data(
     }
 
     # save metadata dictionary as a pickle
-    print('Saving country data')
+    print('Saving Country data')
     
     if not os.path.isdir(data_dir+'{}'.format(flags['version'])):
         os.mkdir(data_dir+'{}'.format(flags['version'],))
     with open(data_dir+'{}/country/country_info.pkl'.format(flags['version']), 'wb') as f: # note; 'with' handles file stream closing
         pk.dump(d_countries,f)
+
+    # save metadata dictionary as a pickle
+    print('Saving Regions data')
+    
+    if not os.path.isdir(data_dir+'{}'.format(flags['version'])):
+        os.mkdir(data_dir+'{}'.format(flags['version'],))
+    with open(data_dir+'{}/country/regions_info.pkl'.format(flags['version']), 'wb') as f: # note; 'with' handles file stream closing
+        pk.dump(df_regions,f)
+
+    # save metadata dictionary as a pickle
+    print('Saving Worldbank data')
+    
+    if not os.path.isdir(data_dir+'{}'.format(flags['version'])):
+        os.mkdir(data_dir+'{}'.format(flags['version'],))
+    with open(data_dir+'{}/country/worldbank.pkl'.format(flags['version']), 'wb') as f: # note; 'with' handles file stream closing
+        pk.dump(worldbank,f)
+
+    # save metadata dictionary as a pickle
+    print('Saving UNWPP data')
+    
+    if not os.path.isdir(data_dir+'{}'.format(flags['version'])):
+        os.mkdir(data_dir+'{}'.format(flags['version'],))
+    with open(data_dir+'{}/country/unwpp.pkl'.format(flags['version']), 'wb') as f: # note; 'with' handles file stream closing
+        pk.dump(unwpp,f)
         
-    return d_countries
+    return d_countries, df_regions, worldbank, unwpp
 # %%

@@ -47,20 +47,29 @@ print("GMT projections loaded")
 
 if flags['mask']: # compute and process country info
 
-    print('Processing country data')
+    print('Processing country and regions data')
 
-    d_countries = all_country_data(flags)
+    d_countries ,df_regions, worldbank, unwpp = all_country_data(flags)
 
-    print('Country data loaded')
+    print('Country and regions data loaded')
 
 else: # load processed country data
 
-    print('Loading processed country data')
+    print('Loading processed country and regions data')
 
     # load country pickle
     d_countries = pk.load(open(data_dir+'{}/country/country_info.pkl'.format(flags['version']), 'rb'))
 
-    print('Country data loaded')
+    # load regions pickle
+    df_regions = pk.load(open(data_dir+'{}/country/regions_info.pkl'.format(flags['version']), 'rb'))
+
+    # load worldbank pickle
+    worldbank = pk.load(open(data_dir+'{}/country/worldbank.pkl'.format(flags['version']), 'rb'))
+
+    # load unwpp pickle
+    unwpp = pk.load(open(data_dir+'{}/country/unwpp.pkl'.format(flags['version']), 'rb'))
+
+    print('Country and regions data loaded')
     
 # unpack country information
 
@@ -118,7 +127,7 @@ else:
 # print(da_cohort_size)
 # print("---------------")
 
-# d_cohort_size = get_cohortsize_countries(df_countries)
+d_cohort_size = get_cohortsize_countries(df_countries)
 
 # print(type(d_cohort_size))
 # print(np.shape(d_cohort_size))
@@ -256,12 +265,18 @@ ds_regions['member_countries'] = xr.DataArray(
     coords={'region': coord_region}
 )
 
+
 # print("--------------")
 # print(ds_regions)
 # print("--------------")
-# print(ds_regions["ind_member_countries"][0,:].values)
-# print(ds_regions["ind_member_countries"][0,:].shape)
-# print(ds_regions["ind_member_countries"][0,:].dtype)
+# print(ds_regions["member_countries"][0].values)
+# print(ds_regions["member_countries"][0].shape)
+# print(ds_regions["member_countries"][0].dtype)
+
+# print("--------------")
+# print(ds_regions["member_countries"][1].values)
+# print(ds_regions["member_countries"][1].shape)
+# print(ds_regions["member_countries"][1].dtype)
 # print("--------------")
 # print(ds_regions["member_countries"].values)
 # print(ds_regions["member_countries"].shape)
@@ -311,7 +326,11 @@ ds_regions['member_countries'] = xr.DataArray(
 # cohort_weights = cohort_weights.assign_coords(region=region_labels)
 
 
-#---------------------------------------------------------------------------------------#
+#------------------------------- Luke's get_regions_data() -----------------------------#
+
+
+df_worldbank_region = worldbank[1]
+df_unwpp_region = unwpp[1]
 
 d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohort_weights_regions = get_regions_data(
     df_countries, 
@@ -321,10 +340,64 @@ d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohor
     d_cohort_size,
 )
 
-print(d_region_countries)
-print(df_birthyears_regions)
-print(df_life_expectancy_5_regions)
-print(d_cohort_weights_regions)
+# print(type(d_cohort_weights_regions['North America']))
+# print(np.shape(d_cohort_weights_regions['North America']))
+# print("d_cohort_weights_regions", d_cohort_weights_regions['North America'])
+
+# ---------------------------------- Intégration dans ds_regions['cohort_weights'] ---------------------------------- #
+
+# --- Option will all countries as coord --- #
+
+# # Liste pour stocker les DataArrays de chaque région
+# da_list = []
+
+# # Liste complète des pays comme dans ds_regions
+# all_countries = ds_regions.coords['country'].values
+
+# # On boucle sur chaque région selon l'ordre des index dans ds_regions
+# for i in range(len(ds_regions.coords['region'])):
+
+#     region_name = ds_regions['name'].sel(region=i).item()
+#     print(f"Ajout des poids pour la région : {region_name}")
+
+#     df_region = d_cohort_weights_regions[region_name].copy()
+#     df_region.columns.name = None  # enlever le nom des colonnes
+
+#     # Réindexer les colonnes pour inclure tous les pays
+#     df_region_full = df_region.reindex(columns=all_countries)
+
+#     # Définir les coordonnées 'age'
+#     age_coords = df_region_full.index
+
+#     # Création du DataArray
+#     da = xr.DataArray(
+#         data=df_region_full.values,
+#         dims=["age", "country"],
+#         coords={
+#             "age": age_coords,
+#             "country": df_region_full.columns,
+#             "region": i
+#         },
+#         name="cohort_weights"
+#     )
+
+#     da_list.append(da)
+
+# # Concaténation sur la dimension région
+# cohort_weights_all = xr.concat(da_list, dim="region")
+
+# # Ajout au dataset principal
+# ds_regions["cohort_weights"] = cohort_weights_all
+
+# print("--------------")
+# print(ds_regions)
+# print("--------------")
+# print(ds_regions['cohort_weights'].sel(region=7,country=25))
+# # cohort_weights_na = ds_regions['cohort_weights'].sel(region=7)
+# # print(cohort_weights_na)
+# # print(cohort_weights_na.shape)
+# # print(type(cohort_weights_na))
+# print("--------------")
 
 
 # --------------------------------------------------------------- #
@@ -345,8 +418,6 @@ global nruns, nyears
 
 nruns = len(d_isimip_meta)                      # number of available impact models runs used for this extreme
 nyears = len(year_range)                        # number of years for the assessment
-
-
 
 
 # --------------------------------------------------------------- #
