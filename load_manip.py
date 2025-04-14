@@ -340,9 +340,11 @@ d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohor
     d_cohort_size,
 )
 
-# print(type(d_cohort_weights_regions['North America']))
-# print(np.shape(d_cohort_weights_regions['North America']))
-# print("d_cohort_weights_regions", d_cohort_weights_regions['North America'])
+# print(type(d_cohort_weights_regions['South Asia']))
+# print(np.shape(d_cohort_weights_regions['South Asia']))
+# print("d_cohort_weights_regions", d_cohort_weights_regions['South Asia'])
+
+#sys.exit(0)
 
 # ---------------------------------- Intégration dans ds_regions['cohort_weights'] ---------------------------------- #
 

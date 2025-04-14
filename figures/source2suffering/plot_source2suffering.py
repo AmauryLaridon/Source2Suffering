@@ -155,7 +155,7 @@ plt.close(fig)
 # Functions                                                          #
 # -------------------------------------------------------------------#
 
-def plot_dev_fig1(ds, country, run, GMT):
+def plot_dev_fig1(flags, ds, country, run, GMT):
     """
     Plot lifetime exposure for a specific country, run, and GMT value.
 
@@ -178,7 +178,7 @@ def plot_dev_fig1(ds, country, run, GMT):
     # Plot
     plt.figure(figsize=(10, 6))
     plt.plot(birth_years, exposure, marker='o', linestyle='-')
-    plt.title(f"Lifetime Exposure in {country} (Run {run}, GMT {GMT})")
+    plt.title("{} : Lifetime Exposure in {} (Run {}, GMT {})".format(flags['extr'], country, run, GMT))
     plt.xlabel("Birth Year")
     plt.ylabel("Lifetime Exposure")
     plt.grid(True)
@@ -231,3 +231,34 @@ def plot_dev_fig2(ds, var_name, coords_dict):
         filename = scripts_dir + '/figures/source2suffering/development/fig2_lifetime_exposure_trends_isimip_sim{}_GMT_{}_region_{}.png'.format(
         coords_dict.get('run', 'NA'),coords_dict.get('GMT', 'NA'), coords_dict.get('region', 'NA'))
     plt.savefig(filename)
+
+def plot_dev_fig3(ds_regions, flags, ds, region, run, GMT):
+    """
+    Plot lifetime exposure for a specific region, run, and GMT value.
+
+    Parameters:
+    - ds (xarray.Dataset): Dataset contenant la variable 'lifetime_exposure'
+    - country (str): Nom du pays (ex: 'Belgium')
+    - run (int): Numéro de simulation (ex: 6)
+    - GMT (str or int): Niveau GMT (ex: '21')
+    """
+    
+    exposure = ds['lifetime_exposure'].sel(
+        region=region,
+        run=run,
+        GMT=GMT  
+    )
+
+    
+    birth_years = ds['birth_year'].values
+    region_name = ds_regions['name'].sel(region=region)
+
+    # Plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(birth_years, exposure, marker='o', linestyle='-')
+    plt.title("{} : Lifetime Exposure in {} (Run {}, GMT {})".format(flags['extr'], region_name, run, GMT))
+    plt.xlabel("Birth Year")
+    plt.ylabel("Lifetime Exposure")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/fig3_lifetime_exposure_region_{}_GMT_{}_isimip_sim{}.png'.format(region,GMT,run))

@@ -39,9 +39,11 @@ if flags['lifetime_exposure']:
 
         # function translate by A.Laridon from Thiery et al.(2021) #
 
+        # empty
+
         # function translate by L.Grant from Thiery et al.(2021) #
          
-        calc_lifetime_exposure(
+        ds_le_percountry_perrun_GMT, ds_le_perregion_perrun_GMT = calc_lifetime_exposure(
             d_isimip_meta,
             df_countries,
             countries_regions,
@@ -49,8 +51,22 @@ if flags['lifetime_exposure']:
             da_population,
             df_life_expectancy_5,
             ds_regions,
+            d_cohort_weights_regions,
             flags,)
+
+        with open(data_dir+'{}/{}/lifetime_exposure_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_percountry_perrun_GMT = pk.load(f)
+
+        ds_le_percountry_GMT = calc_exposure_mmm_xr(ds_le_percountry_perrun_GMT)
+
+        with open(data_dir+'{}/{}/lifetime_exposure_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_perregion_perrun_GMT = pk.load(f)
         
+        ds_le_perregion_GMT = calc_exposure_mmm_xr(ds_le_perregion_perrun_GMT)
+
+              
+
+
         # calc_exposure_trends() only produces NaN values as output #
 
         #grid_area = xr.open_dataarray(data_dir+'isimip/grid_resolution/clm45_area.nc4')
