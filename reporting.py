@@ -64,113 +64,111 @@ if Grant_2025:
         sys.path.append(os.path.abspath(scripts_dir+"/output/papers/grant_2025"))
         from grant_2025_report import *
 
+        if flags['global_avg_emergence']:
+            print("---------------------------------------------------------")
+            print("Report 1 : Estimates of land area for 1960 and 2020 emergence of multiple hazards")
+            # estimates of land area and (potential) pf for 1960 and 2020 emergencve of multiple hazards
+            multi_hazard_emergence(
+                grid_area,
+                da_emergence_mean,
+                da_gs_popdenom,
+            )
+        else:
+            print("---------------------------------------------------------")
+            print("Report 1 not produced because flags['global_avg_emergence']=0")
         
+        # get birth year cohort sizes at grid scale
+        print("---------------------------------------------------------")
+        print("Report 2 : Gridscale cohort sizes per birth year.")
+        gridscale_cohort_sizes(
+            flags,
+            da_population,
+            gridscale_countries,   
+        )    
+        print("Save gridscale_cohort_global.pkl in data/{version}/country")
+        
+        # per hazard, locations where exposure occurs across whole ensemble
+        print("---------------------------------------------------------")
+        print("Report 3 : Grid exposure locations for all simulations.")
+        exposure_locs(
+            flags,
+            grid_area,
+        )
+        print("Save exposure_occurrence_{extr}.pkl in data/{version}/{extr}")
+        
+        # per run for 1.5, 2.5, 2.7 and 3.5, collect maps of emergence locations to be used in geographically constrained pf estimates
+        print("---------------------------------------------------------")
+        print("Report 4: Collect maps of emergence locations")
+        emergence_locs_perrun(
+            flags,
+            grid_area,
+            gridscale_countries,
+            countries_mask,
+            countries_regions,
+        )    
+        print("Save emergence_locs_perrun_{extr}_{step}.pkl in /data/{version}/{extr}")
 
-        # if flags['global_avg_emergence']:
-        #     print("---------------------------------------------------------")
-        #     print("Report 1 : Estimates of land area for 1960 and 2020 emergence of multiple hazards")
-        #     # estimates of land area and (potential) pf for 1960 and 2020 emergencve of multiple hazards
-        #     multi_hazard_emergence(
-        #         grid_area,
-        #         da_emergence_mean,
-        #         da_gs_popdenom,
-        #     )
-        # else:
-        #     print("---------------------------------------------------------")
-        #     print("Report 1 not produced because flags['global_avg_emergence']=0")
+        # compute geographically constrained pf
+        print("---------------------------------------------------------")
+        print("Report 5: Population fraction estimates per run for selected GMTs when constraining denominator by geography")
+        pf_geoconstrained(
+            flags,
+            countries_mask,
+        )
+        print("Save pf_geoconstrained_{extr}.pkl in data/{version}/{extr}")
         
-        # # get birth year cohort sizes at grid scale
-        # print("---------------------------------------------------------")
-        # print("Report 2 : Gridscale cohort sizes per birth year.")
-        # gridscale_cohort_sizes(
-        #     flags,
-        #     da_population,
-        #     gridscale_countries,   
-        # )    
-        # print("Save gridscale_cohort_global.pkl in data/{version}/country")
-        
-        # # per hazard, locations where exposure occurs across whole ensemble
-        # print("---------------------------------------------------------")
-        # print("Report 3 : Grid exposure locations for all simulations.")
-        # exposure_locs(
-        #     flags,
-        #     grid_area,
-        # )
-        # print("Save exposure_occurrence_{extr}.pkl in data/{version}/{extr}")
-        
-        # # per run for 1.5, 2.5, 2.7 and 3.5, collect maps of emergence locations to be used in geographically constrained pf estimates
-        # print("---------------------------------------------------------")
-        # print("Report 4: Collect maps of emergence locations")
-        # emergence_locs_perrun(
-        #     flags,
-        #     grid_area,
-        #     gridscale_countries,
-        #     countries_mask,
-        #     countries_regions,
-        # )    
-        # print("Save emergence_locs_perrun_{extr}_{step}.pkl in /data/{version}/{extr}")
+        # print geographically constrained pf vs regular pf
+        print("---------------------------------------------------------")
+        print("Report 6: Print geographically constrained pf Vs regular pf")
+        print_pf_geoconstrained(
+            flags,
+            da_gs_popdenom,
+        )    
 
-        # # compute geographically constrained pf
-        # print("---------------------------------------------------------")
-        # print("Report 5: Population fraction estimates per run for selected GMTs when constraining denominator by geography")
-        # pf_geoconstrained(
-        #     flags,
-        #     countries_mask,
-        # )
-        # print("Save pf_geoconstrained_{extr}.pkl in data/{version}/{extr}")
-        
-        # # print geographically constrained pf vs regular pf
-        # print("---------------------------------------------------------")
-        # print("Report 6: Print geographically constrained pf Vs regular pf")
-        # print_pf_geoconstrained(
+        # checking for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level
+        print("---------------------------------------------------------")
+        print("Report 7: Check for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level")
+        print("Not execute due to bugs in the original script")
+        # paired_ttest(
         #     flags,
         #     da_gs_popdenom,
-        # )    
-
-        # # checking for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level
-        # print("---------------------------------------------------------")
-        # print("Report 7: Check for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level")
-        # print("Not execute due to bugs in the original script")
-        # # paired_ttest(
-        # #     flags,
-        # #     da_gs_popdenom,
-        # # )
+        # )
         
-        # # print latex table on ensemble members per hazard
-        # print("---------------------------------------------------------")
-        # print("Report 8: Print LaTeX table on ensemble members per hazard")
-        # if latex_output == True:
-        #     print_latex_table_ensemble_sizes(
-        #         flags,
-        #         df_GMT_strj,
-        #     )
-        # else:
-        #     print('No LaTeX output in the configuration (see reporting.py)')   
+        # print latex table on ensemble members per hazard
+        print("---------------------------------------------------------")
+        print("Report 8: Print LaTeX table on ensemble members per hazard")
+        if latex_output == True:
+            print_latex_table_ensemble_sizes(
+                flags,
+                df_GMT_strj,
+            )
+        else:
+            print('No LaTeX output in the configuration (see reporting.py)')   
 
-        # # children (i.e. those born between 2003-2020) living unprec exposure between 1.5 and 2.7 degrees warming (for numbers in conclusion of paper)
-        # print("---------------------------------------------------------")    
-        # print("Report 9: Number of children (born between 2003-2020) living ULE between 1.5 and 2.7°C warming")
-        # print_millions_excess(
-        #     flags,
-        #     df_GMT_strj,
-        # )     
+        # children (i.e. those born between 2003-2020) living unprec exposure between 1.5 and 2.7 degrees warming (for numbers in conclusion of paper)
+        print("---------------------------------------------------------")    
+        print("Report 9: Number of children (born between 2003-2020) living ULE between 1.5 and 2.7°C warming")
+        print_millions_excess(
+            flags,
+            df_GMT_strj,
+        )     
 
-        # # print pf info 
-        # print("---------------------------------------------------------") 
-        # print("Report 10: Ratio of pfs")
-        # print_pf_ratios_and_abstract_numbers(
-        #     flags,
-        #     df_GMT_strj,
-        #     da_gs_popdenom,
-        # )    
+        # print pf info 
+        print("---------------------------------------------------------") 
+        print("Report 10: Ratio of pfs")
+        print_pf_ratios_and_abstract_numbers(
+            flags,
+            df_GMT_strj,
+            da_gs_popdenom,
+        )    
         
-        # # get number of million people unprecedented: (will change this stuff to run for all extremes and birth years for table in paper)
-        # print("---------------------------------------------------------")
-        # print("Report 11: Number of million people unprecedented")
-        # print("Not execute due to bugs in the original script")
-        # # print_absolute_unprecedented(
-        # #     ds_pf_gs,
-        # # )
+        # get number of million people unprecedented: (will change this stuff to run for all extremes and birth years for table in paper)
+        print("---------------------------------------------------------")
+        print("Report 11: Number of million people unprecedented")
+        print("Not execute due to bugs in the original script")
+        # print_absolute_unprecedented(
+        #     ds_pf_gs,
+        # )
     
         # get cities that work for f1 concept plot
         print("---------------------------------------------------------")
@@ -284,16 +282,14 @@ if Laridon_2025:
 
 if Source2Suffering:
     
-    print("-------------------------------------------------------------------------")
-    print("Start source2suffering_report framework from the Source2Suffering Project")
-    print("-------------------------------------------------------------------------")
+    # sys.path.append(os.path.abspath(scripts_dir+"/output/papers/source2suffering"))
+    # from source2suffering_report import *
 
-    sys.path.append(os.path.abspath(scripts_dir+"/output/papers/source2suffering"))
-    from source2suffering_report import *
+    from source2suffering import *
 
     # Configuration of the reports #
 
-    validation_backward_comp = 0        # 0: do not produce reports for backward compatibility of 2025 Python Lifetime Exposure Framework with 2021 Matlab Thiery Lifetime Exposure Framework
+    validation_backward_comp = 1        # 0: do not produce reports for backward compatibility of 2025 Python Lifetime Exposure Framework with 2021 Matlab Thiery Lifetime Exposure Framework
                                         # 1: produce reports for backward compatibility of 2025 Python Lifetime Exposure Framework with 2021 Matlab Thiery Lifetime Exposure Framework
 
     if validation_backward_comp:
@@ -308,6 +304,10 @@ if Source2Suffering:
                                         # 1: produce reports for Norwegian lawsuit - written report ECtHR June 2024 for appeal
 
     if valRomania:
+
+        print("\n ---------------------------------------------------------")
+        print("|          Assessment for the Neptun Deep project         |")
+        print(" ---------------------------------------------------------")
 
         # -------------------------------------------------------------------------- #
         # Define Total emissions of the fossiel fuel project under study             #
@@ -328,69 +328,168 @@ if Source2Suffering:
         # toepasbaar op CO2 and niet CO2-eq. Dus als er veel methaan in die 
         # emissies zit dan zou je dat een beetje moeten aanpassen.
         
-        TCRE = 0.45 / 1e12 # 1.65°C / 3.7 = 0,45°C per 1000 Gt CO2eq
+        TCRE_init = 0.45 / 1e12 # 1.65°C / 3.7 = 0,45°C per 1000 Gt CO2eq
 
         # -------------------------------------------------------------------------- #
-        # Define Mortality cost of Carbon                                            #
+        # Question 1: call function to compute the number of children in the world   #
+        # born between 2010 and 2020 facing one extra heatwave due to the total      # 
+        # emissions of the three fields of Neptun Deep                               #
         # -------------------------------------------------------------------------- #
 
-        # 4,434 metric tons of carbon dioxide in 2020 cfr. (Bressler, 2021) 
-        # causes one excess death globally in expectation between 2020-2100 
-        mortality_cost_carbon = 4434 
-        
-        # -------------------------------------------------------------------------- #
-        # Question 1: call function to compute the number of people facing one       #
-        # extra heatwave due to the total emissions of the three fields              #
-        # -------------------------------------------------------------------------- #
+        print("\nQ.(1) - Number of children in the world facing an additional heatwave due to the total emissions of Neptun Deep\n")
+
+
+        # Computation for the 2010 to 2020 birth cohorts #
+
+        year_start_as = 2010
+        year_end_as = 2020
 
         valc_nr_children_facing_extra_heatwave_NeptunDeep = emissions2npeople(
-            CO2_emissions_NeptunDeep, TCRE, exposure_perregion_BE, birth_years, 2010, 2020, 
-            GMT_BE, valp_cohort_size_abs, 1, 5)  # 5 is for heatwave
+            CO2_emissions = CO2_emissions_NeptunDeep,
+            TCRE = TCRE_init,
+            ds_le = ds_le_perregion_GMT,
+            region_ind = 11,
+            birth_years = birth_years,
+            year_start = year_start_as,
+            year_end = year_end_as,
+            df_GMT_strj = df_GMT_strj, 
+            valp_cohort_size_abs = valp_cohort_size_abs,
+            rounding = 1)  
+        
+        # Generate list of birth years for iteration
+        years_loop = list(range(year_end_as, year_start_as - 1, -1))
+        nbirthyears = len(years_loop)
 
-        # Include a small add-on table for the reference years 1960-1970
+        for i in range(nbirthyears):
+        
+            print("For birth year {} = {} children".format(years_loop[i], int(valc_nr_children_facing_extra_heatwave_NeptunDeep[i])))
+        
+        print("For total birth of the {}-{} period = {} children \n".format(year_start_as,year_end_as, int(valc_nr_children_facing_extra_heatwave_NeptunDeep[-1])))
+
+        # Computation for the reference 1960 - 1970 birth cohorts # 
+
+        year_start_as_ref = 1960
+        year_end_as_ref = 1970
 
         valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = emissions2npeople(
-            CO2_emissions_NeptunDeep, TCRE, exposure_perregion_BE, birth_years, 1960, 1970, 
-            GMT_BE, valp_cohort_size_abs, 1, 5)  # 5 is for heatwaves
+            CO2_emissions = CO2_emissions_NeptunDeep,
+            TCRE = TCRE_init,
+            ds_le = ds_le_perregion_GMT,
+            region_ind = 11,
+            birth_years = birth_years,
+            year_start = year_start_as_ref,
+            year_end = year_end_as_ref,
+            df_GMT_strj = df_GMT_strj, 
+            valp_cohort_size_abs = valp_cohort_size_abs,
+            rounding = 1)
+
+        # for i in range(nbirthyears):
+        
+        #     print("For birth year {} = {} children".format(years_loop[i], int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[i])))
+        
+        # print("For total birth of the {}-{} period = {} children".format(year_start_as,year_end_as, int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1])))
+
+
+        # Only keep the value for to the birth cohort between 1960 and 1970
 
         valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]
 
-        valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
-            valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
-            round(valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref * 100)
+        #print(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref)
+
+        # Compute the relative exposure to an additionnal heatwaves between the 2010-2020 and the 1960-1970 birth cohort
+        # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
+        #     valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
+        #     round(valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref * 100)
+        # ]
+
+        # print("Number of people born between 1960 and 1970 that will be exposed to an additionnal heatwave due to the total emissions of Neptun Deep = {} people".format(int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[0])))
+        # print("Relative difference between the 1960-1970 and the 2010-2020 birth cohorts = {} %".format(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]))
+
+
+
+
+
+        # # -------------------------------------------------------------------------- #
+        # # Question 2: call function to compute the number of people facing one       #
+        # # extra ... due to emissions                                                 #
+        # # -------------------------------------------------------------------------- #
+
+        print("\nQ.(2) - Number of children in the world facing an additional hazard due to the total emissions of Neptun Deep\n")
+
+        # Computation for the 2010 to 2020 birth cohorts #
+
+        year_start_as = 2010
+        year_end_as = 2020
+        
+        all_extremes = [
+            'burntarea', 
+            'cropfailedarea', 
+            'driedarea', 
+            'floodedarea', 
+            'heatwavedarea', 
+            'tropicalcyclonedarea'
         ]
 
-        # -------------------------------------------------------------------------- #
-        # Question 2: call function to compute the number of people facing one       #
-        # extra ... due to emissions                                                 #
-        # -------------------------------------------------------------------------- #
+        for extr in all_extremes:
 
-        impacts = {1: "wildfire", 2: "crop failure", 3: "drought", 4: "river floods", 5: "heatwaves", 6: "tropical cyclones"}
-        valc_impacts_NeptunDeep = {}
-        valc_impacts_NeptunDeep_ref = {}
+            print("Hazard = {}\n".format(extr))
 
-        for key, impact in impacts.items():
-            valc_impacts_NeptunDeep[impact] = mf_emissions2npeople(
-                CO2_emissions_NeptunDeep, TCRE, exposure_perregion_BE, birth_years, 2010, 2020, 
-                GMT_BE, valp_cohort_size_abs, 1, key)
+            with open(data_dir+'{}/{}/ds_le_perregion_GMT.pkl'.format(flags['version'],extr), 'rb') as f:
+                ds_le_perregion_GMT = pk.load(f)
+
+            valc_nr_children_facing_extra_hazard_NeptunDeep = emissions2npeople(
+                CO2_emissions = CO2_emissions_NeptunDeep,
+                TCRE = TCRE_init,
+                ds_le = ds_le_perregion_GMT,
+                region_ind = 11,
+                birth_years = birth_years,
+                year_start = year_start_as,
+                year_end = year_end_as,
+                df_GMT_strj = df_GMT_strj, 
+                valp_cohort_size_abs = valp_cohort_size_abs,
+                rounding = 1)  
+            
+            # Generate list of birth years for iteration
+            years_loop = list(range(year_end_as, year_start_as - 1, -1))
+            nbirthyears = len(years_loop)
+
+            for i in range(nbirthyears):
+            
+                print("For birth year {} = {} children".format(years_loop[i], int(valc_nr_children_facing_extra_hazard_NeptunDeep[i])))
+            
+            print("For total birth of the {}-{} period = {} children \n".format(year_start_as,year_end_as, int(valc_nr_children_facing_extra_hazard_NeptunDeep[-1])))
+
+        # impacts = {1: "wildfire", 2: "crop failure", 3: "drought", 4: "river floods", 5: "heatwaves", 6: "tropical cyclones"}
+        # valc_impacts_NeptunDeep = {}
+        # valc_impacts_NeptunDeep_ref = {}
+
+        # for key, impact in impacts.items():
+        #     valc_impacts_NeptunDeep[impact] = mf_emissions2npeople(
+        #         CO2_emissions_NeptunDeep, TCRE, ds_le_perregion_GMT, birth_years, 2010, 2020, 
+        #         GMT_BE, valp_cohort_size_abs, 1, key)
     
-            # Include a small add-on table for the reference years 1960-1970
+        #     # Include a small add-on table for the reference years 1960-1970
 
-            valc_impacts_NeptunDeep_ref[impact] = mf_emissions2npeople(
-                CO2_emissions_NeptunDeep, TCRE, exposure_perregion_BE, birth_years, 1960, 1970, 
-                GMT_BE, valp_cohort_size_abs, 1, key)
-            valc_impacts_NeptunDeep_ref[impact] = valc_impacts_NeptunDeep_ref[impact][-1]
-            valc_impacts_NeptunDeep_ref[impact] = [
-                valc_impacts_NeptunDeep_ref[impact],
-                round(valc_impacts_NeptunDeep[impact][-1] / valc_impacts_NeptunDeep_ref[impact] * 100)
-            ]
+        #     valc_impacts_NeptunDeep_ref[impact] = mf_emissions2npeople(
+        #         CO2_emissions_NeptunDeep, TCRE, ds_le_perregion_GMT, birth_years, 1960, 1970, 
+        #         GMT_BE, valp_cohort_size_abs, 1, key)
+        #     valc_impacts_NeptunDeep_ref[impact] = valc_impacts_NeptunDeep_ref[impact][-1]
+        #     valc_impacts_NeptunDeep_ref[impact] = [
+        #         valc_impacts_NeptunDeep_ref[impact],
+        #         round(valc_impacts_NeptunDeep[impact][-1] / valc_impacts_NeptunDeep_ref[impact] * 100)
+        #     ]
 
         # -------------------------------------------------------------------------- #
         # Question 3: compute the number of heat-related deaths between              #
         # today and 2100 due to the total emissions of the three fields              #
         # -------------------------------------------------------------------------- #
 
-        valc_mortality_NeptunDeep = (CO2_emissions_NeptunDeep / mortality_cost_carbon // 1000) * 1000
+        valc_mortality_NeptunDeep = mortality_cost_carbon(CO2_emissions=CO2_emissions_NeptunDeep)
+        
+        print("Q.(3) - Number of heat-related deaths that are expected worldwide until 2100 due to the total emissions of Neptun Deep\n")
+
+
+        print("Mortality Cost of Carbon = {} heat-related deaths until 2100".format(valc_mortality_NeptunDeep))
 
 
 

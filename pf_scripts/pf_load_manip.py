@@ -832,7 +832,8 @@ def get_life_expectancies(
 # ----------------------------------------------------------------#
 
 def get_cohortsize_countries(
-    df_countries, 
+    df_countries,
+    flags,
 ): 
 
     # unpack loaded wcde values
@@ -989,6 +990,7 @@ def get_countries_per_region(
 #%%---------------------------------------------------------------#
 # Get life expectancy, birth years and cohort weights per region, #
 # as well as countries per region                                 #
+# Cohort weights are computed based on the 2020 data              #
 #-----------------------------------------------------------------#
 
 def get_regions_data(
@@ -997,6 +999,7 @@ def get_regions_data(
     df_worldbank_region, 
     df_unwpp_region, 
     d_cohort_size,
+    flags,
 ):
     
     # get countries per region
@@ -1021,7 +1024,11 @@ def get_regions_data(
     d_cohort_weights_regions = {}
     for region in d_region_countries.keys():
         d_cohort_weights_regions[region] = df_cohort_size_year_ref[df_cohort_size_year_ref.index.isin(d_region_countries[region])].transpose()
-    
+     
+    # dump pickle of lifetime exposure per region
+    with open(data_dir+'{}/country/d_cohort_weights_regions.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(d_cohort_weights_regions,f)
+
     return d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohort_weights_regions
 
 #%%---------------------------------------------------------------#

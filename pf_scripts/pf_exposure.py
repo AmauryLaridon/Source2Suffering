@@ -23,34 +23,6 @@ from copy import deepcopy as cp
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
-#-----------------------------------------------------------------------------#
-# Translation in Python of tools from ms_exposure.m by Thiery et al.(2021)    # 
-# Work done by Amaury Laridon for Laridon et al.(2025)                        #
-#-----------------------------------------------------------------------------#
-
-# def exposure_perregion():
-
-#     pass 
-
-
-# # part of the loop done in ms_exposure.m
-
-# % loop over regions
-# for j=1:nregions 
-
-#     % get weighted spatial average
-#     exposure_perregion_perrun_BE(i,j,:,l) = sum(exposure_percountry_perrun_BE(i, regions.ind_member_countries{j, 1}, :, l) .* regions.cohort_weights{j}, 2, 'omitnan') ./ sum(regions.cohort_weights{j}, 2, 'omitnan');
-
-# end
-
-
-# part of Luke's code that might be usefull
-
-
-# ---------------------------------------------------------------------- #
-# All functions defined and used for lifetime exposure cohorts by        #
-# Grant et al.(2025)                                                     #
-# ---------------------------------------------------------------------- #
 
 
 #%%---------------------------------------------------------------#
@@ -214,21 +186,28 @@ def get_countries_of_region(
 #-----------------------------------------------------------------#
 
 def calc_exposure_mmm_xr(
-    ds_le,
+    ds_le_perrun,
+    flags,
 ):
-        
+    
+    # remove from the output a warning that appears often  
+    import warnings
+    warnings.filterwarnings("ignore", message="All-NaN slice encountered")
+
     # take stats
-    mmm = ds_le['lifetime_exposure'].mean(dim='run')
-    std = ds_le['lifetime_exposure'].std(dim='run')
-    lqntl = ds_le['lifetime_exposure'].quantile(
+    mmm = ds_le_perrun['lifetime_exposure'].mean(dim='run', skipna=True)
+    std = ds_le_perrun['lifetime_exposure'].std(dim='run', skipna=True)
+    lqntl = ds_le_perrun['lifetime_exposure'].quantile(
         q=0.25,
         dim='run',
-        method='inverted_cdf'
+        method='inverted_cdf',
+        skipna=True
     )
-    uqntl = ds_le['lifetime_exposure'].quantile(
+    uqntl = ds_le_perrun['lifetime_exposure'].quantile(
         q=0.75,
         dim='run',
-        method='inverted_cdf'
+        method='inverted_cdf',
+        skipna=True
     )
     
     # get EMF of stats (divide by 60 yr old / 1960 cohort)
@@ -237,15 +216,27 @@ def calc_exposure_mmm_xr(
     uqntl_EMF = uqntl / mmm.sel(birth_year=1960)
     
     # assemble into dataset
-    ds_le['mmm'] = mmm
-    ds_le['std'] = std
-    ds_le['lqntl'] = lqntl
-    ds_le['uqntl'] = uqntl
-    ds_le['mmm_EMF'] = mmm_EMF
-    ds_le['lqntl_EMF'] = lqntl_EMF
-    ds_le['uqntl_EMF'] = uqntl_EMF    
+    ds_le_perrun['mmm'] = mmm
+    ds_le_perrun['std'] = std
+    ds_le_perrun['lqntl'] = lqntl
+    ds_le_perrun['uqntl'] = uqntl
+    ds_le_perrun['mmm_EMF'] = mmm_EMF
+    ds_le_perrun['lqntl_EMF'] = lqntl_EMF
+    ds_le_perrun['uqntl_EMF'] = uqntl_EMF    
     
-    return ds_le
+    if 'region' in ds_le_perrun.dims:
+
+        # dump pickle of lifetime exposure per region
+        with open(data_dir+'{}/{}/ds_le_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+            pk.dump(ds_le_perrun,f)
+    
+    if 'country' in ds_le_perrun.dims:
+
+        # dump pickle of lifetime exposure per country
+        with open(data_dir+'{}/{}/ds_le_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+            pk.dump(ds_le_perrun,f)
+
+    return ds_le_perrun
     
 #%%---------------------------------------------------------------#
 # Function to compute multi-model mean across ISIMIP simulations  #
@@ -608,40 +599,57 @@ def calc_lifetime_exposure(
                     'GMT':step,
                 }] = d_exposure_perrun_step.values.transpose() 
     
-            # #---------------------------------------------------------------------#
-            # # Per region                                                          #
-            # #---------------------------------------------------------------------#
+                #---------------------------------------------------------------------#
+                # Per region                                                          #
+                #---------------------------------------------------------------------#
 
-            for region_ind, region in enumerate(ds_regions.region.values):
-            
-                region_name = ds_regions['name'].sel(region=region_ind).item()
-                member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
+                for region_ind, region in enumerate(ds_regions.region.values):
+                
+                    region_name = ds_regions['name'].sel(region=region_ind).item()
+                    member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
 
-                weights = d_cohort_weights_regions[region_name]
+                    weights = d_cohort_weights_regions[region_name]
 
-                le_percountry = ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{
-                    'run': i,
-                    'GMT': step,
-                    'country': member_countries,
-                    'birth_year': slice(None)
-                }]
+                    le_percountry = ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{
+                        'run': i,
+                        'GMT': step,
+                        'country': member_countries,
+                        'birth_year': slice(None)
+                    }]
 
-                weighted_avg = np.nansum(le_percountry.values * weights.values.T, axis=0) / np.nansum(weights.values.T, axis=0)
+                    # print('region name', region_name)
 
-                ds_le_perregion_perrun_GMT['lifetime_exposure'].loc[{
-                    'run': i,
-                    'GMT': step,
-                    'region': region_ind,
-                    'birth_year': slice(None)
-                }] = weighted_avg
+                    # print('le_percountry')
+                    # print(le_percountry)
+                    # print(type(le_percountry))
+                    # print(np.shape(le_percountry))
+
+                    # print('weights')
+                    # print(weights)
+                    # print(type(weights))
+                    # print(np.shape(weights))
+
+                    weighted_avg = np.nansum(le_percountry.values * weights.values.T, axis=0) / np.nansum(weights.values.T, axis=0)
+
+                    # print('weighted_avg')
+                    # print(weighted_avg)
+                    # print(type(weighted_avg))
+                    # print(np.shape(weighted_avg))
+
+                    ds_le_perregion_perrun_GMT['lifetime_exposure'].loc[{
+                        'run': i,
+                        'GMT': step,
+                        'region': region_ind,
+                        'birth_year': slice(None)
+                    }] = weighted_avg
 
 
     # dump pickle of lifetime exposure per country
-    with open(data_dir+'{}/{}/lifetime_exposure_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_le_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
         pk.dump(ds_le_percountry_perrun_GMT,f)
     
     # dump pickle of lifetime exposure per region
-    with open(data_dir+'{}/{}/lifetime_exposure_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_le_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
         pk.dump(ds_le_perregion_perrun_GMT,f)
 
     return ds_le_percountry_perrun_GMT, ds_le_perregion_perrun_GMT
@@ -824,7 +832,7 @@ def calc_lifetime_exposure_pic(
     flags,
 ):
 
-    d_exposure_perrun_pic = {}                 
+    d_pic_le_percountry_perrun = {}                 
     
     # loop over simulations
     for n,i in enumerate(list(d_pic_meta.keys())):
@@ -902,13 +910,94 @@ def calc_lifetime_exposure_pic(
         # add the exposure for all years that will be lived by the individuals of a 
         # particular cohort with regards to their birth year and their associated 
         # life expectancy. Add the fraction of the exposure of their last year of life
-        d_exposure_perrun_pic[i] = da_exposure_pic.where(da_exposure_pic.time < 1960 + np.floor(life_expectancy_1960)).sum(dim='time') + \
+        d_pic_le_percountry_perrun[i] = da_exposure_pic.where(da_exposure_pic.time < 1960 + np.floor(life_expectancy_1960)).sum(dim='time') + \
             da_exposure_pic.where(da_exposure_pic.time == 1960 + np.floor(life_expectancy_1960)).sum(dim='time') * \
                 (life_expectancy_1960 - np.floor(life_expectancy_1960))
         # ------------------------------------------------------------------------- #
 
     # save pickles
-    with open(data_dir+'{}/{}/exposure_pic_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
-        pk.dump(d_exposure_perrun_pic,f)
+    with open(data_dir+'{}/{}/d_pic_le_percountry_perrun.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+        pk.dump(d_pic_le_percountry_perrun,f)
 
-    return d_exposure_perrun_pic
+    return d_pic_le_percountry_perrun
+
+#%%---------------------------------------------------------------#
+# Computes the Exposure Multiplication Factor (EMF)               #
+# based on ms_exposure.m from Thiery et al.(2021)                 #
+# Take as input the dataset containing the MMM lifetime exposure  #
+# Option to use the MMM on the historical period for the          #
+# reference level of exposure or the MMM of the picontrol         #
+# simulations                                                     #
+#-----------------------------------------------------------------#
+
+def calc_EMF(
+    flags,
+    ds_le_exposure, 
+    ref_pic,
+):
+
+    #--------------------- Definition of the reference exposure -----------------#
+
+    # Decide which reference to use: multi-model mean of the picontrol simulations (computed in ???) 
+    # or of the historical simulations (computed in this function)
+    if ref_pic:
+        exposure_ref = exposure_pic_mean
+        
+    else:
+        exposure_ref = ds_le_exposure
+
+    # Step 1: extract the 'mmm' variable
+    da_ref = exposure_ref['mmm']
+
+    # Step 2: select only the reference year along the 'birth_year' dimension
+    da_ref_slice = da_ref.sel(birth_year=year_ref)
+
+    # Step 3: broadcast the reference slice across all birth years
+    birth_years = ds_le_exposure.coords['birth_year']
+    da_ref_broadcasted = da_ref_slice.expand_dims(birth_year=birth_years)
+
+    #----------------- Retrieval of the lifetime exposure values -----------------#
+
+    if 'region' in ds_le_exposure.dims:
+
+        da_mmm = ds_le_exposure['mmm'].sel(
+        birth_year=ds_le_exposure.coords['birth_year'],
+        region=ds_le_exposure.coords['region'],
+        GMT=ds_le_exposure.coords['GMT']
+        )
+
+    if 'country' in ds_le_exposure.dims:
+
+        da_mmm = ds_le_exposure['mmm'].sel(
+        birth_year=ds_le_exposure.coords['birth_year'],
+        country=ds_le_exposure.coords['country'],
+        GMT=ds_le_exposure.coords['GMT']
+        )
+
+    # Option : drop any remaining dimensions (like 'run') if needed
+    da_mmm = da_mmm.squeeze(drop=True)    
+
+    #----------------------------- EMF Computation --------------------------------#
+
+    # At this point, da_ref_broadcasted has the same shape as da_mmm
+
+    ds_EMF_mmm = da_mmm / da_ref_broadcasted
+
+    # Set EMF of infinitue value to 100 #
+
+    # Calculate the percentage of infinite values
+    ninf = np.isinf(ds_EMF_mmm).sum().item() / ds_EMF_mmm.size * 100  # e.g., 2.8%
+
+    # Replace infinite values by 100
+    ds_EMF_mmm = ds_EMF_mmm.where(~np.isinf(ds_EMF_mmm), 100)
+
+    # Save pickles
+    if 'region' in ds_le_exposure.dims:
+        with open(data_dir+'{}/{}/ds_EMF_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+            pk.dump(ds_EMF_mmm,f)
+    
+    if 'country' in ds_le_exposure.dims:
+        with open(data_dir+'{}/{}/ds_EMF_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+            pk.dump(ds_EMF_mmm,f)
+
+    return ds_EMF_mmm

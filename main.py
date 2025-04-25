@@ -230,7 +230,7 @@ if not env_value_paper:
     flags['plots'] = 1                              # 0 do not produce and save plots 
                                                     # 1 produce and load plots 
 
-    flags['reporting'] = 0                          # 0 do not produce results for reporting 
+    flags['reporting'] = 1                          # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
     
     # Use for specific climate extreme jobs - HPC only
@@ -244,24 +244,26 @@ if not env_value_paper:
 # Execution - Initialisation and Execution of the subscripts based on the configuration                      #
 #------------------------------------------------------------------------------------------------------------#
 
-print("------------------------------------------------------------------------------------------------------")
-print("|                            Start to run the Source2Suffering Project                               |")
-print("------------------------------------------------------------------------------------------------------")
+print(" ------------------------------------------------------------------------------------------------------")
+print("|                            Start to run the Source2Suffering Project                                 |")
+print(" ------------------------------------------------------------------------------------------------------\n")
 print("Current date and time:", datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 start_time = time.time() # Record the start time of execution
 if env_value_paper:
-    print("-------------------------------------------------------------------------------")
-    print(f"|Model configuration - {env_value_paper}")
-    print("-------------------------------------------------------------------------------")
+    print("\n -------------------------------------------------------------------------------")
+    print(f"|                   Model configuration - {env_value_paper}                     |")
+    print(" -------------------------------------------------------------------------------\n")
 else:
-    print("-------------------------------------------------------------------------------")
-    print(f"Model configuration - Manual")
-    print("-------------------------------------------------------------------------------")
+    print("\n -------------------------------------------------------------------------------")
+    print(f"|                       Model configuration - Manual                            |")
+    print(" -------------------------------------------------------------------------------\n")
 for key, value in flags.items():
     print(f"{key}: {value}\n")
 
-print("-------------------------------------------------------------------------------")
-print("Start to import settings")
+print(" -------------------------------------------------------------------------------")
+print("|                             Start Settings Framework                          |")
+print(" -------------------------------------------------------------------------------\n")
+
 
 from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
@@ -270,8 +272,9 @@ set_extremes(flags) # set extremes based on flag (this needs to happen here as i
 
 print("Settings imported")
 
-print("-------------------------------------------------------------------------------")
-print("Start to import and manipulate Demographic, GMT and ISIMIP data")
+print("\n -------------------------------------------------------------------------------")
+print("|            Start to import and manipulate Demographic, GMT and ISIMIP data    |")
+print(" -------------------------------------------------------------------------------\n")
 
 adr_load_manip = scripts_dir+"/load_manip.py"
 with open(adr_load_manip) as f:
@@ -282,8 +285,10 @@ exec(exe_load_manip)
 #                           Lifetime Exposure framework                               #
 #--------------------------------------------------------------------------------------
 
-print("-------------------------------------------------------------------------------")
-print("Start Lifetime Exposure framework")
+print("\n -------------------------------------------------------------------------------")
+print("|                       Start Lifetime Exposure framework                       |")
+print(" -------------------------------------------------------------------------------\n")
+
 
 adr_exposure = scripts_dir+"/exposure.py"
 with open(adr_exposure) as f:
@@ -296,8 +301,10 @@ exec(exe_exposure)
 
 if Grant_2025==True:
 
-    print("-------------------------------------------------------------------------------")
-    print("Start Emergence Lifetime Exposure framework")
+    print("\n -------------------------------------------------------------------------------")
+    print("|                  Start Emergence Lifetime Exposure framework                  |")
+    print(" -------------------------------------------------------------------------------\n")
+
 
     adr_emergence = scripts_dir+"/emergence.py"
     with open(adr_emergence) as f:
@@ -310,32 +317,15 @@ if Grant_2025==True:
 
 if Grant_2025==True:
 
-    print("-------------------------------------------------------------------------------")
-    print("Start Gridscale Emergence framework")
+    print("\n -------------------------------------------------------------------------------")
+    print("|                      Start Gridscale Emergence framework                      |")
+    print(" -------------------------------------------------------------------------------\n")
+
 
     adr_gridscale = scripts_dir+"/gridscale.py"
     with open(adr_gridscale) as f:
         exe_gridscale = f.read()
     exec(exe_gridscale)
-
-
-#%%------------------------------------------------------------------------------------
-#                                   Outputs - Plots                                   #
-#--------------------------------------------------------------------------------------
-
-if flags['plots']:
-
-    print("-------------------------------------------------------------------------------")
-    print("Start Plots framework")
-    print("-------------------------------------------------------------------------------")
-
-    adr_plots = scripts_dir+"/plots.py"
-    with open(adr_plots) as f:
-        exe_plots = f.read()
-    exec(exe_plots)
-
-else : 
-    print("No plots performed and saved")
 
 #%%------------------------------------------------------------------------------------
 #                                 Outputs - Reporting                                 #
@@ -344,9 +334,9 @@ else :
 if flags['reporting']:
 
 
-    print("-------------------------------------------------------------------------------")
-    print("Start Reporting framework")
-    print("-------------------------------------------------------------------------------")
+    print("\n -------------------------------------------------------------------------------")
+    print("|                          Start Reporting framework                            |")
+    print(" -------------------------------------------------------------------------------\n")
 
     adr_report = scripts_dir+"/reporting.py"
     with open(adr_report) as f:
@@ -357,11 +347,28 @@ else :
     print("No reporting performed and saved")
 
 #%%------------------------------------------------------------------------------------
+#                                   Outputs - Plots                                   #
+#--------------------------------------------------------------------------------------
+
+if flags['plots']:
+
+    print("\n -------------------------------------------------------------------------------")
+    print("|                             Start Plots framework                             |")
+    print(" -------------------------------------------------------------------------------\n")
+
+    adr_plots = scripts_dir+"/plots.py"
+    with open(adr_plots) as f:
+        exe_plots = f.read()
+    exec(exe_plots)
+
+else : 
+    print("No plots performed and saved")
+#%%------------------------------------------------------------------------------------
 #                                      Conclusion                                     #
 #--------------------------------------------------------------------------------------
-print("------------------------------------------------------------------------------------------------------")
-print("|                        End of computations for the Source2Suffering Project                        |")
-print("------------------------------------------------------------------------------------------------------")
+print("\n ------------------------------------------------------------------------------------------------------")
+print("|                        End of computations for the Source2Suffering Project                          |")
+print(" ------------------------------------------------------------------------------------------------------\n")
 # Calculate the script's execution time
 end_time = time.time()
 execution_time = end_time - start_time
@@ -371,5 +378,5 @@ execution_time_in_hours = execution_time / 3600
 # Print the execution time
 print("Script execution time: {:.1f} seconds".format(execution_time))
 print("Script execution time: {:.1f} minutes".format(execution_time/60))
-print("Script execution time: {:.1f} hours".format(execution_time_in_hours))
-print("------------------------------------------------------------------------------------------------------")
+print("Script execution time: {:.1f} hours\n".format(execution_time_in_hours))
+print("--------------------------------------------------------------------------------------------------------")

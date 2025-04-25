@@ -440,12 +440,24 @@ if Source2Suffering:
 
     #Configuration of the plots#
 
-    plot_fig1 = 1 # 0: do not plot figure 1 for development
+    plot_fig1 = 0 # 0: do not plot figure 1 for development
                   # 1: plot figure 1 for development
     plot_fig2 = 0 # 0: do not plot figure 2 for development
                   # 1: plot figure 2 for development
-    plot_fig3 = 1 # 0: do not plot figure 3 for development
+    plot_fig3 = 0 # 0: do not plot figure 3 for development
                   # 1: plot figure 3 for development
+    plot_fig4 = 0 # 0: do not plot figure 4 for development
+                  # 1: plot figure 4 for development
+    plot_fig5 = 0 # 0: do not plot figure 5 for development
+                  # 1: plot figure 5 for development
+    plot_fig6 = 0 # 0: do not plot figure 6 for development of story lines for myclimatefuture
+                  # 1: plot figure 6 for development of story lines for myclimatefuture
+    plot_fig7 = 0 # 0: do not plot figure 7 for development
+                  # 1: plot figure 7 for development
+    plot_fig8 = 0 # 0: do not plot figure 8 for development
+                  # 1: plot figure 8 for development
+    plot_fig9 = 1 # 0: do not plot figure 9 for development
+                  # 1: plot figure 9 for development
 
     print("-------------------------------------------------------")
     print("Start plots for Source2Suffering Project")
@@ -460,23 +472,25 @@ if Source2Suffering:
         with open(data_dir+'{}/{}/lifetime_exposure_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
             dataset_le = pk.load(f)
 
-        # North America #
+        if flags['extr']=='heatwavedarea':
 
-        plot_dev_fig1(flags, ds=dataset_le,  country='United States',run=6,GMT=0)
-        plot_dev_fig1(flags, ds=dataset_le,  country='United States',run=6,GMT=10)
-        plot_dev_fig1(flags, ds=dataset_le,  country='United States',run=6,GMT=20)
-        plot_dev_fig1(flags, ds=dataset_le,  country='Canada',run=6,GMT=0)
-        plot_dev_fig1(flags, ds=dataset_le,  country='Canada',run=6,GMT=10)
-        plot_dev_fig1(flags, ds=dataset_le,  country='Canada',run=6,GMT=20)
+            # North America #
 
-        # South Asia #
+            plot_dev_fig1(flags, ds=dataset_le, country='United States', run=6, GMT=0)
+            plot_dev_fig1(flags, ds=dataset_le, country='United States', run=6, GMT=10)
+            plot_dev_fig1(flags, ds=dataset_le, country='United States', run=6, GMT=20)
+            plot_dev_fig1(flags, ds=dataset_le, country='Canada', run=6, GMT=0)
+            plot_dev_fig1(flags, ds=dataset_le, country='Canada', run=6, GMT=10)
+            plot_dev_fig1(flags, ds=dataset_le, country='Canada', run=6, GMT=20)
 
-        plot_dev_fig1(flags, ds=dataset_le,  country='India',run=6,GMT=0)
-        plot_dev_fig1(flags, ds=dataset_le,  country='India',run=6,GMT=10)
-        plot_dev_fig1(flags, ds=dataset_le, country='India',run=6,GMT=20)
-        plot_dev_fig1(flags, ds=dataset_le,  country='Afghanistan',run=6,GMT=0)
-        plot_dev_fig1(flags, ds=dataset_le,  country='Afghanistan',run=6,GMT=10)
-        plot_dev_fig1(flags, ds=dataset_le,  country='Afghanistan',run=6,GMT=20)
+            # South Asia #
+
+            plot_dev_fig1(flags, ds=dataset_le, country='India', run=6, GMT=0)
+            plot_dev_fig1(flags, ds=dataset_le, country='India', run=6, GMT=10)
+            plot_dev_fig1(flags, ds=dataset_le, country='India', run=6, GMT=20)
+            plot_dev_fig1(flags, ds=dataset_le, country='Afghanistan', run=6, GMT=0)
+            plot_dev_fig1(flags, ds=dataset_le, country='Afghanistan', run=6, GMT=10)
+            plot_dev_fig1(flags, ds=dataset_le, country='Afghanistan', run=6, GMT=20)
 
     
     if plot_fig2:
@@ -486,7 +500,9 @@ if Source2Suffering:
         with open(data_dir+'{}/{}/lifetime_exposure_trends_regions.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
             ds_le_trends_regions = pk.load(f)
 
-        plot_dev_fig2(ds=ds_le_trends_regions,var_name='exposure_trend_ar6',coords_dict={'run':6,'GMT':20,'region':17})
+        if flags['extr']=='heatwavedarea':
+
+            plot_dev_fig2(flags, ds=ds_le_trends_regions, var_name='exposure_trend_ar6', coords_dict={'run':6,'GMT':20,'region':17})
     
     if plot_fig3:
         
@@ -495,23 +511,177 @@ if Source2Suffering:
         with open(data_dir+'{}/{}/lifetime_exposure_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
             ds_le_regions = pk.load(f)
 
+        if flags['extr']=='heatwavedarea':
+
+            # North America #
+
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=6, GMT=0)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=6, GMT=10)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=6, GMT=20)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=11, GMT=0)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=11, GMT=10)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=11, GMT=20)
+            
+            # South Asia #
+
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=6, GMT=0)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=6, GMT=10)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=6, GMT=20)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=11, GMT=0)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=11, GMT=10)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=11, GMT=20)
+
+            # World #
+
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=11, run=6, GMT=0)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=11, run=6, GMT=10)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=11, run=6, GMT=20)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=11, run=11, GMT=0)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=11, run=11, GMT=10)
+            plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=11, run=11, GMT=20)
+    
+    if plot_fig4:
+        
+        print("Performing Plot f4 for Development")
+
+        with open(data_dir+'{}/{}/lifetime_exposure_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_mmm_country = pk.load(f)
+
         # North America #
 
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=6, GMT=0)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=6, GMT=10)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=6, GMT=20)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=11, GMT=0)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=11, GMT=10)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=7, run=11, GMT=20)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='United States', GMT=0)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='United States', GMT=10)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='United States', GMT=20)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='Canada', GMT=0)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='Canada', GMT=10)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='Canada', GMT=20)
         
         # South Asia #
 
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=6, GMT=0)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=6, GMT=10)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=6, GMT=20)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=11, GMT=0)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=11, GMT=10)
-        plot_dev_fig3(ds_regions, flags, ds=ds_le_regions, region=8, run=11, GMT=20)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='India', GMT=0)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='India', GMT=10)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='India', GMT=20)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='Afghanistan', GMT=0)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='Afghanistan', GMT=10)
+        plot_dev_fig4(flags, ds=ds_le_mmm_country, country='Afghanistan', GMT=20)
+    
+    if plot_fig5:
+        
+        print("Performing Plot f5 for Development")
+
+        with open(data_dir+'{}/{}/lifetime_exposure_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_mmm_regions = pk.load(f)
+
+        # North America #
+
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=7, GMT=0)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=7, GMT=10)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=7, GMT=20)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=7, GMT=0)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=7, GMT=10)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=7, GMT=20)
+        
+        # South Asia #
+
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=8, GMT=0)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=8, GMT=10)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=8, GMT=20)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=8, GMT=0)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=8, GMT=10)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=8, GMT=20)
+
+        # World #
+
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=11, GMT=0)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=11, GMT=10)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=11, GMT=20)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=11, GMT=0)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=11, GMT=10)
+        plot_dev_fig5(ds_regions, flags, ds=ds_le_mmm_regions, region=11, GMT=20)
+
+    if plot_fig6:
+
+        print("Performing Plot f6 for Story Lines Development for myclimatefuture")
+
+        #------------------------------------ Country ----------------------------------------#
+
+        # with open(data_dir+'{}/{}/lifetime_exposure_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        #     ds_le_mmm_country = pk.load(f)
+
+        # for country_name in ds_le_mmm_country['country'].values:
+    
+        #     plot_dev_fig6_country(flags, ds=ds_le_mmm_country, country=country_name, EMF=False)
+
+        with open(data_dir+'{}/{}/lifetime_exposure_mmm_percountry_GMT_EMF.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_EMF_mmm_country = pk.load(f)
+
+        for country_name in ds_le_mmm_country['country'].values:
+    
+            plot_dev_fig6_country(flags, ds=ds_EMF_mmm_country, country=country_name, EMF=True)
+
+
+        #------------------------------------ Regions ----------------------------------------#
+
+        
+        # with open(data_dir+'{}/{}/lifetime_exposure_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        #     ds_le_mmm_region = pk.load(f)
+
+        # for region_ind in ds_le_mmm_region['mmm']['region'].values:
+    
+        #     plot_dev_fig6_region(ds_regions, flags, ds=ds_le_mmm_region, region=region_ind, EMF=False)
+        
+        with open(data_dir+'{}/{}/lifetime_exposure_mmm_perregion_GMT_EMF.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_EMF_mmm_region = pk.load(f)
+
+        for region_ind in ds_le_mmm_region['mmm']['region'].values:
+    
+            plot_dev_fig6_region(ds_regions, flags, ds=ds_EMF_mmm_region, region=region_ind, EMF=True)
+
+    
+    if plot_fig7:
+
+        print("Performing Plot f7 for Development")
+
+        for i in ds_regions['region'].values:
+ 
+            plot_dev_fig7(ds_regions, df_GMT_strj, flags, region_ind=i)
+    
+    if plot_fig8:
+    
+        print("Performing Plot f8 for Development")
+
+        with open(data_dir+'{}/{}/lifetime_exposure_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_mmm_country = pk.load(f)
+
+        for country_name in ds_le_mmm_country['country'].values:
+ 
+            plot_dev_fig8(df_GMT_strj, flags, country=country_name)
+
+    if plot_fig9:
+        
+        print("Performing Plot f9 for Development")
+
+        # all_extremes = [
+        #     'burntarea', 
+        #     'cropfailedarea', 
+        #     'driedarea', 
+        #     'floodedarea', 
+        #     'heatwavedarea', 
+        #     'tropicalcyclonedarea'
+        # ]
+
+        wt_valc_nr_children_facing_extra_heatwave = [127000,123000,120000,116000,113000,110000,106000,103000,99000,95000,91000]
+
+        birth_cohort_int = [2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010]
+
+        plot_dev_fig9(valc_nr_children_facing_extra_heatwave_NeptunDeep,wt_valc_nr_children_facing_extra_heatwave,birth_cohort_int,flags)
+
+        # for extr in all_extremes:
+
+        #     plot_dev_fig9(s2s_valc_nr_children_facing_extra_hazard,wt_valc_nr_children_facing_extra_hazard,birth_cohort_int)
+
+        
+
 
 #%%-----------------------------------------------------------------------#
 # Framework to plots not configured                                       #

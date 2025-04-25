@@ -1,13 +1,13 @@
-# ----------------------------------------------------------------------------------------
-# Script that defines the framework for the Source2Suffering project. This defines the 
-# functions neede to assess the additionnal number of people facing one additational
-# climate extreme across their lifetime due to a certain amount of CO2 emissions.
-# Also compute heat-related mortality associated with the emissions using the 
-# concept of 'mortality cost of carbon' from Bessler et al.(2021) in Nature Com.
-# ----------------------------------------------------------------------------------------
-#%%  ----------------------------------------------------------------
-# Libraries  
-# -------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------- #
+# Script that defines the framework for the Source2Suffering project. This defines the     #
+# functions neede to assess the additionnal number of people facing one additational       #
+# climate extreme across their lifetime due to a certain amount of CO2 emissions.          #
+# Also compute heat-related mortality associated with the emissions using the              #
+# concept of 'mortality cost of carbon' from Bessler et al.(2021) in Nature Com.           #
+# ---------------------------------------------------------------------------------------- #
+#%%  ---------------------------------------------------------------- #
+# Libraries                                                           #
+# ------------------------------------------------------------------- #
 
 import os
 import requests
@@ -34,35 +34,18 @@ from settings import *
 scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
 
-# -------------------------------------------------------------------
-# Init
-# -------------------------------------------------------------------
+#%%------------------------------------------------------------------------------------ #
+# Transcription of the mf_emissions2npeople.m script from Wim Thiery to python. This    #
+# function will serve as a basis for the Source2Suffering development below.            #
+#                                                                                       #
+# Framework to compute additional number of people faceing one additational             #
+# climate extreme across their lifetime due to a certain amount of CO2 emissions.       #
+# Also compute heat-related mortality associated with the emissions using the           #
+# concept of 'mortality cost of carbon' from Bessler et al.(2021) in Nature Com.        #
+#-------------------------------------------------------------------------------------- #
 
 
-# Define Transient Climate response to cumulative emissions # 
-# Expert advice (27/03/2024): You can use 1.65°C per 1000 PgC, but (if useful) you can also use transparently communicated higher percentiles.
-# These provide a risk perspective. For example, 2.2°C per 1000 PgC is still only the 66th percentile, which is not necessarily extreme.
-# However, this method is mainly applicable to CO₂ and not CO₂-eq. So if there is a lot of methane in those emissions, you would need to adjust it slightly.
-
-TCRE = 0.45/1000E9 # 1.65C / 3.7 = 0,45C per 1000 Gt CO2eq
-
-
-# Define the mortality cost of Carbon
-mortality_cost_carbon = 4434 #4,434 metric tons of carbon dioxide in 2020 [] causes one excess death globally in expectation between 2020-2100 (Bressler, 2021)
-
-
-#%%------------------------------------------------------------------------------------
-# Transcription of the mf_emissions2npeople.m script from Wim Thiery to python. This
-# function will serve as a basis for the Source2Suffering development below. 
-# 
-# Framework to compute additional number of people faceing one additational
-# climate extreme across their lifetime due to a certain amount of CO2 emissions.
-# Also compute heat-related mortality associated with the emissions using the 
-# concept of 'mortality cost of carbon' from Bessler et al.(2021) in Nature Com. 
-#--------------------------------------------------------------------------------------
-
-
-def emissions2npeople(CO2_emissions, TCRE, exposure_perregion_BE, birth_years, year_start, year_end, GMT_BE, valp_cohort_size_abs, rounding, ind_extreme):
+def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_start, year_end, df_GMT_strj, valp_cohort_size_abs, rounding):
     """Compute the number of people affected by additional climate extremes in their lifetime
     and the number of heat-related deaths between today and 2100."""
 
@@ -81,20 +64,26 @@ def emissions2npeople(CO2_emissions, TCRE, exposure_perregion_BE, birth_years, y
     # Loop over birth years from year_end to year_start
     for i in range(nbirthyears):
 
-        # Extract lifetime exposure data and GMT anomaly in 2100 #
-        idx = np.where(birth_years == years_loop[i])[0]
-        valc_exposure_climate_extreme_newborns = np.squeeze(exposure_perregion_BE[ind_extreme, 12, idx, :]) # lifetime absolute climate extreme exposure for particular generation
-        valc_GMT_2100 = np.squeeze(GMT_BE[-1, :])  # 2100 GMT anomaly
+        # Extract lifetime exposure data and GMT anomaly in 2100 
+        # for each cohort among the birth_years between year_start and year_end #
+        valc_exposure_climate_extreme_newborns = ds_le['mmm'].sel(region=region_ind, birth_year=years_loop[i])
+
+        # Recover the 2113 GMT anomaly ? To be confirmed. Should be placed outside of the loop
+        valc_GMT_2100 = df_GMT_strj.iloc[-1]  
 
         # Fit a linear curve between the exposure to climate extreme and the GMT anomaly and extract the slope #
         valc_pf = np.polyfit(valc_GMT_2100, valc_exposure_climate_extreme_newborns, 1)
         valc_slope_exposure_climate_extreme = valc_pf[0]
+        #print(valc_slope_exposure_climate_extreme)
 
         # Extract the number of people in the cohort #
-        nr_newborns[i] = valp_cohort_size_abs[-i-1, 12]
+        nr_newborns[i] = valp_cohort_size_abs[-i-1, region_ind] #should be corrected if we want year_end not equal to 2020
+        #print(nr_newborns[i])
 
         # Compute the average change in lifetime exposure #
         nr_extra_climate_extremes_newborns[i] = valc_slope_exposure_climate_extreme * dGMT
+
+        #print(nr_extra_climate_extremes_newborns[i])
 
         # Compute the number of children facing at least one additional extreme #
         val = nr_newborns[i] * nr_extra_climate_extremes_newborns[i]
@@ -116,3 +105,20 @@ def emissions2npeople(CO2_emissions, TCRE, exposure_perregion_BE, birth_years, y
     )
 
     return nr_children_facing_extra_climate_extreme
+
+
+#%%------------------------------------------------------------------------------------ #
+# Compute heat-related mortality associated with the emissions using the                #
+# concept of 'mortality cost of carbon' from Bessler et al.(2021) in Nature Com.        #
+#-------------------------------------------------------------------------------------- #
+
+def mortality_cost_carbon(CO2_emissions):
+
+    # 4,434 metric tons of carbon dioxide in 2020 cfr. (Bressler, 2021) 
+    # causes one excess death globally in expectation between 2020-2100 
+
+    mortality_cost_carbon_val = 4434 
+
+    valc_mortality = (CO2_emissions / mortality_cost_carbon_val // 1000) * 1000
+
+    return valc_mortality

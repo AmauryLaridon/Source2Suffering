@@ -27,22 +27,22 @@ sys.path.append(os.path.abspath(scripts_dir+"/pf_scripts"))
 from pf_exposure import *
 
 # ----------------------------------------------------------------#
-# Execute lifetime exposure across cohorts                        #
+# Process lifetime exposure across cohorts                        #
 # ----------------------------------------------------------------#
 
 if flags['lifetime_exposure']:
 
-    print("Computing Lifetime Exposure across cohorts")
+    print("-------------------------------------------------------")
+    print("Computing Lifetime Exposure to {}".format(flags['extr']))
+    print("-------------------------------------------------------")
     start_time = time.time()
 
     if Thiery_2021 or Source2Suffering:
 
-        # function translate by A.Laridon from Thiery et al.(2021) #
-
-        # empty
-
-        # function translate by L.Grant from Thiery et al.(2021) #
-         
+        #-----------------  Compute per ISIMIP run Lifetime Exposure ---------------#
+        
+        print('Computing Lifetime Exposure per ISIMIP run')
+                 
         ds_le_percountry_perrun_GMT, ds_le_perregion_perrun_GMT = calc_lifetime_exposure(
             d_isimip_meta,
             df_countries,
@@ -54,30 +54,23 @@ if flags['lifetime_exposure']:
             d_cohort_weights_regions,
             flags,)
 
-        with open(data_dir+'{}/{}/lifetime_exposure_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
-            ds_le_percountry_perrun_GMT = pk.load(f)
+        #---------------------  Compute MMM Lifetime Exposure ---------------------#
 
-        ds_le_percountry_GMT = calc_exposure_mmm_xr(ds_le_percountry_perrun_GMT)
+        print('Computing MMM Lifetime Exposure')
 
-        with open(data_dir+'{}/{}/lifetime_exposure_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
-            ds_le_perregion_perrun_GMT = pk.load(f)
+        ds_le_percountry_GMT = calc_exposure_mmm_xr(ds_le_percountry_perrun_GMT, flags)
         
-        ds_le_perregion_GMT = calc_exposure_mmm_xr(ds_le_perregion_perrun_GMT)
+        ds_le_perregion_GMT = calc_exposure_mmm_xr(ds_le_perregion_perrun_GMT, flags)
 
-              
+        #----------------------------- Compute EMF  -------------------------------#
+
+        print('Computing EMF of Lifetime Exposure')
+
+        ds_EMF_percountry_GMT = calc_EMF(flags, ds_le_exposure=ds_le_percountry_GMT, ref_pic = False)
+
+        ds_EMF_perregion_GMT = calc_EMF(flags, ds_le_exposure=ds_le_perregion_GMT, ref_pic = False)
 
 
-        # calc_exposure_trends() only produces NaN values as output #
-
-        #grid_area = xr.open_dataarray(data_dir+'isimip/grid_resolution/clm45_area.nc4')
-
-        # calc_exposure_trends(
-        #     d_isimip_meta,
-        #     grid_area,
-        #     gdf_country_borders,
-        #     flags
-        #     )
-    
     
     if Grant_2025:
         
@@ -98,7 +91,7 @@ if flags['lifetime_exposure']:
         #     flags,
         # )
     
-    print("--- {} minutes to compute Lifetime Exposure across Cohorts for all countries ---".format(
+    print("--- {} minutes to compute Lifetime Exposure for all countries and regions ---".format(
         np.floor((time.time() - start_time) / 60),
         )
           )
@@ -116,10 +109,37 @@ else: # load processed cohort exposure data
 
     elif Thiery_2021 or Source2Suffering:
 
-        print('Loading processed Lifetime Exposure to {}'.format(flags['extr']))
+        #-----------------  Load per ISIMIP run Lifetime Exposure ---------------#
 
-        with open(data_dir+'{}/{}/lifetime_exposure_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-            ds_le = pk.load(f)
+        print('Loading processed Lifetime Exposure per ISIMIP simulation')
+
+        with open(data_dir+'{}/{}/ds_le_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_percountry_perrun_GMT = pk.load(f)
+        
+        with open(data_dir+'{}/{}/ds_le_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_perregion_perrun_GMT = pk.load(f)
+
+        #---------------------  Load MMM Lifetime Exposure ---------------------#
+
+        print('Loading processed MMM Lifetime Exposure')
+
+        with open(data_dir+'{}/{}/ds_le_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_percountry_GMT = pk.load(f)
+        
+        with open(data_dir+'{}/{}/ds_le_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            ds_le_perregion_GMT = pk.load(f)
+
+        #----------------------------- Load EMF  -------------------------------#
+
+        print('Loading EMF of Lifetime Exposure')
+
+        with open(data_dir+'{}/{}/ds_EMF_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+
+            ds_EMF_percountry_GMT = pk.load(f)
+
+        with open(data_dir+'{}/{}/ds_EMF_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+
+            ds_EMF_perregion_GMT = pk.load(f)
 
 # --------------------------------------------------------------- #
 # Process lifetime exposure across cohorts for                    #
@@ -127,11 +147,13 @@ else: # load processed cohort exposure data
 # --------------------------------------------------------------- #
 
 if flags['lifetime_exposure_pic']:
+
+    #-----------------  Compute per ISIMIP run Lifetime Exposure ---------------#
     
-    print('Computing PIC Lifetime Exposures across cohorts')
+    print('Computing Lifetime Exposure per ISIMIP run for PIC')
     start_time = time.time()
     
-    d_exposure_perrun_pic = calc_lifetime_exposure_pic(
+    d_pic_le_percountry_perrun = calc_lifetime_exposure_pic(
         d_pic_meta, 
         df_countries, 
         countries_regions, 
@@ -153,20 +175,20 @@ if flags['lifetime_exposure_pic']:
 
 else:  
     
-    print('Loading PIC Lifetime Exposures across cohorts')
+    print('Loading PIC Lifetime Exposure per ISIMIP simulation')
 
-    with open(data_dir+'{}/{}/exposure_pic_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-        d_exposure_perrun_pic = pk.load(f)
+    with open(data_dir+'{}/{}/d_pic_le_percountry_perrun.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+            d_pic_le_percountry_perrun = pk.load(f)
 
 # --------------------------------------------------------------- #
-# Multi-model mean of exposure                                    #
+# Multi-model mean of exposure for PIC simulations                #
 # --------------------------------------------------------------- #
 
 if Grant_2025:
 
     # computation of multi-model mean of the exposure
     ds_exposure_pic = calc_exposure_mmm_pic_xr(
-        d_exposure_perrun_pic,
+        d_pic_le_percountry_perrun,
         'country',
         'pic',
     )

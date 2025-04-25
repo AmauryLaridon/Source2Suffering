@@ -17,7 +17,6 @@ def init():
 
     # scripts directory
     global scripts_dir
-    #scripts_dir = os.getcwd() # don't work it is better to manualy describe the exact location of your directory
     scripts_dir = "/data/brussel/vo/000/bvo00012/vsc11137/source2suffering"
     # data directory
     global data_dir

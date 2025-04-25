@@ -122,18 +122,8 @@ else:
     da_cohort_size = d_countries['cohort_size']
     countries_regions, countries_mask = d_countries['mask'] 
 
-# print(type(da_cohort_size))
-# print(np.shape(da_cohort_size))
-# print(da_cohort_size)
-# print("---------------")
+d_cohort_size = get_cohortsize_countries(df_countries,flags)
 
-d_cohort_size = get_cohortsize_countries(df_countries)
-
-# print(type(d_cohort_size))
-# print(np.shape(d_cohort_size))
-# print(d_cohort_size["Zimbabwe"])
-
-#sys.exit(0)
 # --------------------------------------------------------------- #
 # load Regions                                                    #
 # --------------------------------------------------------------- #
@@ -177,20 +167,6 @@ ds_regions = xr.Dataset(
             }
 
         )
-
-# print("--------------")
-# print(ds_regions)
-# print("--------------")
-# print(ds_regions["ind_member_countries"].values)
-# print(ds_regions["ind_member_countries"].shape)
-# print(ds_regions["ind_member_countries"].dtype)
-# print("--------------")
-# print(ds_regions["birth_years"].values)
-# print(ds_regions["birth_years"].shape)
-# print(ds_regions["birth_years"].dtype)
-
-#d_regions_dvp = {} 
-
 
 #-------- Configuration of ds_regions['ind_member_countries'] and ds_regions['member_countries'] ------#
 
@@ -243,16 +219,6 @@ for i in range(len(coord_region)):
 member_countries = np.array(member_countries, dtype=object)
 ind_member_countries = np.array(ind_member_countries, dtype=object)
 
-# print(member_countries)
-# print(type(member_countries))
-# print(np.shape(member_countries))
-
-# print("------------")
-
-# print(ind_member_countries)
-# print(type(ind_member_countries))
-# print(np.shape(ind_member_countries))
-
 #--------- Integration into ds_regions['ind_member_countries'] and ds_regions['member_countries']------#
 
 for i in range(nregions):
@@ -265,68 +231,7 @@ ds_regions['member_countries'] = xr.DataArray(
     coords={'region': coord_region}
 )
 
-
-# print("--------------")
-# print(ds_regions)
-# print("--------------")
-# print(ds_regions["member_countries"][0].values)
-# print(ds_regions["member_countries"][0].shape)
-# print(ds_regions["member_countries"][0].dtype)
-
-# print("--------------")
-# print(ds_regions["member_countries"][1].values)
-# print(ds_regions["member_countries"][1].shape)
-# print(ds_regions["member_countries"][1].dtype)
-# print("--------------")
-# print(ds_regions["member_countries"].values)
-# print(ds_regions["member_countries"].shape)
-# print(ds_regions["member_countries"].dtype)
-# print(ds_regions["member_countries"][0].values)
-
-#--------------------------- Configuration of ds_regions['cohort_weights']  ---------------------------#
-
-# sys.exit(0)
-
-# tmp1 = []
-# tmp2 = []
-# tmp1 = 0
-
-# da_cohort_size[country,ind_2020,ages]
-
-
-# Liste pour accumuler les cohort_weights par région
-# all_weights = []
-# region_labels = []
-
-# for region_name in regions["name"]:
-#     # Récupérer les pays membres de la région
-#     ind_member_countries = regions["members"][region_name]
-
-#     tmp_list = []
-#     for country in ind_member_countries:
-#         da = countries["cohort_size"][country]  # DataArray: [time, age]
-#         # Extraire la cohorte née en year_ref
-#         da_ref = da.sel(time=year_ref)
-#         tmp_list.append(da_ref)
-
-#     # Combiner en un seul DataArray: (country, age)
-#     tmp2 = xr.concat(tmp_list, dim="country")
-#     tmp2 = tmp2.assign_coords(country=ind_member_countries)
-
-#     # Réordonner pour avoir (age, country)
-#     cohort_w = tmp2.transpose("age", "country")
-
-#     # Ajouter une nouvelle dimension région
-#     cohort_w = cohort_w.expand_dims(region=[region_name])
-#     all_weights.append(cohort_w)
-#     region_labels.append(region_name)
-
-# Concaténer toutes les régions sur une seule dimension "region"
-# cohort_weights = xr.concat(all_weights, dim="region")
-# cohort_weights = cohort_weights.assign_coords(region=region_labels)
-
-
-#------------------------------- Luke's get_regions_data() -----------------------------#
+#------------------------------------ Luke's get_regions_data() ---------------------------------------#
 
 
 df_worldbank_region = worldbank[1]
@@ -338,69 +243,51 @@ d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohor
     df_worldbank_region, 
     df_unwpp_region, 
     d_cohort_size,
+    flags,
 )
 
-# print(type(d_cohort_weights_regions['South Asia']))
-# print(np.shape(d_cohort_weights_regions['South Asia']))
-# print("d_cohort_weights_regions", d_cohort_weights_regions['South Asia'])
+# print(d_cohort_weights_regions)
+# print(type(d_cohort_weights_regions['North America']))
+# print(np.shape(d_cohort_weights_regions['North America']))
+# print("d_cohort_weights_regions", d_cohort_weights_regions['North America'])
 
-#sys.exit(0)
 
-# ---------------------------------- Intégration dans ds_regions['cohort_weights'] ---------------------------------- #
+# --------------------------------------------------------------- #
+# Construction of valp_cohort_size_abs based on ms_valp.m from    #
+# Thiery et al.(2021). This object that contains the total size   #
+# of each cohort for each region will be used in                  #
+# source2suffering.py                                             #
+# --------------------------------------------------------------- #
 
-# --- Option will all countries as coord --- #
+if Thiery_2021 or Source2Suffering:
+    
+    regions_list = list(d_cohort_weights_regions.keys())
+    nregions = len(regions_list)
 
-# # Liste pour stocker les DataArrays de chaque région
-# da_list = []
+    valp_cohort_size_abs = np.zeros((len(ages), nregions))
 
-# # Liste complète des pays comme dans ds_regions
-# all_countries = ds_regions.coords['country'].values
-
-# # On boucle sur chaque région selon l'ordre des index dans ds_regions
-# for i in range(len(ds_regions.coords['region'])):
-
-#     region_name = ds_regions['name'].sel(region=i).item()
-#     print(f"Ajout des poids pour la région : {region_name}")
-
-#     df_region = d_cohort_weights_regions[region_name].copy()
-#     df_region.columns.name = None  # enlever le nom des colonnes
-
-#     # Réindexer les colonnes pour inclure tous les pays
-#     df_region_full = df_region.reindex(columns=all_countries)
-
-#     # Définir les coordonnées 'age'
-#     age_coords = df_region_full.index
-
-#     # Création du DataArray
-#     da = xr.DataArray(
-#         data=df_region_full.values,
-#         dims=["age", "country"],
-#         coords={
-#             "age": age_coords,
-#             "country": df_region_full.columns,
-#             "region": i
-#         },
-#         name="cohort_weights"
-#     )
-
-#     da_list.append(da)
-
-# # Concaténation sur la dimension région
-# cohort_weights_all = xr.concat(da_list, dim="region")
-
-# # Ajout au dataset principal
-# ds_regions["cohort_weights"] = cohort_weights_all
-
-# print("--------------")
-# print(ds_regions)
-# print("--------------")
-# print(ds_regions['cohort_weights'].sel(region=7,country=25))
-# # cohort_weights_na = ds_regions['cohort_weights'].sel(region=7)
-# # print(cohort_weights_na)
-# # print(cohort_weights_na.shape)
-# # print(type(cohort_weights_na))
-# print("--------------")
-
+    # Boucle sur les âges
+    for ind_age, age in enumerate(ages):
+        
+        # Boucle sur les régions
+        for ind_region, region_name in enumerate(regions_list):
+            
+            # Accès au DataFrame correspondant à la région
+            df_cohort = d_cohort_weights_regions[region_name]  # shape: [age x countries]
+            
+            # Vérifie que l'âge est bien présent dans les index du DataFrame
+            if age in df_cohort.index:
+                # On sélectionne la ligne correspondant à l'âge (série avec pays en colonnes)
+                cohort_row = df_cohort.loc[age]
+                
+                # Somme sur tous les pays (colonnes) et conversion en valeurs absolues
+                total = cohort_row.sum() * 1000
+                
+                # Stocke la valeur arrondie
+                valp_cohort_size_abs[ind_age, ind_region] = np.round(total, 1)
+            else:
+                # Si l'âge n'est pas présent, on laisse 0 ou on met NaN
+                valp_cohort_size_abs[ind_age, ind_region] = np.nan
 
 # --------------------------------------------------------------- #
 # load ISIMIP model data                                          #
