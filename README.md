@@ -15,3 +15,11 @@ ml Python/3.10.4-GCCcore-11.3.0 geopandas/0.12.2-foss-2022a openpyxl/3.0.10-GCCc
 4. To avoid a _CryptographyDeprecationWarning: Blowfish has been deprecated_ warning in the output you can execute the following command : _pip install --upgrade paramiko cryptography_
 5. Configure all flags based on the analysis you would like to perform. The _settings.py_ scripts offer other configuration details that can be change.
 6. Execute the main.py script.
+
+## Version used for the Assessments 
+
+ **Born into the Climate Crisis 2 (BiCC2) - Norway** : Commit full SHA : 407ee6bb38a0d1bbcf4918837fa8d675929431fd
+
+ **Born into the Climate Crisis 2 (BiCC2) - Spain** : Commit full SHA : 
+
+ **Nikkei Journal - Japan** : Commit Full SHA : 
