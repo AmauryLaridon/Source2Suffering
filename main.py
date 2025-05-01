@@ -62,9 +62,9 @@ flags = {}
 global Thiery_2021, Grant_2025, Laridon_2025, Source2Suffering
 
 Thiery_2021 = False 
-Grant_2025 = False      
+Grant_2025 = True      
 Laridon_2025 = False
-Source2Suffering = True
+Source2Suffering = False
 env_value_paper= 0 
 
 #-------------------------------------------------------------------------------------#
@@ -227,7 +227,7 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['plots'] = 1                              # 0 do not produce and save plots 
+    flags['plots'] = 0                              # 0 do not produce and save plots 
                                                     # 1 produce and load plots 
 
     flags['reporting'] = 1                          # 0 do not produce results for reporting 

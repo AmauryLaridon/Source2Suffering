@@ -3,7 +3,7 @@
 #SBATCH --job-name=s2s_heatwavedarea
 #SBATCH --ntasks=2
 #SBATCH --mem=160G
-#SBATCH --time=6:00:00
+#SBATCH --time=48:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=amaury.laridon@vub.be
 #SBATCH --output=/dev/null

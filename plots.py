@@ -79,17 +79,17 @@ if Grant_2025:
 
     #Configuration of the plots#
 
-    plot_ms = 0                     # Plots used in the main manuscript of Grant et al.(2025)
+    plot_ms = 1                     # Plots used in the main manuscript of Grant et al.(2025)
 
     plot_si = 0                     # Plots used in the supplmentary materials of Grant et al.(2025)
 
     if plot_ms:
 
         grant2025_fig1 = True
-        grant2025_fig2 = True
-        grant2025_fig2_alt = True
-        grant2025_fig2_alt_mod = True
-        grant2025_fig3 = True
+        grant2025_fig2 = False
+        grant2025_fig2_alt = False
+        grant2025_fig2_alt_mod = False
+        grant2025_fig3 = False
 
         print("--------------------------------------------------")
         print("Start plot_ms framework from Grant et al.(2025)")

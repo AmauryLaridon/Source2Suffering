@@ -54,8 +54,8 @@ def plot_conceptual(
 ):
     # get data
     #
-    cntry='Belgium'
-    city_name='Brussels'
+    cntry='Spain'
+    city_name='Madrid'
     # cntry='Switzerland'
     # city_name='Zurich'
     # concept_bys = np.arange(1960,2021,30)

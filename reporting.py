@@ -64,103 +64,103 @@ if Grant_2025:
         sys.path.append(os.path.abspath(scripts_dir+"/output/papers/grant_2025"))
         from grant_2025_report import *
 
-        if flags['global_avg_emergence']:
-            print("---------------------------------------------------------")
-            print("Report 1 : Estimates of land area for 1960 and 2020 emergence of multiple hazards")
-            # estimates of land area and (potential) pf for 1960 and 2020 emergencve of multiple hazards
-            multi_hazard_emergence(
-                grid_area,
-                da_emergence_mean,
-                da_gs_popdenom,
-            )
-        else:
-            print("---------------------------------------------------------")
-            print("Report 1 not produced because flags['global_avg_emergence']=0")
+        # if flags['global_avg_emergence']:
+        #     print("---------------------------------------------------------")
+        #     print("Report 1 : Estimates of land area for 1960 and 2020 emergence of multiple hazards")
+        #     # estimates of land area and (potential) pf for 1960 and 2020 emergencve of multiple hazards
+        #     multi_hazard_emergence(
+        #         grid_area,
+        #         da_emergence_mean,
+        #         da_gs_popdenom,
+        #     )
+        # else:
+        #     print("---------------------------------------------------------")
+        #     print("Report 1 not produced because flags['global_avg_emergence']=0")
         
-        # get birth year cohort sizes at grid scale
-        print("---------------------------------------------------------")
-        print("Report 2 : Gridscale cohort sizes per birth year.")
-        gridscale_cohort_sizes(
-            flags,
-            da_population,
-            gridscale_countries,   
-        )    
-        print("Save gridscale_cohort_global.pkl in data/{version}/country")
+        # # get birth year cohort sizes at grid scale
+        # print("---------------------------------------------------------")
+        # print("Report 2 : Gridscale cohort sizes per birth year.")
+        # gridscale_cohort_sizes(
+        #     flags,
+        #     da_population,
+        #     gridscale_countries,   
+        # )    
+        # print("Save gridscale_cohort_global.pkl in data/{version}/country")
         
-        # per hazard, locations where exposure occurs across whole ensemble
-        print("---------------------------------------------------------")
-        print("Report 3 : Grid exposure locations for all simulations.")
-        exposure_locs(
-            flags,
-            grid_area,
-        )
-        print("Save exposure_occurrence_{extr}.pkl in data/{version}/{extr}")
+        # # per hazard, locations where exposure occurs across whole ensemble
+        # print("---------------------------------------------------------")
+        # print("Report 3 : Grid exposure locations for all simulations.")
+        # exposure_locs(
+        #     flags,
+        #     grid_area,
+        # )
+        # print("Save exposure_occurrence_{extr}.pkl in data/{version}/{extr}")
         
-        # per run for 1.5, 2.5, 2.7 and 3.5, collect maps of emergence locations to be used in geographically constrained pf estimates
-        print("---------------------------------------------------------")
-        print("Report 4: Collect maps of emergence locations")
-        emergence_locs_perrun(
-            flags,
-            grid_area,
-            gridscale_countries,
-            countries_mask,
-            countries_regions,
-        )    
-        print("Save emergence_locs_perrun_{extr}_{step}.pkl in /data/{version}/{extr}")
+        # # per run for 1.5, 2.5, 2.7 and 3.5, collect maps of emergence locations to be used in geographically constrained pf estimates
+        # print("---------------------------------------------------------")
+        # print("Report 4: Collect maps of emergence locations")
+        # emergence_locs_perrun(
+        #     flags,
+        #     grid_area,
+        #     gridscale_countries,
+        #     countries_mask,
+        #     countries_regions,
+        # )    
+        # print("Save emergence_locs_perrun_{extr}_{step}.pkl in /data/{version}/{extr}")
 
-        # compute geographically constrained pf
-        print("---------------------------------------------------------")
-        print("Report 5: Population fraction estimates per run for selected GMTs when constraining denominator by geography")
-        pf_geoconstrained(
-            flags,
-            countries_mask,
-        )
-        print("Save pf_geoconstrained_{extr}.pkl in data/{version}/{extr}")
+        # # compute geographically constrained pf
+        # print("---------------------------------------------------------")
+        # print("Report 5: Population fraction estimates per run for selected GMTs when constraining denominator by geography")
+        # pf_geoconstrained(
+        #     flags,
+        #     countries_mask,
+        # )
+        # print("Save pf_geoconstrained_{extr}.pkl in data/{version}/{extr}")
         
-        # print geographically constrained pf vs regular pf
-        print("---------------------------------------------------------")
-        print("Report 6: Print geographically constrained pf Vs regular pf")
-        print_pf_geoconstrained(
-            flags,
-            da_gs_popdenom,
-        )    
-
-        # checking for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level
-        print("---------------------------------------------------------")
-        print("Report 7: Check for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level")
-        print("Not execute due to bugs in the original script")
-        # paired_ttest(
+        # # print geographically constrained pf vs regular pf
+        # print("---------------------------------------------------------")
+        # print("Report 6: Print geographically constrained pf Vs regular pf")
+        # print_pf_geoconstrained(
         #     flags,
         #     da_gs_popdenom,
-        # )
+        # )    
+
+        # # checking for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level
+        # print("---------------------------------------------------------")
+        # print("Report 7: Check for signifiance of change in means between 1960 and 2020 pf per event and for a GMT level")
+        # print("Not execute due to bugs in the original script")
+        # # paired_ttest(
+        # #     flags,
+        # #     da_gs_popdenom,
+        # # )
         
-        # print latex table on ensemble members per hazard
-        print("---------------------------------------------------------")
-        print("Report 8: Print LaTeX table on ensemble members per hazard")
-        if latex_output == True:
-            print_latex_table_ensemble_sizes(
-                flags,
-                df_GMT_strj,
-            )
-        else:
-            print('No LaTeX output in the configuration (see reporting.py)')   
+        # # print latex table on ensemble members per hazard
+        # print("---------------------------------------------------------")
+        # print("Report 8: Print LaTeX table on ensemble members per hazard")
+        # if latex_output == True:
+        #     print_latex_table_ensemble_sizes(
+        #         flags,
+        #         df_GMT_strj,
+        #     )
+        # else:
+        #     print('No LaTeX output in the configuration (see reporting.py)')   
 
-        # children (i.e. those born between 2003-2020) living unprec exposure between 1.5 and 2.7 degrees warming (for numbers in conclusion of paper)
-        print("---------------------------------------------------------")    
-        print("Report 9: Number of children (born between 2003-2020) living ULE between 1.5 and 2.7°C warming")
-        print_millions_excess(
-            flags,
-            df_GMT_strj,
-        )     
+        # # children (i.e. those born between 2003-2020) living unprec exposure between 1.5 and 2.7 degrees warming (for numbers in conclusion of paper)
+        # print("---------------------------------------------------------")    
+        # print("Report 9: Number of children (born between 2003-2020) living ULE between 1.5 and 2.7°C warming")
+        # print_millions_excess(
+        #     flags,
+        #     df_GMT_strj,
+        # )     
 
-        # print pf info 
-        print("---------------------------------------------------------") 
-        print("Report 10: Ratio of pfs")
-        print_pf_ratios_and_abstract_numbers(
-            flags,
-            df_GMT_strj,
-            da_gs_popdenom,
-        )    
+        # # print pf info 
+        # print("---------------------------------------------------------") 
+        # print("Report 10: Ratio of pfs")
+        # print_pf_ratios_and_abstract_numbers(
+        #     flags,
+        #     df_GMT_strj,
+        #     da_gs_popdenom,
+        # )    
         
         # get number of million people unprecedented: (will change this stuff to run for all extremes and birth years for table in paper)
         print("---------------------------------------------------------")
