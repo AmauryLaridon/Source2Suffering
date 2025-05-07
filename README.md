@@ -1,12 +1,12 @@
 # Source2Suffering
 
-Repository containing the scripts and data needed for the Source2Suffering project. The scripts and data are based on L.Grant et al.(2025)
+Repository containing the scripts and data needed for the Source2Suffering project. The scripts and data are based on L.Grant et al.(2025) and Thiery et al.(2021) 
 
 ## How To Run ?
 
-### Running from VS Code Server on HYDRA
+### Running from VUB On Demand for HYDRA HPC
 
-1. While launching the VS Code server on you have to paste the following command on the "Pre-run sciptlet" :
+1. Before launching the VS Code server you have to paste the following command on the "Pre-run sciptlet" :
 
 ml Python/3.10.4-GCCcore-11.3.0 geopandas/0.12.2-foss-2022a openpyxl/3.0.10-GCCcore-11.3.0 regionmask/0.9.0-foss-2022a xarray/2022.6.0-foss-2022a netcdf4-python/1.6.1-foss-2022a SciPy-bundle/2022.05-foss-2022a matplotlib/3.5.2-foss-2022a Cartopy/0.20.3-foss-2022a Shapely/1.8.2-foss-2022a Seaborn/0.12.1-foss-2022a
 

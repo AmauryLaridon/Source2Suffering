@@ -62,9 +62,9 @@ flags = {}
 global Thiery_2021, Grant_2025, Laridon_2025, Source2Suffering
 
 Thiery_2021 = False 
-Grant_2025 = False      
+Grant_2025 = True      
 Laridon_2025 = False
-Source2Suffering = True
+Source2Suffering = False
 env_value_paper= 0 
 
 #-------------------------------------------------------------------------------------#
@@ -186,7 +186,7 @@ if not env_value_paper:
 
     #--------- Pietroiusti et al.(2025) Demographic -----------#
 
-    flags['dem4clim'] = 0                           # 0: do not use the assessment by Pietroiusti et al. for gridded population data
+    flags['dem4cli'] = 0                           # 0: do not use the assessment by Pietroiusti et al. for gridded population data
                                                     # 1: use the assessment by Pietroiusti et al. for gridded population data
 
     #--------- Thiery et al.(2021) Lifetime Exposure ----------#
@@ -238,10 +238,10 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['plots'] = 0                              # 0 do not produce and save plots 
+    flags['plots'] = 1                              # 0 do not produce and save plots 
                                                     # 1 produce and load plots 
 
-    flags['reporting'] = 1                          # 0 do not produce results for reporting 
+    flags['reporting'] = 0                          # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
     
     # Use for specific climate extreme jobs - HPC only
@@ -277,7 +277,7 @@ print(" ------------------------------------------------------------------------
 
 
 from settings import *
-scripts_dir, data_dir, data_dem4clim_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
+scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
 set_extremes(flags) # set extremes based on flag (this needs to happen here as it uses the flags dict defined above)
 

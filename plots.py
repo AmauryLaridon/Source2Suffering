@@ -40,7 +40,7 @@ import cartopy.feature as feature
 from scipy.stats import ttest_rel
 from scipy.stats import ttest_ind
 from settings import *
-scripts_dir, data_dir, data_dem4clim_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
+scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
 #%%-----------------------------------------------------------------------#
 # Framework to plots all figures associated to Thiery et al.(2021)        #
@@ -85,10 +85,10 @@ if Grant_2025:
 
     if plot_ms:
 
-        grant2025_fig1 = True
+        grant2025_fig1 = False
         grant2025_fig2 = False
         grant2025_fig2_alt = False
-        grant2025_fig2_alt_mod = False
+        grant2025_fig2_alt_mod = True
         grant2025_fig3 = False
 
         print("--------------------------------------------------")
