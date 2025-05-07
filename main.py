@@ -62,9 +62,9 @@ flags = {}
 global Thiery_2021, Grant_2025, Laridon_2025, Source2Suffering
 
 Thiery_2021 = False 
-Grant_2025 = True      
+Grant_2025 = False      
 Laridon_2025 = False
-Source2Suffering = False
+Source2Suffering = True
 env_value_paper= 0 
 
 #-------------------------------------------------------------------------------------#
@@ -77,7 +77,7 @@ if env_value_paper:
     Thiery_2021 = False 
     Grant_2025 = True 
     Laridon_2025 = False
-    Source2Suffering = True 
+    Source2Suffering = False 
     if env_value_paper == "thiery_2021":
         Thiery_2021 = True
     if env_value_paper == "grant_2025":
@@ -99,6 +99,7 @@ if env_value_paper:
         flags['version'] = 'pickles'
         flags['run'] = 1
         flags['mask'] = 1
+        flags['dem4clim'] = 0
         flags['lifetime_exposure'] = 1
         flags['lifetime_exposure_pic'] = 1
         flags['emergence'] = 0
@@ -114,12 +115,13 @@ if env_value_paper:
         flags['reporting'] = 0
 
     if Grant_2025==True:
-        flags['extr'] = 'all'
+        flags['extr'] = 'heatwavedarea'
         flags['gmt'] = 'ar6_new'
         flags['rm'] = 'rm'
         flags['version'] = 'pickles_v3'
         flags['run'] = 0
         flags['mask'] = 0
+        flags['dem4clim'] = 0
         flags['lifetime_exposure'] = 0
         flags['lifetime_exposure_pic'] = 0
         flags['emergence'] = 1
@@ -146,7 +148,7 @@ if env_value_paper:
 
 if not env_value_paper:
 
-    #--------------------- Configuration ----------------------#
+    #------------------- Climate Extreme --------------------#
 
     flags['extr'] = 'heatwavedarea'                 # 0: all
                                                     # 1: burntarea
@@ -156,6 +158,8 @@ if not env_value_paper:
                                                     # 5: heatwavedarea
                                                     # 6: tropicalcyclonedarea
 
+    #-------------- GMT Stylized Trajectories ---------------#
+
     flags['gmt'] = 'ar6_new'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
                                                     # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
                                                     # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
@@ -163,6 +167,8 @@ if not env_value_paper:
     flags['rm'] = 'rm'                              # no_rm: no smoothing of RCP GMTs before mapping
                                                     # rm: 21-year rolling mean on RCP GMTs
     
+    #-------------- Version of the input Data ---------------#
+
     flags['version'] = 'pickles_v3'                 # pickles: original version, submitted to Nature
                                                         # inconsistent GMT steps (not perfect 0.1 degree intervals)
                                                         # GMT steps ranging 1-4 (although study only shows ~1.5-3.5, so runs are inefficient)
@@ -178,6 +184,11 @@ if not env_value_paper:
     flags['mask'] = 0                               # 0: do not process country data (i.e. load masks pickle)
                                                     # 1: process country data (i.e. produce and save masks as pickle)
 
+    #--------- Pietroiusti et al.(2025) Demographic -----------#
+
+    flags['dem4clim'] = 0                           # 0: do not use the assessment by Pietroiusti et al. for gridded population data
+                                                    # 1: use the assessment by Pietroiusti et al. for gridded population data
+
     #--------- Thiery et al.(2021) Lifetime Exposure ----------#
     
     flags['lifetime_exposure'] = 0                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
@@ -191,7 +202,7 @@ if not env_value_paper:
     flags['emergence'] = 0                          # 0: do not process ISIMIP runs to compute cohort emergence of unprecedentend lifetime exposure (i.e. load cohort exposure pickle)
                                                     # 1: process ISIMIP runs to compute cohort emergence of unprecedentend lifetime exposure (i.e. produce and save exposure as pickle)
 
-    #--------------------- Produce Error ----------------------#
+    #---------------- Produce Error -----------------#
 
     flags['birthyear_emergence'] = 0                # 0: only run calc_birthyear_align with birth years from 1960-2020
                                                     # 1: run calc_birthyear_align with birth years from 1960-2100. Produces an error.  
@@ -209,7 +220,7 @@ if not env_value_paper:
                                                     # 1: run gridscale analysis on subset of countries determined in "get_gridscale_regions" and settings countries. Can only work if flags['gridscale'] = 1
 
     #------------- Grant et al.(2025) analysis ----------------#
-    #--------------------- Produce Error ----------------------#
+    #--------------- Produce Error ----------------#
 
     flags['global_emergence_recollect'] = 0         # 0: do not load pickles of global emergence masks used for vulnerability assessment
                                                     # 1: load pickles                  
@@ -266,7 +277,7 @@ print(" ------------------------------------------------------------------------
 
 
 from settings import *
-scripts_dir, data_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
+scripts_dir, data_dir, data_dem4clim_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
 
 set_extremes(flags) # set extremes based on flag (this needs to happen here as it uses the flags dict defined above)
 

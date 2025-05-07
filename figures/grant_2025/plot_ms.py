@@ -54,8 +54,8 @@ def plot_conceptual(
 ):
     # get data
     #
-    cntry='Spain'
-    city_name='Madrid'
+    cntry='Japan'
+    city_name='Tokyo'
     # cntry='Switzerland'
     # city_name='Zurich'
     # concept_bys = np.arange(1960,2021,30)
@@ -72,9 +72,9 @@ def plot_conceptual(
     # weights for latitude (probably won't use but will use population instead)
     lat_weights = np.cos(np.deg2rad(da_cntry.lat))
     lat_weights.name = "weights"   
-    # brussels coords  
-    city_lat = 50.8476
-    city_lon = 4.3572  
+    # Tokyo coords  
+    city_lat = 35.6895
+    city_lon = 139.6917  
     # zurich coords
     # 47.3769° N, 8.5417° E
     # city_lat = 47.3769
