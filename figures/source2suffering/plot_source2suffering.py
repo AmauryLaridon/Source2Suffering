@@ -881,5 +881,59 @@ def plot_dev_fig9(
     # Save the figure
     plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/nr_children_facing_extra_{}_NeptunDeep_gmt_{}.png'.format(hazards, flags['gmt']))
 
+def plot_dev_fig10(
+    s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new,
+    s2s_valc_nr_children_facing_extra_hazard_gmt_original,
+    wt_valc_nr_children_facing_extra_hazard,
+    birth_cohort_int,
+    hazards,
+    flags,
+):
+    """
+    Plot comparison of the assessment report produced by W.Thiery et al.(2021) and the Source2Suffering framework and the two different GMT options
+
+    Parameters:
+    - s2s_valc_nr_children_facing_extra_hazard (Array) : Contains per birth cohort of interested the number of extra children affected computed by the Source2Suffering framework
+    - wt_valc_nr_children_facing_extra_hazard (Array) : Contains per birth cohort of interested the number of extra children affected computed by W.Thiery
+    - birth_cohort_int (Array) : Contains the birth cohort of interest
+    - flags (Array) : contains the parameters of the configuration
+    """
+
+    plt.close('all')
+
+    plt.figure(figsize=(13, 9))
+
+    # Plot lines with markers (instead of only points)
+
+    plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new, 
+            '-o', color="tab:orange", label="S2S - GMT AR6_new", markersize=10,lw=2)
+
+    plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard_gmt_original, 
+            '-o', color="tab:red", label="S2S - GMT Original", markersize=10,lw=2)
+
+    plt.plot(birth_cohort_int, wt_valc_nr_children_facing_extra_hazard, 
+            '-o', color="tab:blue", label="W.Thiery", markersize=10,lw=2)
+
+    # Set the figure title
+    plt.title("Number of children facing at\nleast one extra {} due to NeptunDeep".format(hazards),
+            fontsize=22, fontweight='bold')
+
+    # Axis labels
+    plt.xlabel("Birth cohort", fontsize=20)
+    plt.ylabel("Number of children", fontsize=20)
+
+    # Display the legend
+    plt.legend(fontsize=18)
+
+    # Set x-axis ticks for each birth cohort
+    plt.xticks(birth_cohort_int, rotation=45, fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.grid()
+
+    plt.tight_layout()
+
+    # Save the figure
+    plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/nr_children_facing_extra_{}_NeptunDeep_gmt_comp.png'.format(hazards))
+
     
 

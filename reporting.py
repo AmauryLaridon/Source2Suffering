@@ -293,19 +293,17 @@ if Source2Suffering:
 
     if validation_backward_comp:
 
-        valRomania = 1                  # 0: do not produce reports for Neptun Deep project
-                                        # 1: produce reports for Neptun Deep project
-        valNorLic = 0                   # 0: do not produce reports for testimony in Norwegian lawsuit
-                                        # 1: produce reports for testimony in Norwegian lawsuit
-        valNorAppea = 0                 # 0: do not produce reports for Norwegian lawsuit - written report June 2024 for appeal
-                                        # 1: produce reports for Norwegian lawsuit - written report June 2024 for appeal
-        valNorECtHR = 0                 # 0: do not produce reports for Norwegian lawsuit - written report ECtHR June 2024 for appeal
-                                        # 1: produce reports for Norwegian lawsuit - written report ECtHR June 2024 for appeal
+        Greenpeace_Romania_Neptun_Deep = 1      # 0: do not produce reports of Neptun Deep project for Greenpeace Romania
+                                                # 1: produce reports of Neptun Deep project for Greenpeace Romania
+        Greenpeace_Nordic_Barents_Sea = 1       # 0: do not produce reports of Barents Sea project for Greenpeace Nordic
+                                                # 1: produce reports of Barents Sea project for Greenpeace Nordic
 
-    if valRomania:
+
+    if Greenpeace_Romania_Neptun_Deep:
 
         print("\n ---------------------------------------------------------")
-        print("|          Assessment for the Neptun Deep project         |")
+        print("|          Assessment of the Neptun Deep project          |")
+        print("|                for Greenpeace Romania                   |")
         print(" ---------------------------------------------------------")
 
         # -------------------------------------------------------------------------- #
@@ -370,6 +368,9 @@ if Source2Suffering:
         year_start_as_ref = 1960
         year_end_as_ref = 1970
 
+        # Generate list of birth years for iteration
+        years_loop = list(range(year_end_as_ref, year_start_as_ref - 1, -1))
+
         valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = emissions2npeople(
             CO2_emissions = CO2_emissions_NeptunDeep,
             TCRE = TCRE_init,
@@ -382,30 +383,21 @@ if Source2Suffering:
             valp_cohort_size_abs = valp_cohort_size_abs,
             rounding = 1)
 
-        # for i in range(nbirthyears):
-        
-        #     print("For birth year {} = {} children".format(years_loop[i], int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[i])))
-        
-        # print("For total birth of the {}-{} period = {} children".format(year_start_as,year_end_as, int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1])))
-
-
-        # Only keep the value for to the birth cohort between 1960 and 1970
+        # Only keep the value for the total of the birth cohort between 1960 and 1970
 
         valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]
 
-        #print(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref)
-
         # Compute the relative exposure to an additionnal heatwaves between the 2010-2020 and the 1960-1970 birth cohort
-        # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
-        #     valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
-        #     round(valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref * 100)
-        # ]
+        valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
+            valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
+            round((valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref) * 100)
+        ]
 
-        # print("Number of people born between 1960 and 1970 that will be exposed to an additionnal heatwave due to the total emissions of Neptun Deep = {} people".format(int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[0])))
-        # print("Relative difference between the 1960-1970 and the 2010-2020 birth cohorts = {} %".format(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]))
+        print("Number of people born between 1960 and 1970 that will be exposed to an additionnal heatwave due to the total emissions of Neptun Deep = {} people".format(int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[0])))
+        print("Relative difference between the 2010-2020 and the 1960-1970 birth cohorts = {} %".format(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]))
 
 
-
+        sys.exit(0)
 
 
         # # -------------------------------------------------------------------------- #
@@ -526,7 +518,12 @@ if Source2Suffering:
 
         print("Mortality Cost of Carbon = {} heat-related deaths until 2100".format(valc_mortality_NeptunDeep))
 
+    if Greenpeace_Nordic_Barents_Sea:
 
+        print("\n ---------------------------------------------------------")
+        print("|          Assessment of the Barents Sea project          |")
+        print("|                for Greenpeace Nordic                    |")
+        print(" ---------------------------------------------------------")
 
 #%%-------------------------------------------------------------------------------------------#
 # Framework to report not configured                                                          #

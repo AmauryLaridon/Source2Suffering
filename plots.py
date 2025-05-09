@@ -728,6 +728,22 @@ if Source2Suffering:
             plot_dev_fig9(da_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,birth_cohort_int,hazards[i],flags)
 
 
+        print("Performing Plot f10 for Development")
+
+        with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new.pkl', 'rb') as f:
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new = pk.load(f)
+
+        with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original.pkl', 'rb') as f:
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original = pk.load(f)
+        
+        for i in range(len(da_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
+    
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new.isel(hazard=i)
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original.isel(hazard=i)                           
+            da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel= da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)
+
+            plot_dev_fig10(da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel, da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel, da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel, birth_cohort_int,hazards[i], flags)
+
 #%%-----------------------------------------------------------------------#
 # Framework to plots not configured                                       #
 #-------------------------------------------------------------------------#
