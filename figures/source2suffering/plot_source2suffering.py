@@ -842,6 +842,7 @@ def plot_dev_fig9(
     s2s_valc_nr_children_facing_extra_hazard,
     wt_valc_nr_children_facing_extra_hazard,
     birth_cohort_int,
+    hazards,
     flags,
 ):
     """
@@ -858,31 +859,32 @@ def plot_dev_fig9(
 
     plt.figure(figsize=(13, 9))
 
-    # Affichage uniquement des points (pas de ligne continue)
-    plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard[:-1], 
-            'o', color="tab:orange", label="Source2Suffering", markersize=8)
+    # Plot lines with markers (instead of only points)
+    plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard, 
+            '-o', color="tab:orange", label="Source2Suffering", markersize=10,lw=2)
     plt.plot(birth_cohort_int, wt_valc_nr_children_facing_extra_hazard, 
-            'o', color="tab:blue", label="W.Thiery", markersize=8)
+            '-o', color="tab:blue", label="W.Thiery", markersize=10,lw=2)
 
-    # Titre de la figure
-    plt.title("Number of children facing at\n least one extra heatwave in NeptunDeep", fontsize= 18, fontweight='bold')
+    # Set the figure title
+    plt.title("Number of children facing at\nleast one extra {} due to NeptunDeep".format(hazards),
+            fontsize=22, fontweight='bold')
 
-    # Légendes axes
-    plt.xlabel("Birth cohort", fontsize= 18)
-    plt.ylabel("Number of children", fontsize= 18)
+    # Axis labels
+    plt.xlabel("Birth cohort", fontsize=20)
+    plt.ylabel("Number of children", fontsize=20)
 
-    # Affichage de la légende
+    # Display the legend
     plt.legend(fontsize=18)
 
-    # Ticks sur l’axe x pour chaque point de birth_cohort_int
-    plt.xticks(birth_cohort_int, rotation=45, fontsize= 12)
-    plt.yticks(fontsize=12)
+    # Set x-axis ticks for each birth cohort
+    plt.xticks(birth_cohort_int, rotation=45, fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.grid()
 
     plt.tight_layout()
 
-    # Sauvegarde de la figure
-    plt.savefig(scripts_dir + '/figures/source2suffering/development/{}/fig9_nr_children_extra_NeptunDeep_gmt_{}.png'.format(flags['extr'],flags['gmt']))
-
+    # Save the figure
+    plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/nr_children_facing_extra_{}_NeptunDeep_gmt_{}.png'.format(hazards, flags['gmt']))
 
     
 

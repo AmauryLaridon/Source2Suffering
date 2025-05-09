@@ -21,7 +21,7 @@ import time
 import matplotlib.pyplot as plt
 from copy import deepcopy as cp
 from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
+scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
 
 
 
@@ -227,13 +227,13 @@ def calc_exposure_mmm_xr(
     if 'region' in ds_le_perrun.dims:
 
         # dump pickle of lifetime exposure per region
-        with open(data_dir+'{}/{}/ds_le_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_le_perregion_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
             pk.dump(ds_le_perrun,f)
     
     if 'country' in ds_le_perrun.dims:
 
         # dump pickle of lifetime exposure per country
-        with open(data_dir+'{}/{}/ds_le_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_le_percountry_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
             pk.dump(ds_le_perrun,f)
 
     return ds_le_perrun
@@ -645,11 +645,11 @@ def calc_lifetime_exposure(
 
 
     # dump pickle of lifetime exposure per country
-    with open(data_dir+'{}/{}/ds_le_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_le_percountry_perrun_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
         pk.dump(ds_le_percountry_perrun_GMT,f)
     
     # dump pickle of lifetime exposure per region
-    with open(data_dir+'{}/{}/ds_le_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_le_perregion_perrun_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
         pk.dump(ds_le_perregion_perrun_GMT,f)
 
     return ds_le_percountry_perrun_GMT, ds_le_perregion_perrun_GMT
@@ -993,11 +993,11 @@ def calc_EMF(
 
     # Save pickles
     if 'region' in ds_le_exposure.dims:
-        with open(data_dir+'{}/{}/ds_EMF_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_EMF_perregion_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
             pk.dump(ds_EMF_mmm,f)
     
     if 'country' in ds_le_exposure.dims:
-        with open(data_dir+'{}/{}/ds_EMF_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_EMF_percountry_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
             pk.dump(ds_EMF_mmm,f)
 
     return ds_EMF_mmm

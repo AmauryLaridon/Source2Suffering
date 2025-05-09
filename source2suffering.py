@@ -31,7 +31,7 @@ import geopandas as gpd
 from scipy import interpolate
 import cartopy.crs as ccrs
 from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
+scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
 
 
 #%%------------------------------------------------------------------------------------ #
@@ -47,7 +47,7 @@ scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, ye
 
 def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_start, year_end, df_GMT_strj, valp_cohort_size_abs, rounding):
     """Compute the number of people affected by additional climate extremes in their lifetime
-    and the number of heat-related deaths between today and 2100."""
+    due to specific CO2 emissions"""
 
     # Compute change in GMT from emissions 
     dGMT = TCRE * CO2_emissions                           
@@ -70,6 +70,12 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_
 
         # Recover the 2113 GMT anomaly ? To be confirmed. Should be placed outside of the loop
         valc_GMT_2100 = df_GMT_strj.iloc[-1]  
+
+        print(valc_exposure_climate_extreme_newborns)
+        print(np.shape(valc_exposure_climate_extreme_newborns))
+
+        print(valc_GMT_2100)
+        print(np.shape(valc_GMT_2100))
 
         # Fit a linear curve between the exposure to climate extreme and the GMT anomaly and extract the slope #
         valc_pf = np.polyfit(valc_GMT_2100, valc_exposure_climate_extreme_newborns, 1)
@@ -98,7 +104,7 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_
         # Ensure no negative values #
         nr_children_facing_extra_climate_extreme[i] = max(nr_children_facing_extra_climate_extreme[i], 0)
 
-    # Compute total for 2015-2020 #
+    # Compute total for all the birth cohorts of interest #
     nr_children_facing_extra_climate_extreme = np.append(
         nr_children_facing_extra_climate_extreme, 
         np.nansum(nr_children_facing_extra_climate_extreme)

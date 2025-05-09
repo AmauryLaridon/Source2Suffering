@@ -28,7 +28,7 @@ import geopandas as gpd
 from scipy import interpolate
 import cartopy.crs as ccrs
 from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
+scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
 
 #%%-----------------------------------------------------------------------------------#
 # Framework to compute and print all the reports associated to Thiery et al.(2021)    #
@@ -431,34 +431,70 @@ if Source2Suffering:
             'tropicalcyclonedarea'
         ]
 
+        # Dictionary to store values for each extreme hazard type
+        valc_dict = {}
+
+        # Loop over all extreme hazard types
         for extr in all_extremes:
 
             print("Hazard = {}\n".format(extr))
 
-            with open(data_dir+'{}/{}/ds_le_perregion_GMT.pkl'.format(flags['version'],extr), 'rb') as f:
+            # Load the corresponding exposure dataset
+            with open(data_dir + '{}/{}/ds_le_perregion_{}_GMT.pkl'.format(flags['version'], extr,flags['gmt']), 'rb') as f:
                 ds_le_perregion_GMT = pk.load(f)
 
+            # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario
             valc_nr_children_facing_extra_hazard_NeptunDeep = emissions2npeople(
-                CO2_emissions = CO2_emissions_NeptunDeep,
-                TCRE = TCRE_init,
-                ds_le = ds_le_perregion_GMT,
-                region_ind = 11,
-                birth_years = birth_years,
-                year_start = year_start_as,
-                year_end = year_end_as,
-                df_GMT_strj = df_GMT_strj, 
-                valp_cohort_size_abs = valp_cohort_size_abs,
-                rounding = 1)  
-            
-            # Generate list of birth years for iteration
+                CO2_emissions=CO2_emissions_NeptunDeep,
+                TCRE=TCRE_init,
+                ds_le=ds_le_perregion_GMT,
+                region_ind=11,
+                birth_years=birth_years,
+                year_start=year_start_as,
+                year_end=year_end_as,
+                df_GMT_strj=df_GMT_strj,
+                valp_cohort_size_abs=valp_cohort_size_abs,
+                rounding=1
+            )
+
+            # Exclude the last value along the only dimension (since the array is 1D)
+            da_trimmed = valc_nr_children_facing_extra_hazard_NeptunDeep[:-1]
+
+            # Reverse the values
+            da_reversed = da_trimmed[::-1]
+
+            # Store the result in the dictionary under the key 'extr'
+            valc_dict[extr] = da_reversed
+
+            # Generate list of birth years in descending order
             years_loop = list(range(year_end_as, year_start_as - 1, -1))
             nbirthyears = len(years_loop)
 
+            # Print number of exposed children per birth year
             for i in range(nbirthyears):
-            
-                print("For birth year {} = {} children".format(years_loop[i], int(valc_nr_children_facing_extra_hazard_NeptunDeep[i])))
-            
-            print("For total birth of the {}-{} period = {} children \n".format(year_start_as,year_end_as, int(valc_nr_children_facing_extra_hazard_NeptunDeep[-1])))
+                print("For birth year {} = {} children".format(
+                    years_loop[i], int(valc_nr_children_facing_extra_hazard_NeptunDeep[i])))
+
+            # Print total number of exposed children across all birth years
+            print("For total birth of the {}–{} period = {} children \n".format(
+                year_start_as, year_end_as, int(valc_nr_children_facing_extra_hazard_NeptunDeep[-1]))
+            )
+
+        # Create a DataArray containing all values for each hazard and birth year
+        da_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
+            data=[valc_dict[extr] for extr in all_extremes],
+            coords={
+                "hazard": all_extremes,
+                "birth_year": list(range(year_start_as, year_end_as + 1))  # in ascending order
+            },
+            dims=["hazard", "birth_year"],
+            name="valc_nr_children_facing_extra_hazard_NeptunDeep"
+        )
+
+        # dump pickle of valc_nr_children_facing_extra_hazard
+
+        with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}.pkl'.format(flags['gmt']), 'wb') as f:
+            pk.dump(da_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
 
         # impacts = {1: "wildfire", 2: "crop failure", 3: "drought", 4: "river floods", 5: "heatwaves", 6: "tropical cyclones"}
         # valc_impacts_NeptunDeep = {}

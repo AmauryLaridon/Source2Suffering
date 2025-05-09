@@ -7,12 +7,12 @@
 # Libraries                                                       #
 # --------------------------------------------------------------- #
 
-
 import numpy as np
 import os
 
 #%% ---------------------------------------------------------------- #
-def init(): 
+
+def init(flags): 
     """Init function that define all the global variables"""
 
     # scripts directory
@@ -151,10 +151,26 @@ def init():
         '2.0': [1.95,2.0],
         '1.5': [1.45, 1.5],
     }
-    # GMT_labels = np.arange(0,29).astype('int')
-    GMT_labels = np.arange(0,21).astype('int')
-    GMT_window = 21
-    GMT_current_policies = [12,17] # this is for 2.7 and 3.2 degrees warming targets, unknown which is best to use
+
+    if flags['gmt']=='ar6_new' or flags['gmt']=='ar6':
+
+        GMT_labels = np.arange(0,21).astype('int')
+        GMT_window = 21
+        GMT_current_policies = [12,17] # this is for 2.7 and 3.2 degrees warming targets, unknown which is best to use
+        # GMT_indices_plot = [0,10,19,28]
+        # new GMT_indices_plot for box plots showing 1.5, 2.5 and 3.5
+        # GMT_indices_plot = [6,15,24]c commented out because I cleaned up GMTs
+        GMT_indices_plot = [0,10,20]
+
+    if flags['gmt'] =='original':
+
+        GMT_labels = np.arange(0,29).astype('int')
+        GMT_window = 29
+        GMT_current_policies = [12,17] # this is for 2.7 and 3.2 degrees warming targets, unknown which is best to use
+        # GMT_indices_plot = [0,10,19,28]
+        # new GMT_indices_plot for box plots showing 1.5, 2.5 and 3.5
+        # GMT_indices_plot = [6,15,24]c commented out because I cleaned up GMTs
+        GMT_indices_plot = [0,10,20]
 
     # set kernel x-values
     global kernel_x
@@ -169,10 +185,7 @@ def init():
         'China',
         'Russian Federation'
     ]
-    # GMT_indices_plot = [0,10,19,28]
-    # new GMT_indices_plot for box plots showing 1.5, 2.5 and 3.5
-    # GMT_indices_plot = [6,15,24]c commented out because I cleaned up GMTs
-    GMT_indices_plot = [0,10,20]
+    
     birth_years_plot = np.arange(1960,2021,20)   
     
     # basins for flood trends
@@ -180,14 +193,14 @@ def init():
     
     # plotting vars
     letters = ['a', 'b', 'c',
-           'd', 'e', 'f',
-           'g', 'h', 'i',
-           'j', 'k', 'l',
-           'm', 'n', 'o',
-           'p', 'q', 'r',
-           's', 't', 'u',
-           'v', 'w', 'x',
-           'y', 'z']
+        'd', 'e', 'f',
+        'g', 'h', 'i',
+        'j', 'k', 'l',
+        'm', 'n', 'o',
+        'p', 'q', 'r',
+        's', 't', 'u',
+        'v', 'w', 'x',
+        'y', 'z']
     
     return scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries
 

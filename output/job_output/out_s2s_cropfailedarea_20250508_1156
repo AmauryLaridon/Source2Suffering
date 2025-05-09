@@ -1,0 +1,120 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_cropfailedarea - Job ID: 10702272
+Thu May  8 11:56:29 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 2.33 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=cropfailedarea
+Using extr value: cropfailedarea
+ ------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                                 |
+ ------------------------------------------------------------------------------------------------------
+
+Current date and time: 2025-05-08 11:59:09
+
+ -------------------------------------------------------------------------------
+|                       Model configuration - Manual                            |
+ -------------------------------------------------------------------------------
+
+extr: cropfailedarea
+
+gmt: original
+
+rm: rm
+
+version: pickles_v3
+
+run: 1
+
+mask: 0
+
+dem4cli: 0
+
+lifetime_exposure: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+reporting: 0
+
+plots: 0
+
+ -------------------------------------------------------------------------------
+|                             Start Settings Framework                          |
+ -------------------------------------------------------------------------------
+
+Settings imported
+
+ -------------------------------------------------------------------------------
+|            Start to import and manipulate Demographic, GMT and ISIMIP data    |
+ -------------------------------------------------------------------------------
+
+GMT projections loaded
+Loading processed country and regions data
+Country and regions data loaded
+Processing ISIMIP data
+Processing for cropfailedarea
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/gepic/gepic_gfdl-esm2m_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (1)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/gepic/gepic_gfdl-esm2m_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (2)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/gepic/gepic_hadgem2-es_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (3)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/gepic/gepic_hadgem2-es_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (4)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/gepic/gepic_ipsl-cm5a-lr_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (5)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/gepic/gepic_ipsl-cm5a-lr_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (6)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/gepic/gepic_miroc5_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (7)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/gepic/gepic_miroc5_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (8)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/lpjml/lpjml_gfdl-esm2m_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (9)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/lpjml/lpjml_gfdl-esm2m_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (10)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/lpjml/lpjml_hadgem2-es_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (11)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/lpjml/lpjml_hadgem2-es_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (12)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/lpjml/lpjml_ipsl-cm5a-lr_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (13)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/lpjml/lpjml_ipsl-cm5a-lr_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (14)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/lpjml/lpjml_miroc5_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (15)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/lpjml/lpjml_miroc5_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (16)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/pepic/pepic_gfdl-esm2m_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (17)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/pepic/pepic_gfdl-esm2m_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (18)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/pepic/pepic_hadgem2-es_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (19)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/pepic/pepic_hadgem2-es_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (20)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/pepic/pepic_ipsl-cm5a-lr_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (21)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/pepic/pepic_ipsl-cm5a-lr_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (22)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/pepic/pepic_miroc5_rcp26_cropfailedarea_global_annual_landarea_2006_2099.nc4 (23)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/cropfailedarea/pepic/pepic_miroc5_rcp60_cropfailedarea_global_annual_landarea_2006_2099.nc4 (24)
+Saving metadata for cropfailedarea
+ISMIP data loaded
+
+ -------------------------------------------------------------------------------
+|                       Start Lifetime Exposure framework                       |
+ -------------------------------------------------------------------------------
+
+Loading processed Lifetime Exposure per ISIMIP simulation
+Loading processed MMM Lifetime Exposure
+Loading EMF of Lifetime Exposure
+End Job
+Thu May  8 12:00:36 CEST 2025
+-------------------------------------------------------------------------------------------------

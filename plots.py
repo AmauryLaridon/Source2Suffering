@@ -40,7 +40,7 @@ import cartopy.feature as feature
 from scipy.stats import ttest_rel
 from scipy.stats import ttest_ind
 from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
+scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
 
 #%%-----------------------------------------------------------------------#
 # Framework to plots all figures associated to Thiery et al.(2021)        #
@@ -469,7 +469,7 @@ if Source2Suffering:
 
         print("Performing Plot f1 for Development")
 
-        with open(data_dir+'{}/{}/lifetime_exposure_percountry_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_le_percountry_perrun_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             dataset_le = pk.load(f)
 
         if flags['extr']=='heatwavedarea':
@@ -508,7 +508,7 @@ if Source2Suffering:
         
         print("Performing Plot f3 for Development")
 
-        with open(data_dir+'{}/{}/lifetime_exposure_perregion_perrun_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_le_perregion_perrun_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_regions = pk.load(f)
 
         if flags['extr']=='heatwavedarea':
@@ -544,7 +544,7 @@ if Source2Suffering:
         
         print("Performing Plot f4 for Development")
 
-        with open(data_dir+'{}/{}/lifetime_exposure_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_le_percountry_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_mmm_country = pk.load(f)
 
         # North America #
@@ -569,7 +569,7 @@ if Source2Suffering:
         
         print("Performing Plot f5 for Development")
 
-        with open(data_dir+'{}/{}/lifetime_exposure_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_le_perregion_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_mmm_regions = pk.load(f)
 
         # North America #
@@ -612,7 +612,7 @@ if Source2Suffering:
     
         #     plot_dev_fig6_country(flags, ds=ds_le_mmm_country, country=country_name, EMF=False)
 
-        with open(data_dir+'{}/{}/lifetime_exposure_mmm_percountry_GMT_EMF.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_EMF_percountry_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_EMF_mmm_country = pk.load(f)
 
         for country_name in ds_le_mmm_country['country'].values:
@@ -630,7 +630,7 @@ if Source2Suffering:
     
         #     plot_dev_fig6_region(ds_regions, flags, ds=ds_le_mmm_region, region=region_ind, EMF=False)
         
-        with open(data_dir+'{}/{}/lifetime_exposure_mmm_perregion_GMT_EMF.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_EMF_perregion_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_EMF_mmm_region = pk.load(f)
 
         for region_ind in ds_le_mmm_region['mmm']['region'].values:
@@ -650,7 +650,7 @@ if Source2Suffering:
     
         print("Performing Plot f8 for Development")
 
-        with open(data_dir+'{}/{}/lifetime_exposure_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_le_percountry_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_mmm_country = pk.load(f)
 
         for country_name in ds_le_mmm_country['country'].values:
@@ -661,26 +661,69 @@ if Source2Suffering:
         
         print("Performing Plot f9 for Development")
 
-        # all_extremes = [
-        #     'burntarea', 
-        #     'cropfailedarea', 
-        #     'driedarea', 
-        #     'floodedarea', 
-        #     'heatwavedarea', 
-        #     'tropicalcyclonedarea'
-        # ]
+        # Values from Neptun Deep expert report by W.Thiery # 
 
-        wt_valc_nr_children_facing_extra_heatwave = [127000,123000,120000,116000,113000,110000,106000,103000,99000,95000,91000]
+        # Definition of the values 
+        wt_valc_nr_children_facing_extra_wildfire = [1000]*11
+        wt_valc_nr_children_facing_extra_cropfailure = [3000]*7 + [2000]*4
+        wt_valc_nr_children_facing_extra_drought = [4000] + [3000]*6 + [2000]*4
+        wt_valc_nr_children_facing_extra_flood = [np.nan] * 11
+        wt_valc_nr_children_facing_extra_heatwavedarea = [127000,123000,120000,116000,113000,110000,106000,103000,99000,95000,91000]
+        wt_valc_nr_children_facing_extra_tropicalcyclone = [1000]*9 + [0]*2
 
-        birth_cohort_int = [2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010]
+        # Creating a DataArray to store 
+        data = np.array([
+            wt_valc_nr_children_facing_extra_wildfire,
+            wt_valc_nr_children_facing_extra_cropfailure,
+            wt_valc_nr_children_facing_extra_drought,
+            wt_valc_nr_children_facing_extra_flood,
+            wt_valc_nr_children_facing_extra_heatwavedarea,
+            wt_valc_nr_children_facing_extra_tropicalcyclone
+        ])
 
-        plot_dev_fig9(valc_nr_children_facing_extra_heatwave_NeptunDeep,wt_valc_nr_children_facing_extra_heatwave,birth_cohort_int,flags)
+        data = np.flip(np.array([
+            wt_valc_nr_children_facing_extra_wildfire,
+            wt_valc_nr_children_facing_extra_cropfailure,
+            wt_valc_nr_children_facing_extra_drought,
+            wt_valc_nr_children_facing_extra_flood,
+            wt_valc_nr_children_facing_extra_heatwavedarea,
+            wt_valc_nr_children_facing_extra_tropicalcyclone
+        ]), axis=1)
 
-        # for extr in all_extremes:
+        # Definition of the coordinates 
+        hazards = [
+            "burntarea",
+            "cropfailedarea",
+            "driedarea",
+            "floodedarea",
+            "heatwavedarea",
+            "tropicalcyclonedarea"
+        ]
 
-        #     plot_dev_fig9(s2s_valc_nr_children_facing_extra_hazard,wt_valc_nr_children_facing_extra_hazard,birth_cohort_int)
+        year_start_as = 2010
+        year_end_as = 2020
 
-        
+        birth_cohort_int = list(range(year_start_as, year_end_as + 1))  
+
+        # Init DataArray
+        da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
+            data,
+            dims=["hazard", "birth_year"],
+            coords={"hazard": hazards, "birth_year": birth_cohort_int},
+            name="wt_valc_nr_children_facing_extra_hazard_NeptunDeep"
+        )
+
+        # Load the values computed by the Source2Suffering framework #
+
+        with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}.pkl'.format(flags['gmt']), 'rb') as f:
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep = pk.load(f)
+
+        for i in range(len(da_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
+
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)                          
+            da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel= da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)
+
+            plot_dev_fig9(da_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,birth_cohort_int,hazards[i],flags)
 
 
 #%%-----------------------------------------------------------------------#

@@ -9,8 +9,11 @@
 # Associated papers                                                                                          #
 # -----------------------------------------------------------------------------------------------------------#
 #                                                                                                            #
-# - Thiery et al.(2021) - https://www.science.org/doi/abs/10.1126/science.abi7339                            #
-# - Grant et al.(2025) - in review                                                                           #
+# - W.Thiery et al. Intergenerational inequities in exposure to climate extremes.                            #
+#   Science374,158-160(2021).DOI:10.1126/science.abi7339                                                     #
+# - Grant et al.(2025) - Grant, L., Vanderkelen, I., Gudmundsson, L. et al. Global emergence of              #
+#   unprecedented lifetime exposure to climate extremes.                                                     #
+#   Nature 641, 374–379 (2025). https://doi.org/10.1038/s41586-025-08907-1                                   #
 # - Laridon et al.(2025) - in prep                                                                           #
 #                                                                                                            #
 # -----------------------------------------------------------------------------------------------------------#
@@ -62,9 +65,9 @@ flags = {}
 global Thiery_2021, Grant_2025, Laridon_2025, Source2Suffering
 
 Thiery_2021 = False 
-Grant_2025 = True      
+Grant_2025 = False      
 Laridon_2025 = False
-Source2Suffering = False
+Source2Suffering = True
 env_value_paper= 0 
 
 #-------------------------------------------------------------------------------------#
@@ -160,7 +163,7 @@ if not env_value_paper:
 
     #-------------- GMT Stylized Trajectories ---------------#
 
-    flags['gmt'] = 'ar6_new'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
+    flags['gmt'] = 'original'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
                                                     # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
                                                     # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
 
@@ -191,7 +194,7 @@ if not env_value_paper:
 
     #--------- Thiery et al.(2021) Lifetime Exposure ----------#
     
-    flags['lifetime_exposure'] = 0                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
+    flags['lifetime_exposure'] = 1                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
                                                                         
     flags['lifetime_exposure_pic'] = 0              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
@@ -238,12 +241,12 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['plots'] = 1                              # 0 do not produce and save plots 
-                                                    # 1 produce and load plots 
-
     flags['reporting'] = 0                          # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
-    
+
+    flags['plots'] = 0                              # 0 do not produce and save plots 
+                                                    # 1 produce and load plots
+
     # Use for specific climate extreme jobs - HPC only
     env_value_extr = os.getenv("EXTR_VALUE")
     if env_value_extr:  
@@ -277,11 +280,13 @@ print(" ------------------------------------------------------------------------
 
 
 from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init()
+scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
 
 set_extremes(flags) # set extremes based on flag (this needs to happen here as it uses the flags dict defined above)
 
 print("Settings imported")
+
+print(GMT_labels)
 
 print("\n -------------------------------------------------------------------------------")
 print("|            Start to import and manipulate Demographic, GMT and ISIMIP data    |")
@@ -290,8 +295,10 @@ print(" ------------------------------------------------------------------------
 adr_load_manip = scripts_dir+"/load_manip.py"
 with open(adr_load_manip) as f:
     exe_load_manip = f.read()
-exec(exe_load_manip)
+exec(exe_load_manip,globals())
 
+
+sys.exit(0)
 #%%------------------------------------------------------------------------------------
 #                           Lifetime Exposure framework                               #
 #--------------------------------------------------------------------------------------

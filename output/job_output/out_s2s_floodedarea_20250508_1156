@@ -1,0 +1,181 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_floodedarea - Job ID: 10702274
+Thu May  8 11:56:59 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 1
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 2.40 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=floodedarea
+Using extr value: floodedarea
+ ------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                                 |
+ ------------------------------------------------------------------------------------------------------
+
+Current date and time: 2025-05-08 11:59:40
+
+ -------------------------------------------------------------------------------
+|                       Model configuration - Manual                            |
+ -------------------------------------------------------------------------------
+
+extr: floodedarea
+
+gmt: original
+
+rm: rm
+
+version: pickles_v3
+
+run: 1
+
+mask: 0
+
+dem4cli: 0
+
+lifetime_exposure: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+reporting: 0
+
+plots: 0
+
+ -------------------------------------------------------------------------------
+|                             Start Settings Framework                          |
+ -------------------------------------------------------------------------------
+
+Settings imported
+
+ -------------------------------------------------------------------------------
+|            Start to import and manipulate Demographic, GMT and ISIMIP data    |
+ -------------------------------------------------------------------------------
+
+GMT projections loaded
+Loading processed country and regions data
+Country and regions data loaded
+Processing ISIMIP data
+Processing for floodedarea
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_gfdl-esm2m_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (1)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_gfdl-esm2m_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (2)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_gfdl-esm2m_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (3)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_hadgem2-es_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (4)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_hadgem2-es_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (5)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_hadgem2-es_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (6)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_ipsl-cm5a-lr_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (7)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_ipsl-cm5a-lr_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (8)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_ipsl-cm5a-lr_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (9)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_miroc5_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (10)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_miroc5_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (11)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/clm45/clm45_miroc5_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (12)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_gfdl-esm2m_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (13)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_gfdl-esm2m_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (14)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_gfdl-esm2m_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (15)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_hadgem2-es_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (16)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_hadgem2-es_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (17)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_hadgem2-es_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (18)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_ipsl-cm5a-lr_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (19)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_ipsl-cm5a-lr_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (20)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_ipsl-cm5a-lr_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (21)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_miroc5_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (22)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_miroc5_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (23)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/h08/h08_miroc5_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (24)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_gfdl-esm2m_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (25)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_gfdl-esm2m_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (26)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_gfdl-esm2m_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (27)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_hadgem2-es_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (28)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_hadgem2-es_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (29)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_hadgem2-es_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (30)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_ipsl-cm5a-lr_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (31)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_ipsl-cm5a-lr_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (32)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_ipsl-cm5a-lr_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (33)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_miroc5_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (34)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_miroc5_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (35)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/lpjml/lpjml_miroc5_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (36)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_gfdl-esm2m_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (37)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_gfdl-esm2m_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (38)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_gfdl-esm2m_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (39)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_hadgem2-es_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (40)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_hadgem2-es_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (41)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_hadgem2-es_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (42)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_ipsl-cm5a-lr_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (43)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_ipsl-cm5a-lr_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (44)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_ipsl-cm5a-lr_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (45)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_miroc5_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (46)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_miroc5_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (47)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/jules-w1/jules-w1_miroc5_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (48)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/mpi-hm/mpi-hm_gfdl-esm2m_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (49)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/mpi-hm/mpi-hm_gfdl-esm2m_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (50)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/mpi-hm/mpi-hm_ipsl-cm5a-lr_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (51)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/mpi-hm/mpi-hm_ipsl-cm5a-lr_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (52)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/mpi-hm/mpi-hm_miroc5_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (53)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/mpi-hm/mpi-hm_miroc5_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (54)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_gfdl-esm2m_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (55)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_gfdl-esm2m_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (56)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_gfdl-esm2m_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (57)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_hadgem2-es_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (58)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_hadgem2-es_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (59)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_hadgem2-es_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (60)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_ipsl-cm5a-lr_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (61)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_ipsl-cm5a-lr_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (62)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_ipsl-cm5a-lr_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (63)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_miroc5_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (64)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_miroc5_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (65)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/orchidee/orchidee_miroc5_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (66)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/pcr-globwb/pcr-globwb_gfdl-esm2m_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (67)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/pcr-globwb/pcr-globwb_gfdl-esm2m_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (68)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/pcr-globwb/pcr-globwb_hadgem2-es_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (69)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/pcr-globwb/pcr-globwb_hadgem2-es_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (70)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/pcr-globwb/pcr-globwb_ipsl-cm5a-lr_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (71)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/pcr-globwb/pcr-globwb_ipsl-cm5a-lr_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (72)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/pcr-globwb/pcr-globwb_miroc5_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (73)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/pcr-globwb/pcr-globwb_miroc5_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (74)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_gfdl-esm2m_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (75)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_gfdl-esm2m_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (76)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_gfdl-esm2m_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (77)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_hadgem2-es_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (78)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_hadgem2-es_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (79)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_hadgem2-es_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (80)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_ipsl-cm5a-lr_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (81)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_ipsl-cm5a-lr_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (82)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_ipsl-cm5a-lr_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (83)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_miroc5_rcp26_floodedarea_global_annual_landarea_2006_2099.nc4 (84)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_miroc5_rcp60_floodedarea_global_annual_landarea_2006_2099.nc4 (85)
+Loading /data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/isimip/floodedarea/watergap2/watergap2_miroc5_rcp85_floodedarea_global_annual_landarea_2006_2099.nc4 (86)
+Saving metadata for floodedarea
+ISMIP data loaded
+
+ -------------------------------------------------------------------------------
+|                       Start Lifetime Exposure framework                       |
+ -------------------------------------------------------------------------------
+
+Loading processed Lifetime Exposure per ISIMIP simulation
+Loading processed MMM Lifetime Exposure
+Loading EMF of Lifetime Exposure
+End Job
+Thu May  8 12:04:26 CEST 2025
