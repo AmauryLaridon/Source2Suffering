@@ -27,8 +27,6 @@ import pandas as pd
 import geopandas as gpd
 from scipy import interpolate
 import cartopy.crs as ccrs
-from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
 
 #%%-----------------------------------------------------------------------------------#
 # Framework to compute and print all the reports associated to Thiery et al.(2021)    #
@@ -395,7 +393,7 @@ if Source2Suffering:
 
         valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]
 
-        print(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref)
+        #print(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref)
 
         # Compute the relative exposure to an additionnal heatwaves between the 2010-2020 and the 1960-1970 birth cohort
         # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [

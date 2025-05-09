@@ -30,9 +30,6 @@ import pandas as pd
 import geopandas as gpd
 from scipy import interpolate
 import cartopy.crs as ccrs
-from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
-
 
 #%%------------------------------------------------------------------------------------ #
 # Transcription of the mf_emissions2npeople.m script from Wim Thiery to python. This    #
@@ -71,11 +68,11 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_
         # Recover the 2113 GMT anomaly ? To be confirmed. Should be placed outside of the loop
         valc_GMT_2100 = df_GMT_strj.iloc[-1]  
 
-        print(valc_exposure_climate_extreme_newborns)
-        print(np.shape(valc_exposure_climate_extreme_newborns))
+        # print(valc_exposure_climate_extreme_newborns)
+        # print(np.shape(valc_exposure_climate_extreme_newborns))
 
-        print(valc_GMT_2100)
-        print(np.shape(valc_GMT_2100))
+        # print(valc_GMT_2100)
+        # print(np.shape(valc_GMT_2100))
 
         # Fit a linear curve between the exposure to climate extreme and the GMT anomaly and extract the slope #
         valc_pf = np.polyfit(valc_GMT_2100, valc_exposure_climate_extreme_newborns, 1)

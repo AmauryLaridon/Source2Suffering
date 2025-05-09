@@ -39,8 +39,6 @@ import cartopy as cr
 import cartopy.feature as feature
 from scipy.stats import ttest_rel
 from scipy.stats import ttest_ind
-from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
 
 #%%-----------------------------------------------------------------------#
 # Framework to plots all figures associated to Thiery et al.(2021)        #
@@ -463,7 +461,11 @@ if Source2Suffering:
     print("Start plots for Source2Suffering Project")
     print("-------------------------------------------------------")
 
-    from plot_source2suffering import *
+    #from plot_source2suffering import *
+
+    adr_plot_source2suffering = scripts_dir+'/figures/source2suffering/plot_source2suffering.py'
+    with open(adr_plot_source2suffering) as f:
+        exec(f.read(), globals())
     
     if plot_fig1:
 

@@ -19,11 +19,9 @@ import os
 import sys
 from copy import deepcopy as cp
 
-# from settings import *
-# scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
-
-#sys.path.append(os.path.abspath(scripts_dir+"/pf_scripts"))
-#from pf_load_manip import *
+# --------------------------------------------------------------- #
+# Execution of the sub_script                                     #
+# --------------------------------------------------------------- #
 
 adr_pf_load_manip = scripts_dir+'/pf_scripts/pf_load_manip.py'
 with open(adr_pf_load_manip) as f:
@@ -345,6 +343,7 @@ da_ar6_countries_names = da_ar6_countries_3D.region.values
 # only used for analysis 
 
 sims_per_step = {}
+
 for step in GMT_labels:
     sims_per_step[step] = []
     for i in list(d_isimip_meta.keys()):

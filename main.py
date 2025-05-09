@@ -78,9 +78,9 @@ env_value_paper= 0
 env_value_paper = os.getenv("CONFIG_PAPER_VALUE")
 if env_value_paper:
     Thiery_2021 = False 
-    Grant_2025 = True 
+    Grant_2025 = False 
     Laridon_2025 = False
-    Source2Suffering = False 
+    Source2Suffering = True 
     if env_value_paper == "thiery_2021":
         Thiery_2021 = True
     if env_value_paper == "grant_2025":
@@ -278,15 +278,12 @@ print(" ------------------------------------------------------------------------
 print("|                             Start Settings Framework                          |")
 print(" -------------------------------------------------------------------------------\n")
 
-
 from settings import *
-scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
+scripts_dir, data_dir, data_dem4cli_dir, ages, age_young, age_ref, age_range, year_ref, year_start, birth_years, year_end, year_range, GMT_max, GMT_min, GMT_inc, model_names, RCP2GMT_maxdiff_threshold, year_start_GMT_ref, year_end_GMT_ref, scen_thresholds, GMT_labels, GMT_window, GMT_current_policies, pic_life_extent, nboots, resample_dim, pic_by, pic_qntl, pic_qntl_list, pic_qntl_labels, sample_birth_years, sample_countries, GMT_indices_plot, birth_years_plot, letters, basins, countries = init(flags)
 
-set_extremes(flags) # set extremes based on flag (this needs to happen here as it uses the flags dict defined above)
+extremes = set_extremes(flags) # set extremes based on flag (this needs to happen here as it uses the flags dict defined above)
 
 print("Settings imported")
-
-print(GMT_labels)
 
 print("\n -------------------------------------------------------------------------------")
 print("|            Start to import and manipulate Demographic, GMT and ISIMIP data    |")
@@ -297,8 +294,6 @@ with open(adr_load_manip) as f:
     exe_load_manip = f.read()
 exec(exe_load_manip,globals())
 
-
-sys.exit(0)
 #%%------------------------------------------------------------------------------------
 #                           Lifetime Exposure framework                               #
 #--------------------------------------------------------------------------------------
@@ -311,7 +306,7 @@ print(" ------------------------------------------------------------------------
 adr_exposure = scripts_dir+"/exposure.py"
 with open(adr_exposure) as f:
     exe_exposure = f.read()
-exec(exe_exposure)
+exec(exe_exposure,globals())
 
 #%%------------------------------------------------------------------------------------
 #                       Emergence Lifetime Exposure framework                         #
@@ -327,7 +322,7 @@ if Grant_2025==True:
     adr_emergence = scripts_dir+"/emergence.py"
     with open(adr_emergence) as f:
         exe_emergence = f.read()
-    exec(exe_emergence)
+    exec(exe_emergence,globals())
 
 #%%------------------------------------------------------------------------------------
 #                                Grid Scale Emergence                                 #
@@ -343,14 +338,13 @@ if Grant_2025==True:
     adr_gridscale = scripts_dir+"/gridscale.py"
     with open(adr_gridscale) as f:
         exe_gridscale = f.read()
-    exec(exe_gridscale)
+    exec(exe_gridscale,globals())
 
 #%%------------------------------------------------------------------------------------
 #                                 Outputs - Reporting                                 #
 #--------------------------------------------------------------------------------------
 
 if flags['reporting']:
-
 
     print("\n -------------------------------------------------------------------------------")
     print("|                          Start Reporting framework                            |")
@@ -359,9 +353,13 @@ if flags['reporting']:
     adr_report = scripts_dir+"/reporting.py"
     with open(adr_report) as f:
         exe_report = f.read()
-    exec(exe_report)
+    exec(exe_report,globals())
 
 else : 
+
+    print("\n -------------------------------------------------------------------------------")
+    print("|                          Start Reporting framework                            |")
+    print(" -------------------------------------------------------------------------------\n")
     print("No reporting performed and saved")
 
 #%%------------------------------------------------------------------------------------
@@ -377,9 +375,12 @@ if flags['plots']:
     adr_plots = scripts_dir+"/plots.py"
     with open(adr_plots) as f:
         exe_plots = f.read()
-    exec(exe_plots)
+    exec(exe_plots,globals())
 
 else : 
+    print("\n -------------------------------------------------------------------------------")
+    print("|                             Start Plots framework                             |")
+    print(" -------------------------------------------------------------------------------\n")
     print("No plots performed and saved")
 #%%------------------------------------------------------------------------------------
 #                                      Conclusion                                     #

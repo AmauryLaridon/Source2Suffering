@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 359, in <module>
+    exec(exe_report,globals())
+  File "<string>", line 448, in <module>
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/source2suffering.py", line 82, in emissions2npeople
+    valc_pf = np.polyfit(valc_GMT_2100, valc_exposure_climate_extreme_newborns, 1)
+  File "<__array_function__ internals>", line 180, in polyfit
+  File "/apps/brussel/RL8/zen4/software/SciPy-bundle/2022.05-foss-2022a/lib/python3.10/site-packages/numpy/lib/polynomial.py", line 642, in polyfit
+    raise TypeError("expected x and y to have same length")
+TypeError: expected x and y to have same length
