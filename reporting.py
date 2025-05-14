@@ -295,7 +295,7 @@ if Source2Suffering:
 
         Greenpeace_Romania_Neptun_Deep = 1      # 0: do not produce reports of Neptun Deep project for Greenpeace Romania
                                                 # 1: produce reports of Neptun Deep project for Greenpeace Romania
-        Greenpeace_Nordic_Barents_Sea = 1       # 0: do not produce reports of Barents Sea project for Greenpeace Nordic
+        Greenpeace_Nordic_Barents_Sea = 0       # 0: do not produce reports of Barents Sea project for Greenpeace Nordic
                                                 # 1: produce reports of Barents Sea project for Greenpeace Nordic
 
 

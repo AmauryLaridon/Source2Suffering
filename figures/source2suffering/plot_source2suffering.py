@@ -935,5 +935,144 @@ def plot_dev_fig10(
     # Save the figure
     plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/nr_children_facing_extra_{}_NeptunDeep_gmt_comp.png'.format(hazards))
 
-    
 
+def plot_dev_fig11(df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_OS, df_GMT_noOS):
+    """
+    Plot the time evolution of global mean temperature trajectories for different scenarios,
+    limited to years up to 2100.
+    """
+    plt.figure(figsize=(10, 6))
+
+    # Plot each trajectory up to year 2100
+    plt.plot(df_GMT_15.loc[:2100].index, df_GMT_15.loc[:2100].values, label='1.5°C', color='tab:blue', lw=3)
+    plt.plot(df_GMT_20.loc[:2100].index, df_GMT_20.loc[:2100].values, label='2.0°C', color='tab:green', lw=3)
+    plt.plot(df_GMT_NDC.loc[:2100].index, df_GMT_NDC.loc[:2100].values, label='NDC', color='tab:orange', lw=3)
+    plt.plot(df_GMT_OS.loc[:2100].index, df_GMT_OS.loc[:2100].values, label='OS', color='tab:red', lw=3)
+    plt.plot(df_GMT_noOS.loc[:2100].index, df_GMT_noOS.loc[:2100].values, label='noOS', color='tab:purple', lw=3)
+
+    # Add axis labels and title
+    plt.xlabel('Year',fontsize=20)
+    plt.ylabel('GMT anomaly (°C)',fontsize=20)
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.title('Global Mean Temperature Trajectories (up to 2100)',fontsize=22)
+    plt.legend(fontsize=18)
+    plt.grid(True)
+    plt.tight_layout()
+
+    # Save the figure
+    plt.savefig(scripts_dir + '/figures/source2suffering/development/GMT_trajectories/GMT_traj_thiery_et_al.png')
+
+def plot_dev_fig12(df_GMT_OS, df_GMT_noOS, ds_GMT_STS):
+    """
+    Plot the time evolution of global mean temperature trajectories for different scenarios,
+    limited to years up to 2100.
+    """
+    plt.figure(figsize=(10, 6))
+
+    # unpack the values of the four differents GMT pathways inside the STS scenarios #
+
+    da_GMT_STS_ModAct = ds_GMT_STS['tas'].sel(
+    time=slice(1960, 2100),
+    percentile='50.0',
+    scenario='ModAct'
+    )
+
+    da_GMT_STS_Ren = ds_GMT_STS['tas'].sel(
+    time=slice(1960, 2100),
+    percentile='50.0',
+    scenario='Ren'
+    )
+
+    da_GMT_STS_LD = ds_GMT_STS['tas'].sel(
+    time=slice(1960, 2100),
+    percentile='50.0',
+    scenario='LD'
+    )
+
+    da_GMT_STS_SP = ds_GMT_STS['tas'].sel(
+    time=slice(1960, 2100),
+    percentile='50.0',
+    scenario='SP'
+    )
+
+    # Plot each trajectory up to year 2100
+    plt.plot(df_GMT_OS.loc[:2100].index, df_GMT_OS.loc[:2100].values, label='OS', color='tab:red', lw=3)
+    plt.plot(df_GMT_noOS.loc[:2100].index, df_GMT_noOS.loc[:2100].values, label='noOS', color='tab:purple', lw=3)
+    plt.plot(df_GMT_noOS.loc[:2100].index, da_GMT_STS_ModAct, label='ModAct', color='tab:blue', lw=3, linestyle="--")
+    plt.plot(df_GMT_noOS.loc[:2100].index, da_GMT_STS_Ren, label='Ren', color='tab:cyan', lw=3, linestyle="--")
+
+    # Add axis labels and title
+    plt.xlabel('Year',fontsize=20)
+    plt.ylabel('GMT anomaly (°C)',fontsize=20)
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.title('Global Mean Temperature Trajectories (up to 2100)',fontsize=22)
+    plt.legend(fontsize=18)
+    plt.grid(True)
+    plt.tight_layout()
+
+    # Save the figure
+    plt.savefig(scripts_dir + '/figures/source2suffering/development/GMT_trajectories/GMT_traj_STS.png')
+
+def plot_dev_fig13_regions(ds_regions, extr, flags, ds_le, region_ind, EMF):
+    """
+    Plot MMM lifetime exposure to heatwave for all regions, and the two STS scenarios for the SPARCCLE Delivery.
+
+    Parameters:
+    - ds_regions (xarray.Dataset): Dataset with all the countries per region
+    - ds_le (xarray.Dataset): Dataset contenant la variable 'lifetime_exposure'
+    - region (int): Index of the region (ex: '1')
+    """
+    
+    plt.close('all') 
+
+    plt.figure(figsize=(12, 8))
+
+    GMT_color = ['tab:red','tab:blue']
+    GMT_label = ['ModAct', 'Ren']  
+    region_name = ds_regions['name'].sel(region=region_ind)
+
+    if extr=='burntarea':
+        extr_name = 'Wildfires'
+    if extr=='cropfailedarea':
+        extr_name = 'Crop failures'
+    if extr=='driedarea':
+        extr_name = 'Droughts'
+    if extr=='floodedarea':
+        extr_name = 'River floods'
+    if extr=='heatwavedarea':
+        extr_name = 'Heatwaves'
+    if extr=='tropicalcyclonedarea':
+        extr_name = 'Tropical Cyclones'
+
+    le_ModAct = ds_le['mmm_STS_ModAct'].sel(
+        region=region_ind,
+    )
+
+    le_ModAct_std = ds_le['std_STS_ModAct'].sel(
+        region=region_ind,
+    )
+    
+    le_Ren = ds_le['mmm_STS_Ren'].sel(
+        region=region_ind,
+    )
+
+    le_Ren_std = ds_le['std_STS_Ren'].sel(
+        region=region_ind,
+    )
+
+    plt.plot(birth_years, le_ModAct, linestyle='-',color=GMT_color[0],label=GMT_label[0],lw=3)
+    plt.fill_between(birth_years, le_ModAct - le_ModAct_std, le_ModAct + le_ModAct_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0], lw=3)
+    plt.plot(birth_years, le_Ren, linestyle='-',color=GMT_color[1],label=GMT_label[1],lw=3)
+    plt.fill_between(birth_years, le_Ren - le_Ren_std, le_Ren + le_Ren_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[1], lw=3)
+
+    plt.title("Lifetime Exposure to {} \n in the {} region".format(extr_name, region_name),fontsize=18,fontweight='bold')
+    plt.xlabel("Birth Year",fontsize=16)
+    plt.ylabel("Lifetime Exposure",fontsize=16)
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend(fontsize=16)
+    plt.savefig(scripts_dir+'/figures/assessment/SPARCCLE_STS/lifetime_exposure_{}_region_{}.png'.format(extr,region_name))

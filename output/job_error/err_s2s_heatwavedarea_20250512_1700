@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/dataset.py", line 1317, in _construct_dataarray
+    variable = self._variables[name]
+KeyError: 'mmm'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 309, in <module>
+    exec(exe_exposure,globals())
+  File "<string>", line 91, in <module>
+  File "<string>", line 1382, in calc_EMF
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/dataset.py", line 1410, in __getitem__
+    return self._construct_dataarray(key)
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/dataset.py", line 1319, in _construct_dataarray
+    _, name, variable = _get_virtual_variable(self._variables, name, self.dims)
+  File "/apps/brussel/RL8/zen4/software/xarray/2022.6.0-foss-2022a/lib/python3.10/site-packages/xarray/core/dataset.py", line 175, in _get_virtual_variable
+    raise KeyError(key)
+KeyError: 'mmm'

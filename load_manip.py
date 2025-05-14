@@ -32,9 +32,9 @@ with open(adr_pf_load_manip) as f:
 # --------------------------------------------------------------- #
 
 
-global df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_strj
+global df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_OS, df_GMT_noOS, ds_GMT_STS, df_GMT_strj 
 
-df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_strj = load_GMT(
+df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_OS, df_GMT_noOS, ds_GMT_STS, df_GMT_strj = load_GMT(
     year_start,
     year_end,
     year_range,
@@ -301,6 +301,9 @@ d_isimip_meta,d_pic_meta = load_isimip(
     df_GMT_15,
     df_GMT_20,
     df_GMT_NDC,
+    df_GMT_OS,
+    df_GMT_noOS,
+    ds_GMT_STS,
     df_GMT_strj,
     flags,
 )
@@ -309,7 +312,6 @@ global nruns, nyears
 
 nruns = len(d_isimip_meta)                      # number of available impact models runs used for this extreme
 nyears = len(year_range)                        # number of years for the assessment
-
 
 # --------------------------------------------------------------- #
 # load AR6 Regions                                                #

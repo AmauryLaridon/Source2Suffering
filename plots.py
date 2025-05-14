@@ -438,28 +438,35 @@ if Source2Suffering:
 
     #Configuration of the plots#
 
-    plot_fig1 = 0 # 0: do not plot figure 1 for development
-                  # 1: plot figure 1 for development
-    plot_fig2 = 0 # 0: do not plot figure 2 for development
-                  # 1: plot figure 2 for development
-    plot_fig3 = 0 # 0: do not plot figure 3 for development
-                  # 1: plot figure 3 for development
-    plot_fig4 = 0 # 0: do not plot figure 4 for development
-                  # 1: plot figure 4 for development
-    plot_fig5 = 0 # 0: do not plot figure 5 for development
-                  # 1: plot figure 5 for development
-    plot_fig6 = 0 # 0: do not plot figure 6 for development of story lines for myclimatefuture
-                  # 1: plot figure 6 for development of story lines for myclimatefuture
-    plot_fig7 = 0 # 0: do not plot figure 7 for development
-                  # 1: plot figure 7 for development
-    plot_fig8 = 0 # 0: do not plot figure 8 for development
-                  # 1: plot figure 8 for development
-    plot_fig9 = 1 # 0: do not plot figure 9 for development
-                  # 1: plot figure 9 for development
-
-    print("-------------------------------------------------------")
-    print("Start plots for Source2Suffering Project")
-    print("-------------------------------------------------------")
+    plot_fig1 = 0       # 0: do not plot figure 1 for development
+                        # 1: plot figure 1 for development
+    plot_fig2 = 0       # 0: do not plot figure 2 for development
+                        # 1: plot figure 2 for development
+    plot_fig3 = 0       # 0: do not plot figure 3 for development
+                        # 1: plot figure 3 for development
+    plot_fig4 = 0       # 0: do not plot figure 4 for development
+                        # 1: plot figure 4 for development
+    plot_fig5 = 0       # 0: do not plot figure 5 for development
+                        # 1: plot figure 5 for development
+    plot_fig6 = 0       # 0: do not plot figure 6 for development of story lines for myclimatefuture
+                        # 1: plot figure 6 for development of story lines for myclimatefuture
+    plot_fig7 = 0       # 0: do not plot figure 7 for development
+                        # 1: plot figure 7 for development
+    plot_fig8 = 0       # 0: do not plot figure 8 for development
+                        # 1: plot figure 8 for development
+    plot_fig9 = 0       # 0: do not plot figure 9 for development
+                        # 1: plot figure 9 for development
+    plot_fig10 = 0      # 0: do not plot figure 10 for development 
+                        # 1: plot figure 10 for development (only works if plot_fig9=1)
+    plot_fig11 = 0      # 0: do not plot figure 11 for development
+                        # 1: plot figure 11 for development
+    plot_fig12 = 0      # 0: do not plot figure 12 for development
+                        # 1: plot figure 12 for development
+    plot_fig13 = 1      # 0: do not plot figure 13 for development
+                        # 1: plot figure 13 for development
+    print(" -------------------------------------------------------")
+    print("|        Start plots for Source2Suffering Project       |")
+    print(" -------------------------------------------------------")
 
     #from plot_source2suffering import *
 
@@ -469,7 +476,7 @@ if Source2Suffering:
     
     if plot_fig1:
 
-        print("Performing Plot f1 for Development")
+        print("\nPerforming Plot f1 for Development")
 
         with open(data_dir+'{}/{}/ds_le_percountry_perrun_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             dataset_le = pk.load(f)
@@ -497,7 +504,7 @@ if Source2Suffering:
     
     if plot_fig2:
     
-        print("Performing Plot f2 for Development")
+        print("\nPerforming Plot f2 for Development")
 
         with open(data_dir+'{}/{}/lifetime_exposure_trends_regions.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
             ds_le_trends_regions = pk.load(f)
@@ -508,7 +515,7 @@ if Source2Suffering:
     
     if plot_fig3:
         
-        print("Performing Plot f3 for Development")
+        print("\nPerforming Plot f3 for Development")
 
         with open(data_dir+'{}/{}/ds_le_perregion_perrun_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_regions = pk.load(f)
@@ -544,7 +551,7 @@ if Source2Suffering:
     
     if plot_fig4:
         
-        print("Performing Plot f4 for Development")
+        print("\nPerforming Plot f4 for Development")
 
         with open(data_dir+'{}/{}/ds_le_percountry_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_mmm_country = pk.load(f)
@@ -569,7 +576,7 @@ if Source2Suffering:
     
     if plot_fig5:
         
-        print("Performing Plot f5 for Development")
+        print("\nPerforming Plot f5 for Development")
 
         with open(data_dir+'{}/{}/ds_le_perregion_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_mmm_regions = pk.load(f)
@@ -603,7 +610,7 @@ if Source2Suffering:
 
     if plot_fig6:
 
-        print("Performing Plot f6 for Story Lines Development for myclimatefuture")
+        print("\nPerforming Plot f6 for Story Lines Development for myclimatefuture")
 
         #------------------------------------ Country ----------------------------------------#
 
@@ -642,7 +649,7 @@ if Source2Suffering:
     
     if plot_fig7:
 
-        print("Performing Plot f7 for Development")
+        print("\nPerforming Plot f7 for Development")
 
         for i in ds_regions['region'].values:
  
@@ -650,7 +657,7 @@ if Source2Suffering:
     
     if plot_fig8:
     
-        print("Performing Plot f8 for Development")
+        print("\nPerforming Plot f8 for Development")
 
         with open(data_dir+'{}/{}/ds_le_percountry_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_mmm_country = pk.load(f)
@@ -661,7 +668,7 @@ if Source2Suffering:
 
     if plot_fig9:
         
-        print("Performing Plot f9 for Development")
+        print("\nPerforming Plot f9 for Development")
 
         # Values from Neptun Deep expert report by W.Thiery # 
 
@@ -727,22 +734,114 @@ if Source2Suffering:
 
             plot_dev_fig9(da_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,birth_cohort_int,hazards[i],flags)
 
+        if plot_fig_10:
 
-        print("Performing Plot f10 for Development")
+            print("\nPerforming Plot f10 for Development")
 
-        with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new.pkl', 'rb') as f:
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new = pk.load(f)
+            with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new.pkl', 'rb') as f:
+                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new = pk.load(f)
 
-        with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original.pkl', 'rb') as f:
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original = pk.load(f)
+            with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original.pkl', 'rb') as f:
+                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original = pk.load(f)
+            
+            for i in range(len(da_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
         
-        for i in range(len(da_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
-    
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new.isel(hazard=i)
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original.isel(hazard=i)                           
-            da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel= da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)
+                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new.isel(hazard=i)
+                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original.isel(hazard=i)                           
+                da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel= da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)
 
-            plot_dev_fig10(da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel, da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel, da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel, birth_cohort_int,hazards[i], flags)
+                plot_dev_fig10(da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel, da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel, da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel, birth_cohort_int,hazards[i], flags)
+        
+    if plot_fig11:
+
+        print("\nPerforming Plot f11 for Development")
+
+        plot_dev_fig11(df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_OS, df_GMT_noOS)
+
+    if plot_fig12:
+
+        print("\nPerforming Plot f12 for SPARCCLE Delivery")
+
+        plot_dev_fig12(df_GMT_OS, df_GMT_noOS, ds_GMT_STS)
+
+    if plot_fig13:
+    
+        print("\nPerforming Plot f13 for SPARCCLE Delivery")
+
+        # Definition of the coordinates 
+        hazards = [
+            "burntarea",
+            "cropfailedarea",
+            "driedarea",
+            "floodedarea",
+            "heatwavedarea",
+            "tropicalcyclonedarea"
+        ]
+
+        for extr in hazards:
+
+            # Loading the pickles 
+                    
+            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}.pkl'.format(flags['version'],extr,flags['gmt']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
+
+            for region_ind in ds_le_perregion['mmm_STS_ModAct']['region'].values:
+
+                # Produce the figures of the absolute value of the lifetime exposure per birth cohort and save the results in a .nc file #
+                
+                plot_dev_fig13_regions(ds_regions, extr, flags, ds_le=ds_le_perregion, region_ind=region_ind, EMF=False)
+            
+            # Save the results of interest for SPARCCLE STS in a .nc file
+
+            ds_subset_ModAct = ds_le_perregion[["mmm_STS_ModAct", "std_STS_ModAct", "median_STS_ModAct", "lqntl_STS_ModAct", "uqntl_STS_ModAct"]]
+            ds_subset_Ren = ds_le_perregion[["mmm_STS_Ren", "std_STS_Ren", "median_STS_Ren", "lqntl_STS_Ren", "uqntl_STS_Ren"]]
+
+            ds_subset_ModAct.attrs['README'] = """
+            This dataset contains the values of the lifetime exposure per birth year (from 1960 to 2020) for the STS ModAct scenario for 12 different regions.
+
+            The index of the 'region' coordinate is the following:
+            0: East Asia & Pacific
+            1: Europe & Central Asia
+            2: High income
+            3: Latin America & Caribbean
+            4: Low income
+            5: Lower middle income
+            6: Middle East & North Africa
+            7: North America
+            8: South Asia
+            9: Sub-Saharan Africa
+            10: Upper middle income
+            11: World
+
+            For the variables 'mmm' = multi model mean, 'std' = standard deviation, 'median' = median (p0.5), 'lqntl' = lower quartile (p0.25), 'uqntl' = upper quartile (p0.75)
+
+            Contact author : Amaury.Laridon@vub.be
+            """
+
+            ds_subset_Ren.attrs['README'] = """
+            This dataset contains the values of the lifetime exposure per birth year (from 1960 to 2020) for the STS Ren scenario for 12 different regions.
+
+            The index of the 'region' coordinate is the following:
+            0: East Asia & Pacific
+            1: Europe & Central Asia
+            2: High income
+            3: Latin America & Caribbean
+            4: Low income
+            5: Lower middle income
+            6: Middle East & North Africa
+            7: North America
+            8: South Asia
+            9: Sub-Saharan Africa
+            10: Upper middle income
+            11: World
+
+            For the variables 'mmm' = multi model mean, 'std' = standard deviation, 'median' = median (p0.5), 'lqntl' = lower quartile (p0.25), 'uqntl' = upper quartile (p0.75)
+
+            Contact author : Amaury.Laridon@vub.be
+            """
+
+            ds_subset_ModAct.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_ModAct_{}_lifetime_exposure_perregion.nc'.format(extr))
+            ds_subset_Ren.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_Ren_{}_lifetime_exposure_perregion.nc'.format(extr))
 
 #%%-----------------------------------------------------------------------#
 # Framework to plots not configured                                       #

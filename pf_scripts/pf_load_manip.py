@@ -235,8 +235,13 @@ def load_GMT(
     year_range,
     flags,
 ):
-    # Load global mean temperature projections from SR15 
-    # (wim's original scenarios; will use historical obs years from here, 1960-1999, but replace with ar6 trajectories)
+    
+    # ---------------------------------------------------------- #
+    # Definition of the 1.5, 2.0 and NDC trajectories from SR15  #
+    # This is the original scenarios used in Thiery et al.(2021) #                                      
+    # ---------------------------------------------------------- #
+
+    # Luke's comment : (wim's original scenarios; will use historical obs years from here, 1960-1999, but replace with ar6 trajectories)
     df_GMT_SR15 = pd.read_excel(data_dir+'temperature_trajectories_SR15/GMT_50pc_manualoutput_4pathways.xlsx', header=1);
     df_GMT_SR15 = df_GMT_SR15.iloc[:4,1:].transpose().rename(columns={
         0 : 'IPCCSR15_IMAGE 3.0.1_SSP1-26_GAS',
@@ -262,7 +267,96 @@ def load_GMT(
     df_GMT_20 = df_GMT_20[~df_GMT_20.index.duplicated(keep='first')]
     df_GMT_NDC = df_GMT_NDC[~df_GMT_NDC.index.duplicated(keep='first')]
     df_GMT_SR15 = df_GMT_SR15[~df_GMT_SR15.index.duplicated(keep='first')]
-    
+
+    # Loading the GMT_OS matlab object from Thiery et al.(2021) # 
+
+    from scipy.io import loadmat
+
+    # Load GMT_OS
+    mat_data = loadmat(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/GMT_OS.mat', squeeze_me=True)
+    GMT_OS = mat_data['GMT_OS'].flatten()
+    years = np.arange(1960, 1960 + len(GMT_OS))
+    df_GMT_OS = pd.Series(GMT_OS, index=years)
+    df_GMT_OS.name = None
+    df_GMT_OS.index.name = None
+
+    # Load GMT_noOS
+    mat_data = loadmat(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/GMT_noOS.mat', squeeze_me=True)
+    GMT_noOS = mat_data['GMT_noOS'].flatten()
+    years = np.arange(1960, 1960 + len(GMT_noOS))
+    df_GMT_noOS = pd.Series(GMT_noOS, index=years)
+    df_GMT_noOS.name = None
+    df_GMT_noOS.index.name = None
+
+    # ---------------------------------------------------------- #
+    # Definition of the OverShoot (OS) and no-OverShoot (noOS)   #
+    # trajectories from UVIC model                               #
+    # ---------------------------------------------------------- #
+
+    # Method to rebuild the GMT_OS matlab object from Thiery et al.(2021) # 
+
+    # # Read UVIC data without using the first row as header
+    # df_GMT_UVIC = pd.read_excel(
+    #     data_dir + 'temperature_trajectories_UVIC/CDRMIA_overshoot_scenario_UVic_output_GMTanomalies.xlsx',
+    #     header=None
+    # )
+
+    # # Set manual column names: [year, OS, noOS]
+    # df_GMT_UVIC.columns = ['year', 'OS', 'noOS']
+
+    # # Convert to float
+    # df_GMT_UVIC = df_GMT_UVIC.astype(float)
+
+    # # Extract historical segment (pre-2005) from SR15, first 3 rows
+    # df_hist = df_GMT_SR15.loc[df_GMT_SR15.index < 2005].iloc[:3, :].copy()
+    # df_hist = df_hist[['IPCCSR15_MESSAGEix-GLOBIOM 1.0_LowEnergyDemand_GAS',
+    #                 'IPCCSR15_IMAGE 3.0.1_SSP1-26_GAS']]
+    # df_hist.columns = ['OS', 'noOS']
+    # df_hist['year'] = df_hist.index
+
+    # # Reorder columns
+    # df_hist = df_hist[['year', 'OS', 'noOS']]
+
+    # # Combine historical with UVIC
+    # df_GMT_UVIC = pd.concat([df_hist, df_GMT_UVIC], axis=0).reset_index(drop=True)
+
+    # # Set year as index
+    # df_GMT_UVIC = df_GMT_UVIC.set_index('year')
+
+    # # Extend to year_end if needed
+    # if df_GMT_UVIC.index.max() < year_end:
+    #     GMT_last_10ymean = df_GMT_UVIC.iloc[-10:, :].mean()
+    #     for year in range(int(df_GMT_UVIC.index.max()) + 1, year_end + 1):
+    #         df_GMT_UVIC.loc[year] = GMT_last_10ymean
+
+    # # Slice final OS and noOS trajectories
+    # df_GMT_OS = df_GMT_UVIC.loc[year_start:year_end, 'OS']
+    # df_GMT_noOS = df_GMT_UVIC.loc[year_start:year_end, 'noOS']
+
+    # # Remove potential duplicate years
+    # df_GMT_OS = df_GMT_OS[~df_GMT_OS.index.duplicated(keep='first')]
+    # df_GMT_noOS = df_GMT_noOS[~df_GMT_noOS.index.duplicated(keep='first')]
+
+
+
+    # ---------------------------------------------------------- #
+    # Definition of stylized trajectories used in the BE         #
+    # The definition of these trajectories depends on the value  #
+    # of the flags['gmt'] to either used the 'original'          #
+    # trajectories defined in Thiery et al.(2021) or the update  #
+    # based on AR6 by Grant et al.(2025)                         #                                                                           
+    # ---------------------------------------------------------- #
+
+    # ---------------------------------------------------------- #
+    # Definition of the Stress Test Scenarios (STS)              #
+    # by the SPARCCLE project                                    #
+    # ---------------------------------------------------------- #
+
+    # Open the NetCDF file
+    ds_GMT_STS = xr.open_dataset(data_dir + '/temperature_trajectories_STS/GSAT_FaIR_SPARCCLE_STSv1.nc', engine='netcdf4')
+
+    # ---------------------------------------------------------- #
+
     # stylized trajectories
     if flags['gmt'] == 'original':
     
@@ -505,7 +599,7 @@ def load_GMT(
         )       
         df_GMT_strj = cp(df_GMT_strj_new) 
 
-    return df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_strj
+    return df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_OS, df_GMT_noOS, ds_GMT_STS, df_GMT_strj
 
 #%%---------------------------------------------------------------#
 # Load SSP population totals                                      #
@@ -548,6 +642,9 @@ def load_isimip(
     df_GMT_15,
     df_GMT_20,
     df_GMT_NDC,
+    df_GMT_OS,
+    df_GMT_noOS,
+    ds_GMT_STS,
     df_GMT_strj,
     flags,
 ): 
@@ -660,31 +757,112 @@ def load_isimip(
 
                     # save GMT in metadatadict
                     d_isimip_meta[i]['GMT'] = df_GMT 
+
+
+                    # recover the two GMT for the two scenario of interest in the STS pathways 
+
+                    da_GMT_STS_ModAct = ds_GMT_STS['tas'].sel(
+                        time=slice(1960, 2113),
+                        percentile='50.0',
+                        scenario='ModAct'
+                        )
+
+                    da_GMT_STS_Ren = ds_GMT_STS['tas'].sel(
+                        time=slice(1960, 2113),
+                        percentile='50.0',
+                        scenario='Ren'
+                        )
                     
+                    
+
                     # get ISIMIP GMT indices closest to GMT trajectories        
                     RCP2GMT_diff_15 = np.min(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_15.values.transpose()), axis=0)
                     RCP2GMT_diff_20 = np.min(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_20.values.transpose()), axis=0)
                     RCP2GMT_diff_NDC = np.min(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_NDC.values.transpose()), axis=0)
                     RCP2GMT_diff_R26eval = np.min(np.abs(d_isimip_meta[i]['GMT'].values - d_isimip_meta[1]['GMT'].values.transpose()), axis=0)
+                    RCP2GMT_diff_OS = np.min(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_OS.values.transpose()), axis=0)
+                    RCP2GMT_diff_noOS = np.min(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_noOS.values.transpose()), axis=0)
+                    RCP2GMT_diff_STS_ModAct = np.min(np.abs(d_isimip_meta[i]['GMT'].values - da_GMT_STS_ModAct.values.transpose()), axis=0)
+                    RCP2GMT_diff_STS_Ren = np.min(np.abs(d_isimip_meta[i]['GMT'].values - da_GMT_STS_Ren.values.transpose()), axis=0)
+
+                    #---------------- Debug and validation -----------------#
+
+                    # print("EXEMPLE DE REFERENCE")
+                    # print(np.shape(df_GMT_15.values.transpose()))
+                    # print("df_GMT_15.values.transpose() = ", df_GMT_15.values.transpose())
+                    # print("------------")
+                    # print(np.shape(da_GMT_STS_ModAct.values))
+                    # print("da_GMT_STS_ModAct.values.transpose() = ", da_GMT_STS_ModAct.values.transpose())
+                    # print("------------")
+
+                    # print("EXEMPLE DE REFERENCE")
+                    # print(np.shape(RCP2GMT_diff_noOS))
+                    # print("RCP2GMT_diff_NDC = ", RCP2GMT_diff_noOS)
+                    # print("------------")
+                    # print(np.shape(RCP2GMT_diff_STS_Ren))
+                    # print("RCP2GMT_diff_STS_ModAct = ", RCP2GMT_diff_STS_Ren)
+                    # print("------------")
+
+                    #sys.exit(0)
+                    #---------------------------------------------------------#
+
 
                     ind_RCP2GMT_15 = np.argmin(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_15.values.transpose()), axis=0)
                     ind_RCP2GMT_20 = np.argmin(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_20.values.transpose()), axis=0)
                     ind_RCP2GMT_NDC = np.argmin(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_NDC.values.transpose()), axis=0)
                     ind_RCP2GMT_R26eval = np.argmin(np.abs(d_isimip_meta[i]['GMT'].values - d_isimip_meta[1]['GMT'].values.transpose()), axis=0)
-                    
+                    ind_RCP2GMT_OS = np.argmin(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_OS.values.transpose()), axis=0)
+                    ind_RCP2GMT_noOS = np.argmin(np.abs(d_isimip_meta[i]['GMT'].values - df_GMT_noOS.values.transpose()), axis=0)
+                    ind_RCP2GMT_STS_ModAct = np.argmin(np.abs(d_isimip_meta[i]['GMT'].values - da_GMT_STS_ModAct.values.transpose()), axis=0)
+                    ind_RCP2GMT_STS_Ren = np.argmin(np.abs(d_isimip_meta[i]['GMT'].values - da_GMT_STS_Ren.values.transpose()), axis=0)
+
+                    #---------------- Debug and validation -----------------#
+                    # print("EXEMPLE DE REFERENCE")
+                    # print(np.shape(ind_RCP2GMT_NDC))
+                    # print("ind_RCP2GMT_NDC = ", ind_RCP2GMT_NDC)
+                    # print("------------")
+                    # print(np.shape(ind_RCP2GMT_STS_ModAct))
+                    # print("ind_RCP2GMT_STS_ModAct = ", ind_RCP2GMT_STS_ModAct)
+                    # print("------------")
+
+                    # sys.exit(0)
+                    #---------------------------------------------------------#
+
                     # store GMT maxdiffs and indices in metadatadict
                     d_isimip_meta[i]['GMT_15_maxdiff'] = np.nanmax(RCP2GMT_diff_15)
                     d_isimip_meta[i]['GMT_20_maxdiff'] = np.nanmax(RCP2GMT_diff_20)
                     d_isimip_meta[i]['GMT_NDC_maxdiff'] = np.nanmax(RCP2GMT_diff_NDC)
-                    d_isimip_meta[i]['GMT_R26eval_maxdiff'] = np.nanmax(RCP2GMT_diff_R26eval)       
+                    d_isimip_meta[i]['GMT_R26eval_maxdiff'] = np.nanmax(RCP2GMT_diff_R26eval) 
+                    d_isimip_meta[i]['GMT_OS_maxdiff'] = np.nanmax(RCP2GMT_diff_OS)
+                    d_isimip_meta[i]['GMT_noOS_maxdiff'] = np.nanmax(RCP2GMT_diff_noOS)
+                    d_isimip_meta[i]['GMT_STS_ModAct_maxdiff'] = np.nanmax(RCP2GMT_diff_STS_ModAct)
+                    d_isimip_meta[i]['GMT_STS_Ren_maxdiff'] = np.nanmax(RCP2GMT_diff_STS_Ren)
+
                     d_isimip_meta[i]['GMT_15_valid'] = np.nanmax(RCP2GMT_diff_15) < RCP2GMT_maxdiff_threshold
                     d_isimip_meta[i]['GMT_20_valid'] = np.nanmax(RCP2GMT_diff_20) < RCP2GMT_maxdiff_threshold
                     d_isimip_meta[i]['GMT_NDC_valid'] = np.nanmax(RCP2GMT_diff_NDC) < RCP2GMT_maxdiff_threshold
                     d_isimip_meta[i]['GMT_R26eval_valid'] = np.nanmax(RCP2GMT_diff_R26eval) < RCP2GMT_maxdiff_threshold
+                    d_isimip_meta[i]['GMT_OS_valid'] = np.nanmax(RCP2GMT_diff_OS) < RCP2GMT_maxdiff_threshold
+                    d_isimip_meta[i]['GMT_noOS_valid'] = np.nanmax(RCP2GMT_diff_noOS) < RCP2GMT_maxdiff_threshold
+                    d_isimip_meta[i]['GMT_STS_ModAct_valid'] = np.nanmax(RCP2GMT_diff_STS_ModAct) < RCP2GMT_maxdiff_threshold
+                    d_isimip_meta[i]['GMT_STS_Ren_valid'] = np.nanmax(RCP2GMT_diff_STS_Ren) < RCP2GMT_maxdiff_threshold
+
+                    #---------------- Debug and validation -----------------#
+                    # print("EXEMPLE DE REFERENCE")
+                    # print("d_isimip_meta[i]['GMT_noOS_valid'] = ", d_isimip_meta[i]['GMT_noOS_valid'])
+                    # print("------------")
+                    # print("d_isimip_meta[i]['GMT_STS_Ren_valid'] = ", d_isimip_meta[i]['GMT_STS_Ren_valid'])
+                    # print("------------")
+                    #---------------------------------------------------------#
+                    
                     d_isimip_meta[i]['ind_RCP2GMT_15'] = ind_RCP2GMT_15
                     d_isimip_meta[i]['ind_RCP2GMT_20'] = ind_RCP2GMT_20
                     d_isimip_meta[i]['ind_RCP2GMT_NDC'] = ind_RCP2GMT_NDC
                     d_isimip_meta[i]['ind_RCP2GMT_R26eval'] = ind_RCP2GMT_R26eval
+                    d_isimip_meta[i]['ind_RCP2GMT_OS'] = ind_RCP2GMT_OS
+                    d_isimip_meta[i]['ind_RCP2GMT_noOS'] = ind_RCP2GMT_noOS
+                    d_isimip_meta[i]['ind_RCP2GMT_STS_ModAct'] = ind_RCP2GMT_STS_ModAct
+                    d_isimip_meta[i]['ind_RCP2GMT_STS_Ren'] = ind_RCP2GMT_STS_Ren
                     
                     # run GMT mapping for stylized trajectories (repeat above but for dataframe of all trajectories)
                     d_isimip_meta[i]['GMT_strj_maxdiff'] = np.empty_like(np.arange(len(df_GMT_strj.columns)))
