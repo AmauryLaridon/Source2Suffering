@@ -153,7 +153,7 @@ if not env_value_paper:
 
     #------------------- Climate Extreme --------------------#
 
-    flags['extr'] = 'burntarea'                 # 0: all
+    flags['extr'] = 'heatwavedarea'                 # 0: all
                                                     # 1: burntarea
                                                     # 2: cropfailedarea
                                                     # 3: driedarea
@@ -163,7 +163,7 @@ if not env_value_paper:
 
     #-------------- GMT Stylized Trajectories ---------------#
 
-    flags['gmt'] = 'ar6_new'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
+    flags['gmt'] = 'original'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
                                                     # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
                                                     # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
 

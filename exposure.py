@@ -61,26 +61,16 @@ if flags['lifetime_exposure']:
         ### the lifetime exposure for specific trajectories such as OS/noOS
         ### and start the generalization for all others objets 
 
-        # ds_le_percountry_perrun, ds_le_perregion_perrun = calc_lifetime_exposure_v2(
-        #     d_isimip_meta,
-        #     df_countries,
-        #     countries_regions,
-        #     countries_mask,
-        #     da_population,
-        #     df_life_expectancy_5,
-        #     ds_regions,
-        #     d_cohort_weights_regions,
-        #     flags,)
-
-        #-----------------  Load per ISIMIP run Lifetime Exposure ---------------#
-
-        print('\nLoading processed Lifetime Exposure per ISIMIP simulation')
-
-        with open(data_dir+'{}/{}/ds_le_percountry_perrun_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
-            ds_le_percountry_perrun = pk.load(f)
-        
-        with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
-            ds_le_perregion_perrun = pk.load(f)
+        ds_le_percountry_perrun, ds_le_perregion_perrun = calc_lifetime_exposure_v2(
+            d_isimip_meta,
+            df_countries,
+            countries_regions,
+            countries_mask,
+            da_population,
+            df_life_expectancy_5,
+            ds_regions,
+            d_cohort_weights_regions,
+            flags,)
 
         #---------------------  Compute MMM Lifetime Exposure ---------------------#
 
@@ -160,17 +150,17 @@ else: # load processed cohort exposure data
         with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
             ds_le_perregion = pk.load(f)
 
-        # #----------------------------- Load EMF  -------------------------------#
+        #----------------------------- Load EMF  -------------------------------#
 
-        # print('\nLoading EMF of Lifetime Exposure')
+        print('\nLoading EMF of Lifetime Exposure')
 
-        # with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
 
-        #     ds_EMF_percountry_GMT = pk.load(f)
+            ds_EMF_percountry_GMT = pk.load(f)
 
-        # with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'rb') as f:
 
-        #     ds_EMF_perregion_GMT = pk.load(f)
+            ds_EMF_perregion_GMT = pk.load(f)
 
 # --------------------------------------------------------------- #
 # Process lifetime exposure across cohorts for                    #

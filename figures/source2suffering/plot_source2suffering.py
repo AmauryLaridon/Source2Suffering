@@ -150,7 +150,7 @@ plt.close(fig)
 # Functions                                                          #
 # -------------------------------------------------------------------#
 
-def plot_dev_fig1(flags, ds, country, run, GMT):
+def plot_dev_fig1(flags, extr, ds, country, run, GMT):
     """
     Plot lifetime exposure for a specific country, run, and GMT value.
 
@@ -163,7 +163,7 @@ def plot_dev_fig1(flags, ds, country, run, GMT):
 
     plt.close('all') 
     
-    exposure = ds['lifetime_exposure'].sel(
+    exposure = ds['le_percountry_perrun_BE'].sel(
         country=country,
         run=run,
         GMT=GMT  
@@ -175,12 +175,12 @@ def plot_dev_fig1(flags, ds, country, run, GMT):
     # Plot
     plt.figure(figsize=(10, 6))
     plt.plot(birth_years, exposure, marker='o', linestyle='-')
-    plt.title("{} : Lifetime Exposure in {} (Run {}, GMT {})".format(flags['extr'], country, run, GMT))
+    plt.title("{} : Lifetime Exposure in {} (Run {}, GMT {})".format(extr, country, run, GMT))
     plt.xlabel("Birth Year")
     plt.ylabel("Lifetime Exposure")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig1_lifetime_exposure_{}_GMT_{}_isimip_sim{}.png'.format(flags['extr'],country,GMT,run))
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig1_lifetime_exposure_{}_GMT_{}_isimip_sim_{}_gmt_{}.png'.format(extr,country,GMT,run,flags['gmt']))
 
 def plot_dev_fig2(flags, ds, var_name, coords_dict):
     """
@@ -227,12 +227,12 @@ def plot_dev_fig2(flags, ds, var_name, coords_dict):
     plt.grid(True)
     # Save the plot with a dynamic filename based on the coordinates
     if var_name == 'exposure_trend_ar6':
-        filename = scripts_dir + '/figures/source2suffering/development/{}/fig2_lifetime_exposure_trends_isimip_sim{}_GMT_{}_region_{}.png'.format(flags['extr'],
+        filename = scripts_dir + '/figures/source2suffering/development/{}/fig2_lifetime_exposure_trends_isimip_sim_{}_GMT_{}_region_{}.png'.format(flags['extr'],
         coords_dict.get('run', 'NA'),coords_dict.get('GMT', 'NA'), coords_dict.get('region', 'NA'))
     plt.savefig(filename)
 
 
-def plot_dev_fig3(ds_regions, flags, ds, region, run, GMT):
+def plot_dev_fig3(ds_regions, flags, extr, ds, region, run, GMT):
     """
     Plot lifetime exposure for a specific region, run, and GMT value.
 
@@ -245,7 +245,7 @@ def plot_dev_fig3(ds_regions, flags, ds, region, run, GMT):
     
     plt.close('all') 
 
-    exposure = ds['lifetime_exposure'].sel(
+    exposure = ds['le_perregion_perrun_BE'].sel(
         region=region,
         run=run,
         GMT=GMT  
@@ -258,15 +258,15 @@ def plot_dev_fig3(ds_regions, flags, ds, region, run, GMT):
     # Plot
     plt.figure(figsize=(10, 6))
     plt.plot(birth_years, exposure, marker='o', linestyle='-')
-    plt.title("{} : Lifetime Exposure in {} (Run {}, GMT {})".format(flags['extr'], region_name, run, GMT))
+    plt.title("{} : Lifetime Exposure in {} (Run {}, GMT {})".format(extr, region_name, run, GMT))
     plt.xlabel("Birth Year")
     plt.ylabel("Lifetime Exposure")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig3_lifetime_exposure_region_{}_GMT_{}_isimip_sim{}.png'.format(flags['extr'],region_name,GMT,run))
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig3_lifetime_exposure_region_{}_GMT_{}_isimip_sim_{}_gmt_{}.png'.format(extr,region_name,GMT,run,flags['gmt']))
 
 
-def plot_dev_fig4(flags, ds, country, GMT):
+def plot_dev_fig4(flags, extr, ds, country, GMT):
     """
     Plot MMM lifetime exposure for a specific country, and GMT value.
 
@@ -278,12 +278,12 @@ def plot_dev_fig4(flags, ds, country, GMT):
 
     plt.close('all') 
     
-    exposure = ds['mmm'].sel(
+    exposure = ds['mmm_BE'].sel(
         country=country,
         GMT=GMT  
     )
 
-    y_std = ds['std'].sel(
+    y_std = ds['std_BE'].sel(
         country = country,
         GMT = GMT
     )
@@ -294,16 +294,16 @@ def plot_dev_fig4(flags, ds, country, GMT):
     plt.figure(figsize=(10, 6))
     plt.plot(birth_years, exposure, marker='o', linestyle='-')
     plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$')
-    plt.title("{} : MMM Lifetime Exposure in {} (GMT {})".format(flags['extr'], country, GMT))
+    plt.title("{} : MMM Lifetime Exposure in {} (GMT {})".format(extr, country, GMT))
     plt.xlabel("Birth Year")
     plt.ylabel("Lifetime Exposure")
     plt.grid(True)
     plt.tight_layout()
     plt.legend()
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig4_mmm_lifetime_exposure_{}_GMT_{}.png'.format(flags['extr'],country,GMT))
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig4_mmm_lifetime_exposure_{}_GMT_{}_gmt_{}.png'.format(extr,country,GMT,flags['gmt']))
 
 
-def plot_dev_fig5(ds_regions, flags, ds, region, GMT):
+def plot_dev_fig5(ds_regions, flags, extr, ds, region, GMT):
     """
     Plot MMM lifetime exposure for a specific region, and GMT value.
 
@@ -315,14 +315,14 @@ def plot_dev_fig5(ds_regions, flags, ds, region, GMT):
     
     plt.close('all') 
 
-    exposure = ds['mmm'].sel(
+    exposure = ds['mmm_BE'].sel(
         region = region,
         GMT = GMT  
     )
 
     birth_years = ds['birth_year'].values
     region_name = ds_regions['name'].sel(region=region)
-    y_std = ds['std'].sel(
+    y_std = ds['std_BE'].sel(
         region = region,
         GMT = GMT
     )
@@ -331,15 +331,15 @@ def plot_dev_fig5(ds_regions, flags, ds, region, GMT):
     plt.figure(figsize=(10, 6))
     plt.plot(birth_years, exposure, marker='o', linestyle='-')
     plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$')
-    plt.title("{} : MMM Lifetime Exposure in {} (GMT {})".format(flags['extr'], region_name, GMT))
+    plt.title("{} : MMM Lifetime Exposure in {} (GMT {})".format(extr, region_name, GMT))
     plt.xlabel("Birth Year")
     plt.ylabel("Lifetime Exposure")
     plt.grid(True)
     plt.tight_layout()
     plt.legend()
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig5_mmm_lifetime_exposure_region_{}_GMT_{}.png'.format(flags['extr'],region_name,GMT))
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig5_mmm_lifetime_exposure_region_{}_GMT_{}_gmt_{}.png'.format(extr,region_name,GMT,flags['gmt']))
 
-def plot_dev_fig6_country(flags, ds, country, EMF):
+def plot_dev_fig6_country(flags, extr, ds, country, EMF):
     """
     Plot MMM lifetime exposure to heatwave for all countries, and three GMT values.
 
@@ -354,10 +354,17 @@ def plot_dev_fig6_country(flags, ds, country, EMF):
 
     plt.figure(figsize=(10, 6))
 
-    GMT_list = [0,11,20]
+    if flags['gmt'] == 'ar6_new':
+    
+        GMT_list = [0,11,20]
+        GMT_label = ['1.5°C', '2.5°C', '3.5°C']
+
+    if flags['gmt'] == 'original':
+
+        GMT_list = [6,9,16]
+        GMT_label = ['1.5°C', '2.0°C', 'NDC']
 
     GMT_color = ['tab:blue','tab:orange','tab:red']
-    GMT_label = ['1.5°C', '2.5°C', '3.5°C']  
     i = 0
 
     if EMF:
@@ -379,24 +386,24 @@ def plot_dev_fig6_country(flags, ds, country, EMF):
 
             i +=1
 
-        plt.title("{} : MMM Lifetime Exposure EMF in {}".format(flags['extr'], country))
+        plt.title("{} : MMM Lifetime Exposure EMF in {}".format(extr, country))
         plt.xlabel("Birth Year")
         plt.ylabel("Exposure Multiplication Factor (EMF)")
         plt.grid(True)
         plt.tight_layout()
         plt.legend()
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_EMF_{}.png'.format(flags['extr'],country))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_EMF_{}_gmt_{}.png'.format(extr,country,flags['gmt']))
 
     else:
 
         for GMT in GMT_list:
 
-            exposure = ds['mmm'].sel(
+            exposure = ds['mmm_BE'].sel(
                 country=country,
                 GMT=GMT  
             )
 
-            y_std = ds['std'].sel(
+            y_std = ds['std_BE'].sel(
                 country = country,
                 GMT = GMT
             )
@@ -406,15 +413,16 @@ def plot_dev_fig6_country(flags, ds, country, EMF):
 
             i +=1
 
-        plt.title("{} : MMM Lifetime Exposure in {}".format(flags['extr'], country))
+        plt.title("{} : MMM Lifetime Exposure in {}".format(extr, country))
         plt.xlabel("Birth Year")
         plt.ylabel("Lifetime Exposure")
         plt.grid(True)
         plt.tight_layout()
         plt.legend()
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_{}.png'.format(flags['extr'],country))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_{}_gmt_{}.png'.format(extr,country,flags['gmt']))
+        print("Plot performed for {}".format(country))
 
-def plot_dev_fig6_region(ds_regions, flags, ds, region, EMF):
+def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
     """
     Plot MMM lifetime exposure to heatwave for all regions, and three GMT values.
 
@@ -428,10 +436,17 @@ def plot_dev_fig6_region(ds_regions, flags, ds, region, EMF):
 
     plt.figure(figsize=(10, 6))
 
-    GMT_list = [0,11,20]
+    if flags['gmt'] == 'ar6_new':
 
+        GMT_list = [0,11,20]
+        GMT_label = ['1.5°C', '2.5°C', '3.5°C']
+
+    if flags['gmt'] == 'original':
+
+        GMT_list = [6,9,16]
+        GMT_label = ['1.5°C', '2.0°C', 'NDC']
+        
     GMT_color = ['tab:blue','tab:orange','tab:red']
-    GMT_label = ['1.5°C', '2.5°C', '3.5°C']  
     region_name = ds_regions['name'].sel(region=region)
     i = 0
     
@@ -454,24 +469,24 @@ def plot_dev_fig6_region(ds_regions, flags, ds, region, EMF):
 
             i +=1
 
-        plt.title("{} : MMM Lifetime Exposure EMF in {}".format(flags['extr'], region_name))
+        plt.title("{} : MMM Lifetime Exposure EMF in {}".format(extr, region_name))
         plt.xlabel("Birth Year")
         plt.ylabel("Exposure Multiplication Factor (EMF)")
         plt.grid(True)
         plt.tight_layout()
         plt.legend()
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_EMF_region_{}.png'.format(flags['extr'],region_name))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_EMF_region_{}_gmt_{}.png'.format(extr,region_name,flags['gmt']))
 
     else: 
 
         for GMT in GMT_list:
 
-            exposure = ds['mmm'].sel(
+            exposure = ds['mmm_BE'].sel(
                 region=region,
                 GMT=GMT  
             )
 
-            y_std = ds['std'].sel(
+            y_std = ds['std_BE'].sel(
                 region=region,
                 GMT = GMT
             )
@@ -481,17 +496,20 @@ def plot_dev_fig6_region(ds_regions, flags, ds, region, EMF):
 
             i +=1
 
-        plt.title("{} : MMM Lifetime Exposure in {}".format(flags['extr'], region_name))
+        plt.title("{} : MMM Lifetime Exposure in {}".format(extr, region_name))
         plt.xlabel("Birth Year")
         plt.ylabel("Lifetime Exposure")
         plt.grid(True)
         plt.tight_layout()
         plt.legend()
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}.png'.format(flags['extr'],region_name))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}_gmt_{}.png'.format(extr,region_name,flags['gmt']))
+        print("Plot performed for {}".format(region_name))
 
 def plot_dev_fig7(
     ds_regions,
     df_GMT_strj,
+    ds_le_perregion,
+    extr,
     flags,
     region_ind
 ):
@@ -515,12 +533,6 @@ def plot_dev_fig7(
     GMT_indices_ticks=[0,5,10,15,20]
     gmts2100 = np.round(df_GMT_strj.loc[2100,GMT_indices_ticks].values,1)    
  
-    
-    #--------------------------- Load Data --------------------------------#
-
-    with open(data_dir+'{}/{}/lifetime_exposure_perregion_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
-            ds_le_perregion_GMT = pk.load(f)
-
     #------------------------------ Plot ----------------------------------#
 
     # Ticks style
@@ -538,127 +550,129 @@ def plot_dev_fig7(
 
     # Main plot
 
-    da = ds_le_perregion_GMT['mmm'].loc[{
+    da = ds_le_perregion['mmm_BE'].loc[{
         'region':region_ind,
         'birth_year': np.arange(1960, 2021),
     }]
 
+    max_val = da.max(skipna=True).item()
 
-    if flags['extr']=='heatwavedarea':
+    if np.isnan(max_val):
 
-        max_val = da.max(skipna=True).item()
+        print("Plot not performed because NaN values are present in Lifetime Exposure for {}".format(region_name))
 
-        levels_hw=np.arange(0,max_val,0.1)
+    else: 
 
-        p =da.plot.contourf(
-            x='birth_year',
-            y='GMT',
-            ax=ax,
-            add_labels=False,
-            levels=levels_hw,
-            cmap='Reds',
-            cbar_kwargs={'ticks': np.arange(0, max_val, 2)}
-        )
+        if extr=='heatwavedarea':
 
-    else:
+            max_val = da.max(skipna=True).item()
 
-        # Compute the maximum value of the data
-        max_val = da.max(skipna=True).item()
+            levels_hw=np.arange(0,max_val,0.1)
 
-        # Set a target and maximum number of contour levels
-        target_n_levels = 30
-        max_n_levels = 50
+            p =da.plot.contourf(
+                x='birth_year',
+                y='GMT',
+                ax=ax,
+                add_labels=False,
+                levels=levels_hw,
+                cmap='Reds',
+                cbar_kwargs={'ticks': np.arange(0, max_val, 2)}
+            )
 
-        # Compute raw step
-        step = max_val / target_n_levels if target_n_levels != 0 else 0.1
+        else:
 
-        # Add a minimum threshold for the step to avoid too many levels
-        min_step = 0.1
-        rounded_step = max(np.round(step, 2), min_step)
+            # Compute the min and max values of the data
+            min_val = da.min(skipna=True).item()
+            max_val = da.max(skipna=True).item()
+            range_val = max_val - min_val
 
-        # Compute levels, but clip number of levels to avoid overflow
-        n_levels = int(np.ceil(max_val / rounded_step)) + 1
+            # Early exit if data has no range
+            if range_val == 0:
+                print("Plot not performed: constant data for {}".format(region_name))
+                return
 
-        # Safety check to avoid exceeding the max allowed size
-        if n_levels > max_n_levels:
-            rounded_step = max_val / max_n_levels
-            n_levels = max_n_levels
+            # --- Contour levels ---
+            target_n_levels = 100
+            max_n_levels = 200
 
-        # Create levels array
-        levels_hw = np.arange(0, rounded_step * n_levels, rounded_step)
+            step = range_val / target_n_levels if target_n_levels != 0 else 0.01
+            min_step = 0.001
+            rounded_step = max(np.round(step, 3), min_step)
 
-        # Target and maximum number of ticks for the colorbar (for readability)
-        target_n_ticks = 6
-        max_n_ticks = 10
+            n_levels = int(np.ceil(range_val / rounded_step)) + 1
 
-        # Compute a raw tick step
-        tick_step = max_val / target_n_ticks if target_n_ticks != 0 else 0.5
+            if n_levels > max_n_levels:
+                rounded_step = range_val / max_n_levels
+                n_levels = max_n_levels
 
-        # Add a minimum threshold for the tick step
-        min_tick_step = 0.1
-        rounded_tick_step = max(np.round(tick_step, 2), min_tick_step)
+            levels_hw = np.arange(min_val, min_val + rounded_step * n_levels, rounded_step)
 
-        # Compute number of ticks, enforce a max limit
-        n_ticks = int(np.ceil(max_val / rounded_tick_step)) + 1
+            # --- Colorbar ticks (aligned with contour levels) ---
+            target_n_ticks = 8
+            tick_indices = np.linspace(0, len(levels_hw) - 1, target_n_ticks).astype(int)
+            ticks_z = np.round(levels_hw[tick_indices], 2)
 
-        if n_ticks > max_n_ticks:
-            rounded_tick_step = max_val / max_n_ticks
-            n_ticks = max_n_ticks
+            cbar_kwargs = {'ticks': ticks_z}
 
-        # Generate tick positions safely
-        ticks_z = np.arange(0, rounded_tick_step * n_ticks, rounded_tick_step)
+            # --- Plot ---
+            p = da.plot.contourf(
+                x='birth_year',
+                y='GMT',
+                ax=ax,
+                add_labels=False,
+                levels=levels_hw,
+                cmap='Reds',
+                extend='both',
+                cbar_kwargs=cbar_kwargs
+            )
 
-        ticks_z = np.round(ticks_z, 1)
-
-        # Use in colorbar kwargs
-        cbar_kwargs = {'ticks': ticks_z}
-
-        p =da.plot.contourf(
-            x='birth_year',
-            y='GMT',
-            ax=ax,
-            add_labels=False,
-            levels=levels_hw,
-            cmap='Reds',
-            cbar_kwargs={'ticks': ticks_z}
-        )
-
-    ax.set_yticks(
+        # Set ticks and labels
+        ax.set_yticks(
             ticks=GMT_indices_ticks,
             labels=gmts2100,
             color='gray',
-    )
-    
-    ax.set_xticks(
-        ticks=np.arange(1960,2025,10),
-        color='gray',
-    )  
+        )
 
-    ax.tick_params(axis='both', labelsize=12)  
+        ax.set_xticks(
+            ticks=np.arange(1960, 2025, 10),
+            color='gray',
+        )  
 
-    ax.set_title(
-        "{} : Lifetime Exposure in \n {}".format(flags['extr'], region_name),
-        loc='center',
-        fontweight='bold',
-        color='gray',
-        fontsize=16,
-    )
-    ax.spines['right'].set_color('gray')
-    ax.spines['top'].set_color('gray')
-    ax.spines['left'].set_color('gray')
-    ax.spines['bottom'].set_color('gray')  
-        
-    ax.set_xlabel('Birth year',fontsize=14,color='gray')
-    ax.set_ylabel('GMT warming by 2100 [°C]',fontsize=14,color='gray',rotation='vertical',)
+        ax.tick_params(axis='both', labelsize=12)  
 
-    plt.tight_layout()
-    
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig7_BE_{}_lifetime_exposure_region_{}.png'.format(flags['extr'],flags['extr'],region_name))
+        # Title and aesthetics
+        ax.set_title(
+            "{} : Lifetime Exposure in \n {}".format(extr, region_name),
+            loc='center',
+            fontweight='bold',
+            color='gray',
+            fontsize=16,
+        )
+
+        ax.spines['right'].set_color('gray')
+        ax.spines['top'].set_color('gray')
+        ax.spines['left'].set_color('gray')
+        ax.spines['bottom'].set_color('gray')  
+
+        ax.set_xlabel('Birth year', fontsize=14, color='gray')
+        ax.set_ylabel('GMT warming by 2100 [°C]', fontsize=14, color='gray', rotation='vertical')
+
+        plt.tight_layout()
+
+        plt.savefig(
+            scripts_dir + '/figures/source2suffering/development/{}/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}.png'.format(
+                extr, extr, region_name, flags['gmt']
+            )
+        )
+
+        print("Plot performed for {}".format(region_name))
 
 
 def plot_dev_fig8(
     df_GMT_strj,
+    ds_le_percountry,
     flags,
+    extr, 
     country
 ):
     """
@@ -678,12 +692,6 @@ def plot_dev_fig8(
     GMT_indices_ticks=[0,5,10,15,20]
     gmts2100 = np.round(df_GMT_strj.loc[2100,GMT_indices_ticks].values,1)    
  
-    
-    #--------------------------- Load Data --------------------------------#
-
-    with open(data_dir+'{}/{}/lifetime_exposure_percountry_GMT.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
-            ds_le_percountry_GMT = pk.load(f)
-
     #------------------------------ Plot ----------------------------------#
 
     # Ticks style
@@ -701,7 +709,7 @@ def plot_dev_fig8(
 
     # Main plot
 
-    da = ds_le_percountry_GMT['mmm'].loc[{
+    da = ds_le_percountry['mmm_BE'].loc[{
         'country':country,
         'birth_year': np.arange(1960, 2021),
     }]
@@ -714,7 +722,7 @@ def plot_dev_fig8(
     
     else:
 
-        if flags['extr']=='heatwavedarea':
+        if extr=='heatwavedarea':
         
             levels_hw=np.arange(0,max_val,0.1)
 
@@ -727,111 +735,111 @@ def plot_dev_fig8(
                 cmap='Reds',
                 cbar_kwargs={'ticks': np.arange(0, max_val, 2)}
             )
+
+            print("Plot performed for {}".format(country))
         
         else:
     
-            # Compute the maximum value of the data
-            max_val = da.max(skipna=True).item()
+            # Compute the min and max values of the data
+            min_val = float(da.min(skipna=True))
+            max_val = float(da.max(skipna=True))
+            range_val = max_val - min_val
 
-            # Set a target and maximum number of contour levels
-            target_n_levels = 30
-            max_n_levels = 50
-
-            # Compute raw step
-            step = max_val / target_n_levels if target_n_levels != 0 else 0.1
-
-            # Add a minimum threshold for the step to avoid too many levels
-            min_step = 0.1
-            rounded_step = max(np.round(step, 2), min_step)
-
-            # Compute levels, but clip number of levels to avoid overflow
-            n_levels = int(np.ceil(max_val / rounded_step)) + 1
-
-            # Safety check to avoid exceeding the max allowed size
-            if n_levels > max_n_levels:
-                rounded_step = max_val / max_n_levels
-                n_levels = max_n_levels
-
-            # Create levels array
-            levels_hw = np.arange(0, rounded_step * n_levels, rounded_step)
-
-            # Safety check before plotting
-            if len(np.unique(levels_hw)) < 2:
-
-                print("Plot not performed: not enough contour levels for {}".format(country))
+            # Early exit if data has no range
+            if np.isclose(range_val, 0):
+                print(f"Plot not performed: constant data for {country}")
                 return
 
-            else:
+            # Define desired number of levels and ticks
+            target_n_levels = 100
+            max_n_levels = 200
+            target_n_ticks = 10
+            max_n_ticks = 20
 
-                # Target and maximum number of ticks for the colorbar (for readability)
-                target_n_ticks = 6
-                max_n_ticks = 10
+            # Compute step size for contour levels
+            step = range_val / target_n_levels
+            min_step = 0.001  # enforce some visual distinction
+            rounded_step = max(np.round(step, 3), min_step)
 
-                # Compute a raw tick step
-                tick_step = max_val / target_n_ticks if target_n_ticks != 0 else 0.5
+            # Create levels
+            levels_hw = np.arange(min_val, max_val + rounded_step, rounded_step)
+            n_levels = len(levels_hw)
 
-                # Add a minimum threshold for the tick step
-                min_tick_step = 0.1
-                rounded_tick_step = max(np.round(tick_step, 2), min_tick_step)
+            # Clip if too many levels
+            if n_levels > max_n_levels:
+                rounded_step = range_val / max_n_levels
+                levels_hw = np.arange(min_val, max_val + rounded_step, rounded_step)
 
-                # Compute number of ticks, enforce a max limit
-                n_ticks = int(np.ceil(max_val / rounded_tick_step)) + 1
+            # Recompute levels if not enough
+            if len(levels_hw) < 3:
+                levels_hw = np.linspace(min_val, max_val, num=3)
 
-                if n_ticks > max_n_ticks:
-                    rounded_tick_step = max_val / max_n_ticks
-                    n_ticks = max_n_ticks
+            # Create ticks aligned with levels
+            tick_step = range_val / target_n_ticks
+            rounded_tick_step = max(np.round(tick_step, 2), min_step)
 
-                # Generate tick positions safely
-                ticks_z = np.arange(0, rounded_tick_step * n_ticks, rounded_tick_step)
+            ticks_z = np.arange(min_val, max_val + rounded_tick_step, rounded_tick_step)
+            ticks_z = np.round(ticks_z, 2)
 
-                ticks_z = np.round(ticks_z, 1)
+            # Clip ticks if too many
+            if len(ticks_z) > max_n_ticks:
+                ticks_z = np.linspace(min_val, max_val, num=max_n_ticks)
+                ticks_z = np.round(ticks_z, 2)
 
-                # Use in colorbar kwargs
-                cbar_kwargs = {'ticks': ticks_z}
+            # Define colorbar settings
+            cbar_kwargs = {'ticks': ticks_z}
 
-                p =da.plot.contourf(
-                    x='birth_year',
-                    y='GMT',
-                    ax=ax,
-                    add_labels=False,
-                    levels=levels_hw,
-                    cmap='Reds',
-                    cbar_kwargs={'ticks': ticks_z}
-                )
-
-            ax.set_yticks(
-                    ticks=GMT_indices_ticks,
-                    labels=gmts2100,
-                    color='gray',
+            # Plot the filled contour
+            p = da.plot.contourf(
+                x='birth_year',
+                y='GMT',
+                ax=ax,
+                add_labels=False,
+                levels=levels_hw,
+                cmap='Reds',
+                extend='both',
+                cbar_kwargs=cbar_kwargs
             )
-            
-            ax.set_xticks(
-                ticks=np.arange(1960,2025,10),
-                color='gray',
-            )  
 
-            ax.tick_params(axis='both', labelsize=12)  
+        ax.set_yticks(
+            ticks=GMT_indices_ticks,
+            labels=gmts2100,
+            color='gray',
+        )
 
-            ax.set_title(
-                "{} : Lifetime Exposure in \n {}".format(flags['extr'], country),
-                loc='center',
-                fontweight='bold',
-                color='gray',
-                fontsize=16,
+        ax.set_xticks(
+            ticks=np.arange(1960, 2025, 10),
+            color='gray',
+        )
+
+        ax.tick_params(axis='both', labelsize=12)
+
+        ax.set_title(
+            "{} : Lifetime Exposure in \n {}".format(extr, country),
+            loc='center',
+            fontweight='bold',
+            color='gray',
+            fontsize=16,
+        )
+
+        ax.spines['right'].set_color('gray')
+        ax.spines['top'].set_color('gray')
+        ax.spines['left'].set_color('gray')
+        ax.spines['bottom'].set_color('gray')
+
+        ax.set_xlabel('Birth year', fontsize=14, color='gray')
+        ax.set_ylabel('GMT warming by 2100 [°C]', fontsize=14, color='gray', rotation='vertical')
+
+        plt.tight_layout()
+
+        plt.savefig(
+            scripts_dir + '/figures/source2suffering/development/{}/fig8_BE_{}_lifetime_exposure_{}_gmt_{}.png'.format(
+                extr, extr, country, flags['gmt']
             )
-            ax.spines['right'].set_color('gray')
-            ax.spines['top'].set_color('gray')
-            ax.spines['left'].set_color('gray')
-            ax.spines['bottom'].set_color('gray')  
-                
-            ax.set_xlabel('Birth year',fontsize=14,color='gray')
-            ax.set_ylabel('GMT warming by 2100 [°C]',fontsize=14,color='gray',rotation='vertical',)
+        )
 
-            plt.tight_layout()
-            
-            plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig8_BE_{}_lifetime_exposure_{}.png'.format(flags['extr'],flags['extr'],country))
+        print("Plot performed for {}".format(country))
 
-            print("Plot performed for {}".format(country))
 
 def plot_dev_fig9(
     s2s_valc_nr_children_facing_extra_hazard,
@@ -1013,7 +1021,7 @@ def plot_dev_fig12(df_GMT_OS, df_GMT_noOS, ds_GMT_STS):
     plt.tight_layout()
 
     # Save the figure
-    plt.savefig(scripts_dir + '/figures/source2suffering/development/GMT_trajectories/GMT_traj_STS.png')
+    plt.savefig(scripts_dir + '/figures/source2suffering/development/GMT_trajectories/GMT_traj_STS_Thiery_comp.png')
 
 def plot_dev_fig13_regions(ds_regions, extr, flags, ds_le, region_ind, EMF):
     """

@@ -335,6 +335,8 @@ if Source2Suffering:
 
         print("\nQ.(1) - Number of children in the world facing an additional heatwave due to the total emissions of Neptun Deep\n")
 
+        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt']), 'rb') as f:
+            ds_le_perregion = pk.load(f)
 
         # Computation for the 2010 to 2020 birth cohorts #
 
@@ -344,7 +346,7 @@ if Source2Suffering:
         valc_nr_children_facing_extra_heatwave_NeptunDeep = emissions2npeople(
             CO2_emissions = CO2_emissions_NeptunDeep,
             TCRE = TCRE_init,
-            ds_le = ds_le_perregion_GMT,
+            ds_le = ds_le_perregion,
             region_ind = 11,
             birth_years = birth_years,
             year_start = year_start_as,
@@ -363,41 +365,38 @@ if Source2Suffering:
         
         print("For total birth of the {}-{} period = {} children \n".format(year_start_as,year_end_as, int(valc_nr_children_facing_extra_heatwave_NeptunDeep[-1])))
 
-        # Computation for the reference 1960 - 1970 birth cohorts # 
+        # # Computation for the reference 1960 - 1970 birth cohorts # 
 
-        year_start_as_ref = 1960
-        year_end_as_ref = 1970
+        # year_start_as_ref = 1960
+        # year_end_as_ref = 1970
 
-        # Generate list of birth years for iteration
-        years_loop = list(range(year_end_as_ref, year_start_as_ref - 1, -1))
+        # # Generate list of birth years for iteration
+        # years_loop = list(range(year_end_as_ref, year_start_as_ref - 1, -1))
 
-        valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = emissions2npeople(
-            CO2_emissions = CO2_emissions_NeptunDeep,
-            TCRE = TCRE_init,
-            ds_le = ds_le_perregion_GMT,
-            region_ind = 11,
-            birth_years = birth_years,
-            year_start = year_start_as_ref,
-            year_end = year_end_as_ref,
-            df_GMT_strj = df_GMT_strj, 
-            valp_cohort_size_abs = valp_cohort_size_abs,
-            rounding = 1)
+        # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = emissions2npeople(
+        #     CO2_emissions = CO2_emissions_NeptunDeep,
+        #     TCRE = TCRE_init,
+        #     ds_le = ds_le_perregion,
+        #     region_ind = 11,
+        #     birth_years = birth_years,
+        #     year_start = year_start_as_ref,
+        #     year_end = year_end_as_ref,
+        #     df_GMT_strj = df_GMT_strj, 
+        #     valp_cohort_size_abs = valp_cohort_size_abs,
+        #     rounding = 1)
 
-        # Only keep the value for the total of the birth cohort between 1960 and 1970
+        # # Only keep the value for the total of the birth cohort between 1960 and 1970
 
-        valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]
+        # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]
 
-        # Compute the relative exposure to an additionnal heatwaves between the 2010-2020 and the 1960-1970 birth cohort
-        valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
-            valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
-            round((valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref) * 100)
-        ]
+        # # Compute the relative exposure to an additionnal heatwaves between the 2010-2020 and the 1960-1970 birth cohort
+        # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
+        #     valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
+        #     round((valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref) * 100)
+        # ]
 
-        print("Number of people born between 1960 and 1970 that will be exposed to an additionnal heatwave due to the total emissions of Neptun Deep = {} people".format(int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[0])))
-        print("Relative difference between the 2010-2020 and the 1960-1970 birth cohorts = {} %".format(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]))
-
-
-        sys.exit(0)
+        # print("Number of people born between 1960 and 1970 that will be exposed to an additionnal heatwave due to the total emissions of Neptun Deep = {} people".format(int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[0])))
+        # print("Relative difference between the 2010-2020 and the 1960-1970 birth cohorts = {} %".format(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]))
 
 
         # # -------------------------------------------------------------------------- #
@@ -430,14 +429,14 @@ if Source2Suffering:
             print("Hazard = {}\n".format(extr))
 
             # Load the corresponding exposure dataset
-            with open(data_dir + '{}/{}/ds_le_perregion_{}_GMT.pkl'.format(flags['version'], extr,flags['gmt']), 'rb') as f:
-                ds_le_perregion_GMT = pk.load(f)
+            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}.pkl'.format(flags['version'],extr,flags['gmt']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
 
             # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario
             valc_nr_children_facing_extra_hazard_NeptunDeep = emissions2npeople(
                 CO2_emissions=CO2_emissions_NeptunDeep,
                 TCRE=TCRE_init,
-                ds_le=ds_le_perregion_GMT,
+                ds_le=ds_le_perregion,
                 region_ind=11,
                 birth_years=birth_years,
                 year_start=year_start_as,

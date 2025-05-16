@@ -63,7 +63,7 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_
 
         # Extract lifetime exposure data and GMT anomaly in 2100 
         # for each cohort among the birth_years between year_start and year_end #
-        valc_exposure_climate_extreme_newborns = ds_le['mmm'].sel(region=region_ind, birth_year=years_loop[i])
+        valc_exposure_climate_extreme_newborns = ds_le['mmm_BE'].sel(region=region_ind, birth_year=years_loop[i])
 
         # Recover the 2113 GMT anomaly ? To be confirmed. Should be placed outside of the loop
         valc_GMT_2100 = df_GMT_strj.iloc[-1]  
