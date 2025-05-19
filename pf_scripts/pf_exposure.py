@@ -190,6 +190,96 @@ def calc_lifetime_exposure_mmm_xr(
 
     if 'country' in ds_le_perrun.dims:
 
+        # ------------------------ 1.5°C trajectory ------------------------- #
+        
+        mmm_15 = ds_le_perrun['le_percountry_perrun_15'].mean(dim='run', skipna=True)
+        std_15 = ds_le_perrun['le_percountry_perrun_15'].std(dim='run', skipna=True)
+        lqntl_15 = ds_le_perrun['le_percountry_perrun_15'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_15 = ds_le_perrun['le_percountry_perrun_15'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+
+        median_15 = ds_le_perrun['le_percountry_perrun_15'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        
+        # get EMF of stats (divide by 60 yr old / 1960 cohort)
+        mmm_EMF_15 = mmm_15 / mmm_15.sel(birth_year=1960)
+        lqntl_EMF_15 = lqntl_15 / mmm_15.sel(birth_year=1960)
+        uqntl_EMF_15 = uqntl_15 / mmm_15.sel(birth_year=1960)
+        median_EMF_15 = median_15 / mmm_15.sel(birth_year=1960)
+
+        # ------------------------ 2.0°C trajectory ------------------------- #
+        
+        mmm_20 = ds_le_perrun['le_percountry_perrun_20'].mean(dim='run', skipna=True)
+        std_20 = ds_le_perrun['le_percountry_perrun_20'].std(dim='run', skipna=True)
+        lqntl_20 = ds_le_perrun['le_percountry_perrun_20'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_20 = ds_le_perrun['le_percountry_perrun_20'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+
+        median_20 = ds_le_perrun['le_percountry_perrun_20'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        
+        # get EMF of stats (divide by 60 yr old / 1960 cohort)
+        mmm_EMF_20 = mmm_20 / mmm_20.sel(birth_year=1960)
+        lqntl_EMF_20 = lqntl_20 / mmm_20.sel(birth_year=1960)
+        uqntl_EMF_20 = uqntl_20 / mmm_20.sel(birth_year=1960)
+        median_EMF_20 = median_20 / mmm_20.sel(birth_year=1960)
+        
+        # ------------------------ NDC trajectory ------------------------- #
+        
+        mmm_NDC = ds_le_perrun['le_percountry_perrun_NDC'].mean(dim='run', skipna=True)
+        std_NDC = ds_le_perrun['le_percountry_perrun_NDC'].std(dim='run', skipna=True)
+        lqntl_NDC = ds_le_perrun['le_percountry_perrun_NDC'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_NDC = ds_le_perrun['le_percountry_perrun_NDC'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+
+        median_NDC = ds_le_perrun['le_percountry_perrun_NDC'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        
+        # get EMF of stats (divide by 60 yr old / 1960 cohort)
+        mmm_EMF_NDC = mmm_NDC / mmm_NDC.sel(birth_year=1960)
+        lqntl_EMF_NDC = lqntl_NDC / mmm_NDC.sel(birth_year=1960)
+        uqntl_EMF_NDC = uqntl_NDC / mmm_NDC.sel(birth_year=1960)
+        median_EMF_NDC = median_NDC / mmm_NDC.sel(birth_year=1960)
+
         # ------------------------ OverShoot (OS) trajectory ------------------------- #
         
         mmm_OS = ds_le_perrun['le_percountry_perrun_OS'].mean(dim='run', skipna=True)
@@ -341,6 +431,96 @@ def calc_lifetime_exposure_mmm_xr(
         median_EMF_BE = median_BE / mmm_BE.sel(birth_year=1960)
 
     if 'region' in ds_le_perrun.dims:
+
+        # ------------------------ 1.5°C trajectory ------------------------- #
+        
+        mmm_15 = ds_le_perrun['le_perregion_perrun_15'].mean(dim='run', skipna=True)
+        std_15 = ds_le_perrun['le_perregion_perrun_15'].std(dim='run', skipna=True)
+        lqntl_15 = ds_le_perrun['le_perregion_perrun_15'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_15 = ds_le_perrun['le_perregion_perrun_15'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+
+        median_15 = ds_le_perrun['le_perregion_perrun_15'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        
+        # get EMF of stats (divide by 60 yr old / 1960 cohort)
+        mmm_EMF_15 = mmm_15 / mmm_15.sel(birth_year=1960)
+        lqntl_EMF_15 = lqntl_15 / mmm_15.sel(birth_year=1960)
+        uqntl_EMF_15 = uqntl_15 / mmm_15.sel(birth_year=1960)
+        median_EMF_15 = median_15 / mmm_15.sel(birth_year=1960)
+
+        # ------------------------ 2.0°C trajectory ------------------------- #
+        
+        mmm_20 = ds_le_perrun['le_perregion_perrun_20'].mean(dim='run', skipna=True)
+        std_20 = ds_le_perrun['le_perregion_perrun_20'].std(dim='run', skipna=True)
+        lqntl_20 = ds_le_perrun['le_perregion_perrun_20'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_20 = ds_le_perrun['le_perregion_perrun_20'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+
+        median_20 = ds_le_perrun['le_perregion_perrun_20'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        
+        # get EMF of stats (divide by 60 yr old / 1960 cohort)
+        mmm_EMF_20 = mmm_20 / mmm_20.sel(birth_year=1960)
+        lqntl_EMF_20 = lqntl_20 / mmm_20.sel(birth_year=1960)
+        uqntl_EMF_20 = uqntl_20 / mmm_20.sel(birth_year=1960)
+        median_EMF_20 = median_20 / mmm_20.sel(birth_year=1960)
+        
+        # ------------------------ NDC trajectory ------------------------- #
+        
+        mmm_NDC = ds_le_perrun['le_perregion_perrun_NDC'].mean(dim='run', skipna=True)
+        std_NDC = ds_le_perrun['le_perregion_perrun_NDC'].std(dim='run', skipna=True)
+        lqntl_NDC = ds_le_perrun['le_perregion_perrun_NDC'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_NDC = ds_le_perrun['le_perregion_perrun_NDC'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+
+        median_NDC = ds_le_perrun['le_perregion_perrun_NDC'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        
+        # get EMF of stats (divide by 60 yr old / 1960 cohort)
+        mmm_EMF_NDC = mmm_NDC / mmm_NDC.sel(birth_year=1960)
+        lqntl_EMF_NDC = lqntl_NDC / mmm_NDC.sel(birth_year=1960)
+        uqntl_EMF_NDC = uqntl_NDC / mmm_NDC.sel(birth_year=1960)
+        median_EMF_NDC = median_NDC / mmm_NDC.sel(birth_year=1960)
     
         # ------------------------ OverShoot (OS) trajectory ------------------------- #
         
@@ -493,6 +673,36 @@ def calc_lifetime_exposure_mmm_xr(
         median_EMF_BE = median_BE / mmm_BE.sel(birth_year=1960)
 
     # --------------------- Integration in the DataSet ---------------------------- #
+
+    ds_le_perrun['mmm_15'] = mmm_15
+    ds_le_perrun['std_15'] = std_15
+    ds_le_perrun['lqntl_15'] = lqntl_15
+    ds_le_perrun['uqntl_15'] = uqntl_15
+    ds_le_perrun['median_15'] = median_15
+    ds_le_perrun['mmm_EMF_15'] = mmm_EMF_15
+    ds_le_perrun['lqntl_EMF_15'] = lqntl_EMF_15
+    ds_le_perrun['uqntl_EMF_15'] = uqntl_EMF_15
+    ds_le_perrun['median_EMF_15'] = median_EMF_15
+
+    ds_le_perrun['mmm_20'] = mmm_20
+    ds_le_perrun['std_20'] = std_20
+    ds_le_perrun['lqntl_20'] = lqntl_20
+    ds_le_perrun['uqntl_20'] = uqntl_20
+    ds_le_perrun['median_20'] = median_20
+    ds_le_perrun['mmm_EMF_20'] = mmm_EMF_20
+    ds_le_perrun['lqntl_EMF_20'] = lqntl_EMF_20
+    ds_le_perrun['uqntl_EMF_20'] = uqntl_EMF_20
+    ds_le_perrun['median_EMF_20'] = median_EMF_20
+    
+    ds_le_perrun['mmm_NDC'] = mmm_NDC
+    ds_le_perrun['std_NDC'] = std_NDC
+    ds_le_perrun['lqntl_NDC'] = lqntl_NDC
+    ds_le_perrun['uqntl_NDC'] = uqntl_NDC
+    ds_le_perrun['median_NDC'] = median_NDC
+    ds_le_perrun['mmm_EMF_NDC'] = mmm_EMF_NDC
+    ds_le_perrun['lqntl_EMF_NDC'] = lqntl_EMF_NDC
+    ds_le_perrun['uqntl_EMF_NDC'] = uqntl_EMF_NDC
+    ds_le_perrun['median_EMF_NDC'] = median_EMF_NDC
 
     ds_le_perrun['mmm_OS'] = mmm_OS
     ds_le_perrun['std_OS'] = std_OS
@@ -784,200 +994,20 @@ def calc_exposure_trends(
 
     return ds_le_trends_regions
         
-#%%----------------------------------------------------------------#
-# Convert Area Fraction Affected (AFA) to per-country number of    #
-# extremes affecting one individual across life span               #
-# Original W.Thiery's lifetime exposure function translated by     # 
-# L.Grant even thought not used for Grant et al.(2025) since the   #
-# lifetime exposure is computed in the emergence analysis          #
-# This function is used for the Source2Suffering and Laridon       #
-# et al.(2025) analysis for backward compatibility with W.Thiery's #
-# results. A.Laridon have add the exposure per region per run      # 
-# computation following Thiery et al.(2021)                        #
-#----------------------------------------------------------------- #
+#%%-----------------------------------------------------------------#
+# Convert Area Fraction Affected (AFA) to per-country number of     #
+# extremes affecting one individual across life span                #
+# Original W.Thiery's lifetime exposure function translated by      # 
+# L.Grant & A.Laridon even thought not used for Grant et al.(2025)  #
+# since the lifetime exposure is computed in the emergence analysis #
+#                                                                   #
+# This function is used for the Source2Suffering and Laridon        #
+# et al.(2025) analysis for backward compatibility with W.Thiery's  #
+# results. A.Laridon have add the exposure per region per run       # 
+# computation following Thiery et al.(2021)                         #
+#------------------------------------------------------------------ #
 
 def calc_lifetime_exposure(
-    d_isimip_meta, 
-    df_countries, 
-    countries_regions, 
-    countries_mask, 
-    da_population, 
-    df_life_expectancy_5,
-    ds_regions,
-    d_cohort_weights_regions,
-    flags,
-):
-
-
-    #---------------------------------------------------------------------#
-    # Init                                                                #
-    #---------------------------------------------------------------------#
-
-    # nan dataset of lifetime exposure at the country scale
-    ds_le_percountry_perrun_GMT = xr.Dataset(
-        data_vars={
-            'lifetime_exposure': (
-                ['run','GMT','country','birth_year'],
-                np.full(
-                    (len(list(d_isimip_meta.keys())),len(GMT_labels),len(df_countries['name'].values),len(birth_years)),
-                    fill_value=np.nan,
-                ),
-            )
-        },
-        coords={
-            'country': ('country', df_countries['name'].values),
-            'birth_year': ('birth_year', birth_years),
-            'run': ('run', np.arange(1,len(list(d_isimip_meta.keys()))+1)),
-            'GMT': ('GMT', GMT_labels)
-        }
-    )
-
-    nregions = len(ds_regions['name']) # number of regions that will be used for the init of the dimension
-
-    # nan dataset of lifetime exposure at the country scale
-    ds_le_perregion_perrun_GMT = xr.Dataset(
-        data_vars={
-            'lifetime_exposure': (
-                ['run','GMT','region','birth_year'],
-                np.full(
-                    (len(list(d_isimip_meta.keys())),len(GMT_labels),nregions,len(birth_years)),
-                    fill_value=np.nan,
-                ),
-            )
-        },
-        coords={
-            'region': ('region', np.arange(0,nregions,1)),
-            'birth_year': ('birth_year', birth_years),
-            'run': ('run', np.arange(1,len(list(d_isimip_meta.keys()))+1)),
-            'GMT': ('GMT', GMT_labels)
-        }
-    )
-    
-    #---------------------------------------------------------------------#
-    # Loop over ISIMIP simulations                                        #
-    #---------------------------------------------------------------------#
-    for i in list(d_isimip_meta.keys()): 
-
-        print('ISIMIP Simulation {} of {}'.format(i,len(d_isimip_meta)))
-
-        # load AFA data of that run
-        with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
-            da_AFA = pk.load(f)
-
-        #---------------------------------------------------------------------#
-        # Per country                                                         #
-        #---------------------------------------------------------------------#
-
-        # initialise dicts
-        d_exposure_peryear_percountry = {}
-
-        # get spatial average
-        for j, country in enumerate(df_countries['name']):
-
-            print('Processing country '+str(j+1)+' of '+str(len(df_countries)), end='\r')
-            
-            # calculate mean per country weighted by population
-            ind_country = countries_regions.map_keys(country)
-
-            # historical + RCP simulations
-            d_exposure_peryear_percountry[country] = calc_weighted_fldmean( 
-                da_AFA,
-                da_population, 
-                countries_mask, 
-                ind_country, 
-                flag_region=False,
-            )
-                        
-        #---------------------------------------------------------------------#
-        # Convert dict to dataframe for vectorizing and integrate exposures   # 
-        #---------------------------------------------------------------------#
-       
-        frame = {k:v.values for k,v in d_exposure_peryear_percountry.items()}
-        df_exposure = pd.DataFrame(frame,index=year_range)           
-
-        #---------------------------------------------------------------------#
-        # Computations for Burning Embers diagram by mapping the GMTs         #
-        #---------------------------------------------------------------------#   
-             
-        for step in GMT_labels:
-
-            # if max threshold criteria met, run gmt mapping
-            if d_isimip_meta[i]['GMT_strj_valid'][step]:
-
-                print("Simulations used for re-mapping for GMT index = {}".format([step]))
-            
-                # reindexing original exposure array based on GMT-mapping indices
-                d_exposure_perrun_step = df_exposure.apply(
-                    lambda col: calc_life_exposure(
-                        df_exposure.reindex(df_exposure.index[d_isimip_meta[i]['ind_RCP2GMT_strj'][:,step]]).set_index(df_exposure.index),
-                        df_life_expectancy_5,
-                        col.name,
-                    ),
-                    axis=0,
-                )
-        
-                # convert dataframe to data array of lifetime exposure (le) per country and birth year
-                ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{
-                    'run':i,
-                    'GMT':step,
-                }] = d_exposure_perrun_step.values.transpose() 
-    
-                #---------------------------------------------------------------------#
-                # Per region                                                          #
-                #---------------------------------------------------------------------#
-
-                for region_ind, region in enumerate(ds_regions.region.values):
-                
-                    region_name = ds_regions['name'].sel(region=region_ind).item()
-                    member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
-
-                    weights = d_cohort_weights_regions[region_name]
-
-                    le_percountry = ds_le_percountry_perrun_GMT['lifetime_exposure'].loc[{
-                        'run': i,
-                        'GMT': step,
-                        'country': member_countries,
-                        'birth_year': slice(None)
-                    }]
-
-                    # print('region name', region_name)
-
-                    # print('le_percountry')
-                    # print(le_percountry)
-                    # print(type(le_percountry))
-                    # print(np.shape(le_percountry))
-
-                    # print('weights')
-                    # print(weights)
-                    # print(type(weights))
-                    # print(np.shape(weights))
-
-                    weighted_avg = np.nansum(le_percountry.values * weights.values.T, axis=0) / np.nansum(weights.values.T, axis=0)
-
-                    # print('weighted_avg')
-                    # print(weighted_avg)
-                    # print(type(weighted_avg))
-                    # print(np.shape(weighted_avg))
-
-                    ds_le_perregion_perrun_GMT['lifetime_exposure'].loc[{
-                        'run': i,
-                        'GMT': step,
-                        'region': region_ind,
-                        'birth_year': slice(None)
-                    }] = weighted_avg
-
-
-    # dump pickle of lifetime exposure per country
-    with open(data_dir+'{}/{}/ds_le_percountry_perrun_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
-        pk.dump(ds_le_percountry_perrun_GMT,f)
-    
-    # dump pickle of lifetime exposure per region
-    with open(data_dir+'{}/{}/ds_le_perregion_perrun_{}_GMT.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
-        pk.dump(ds_le_perregion_perrun_GMT,f)
-
-    return ds_le_percountry_perrun_GMT, ds_le_perregion_perrun_GMT
-
-def calc_lifetime_exposure_v2(
     d_isimip_meta, 
     df_countries, 
     countries_regions, 
@@ -999,6 +1029,42 @@ def calc_lifetime_exposure_v2(
     ds_le_percountry_perrun = xr.Dataset(
 
     data_vars={
+
+        'le_percountry_perrun_15': (
+            ['run', 'country', 'birth_year'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    len(df_countries['name'].values),
+                    len(birth_years)
+                ),
+                fill_value=np.nan
+            )
+        ),
+
+        'le_percountry_perrun_20': (
+            ['run', 'country', 'birth_year'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    len(df_countries['name'].values),
+                    len(birth_years)
+                ),
+                fill_value=np.nan
+            )
+        ),
+
+        'le_percountry_perrun_NDC': (
+            ['run', 'country', 'birth_year'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    len(df_countries['name'].values),
+                    len(birth_years)
+                ),
+                fill_value=np.nan
+            )
+        ),
 
         'le_percountry_perrun_OS': (
             ['run', 'country', 'birth_year'],
@@ -1078,6 +1144,42 @@ def calc_lifetime_exposure_v2(
 
     data_vars={
 
+        'le_perregion_perrun_15': (
+            ['run', 'region', 'birth_year'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    nregions,
+                    len(birth_years)
+                ),
+                fill_value=np.nan
+            )
+        ),
+
+        'le_perregion_perrun_20': (
+            ['run', 'region', 'birth_year'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    nregions,
+                    len(birth_years)
+                ),
+                fill_value=np.nan
+            )
+        ),
+
+        'le_perregion_perrun_NDC': (
+            ['run', 'region', 'birth_year'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    nregions,
+                    len(birth_years)
+                ),
+                fill_value=np.nan
+            )
+        ),
+
         'le_perregion_perrun_OS': (
             ['run', 'region', 'birth_year'],
             np.full(
@@ -1153,7 +1255,7 @@ def calc_lifetime_exposure_v2(
     #---------------------------------------------------------------------#
     for i in list(d_isimip_meta.keys()): 
 
-        print('\n---------- ISIMIP Simulation {} of {} ----------'.format(i,len(d_isimip_meta)))
+        print('\n---------- ISIMIP Simulation {} of {} ----------\n'.format(i,len(d_isimip_meta)))
 
         # load AFA data of that run
         with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
@@ -1197,9 +1299,169 @@ def calc_lifetime_exposure_v2(
         # remapping                                                           #
         # ------------------------------------------------------------------- #
 
+        #----- Computation of the Lifetime Exposure for the 1.5°C Trajectory -----#
+
+        print('                                                               ')
+        print('\nComputation of the Lifetime Exposure for the 1.5°C trajectory')
+
+        # if max threshold criteria met, run gmt mapping
+        if d_isimip_meta[i]['GMT_15_valid']:
+
+            print("ISMIP Simulation {} use for re-mapping GMT index for the 1.5°C trajectory".format(i))
+
+            # reindexing original exposure array based on GMT-mapping indices
+            d_le_percountry_perrun_15 = df_exposure_percountry.apply(
+                lambda col: calc_life_exposure(
+                    df_exposure_percountry.reindex(df_exposure_percountry.index[d_isimip_meta[i]['ind_RCP2GMT_15'][:]]).set_index(df_exposure_percountry.index),
+                    df_life_expectancy_5,
+                    col.name,
+                ),
+                axis=0,
+            )
+
+            # convert dataframe to data array of lifetime exposure (le) per country and birth year
+            ds_le_percountry_perrun['le_percountry_perrun_15'].loc[{
+                'run':i,
+            }] = d_le_percountry_perrun_15.values.transpose() 
+
+            #---------------------------------------------------------------------#
+            # Per region                                                          #
+            #---------------------------------------------------------------------#
+
+            for region_ind, region in enumerate(ds_regions.region.values):
+            
+                region_name = ds_regions['name'].sel(region=region_ind).item()
+                member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
+
+                weights = d_cohort_weights_regions[region_name]
+
+                le_percountry_perrun = ds_le_percountry_perrun['le_percountry_perrun_15'].loc[{
+                    'run': i,
+                    'country': member_countries,
+                    'birth_year': slice(None)
+                }]
+
+                weighted_avg = np.nansum(le_percountry_perrun.values * weights.values.T, axis=0) / np.nansum(weights.values.T, axis=0)
+
+                ds_le_perregion_perrun['le_perregion_perrun_15'].loc[{
+                    'run': i,
+                    'region': region_ind,
+                    'birth_year': slice(None)
+                }] = weighted_avg
+        
+        else:
+
+            print("ISMIP Simulation {} can not be used for re-mapping GMT for the 1.5°C trajectory".format(i))
+
+        #----- Computation of the Lifetime Exposure for the 2.0°C Trajectory -----#
+
+        print('\nComputation of the Lifetime Exposure for the 2.0°C trajectory')
+
+        # if max threshold criteria met, run gmt mapping
+        if d_isimip_meta[i]['GMT_20_valid']:
+
+            print("ISMIP Simulation {} use for re-mapping GMT index for the 2.0°C trajectory".format(i))
+
+            # reindexing original exposure array based on GMT-mapping indices
+            d_le_percountry_perrun_20 = df_exposure_percountry.apply(
+                lambda col: calc_life_exposure(
+                    df_exposure_percountry.reindex(df_exposure_percountry.index[d_isimip_meta[i]['ind_RCP2GMT_20'][:]]).set_index(df_exposure_percountry.index),
+                    df_life_expectancy_5,
+                    col.name,
+                ),
+                axis=0,
+            )
+
+            # convert dataframe to data array of lifetime exposure (le) per country and birth year
+            ds_le_percountry_perrun['le_percountry_perrun_20'].loc[{
+                'run':i,
+            }] = d_le_percountry_perrun_20.values.transpose() 
+
+            #---------------------------------------------------------------------#
+            # Per region                                                          #
+            #---------------------------------------------------------------------#
+
+            for region_ind, region in enumerate(ds_regions.region.values):
+            
+                region_name = ds_regions['name'].sel(region=region_ind).item()
+                member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
+
+                weights = d_cohort_weights_regions[region_name]
+
+                le_percountry_perrun = ds_le_percountry_perrun['le_percountry_perrun_20'].loc[{
+                    'run': i,
+                    'country': member_countries,
+                    'birth_year': slice(None)
+                }]
+
+                weighted_avg = np.nansum(le_percountry_perrun.values * weights.values.T, axis=0) / np.nansum(weights.values.T, axis=0)
+
+                ds_le_perregion_perrun['le_perregion_perrun_20'].loc[{
+                    'run': i,
+                    'region': region_ind,
+                    'birth_year': slice(None)
+                }] = weighted_avg
+        
+        else:
+
+            print("ISMIP Simulation {} can not be used for re-mapping GMT for the 2.0°C trajectory".format(i))
+
+        #----- Computation of the Lifetime Exposure for the NDC Trajectory -----#
+
+        print('\nComputation of the Lifetime Exposure for the NDC trajectory')
+
+        # if max threshold criteria met, run gmt mapping
+        if d_isimip_meta[i]['GMT_NDC_valid']:
+
+            print("ISMIP Simulation {} use for re-mapping GMT index for the NDC trajectory".format(i))
+
+            # reindexing original exposure array based on GMT-mapping indices
+            d_le_percountry_perrun_NDC = df_exposure_percountry.apply(
+                lambda col: calc_life_exposure(
+                    df_exposure_percountry.reindex(df_exposure_percountry.index[d_isimip_meta[i]['ind_RCP2GMT_NDC'][:]]).set_index(df_exposure_percountry.index),
+                    df_life_expectancy_5,
+                    col.name,
+                ),
+                axis=0,
+            )
+
+            # convert dataframe to data array of lifetime exposure (le) per country and birth year
+            ds_le_percountry_perrun['le_percountry_perrun_NDC'].loc[{
+                'run':i,
+            }] = d_le_percountry_perrun_NDC.values.transpose() 
+
+            #---------------------------------------------------------------------#
+            # Per region                                                          #
+            #---------------------------------------------------------------------#
+
+            for region_ind, region in enumerate(ds_regions.region.values):
+            
+                region_name = ds_regions['name'].sel(region=region_ind).item()
+                member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
+
+                weights = d_cohort_weights_regions[region_name]
+
+                le_percountry_perrun = ds_le_percountry_perrun['le_percountry_perrun_NDC'].loc[{
+                    'run': i,
+                    'country': member_countries,
+                    'birth_year': slice(None)
+                }]
+
+                weighted_avg = np.nansum(le_percountry_perrun.values * weights.values.T, axis=0) / np.nansum(weights.values.T, axis=0)
+
+                ds_le_perregion_perrun['le_perregion_perrun_NDC'].loc[{
+                    'run': i,
+                    'region': region_ind,
+                    'birth_year': slice(None)
+                }] = weighted_avg
+        
+        else:
+
+            print("ISMIP Simulation {} can not be used for re-mapping GMT for the NDC trajectory".format(i))
+
+
         #----- Computation of the Lifetime Exposure for the OverShoot (OS) Trajectory -----#
 
-        print("                                                                          ")
         print('\nComputation of the Lifetime Exposure for the OverShoot (OS) trajectory')
 
         # if max threshold criteria met, run gmt mapping

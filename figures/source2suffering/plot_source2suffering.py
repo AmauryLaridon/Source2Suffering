@@ -352,7 +352,20 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
     
     plt.close('all') 
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 8))
+
+    if extr=='burntarea':
+        extr_name = 'Wildfires'
+    if extr=='cropfailedarea':
+        extr_name = 'Crop failures'
+    if extr=='driedarea':
+        extr_name = 'Droughts'
+    if extr=='floodedarea':
+        extr_name = 'River floods'
+    if extr=='heatwavedarea':
+        extr_name = 'Heatwaves'
+    if extr=='tropicalcyclonedarea':
+        extr_name = 'Tropical Cyclones'
 
     if flags['gmt'] == 'ar6_new':
     
@@ -361,7 +374,6 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
 
     if flags['gmt'] == 'original':
 
-        GMT_list = [6,9,16]
         GMT_label = ['1.5°C', '2.0°C', 'NDC']
 
     GMT_color = ['tab:blue','tab:orange','tab:red']
@@ -396,29 +408,68 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
 
     else:
 
-        for GMT in GMT_list:
+        if flags['gmt']=='ar6_new':
 
-            exposure = ds['mmm_BE'].sel(
-                country=country,
-                GMT=GMT  
-            )
+            for GMT in GMT_list:
 
-            y_std = ds['std_BE'].sel(
+                exposure = ds['mmm_BE'].sel(
+                    country=country,
+                    GMT=GMT  
+                )
+
+                y_std = ds['std_BE'].sel(
+                    country = country,
+                    GMT = GMT
+                )
+
+                plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i], lw=3)
+                plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i], lw=3)
+
+                i +=1
+        
+        if flags['gmt']=='original':
+
+            exposure_15 = ds['mmm_15'].sel(
+                    country=country,
+                )
+
+            y_std_15 = ds['std_15'].sel(
                 country = country,
-                GMT = GMT
             )
 
-            plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i])
-            plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i])
+            exposure_20 = ds['mmm_20'].sel(
+                    country=country,
+                )
 
-            i +=1
+            y_std_20 = ds['std_20'].sel(
+                country = country,
+            )
 
-        plt.title("{} : MMM Lifetime Exposure in {}".format(extr, country))
-        plt.xlabel("Birth Year")
-        plt.ylabel("Lifetime Exposure")
+            exposure_NDC = ds['mmm_NDC'].sel(
+                    country=country,
+                )
+
+            y_std_NDC = ds['std_NDC'].sel(
+                country = country,
+            )
+
+            plt.plot(birth_years, exposure_15, linestyle='-',color=GMT_color[0],label=GMT_label[0],lw=3)
+            plt.fill_between(birth_years, exposure_15 - y_std_15, exposure_15 + y_std_15, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0],lw=3)
+
+            plt.plot(birth_years, exposure_20, linestyle='-',color=GMT_color[1],label=GMT_label[1],lw=3)
+            plt.fill_between(birth_years, exposure_20 - y_std_20, exposure_20 + y_std_20, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[1],lw=3)
+
+            plt.plot(birth_years, exposure_NDC, linestyle='-',color=GMT_color[2],label=GMT_label[2],lw=3)
+            plt.fill_between(birth_years, exposure_NDC - y_std_NDC, exposure_NDC + y_std_NDC, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[2],lw=3)
+
+        plt.title("Lifetime Exposure to {} \n in {} ".format(extr_name, country),fontsize=18,fontweight='bold')
+        plt.xlabel("Birth Year",fontsize=16)
+        plt.ylabel("Lifetime Exposure",fontsize=16)
+        plt.xticks(fontsize=14)
+        plt.yticks(fontsize=14)
         plt.grid(True)
         plt.tight_layout()
-        plt.legend()
+        plt.legend(fontsize=16)
         plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_{}_gmt_{}.png'.format(extr,country,flags['gmt']))
         print("Plot performed for {}".format(country))
 
@@ -434,7 +485,20 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
     
     plt.close('all') 
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 8))
+
+    if extr=='burntarea':
+        extr_name = 'Wildfires'
+    if extr=='cropfailedarea':
+        extr_name = 'Crop failures'
+    if extr=='driedarea':
+        extr_name = 'Droughts'
+    if extr=='floodedarea':
+        extr_name = 'River floods'
+    if extr=='heatwavedarea':
+        extr_name = 'Heatwaves'
+    if extr=='tropicalcyclonedarea':
+        extr_name = 'Tropical Cyclones'
 
     if flags['gmt'] == 'ar6_new':
 
@@ -442,8 +506,7 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
         GMT_label = ['1.5°C', '2.5°C', '3.5°C']
 
     if flags['gmt'] == 'original':
-
-        GMT_list = [6,9,16]
+    
         GMT_label = ['1.5°C', '2.0°C', 'NDC']
         
     GMT_color = ['tab:blue','tab:orange','tab:red']
@@ -479,31 +542,70 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
 
     else: 
 
-        for GMT in GMT_list:
+        if flags['gmt']=='ar6_new':
 
-            exposure = ds['mmm_BE'].sel(
+            for GMT in GMT_list:
+
+                exposure = ds['mmm_BE'].sel(
+                    region=region,
+                    GMT=GMT  
+                )
+
+                y_std = ds['std_BE'].sel(
+                    region=region,
+                    GMT = GMT
+                )
+
+                plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i],lw=3)
+                plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i],lw=3)
+
+                i +=1
+        
+        if flags['gmt']=='original':
+
+            exposure_15 = ds['mmm_15'].sel(
+                    region=region,
+                )
+
+            y_std_15 = ds['std_15'].sel(
                 region=region,
-                GMT=GMT  
             )
 
-            y_std = ds['std_BE'].sel(
+            exposure_20 = ds['mmm_20'].sel(
                 region=region,
-                GMT = GMT
+                )
+
+            y_std_20 = ds['std_20'].sel(
+                region=region,
             )
 
-            plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i])
-            plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i])
+            exposure_NDC = ds['mmm_NDC'].sel(
+                region=region,
+                )
 
-            i +=1
+            y_std_NDC = ds['std_NDC'].sel(
+                region=region,
+            )
 
-        plt.title("{} : MMM Lifetime Exposure in {}".format(extr, region_name))
-        plt.xlabel("Birth Year")
-        plt.ylabel("Lifetime Exposure")
+            plt.plot(birth_years, exposure_15, linestyle='-',color=GMT_color[0],label=GMT_label[0], lw=3)
+            plt.fill_between(birth_years, exposure_15 - y_std_15, exposure_15 + y_std_15, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0], lw=3)
+
+            plt.plot(birth_years, exposure_20, linestyle='-',color=GMT_color[1],label=GMT_label[1], lw=3)
+            plt.fill_between(birth_years, exposure_20 - y_std_20, exposure_20 + y_std_20, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[1], lw=3)
+
+            plt.plot(birth_years, exposure_NDC, linestyle='-',color=GMT_color[2],label=GMT_label[2], lw=3)
+            plt.fill_between(birth_years, exposure_NDC - y_std_NDC, exposure_NDC + y_std_NDC, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[2], lw=3)
+
+        plt.title("Lifetime Exposure to {} \n in the {} region".format(extr_name, region_name),fontsize=18,fontweight='bold')
+        plt.xlabel("Birth Year",fontsize=16)
+        plt.ylabel("Lifetime Exposure",fontsize=16)
+        plt.xticks(fontsize=14)
+        plt.yticks(fontsize=14)
         plt.grid(True)
         plt.tight_layout()
-        plt.legend()
+        plt.legend(fontsize=16)
         plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}_gmt_{}.png'.format(extr,region_name,flags['gmt']))
-        print("Plot performed for {}".format(region_name))
+        print("Plot performed for the {} region".format(region_name))
 
 def plot_dev_fig7(
     ds_regions,
@@ -530,19 +632,46 @@ def plot_dev_fig7(
     region_name = ds_regions['name'].sel(region=region_ind)
 
     # labels for GMT ticks
-    GMT_indices_ticks=[0,5,10,15,20]
-    gmts2100 = np.round(df_GMT_strj.loc[2100,GMT_indices_ticks].values,1)    
+
+    if flags['gmt']=='ar6_new':
+
+        GMT_indices_ticks=[0,5,10,15,20]
+
+        with open(data_dir+'temperature_trajectories_AR6/df_GMT_strj_{}.pkl'.format(flags['rm']), 'rb') as f:
+            df_GMT_plots = pk.load(f)
+
+
+    if flags['gmt']=='original':
+
+        GMT_indices_ticks=[7,12,17,24,27]
+
+        with open(data_dir+'temperature_trajectories_SR15/df_GMT_strj_{}.pkl'.format(flags['rm']), 'rb') as f:
+            df_GMT_plots = pk.load(f)
+
+    gmts2100 = np.round(df_GMT_plots.loc[2100,GMT_indices_ticks].values,1)    
+
  
     #------------------------------ Plot ----------------------------------#
 
     # Ticks style
 
-    mpl.rcParams['xtick.labelcolor'] = 'gray'
-    mpl.rcParams['ytick.labelcolor'] = 'gray'
+    mpl.rcParams['xtick.labelcolor'] = 'black'
+    mpl.rcParams['ytick.labelcolor'] = 'black'
 
     # Size of the figure
 
     fig = plt.figure(figsize=(8, 7))
+
+    # Label of the hazard
+    hazard_labels = {
+        'burntarea': 'Wildfires',
+        'cropfailedarea': 'Crop failures',
+        'driedarea': 'Droughts',
+        'floodedarea': 'River floods',
+        'heatwavedarea': 'Heatwaves',
+        'tropicalcyclonedarea': 'Tropical Cyclones'
+    }
+    extr_name = hazard_labels.get(extr, extr)
 
     # Init one axe 
 
@@ -630,32 +759,29 @@ def plot_dev_fig7(
         ax.set_yticks(
             ticks=GMT_indices_ticks,
             labels=gmts2100,
-            color='gray',
+            color='black',
         )
 
         ax.set_xticks(
             ticks=np.arange(1960, 2025, 10),
-            color='gray',
+            color='black',
         )  
 
-        ax.tick_params(axis='both', labelsize=12)  
+        ax.tick_params(axis='both', labelsize=14)  
 
         # Title and aesthetics
         ax.set_title(
-            "{} : Lifetime Exposure in \n {}".format(extr, region_name),
-            loc='center',
-            fontweight='bold',
-            color='gray',
-            fontsize=16,
+        "Lifetime Exposure to {} \n in the {} region".format(extr_name, region_name),
+        fontsize=18, fontweight='bold', loc='center', color='black'
         )
 
-        ax.spines['right'].set_color('gray')
-        ax.spines['top'].set_color('gray')
-        ax.spines['left'].set_color('gray')
-        ax.spines['bottom'].set_color('gray')  
+        ax.spines['right'].set_color('black')
+        ax.spines['top'].set_color('black')
+        ax.spines['left'].set_color('black')
+        ax.spines['bottom'].set_color('black')  
 
-        ax.set_xlabel('Birth year', fontsize=14, color='gray')
-        ax.set_ylabel('GMT warming by 2100 [°C]', fontsize=14, color='gray', rotation='vertical')
+        ax.set_xlabel('Birth year', fontsize=16, color='black')
+        ax.set_ylabel('GMT change relative to PI in 2100 [°C]', fontsize=16, color='black', rotation='vertical')
 
         plt.tight_layout()
 
@@ -665,7 +791,7 @@ def plot_dev_fig7(
             )
         )
 
-        print("Plot performed for {}".format(region_name))
+    print("Plot performed for {}".format(region_name))
 
 
 def plot_dev_fig8(
@@ -689,19 +815,45 @@ def plot_dev_fig8(
 
 
     # labels for GMT ticks
-    GMT_indices_ticks=[0,5,10,15,20]
-    gmts2100 = np.round(df_GMT_strj.loc[2100,GMT_indices_ticks].values,1)    
+
+    if flags['gmt']=='ar6_new':
+
+        GMT_indices_ticks=[0,5,10,15,20]
+
+        with open(data_dir+'temperature_trajectories_AR6/df_GMT_strj_{}.pkl'.format(flags['rm']), 'rb') as f:
+            df_GMT_plots = pk.load(f)
+
+
+    if flags['gmt']=='original':
+
+        GMT_indices_ticks=[7,12,17,24,27]
+
+        with open(data_dir+'temperature_trajectories_SR15/df_GMT_strj_{}.pkl'.format(flags['rm']), 'rb') as f:
+            df_GMT_plots = pk.load(f)
+
+    gmts2100 = np.round(df_GMT_plots.loc[2100,GMT_indices_ticks].values,1)     
  
     #------------------------------ Plot ----------------------------------#
 
     # Ticks style
 
-    mpl.rcParams['xtick.labelcolor'] = 'gray'
-    mpl.rcParams['ytick.labelcolor'] = 'gray'
+    mpl.rcParams['xtick.labelcolor'] = 'black'
+    mpl.rcParams['ytick.labelcolor'] = 'black'
 
     # Size of the figure
 
     fig = plt.figure(figsize=(8, 7))
+
+    # Label of the hazard
+    hazard_labels = {
+        'burntarea': 'Wildfires',
+        'cropfailedarea': 'Crop failures',
+        'driedarea': 'Droughts',
+        'floodedarea': 'River floods',
+        'heatwavedarea': 'Heatwaves',
+        'tropicalcyclonedarea': 'Tropical Cyclones'
+    }
+    extr_name = hazard_labels.get(extr, extr)
 
     # Init one axe 
 
@@ -735,8 +887,6 @@ def plot_dev_fig8(
                 cmap='Reds',
                 cbar_kwargs={'ticks': np.arange(0, max_val, 2)}
             )
-
-            print("Plot performed for {}".format(country))
         
         else:
     
@@ -804,31 +954,29 @@ def plot_dev_fig8(
         ax.set_yticks(
             ticks=GMT_indices_ticks,
             labels=gmts2100,
-            color='gray',
+            color='black',
         )
 
         ax.set_xticks(
             ticks=np.arange(1960, 2025, 10),
-            color='gray',
+            color='black',
         )
 
-        ax.tick_params(axis='both', labelsize=12)
+        ax.tick_params(axis='both', labelsize=14)
 
+        # Title and aesthetics
         ax.set_title(
-            "{} : Lifetime Exposure in \n {}".format(extr, country),
-            loc='center',
-            fontweight='bold',
-            color='gray',
-            fontsize=16,
+        "Lifetime Exposure to {} \n in {}".format(extr_name, country),
+        fontsize=18, fontweight='bold', loc='center', color='black'
         )
 
-        ax.spines['right'].set_color('gray')
-        ax.spines['top'].set_color('gray')
-        ax.spines['left'].set_color('gray')
-        ax.spines['bottom'].set_color('gray')
+        ax.spines['right'].set_color('black')
+        ax.spines['top'].set_color('black')
+        ax.spines['left'].set_color('black')
+        ax.spines['bottom'].set_color('black')
 
-        ax.set_xlabel('Birth year', fontsize=14, color='gray')
-        ax.set_ylabel('GMT warming by 2100 [°C]', fontsize=14, color='gray', rotation='vertical')
+        ax.set_xlabel('Birth year', fontsize=16, color='black')
+        ax.set_ylabel('GMT warming by 2100 [°C]', fontsize=16, color='black', rotation='vertical')
 
         plt.tight_layout()
 
@@ -838,7 +986,7 @@ def plot_dev_fig8(
             )
         )
 
-        print("Plot performed for {}".format(country))
+    print(f"Plot performed for {country}")
 
 
 def plot_dev_fig9(

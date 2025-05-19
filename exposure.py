@@ -44,24 +44,7 @@ if flags['lifetime_exposure']:
 
         #-----------------  Compute per ISIMIP run Lifetime Exposure ---------------#
         
-        ### v1.0 of calc_lifetime_exposure that only produces the objets for the BE ###
-
-        # ds_le_percountry_perrun_GMT, ds_le_perregion_perrun_GMT = calc_lifetime_exposure(
-        #     d_isimip_meta,
-        #     df_countries,
-        #     countries_regions,
-        #     countries_mask,
-        #     da_population,
-        #     df_life_expectancy_5,
-        #     ds_regions,
-        #     d_cohort_weights_regions,
-        #     flags,)
-
-        ### v2.0 of calc_lifetime_exposure that produces the values for the BE but also
-        ### the lifetime exposure for specific trajectories such as OS/noOS
-        ### and start the generalization for all others objets 
-
-        ds_le_percountry_perrun, ds_le_perregion_perrun = calc_lifetime_exposure_v2(
+        ds_le_percountry_perrun, ds_le_perregion_perrun = calc_lifetime_exposure(
             d_isimip_meta,
             df_countries,
             countries_regions,
@@ -102,15 +85,15 @@ if flags['lifetime_exposure']:
         # by being time/age explicit to assess this. Did not come to fruition and not retain for further
         # usage in Grant et al.(2025)
 
-        # calc_cohort_lifetime_exposure(
-        #     d_isimip_meta,
-        #     df_countries,
-        #     countries_regions,
-        #     countries_mask,
-        #     da_population,
-        #     da_cohort_size,
-        #     flags,
-        # )
+        calc_cohort_lifetime_exposure(
+            d_isimip_meta,
+            df_countries,
+            countries_regions,
+            countries_mask,
+            da_population,
+            da_cohort_size,
+            flags,
+        )
     
     print("--- {} minutes to compute Lifetime Exposure for all countries and regions ---".format(
         np.floor((time.time() - start_time) / 60),

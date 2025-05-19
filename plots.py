@@ -469,7 +469,7 @@ if Source2Suffering:
 
     # Fig 6 - LE MMM and EMF for all countries and regions for 1.5/2.5/3.5°C #
 
-    plot_fig6 = 1       # 0: do not plot figure 6
+    plot_fig6 = 0       # 0: do not plot figure 6
                         # 1: plot figure 6 
 
     # Fig 7 - BE LE MMM for all regions  #
@@ -479,7 +479,7 @@ if Source2Suffering:
 
     # Fig 8 - BE LE MMM for all regions  #
 
-    plot_fig8 = 0       # 0: do not plot figure 8 
+    plot_fig8 = 1       # 0: do not plot figure 8 
                         # 1: plot figure 8 
 
     # --------------------- Plots for Assessment - Neptun Deep ------------------- #
