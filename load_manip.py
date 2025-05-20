@@ -126,6 +126,7 @@ else:
 
 d_cohort_size = get_cohortsize_countries(df_countries,flags)
 
+
 # --------------------------------------------------------------- #
 # load Regions                                                    #
 # --------------------------------------------------------------- #
@@ -160,6 +161,7 @@ ds_regions = xr.Dataset(
                 'birth_years': (['region','birth_year'], np.tile(birth_year_val, (nregions, 1))),
                 'ind_member_countries': (['region','country'], np.zeros((nregions, ncountries), dtype=int)),
                 #'member_countries', will be added to ds_regions() based on the definition of member_countries
+                'mask': (['region'], d_regions['mask'])
             },
 
             coords={

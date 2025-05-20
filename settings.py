@@ -34,7 +34,7 @@ def init(flags):
     year_ref = 2020
     year_start = year_ref - age_ref
     birth_years = np.arange(year_start,year_ref+1)     
-    year_end = 2113 # based on maximum life expectancy reported in UN WPP
+    year_end = 2113 # based on maximum life expectancy reported in UNWPP
     year_range = np.arange(year_start,year_end+1)
 
     # set the countries for which we want to perform the assessment in case flags['gridscale_country_subset']=1
