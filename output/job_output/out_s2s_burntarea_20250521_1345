@@ -1,0 +1,85 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_burntarea - Job ID: 10778500
+Wed May 21 13:45:01 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 2.53 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=burntarea
+Using extr value: burntarea
+ ------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                                 |
+ ------------------------------------------------------------------------------------------------------
+
+Current date and time: 2025-05-21 13:47:58
+
+ -------------------------------------------------------------------------------
+|                       Model configuration - Manual                            |
+ -------------------------------------------------------------------------------
+
+extr: burntarea
+
+gmt: original
+
+rm: no_rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+dem4cli: 0
+
+lifetime_exposure: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+reporting: 0
+
+plots: 1
+
+ -------------------------------------------------------------------------------
+|                             Start Settings Framework                          |
+ -------------------------------------------------------------------------------
+
+Settings imported
+
+ -------------------------------------------------------------------------------
+|            Start to import and manipulate Demographic, GMT and ISIMIP data    |
+ -------------------------------------------------------------------------------
+
+GMT projections loaded
+Loading processed country and regions data
+Country and regions data loaded
+Loading processed ISIMIP data
+End Job
+Wed May 21 13:48:09 CEST 2025
+-------------------------------------------------------------------------------------------------

@@ -335,7 +335,7 @@ if Source2Suffering:
 
         print("\nQ.(1) - Number of children in the world facing an additional heatwave due to the total emissions of Neptun Deep\n")
 
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt']), 'rb') as f:
+        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
             ds_le_perregion = pk.load(f)
 
         # Computation for the 2010 to 2020 birth cohorts #
@@ -429,7 +429,7 @@ if Source2Suffering:
             print("Hazard = {}\n".format(extr))
 
             # Load the corresponding exposure dataset
-            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}.pkl'.format(flags['version'],extr,flags['gmt']), 'rb') as f:
+            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
                 ds_le_perregion = pk.load(f)
 
             # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario
@@ -482,7 +482,7 @@ if Source2Suffering:
 
         # dump pickle of valc_nr_children_facing_extra_hazard
 
-        with open(data_dir+'source2suffering/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}.pkl'.format(flags['gmt']), 'wb') as f:
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(da_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
 
         # impacts = {1: "wildfire", 2: "crop failure", 3: "drought", 4: "river floods", 5: "heatwaves", 6: "tropical cyclones"}

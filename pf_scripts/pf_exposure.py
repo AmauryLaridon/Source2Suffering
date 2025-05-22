@@ -455,11 +455,9 @@ def calc_landfraction_exposed(
         with open(data_dir+'{}/{}/isimip_AFA_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],str(i)), 'rb') as f:
             da_AFA = pk.load(f)
 
-        #------------------------------------------------- UNDER CONSTRUCTION ----------------------------------------------------------#
-
         #---------------------------------------------------------------------#
         # Computation of the Land Fraction Exposed per year to an hazard      # 
-        # for the pre-designed trajectories                                   #
+        # for the RCP behind the ISIMIP Simulations                           #
         #---------------------------------------------------------------------#
 
         print('Computation of the Land Fraction Exposed (LFE) per year to {}\n'.format(flags['extr']))
@@ -483,90 +481,173 @@ def calc_landfraction_exposed(
                     'region' : ind_region
                 }] = land_frac_perregion
 
-        # Tentative avec traduction de pf_fieldmean #
+        #---------------------------------------------#
+        # Per country                                 #
+        #---------------------------------------------#
 
-        # for region_ind, region in enumerate(ds_regions.region.values):
-    
-        #     landfrac_peryear_perregion_ap, landfrac_peryear_perregion_perrun = pf_fieldmean(da_AFA, grid_area, ds_regions['mask'].sel(region=region_ind).item())
+        print('                                        ')
 
-        #     ds_landfrac_peryear_perregion['landfrac_peryear_perregion_RCP'].loc[{
-        #                 'run': i,
-        #                 'region': region_ind}] = landfrac_peryear_perregion_perrun
+        for j, country in enumerate(df_countries['name']):
 
+            print('Computing LFE in {} '.format(country), end='\r')
 
-        # Computation of land area annually exposued to an hazard for the pre-design trajectories #
+            # calculate mean per country weighted by population
+            ind_country = countries_regions.map_keys(country)
+            
+            # historical + RCP simulations
+            landfrac_percountry = calc_weighted_fldmean(da_AFA,grid_area,countries_mask,ind_country,flag_region=False)
+
+            ds_lfe_percountry_perrun['landfrac_peryear_percountry_RCP'].loc[{
+                    'run' : i, 
+                    'country' : country
+                }] = landfrac_percountry
+
+        print('                                        ')
+
+        #---------------------------------------------------------------------#
+        # Remaping of the Land Fraction Exposed per year to an hazard         # 
+        # for the pre-designed trajectories                                   #
+        #---------------------------------------------------------------------#
+
+        #------------ Remaping of the LFE for the 1.5°C trajectory -----------#
 
         # if max threshold criteria met, run gmt mapping
         if d_isimip_meta[i]['GMT_15_valid']:
             
             print("\nISMIP Simulation {} use for re-mapping GMT index for the 1.5°C trajectory".format(i))
 
-            for t in range(len(year_range)):
-        
-                ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_15'][t]
+            for ind_region in range(nregions):
 
-                ds_lfe_perregion_perrun['landfrac_peryear_perregion_15'].loc[dict(
-                    run=i,
-                    region=ind_region,
-                    time_ind=t
-                )] = ds_lfe_perregion_perrun['landfrac_peryear_perregion_RCP'].loc[dict(
-                    run=i,
-                    region=ind_region,
-                    time_ind=ind_RCP
-                )]
+                for t in range(len(year_range)):
+            
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_15'][t]
+
+                    ds_lfe_perregion_perrun['landfrac_peryear_perregion_15'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=t
+                    )] = ds_lfe_perregion_perrun['landfrac_peryear_perregion_RCP'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=ind_RCP
+                    )]
+
+            for j, country in enumerate(df_countries['name']):
+
+                for t in range(len(year_range)):
+                
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_15'][t]
+
+                    ds_lfe_percountry_perrun['landfrac_peryear_percountry_15'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=t
+                    )] = ds_lfe_percountry_perrun['landfrac_peryear_percountry_RCP'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=ind_RCP
+                    )]
 
         else:
 
-            print("\nISMIP Simulation {} not use for re-mapping GMT index for the 1.5°C trajectory".format(i))            
+            print("\nISMIP Simulation {} not use for re-mapping GMT index for the 1.5°C trajectory".format(i))   
 
-        # ds_landfrac_peryear_perregion['landfrac_peryear_perregion_15'].loc[{
-        #             'run' : i, 
-        #             'region' : ind_region
-        #         }] = ds_landfrac_peryear_perregion['landfrac_peryear_perregion_RCP'].loc[{
-        #             'run' : i, 
-        #             'region' : ind_region,
-        #             'time_ind' : d_isimip_meta[i]['ind_RCP2GMT_15']
-        #         }]
+        #------------ Remaping of the LFE for the 2.0°C trajectory -----------#
 
-        # print(ds_landfrac_peryear_perregion['landfrac_peryear_perregion_15'].sel(run=1,region=11))
+        # if max threshold criteria met, run gmt mapping
+        if d_isimip_meta[i]['GMT_20_valid']:
+            
+            print("\nISMIP Simulation {} use for re-mapping GMT index for the 2.0°C trajectory".format(i))
 
-        #---------------------------------------------#
-        # Per country                                 #
-        #---------------------------------------------#
+            for ind_region in range(nregions):
 
-        # initialise dicts
-        # d_landfrac_percountry = {}
+                for t in range(len(year_range)):
+            
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_20'][t]
 
-        # # get spatial average
-        # for j, country in enumerate(df_countries['name']):
+                    ds_lfe_perregion_perrun['landfrac_peryear_perregion_20'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=t
+                    )] = ds_lfe_perregion_perrun['landfrac_peryear_perregion_RCP'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=ind_RCP
+                    )]
 
-        #     print("country = ", country)
-
-        #     # calculate mean per country weighted by population
-        #     ind_country = countries_regions.map_keys(country)
-
-        #     print("ind_country = ", ind_country)
-
-        #     # historical + RCP simulations
-        #     d_landfrac_percountry[country] = calc_weighted_fldmean( 
-        #             da_AFA,
-        #             grid_area, 
-        #             countries_mask, 
-        #             ind_country, 
-        #             flag_region=False,
-        #         )
-
-        #     print(d_landfrac_percountry[country])
-
-
-        #------------------------------------------------- END OF CONSTRUCTION ----------------------------------------------------------#
+            for j, country in enumerate(df_countries['name']):
     
+                for t in range(len(year_range)):
+                
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_20'][t]
+
+                    ds_lfe_percountry_perrun['landfrac_peryear_percountry_20'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=t
+                    )] = ds_lfe_percountry_perrun['landfrac_peryear_percountry_RCP'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=ind_RCP
+                    )]
+
+        else:
+
+            print("\nISMIP Simulation {} not use for re-mapping GMT index for the 2.0°C trajectory".format(i))  
+
+        #------------- Remaping of the LFE for the NDC trajectory ------------#  
+
+        # if max threshold criteria met, run gmt mapping
+        if d_isimip_meta[i]['GMT_NDC_valid']:
+            
+            print("\nISMIP Simulation {} use for re-mapping GMT index for the NDC trajectory".format(i))
+
+            for ind_region in range(nregions):
+
+                for t in range(len(year_range)):
+            
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_NDC'][t]
+
+                    ds_lfe_perregion_perrun['landfrac_peryear_perregion_NDC'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=t
+                    )] = ds_lfe_perregion_perrun['landfrac_peryear_perregion_RCP'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=ind_RCP
+                    )]
+            
+            for j, country in enumerate(df_countries['name']):
+        
+                for t in range(len(year_range)):
+                
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_NDC'][t]
+
+                    ds_lfe_percountry_perrun['landfrac_peryear_percountry_NDC'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=t
+                    )] = ds_lfe_percountry_perrun['landfrac_peryear_percountry_RCP'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=ind_RCP
+                    )]
+
+        else:
+
+            print("\nISMIP Simulation {} not use for re-mapping GMT index for the NDC trajectory".format(i))       
+
+    #---------------------------------------------------------------------#
+    # Saving object as Pickle                                             #
+    #---------------------------------------------------------------------#
+
     # dump pickle of land fraction exposed per country
-    with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
         pk.dump(ds_lfe_percountry_perrun,f)
 
     # dump pickle of land fraction exposed per region
-    with open(data_dir+'{}/{}/ds_lfe_perregion_perrun_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
         pk.dump(ds_lfe_perregion_perrun,f)
 
     return ds_lfe_percountry_perrun, ds_lfe_perregion_perrun
@@ -848,7 +929,7 @@ def calc_lifetime_exposure(
         # get spatial average
         for j, country in enumerate(df_countries['name']):
 
-            print('Computing the Spatial Average of the Exposure for country '+str(j+1)+' of '+str(len(df_countries)), end='\r')
+            print('Computing the Weighted Spatial Average of the Exposure with population of country '+str(j+1)+' of '+str(len(df_countries)), end='\r')
             
             # calculate mean per country weighted by population
             ind_country = countries_regions.map_keys(country)
@@ -1314,11 +1395,11 @@ def calc_lifetime_exposure(
                 print("ISMIP Simulation {} can not be used for re-mapping GMT index = {} of the BE".format(i, step))
 
     # dump pickle of lifetime exposure per country
-    with open(data_dir+'{}/{}/ds_le_percountry_perrun_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_le_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
         pk.dump(ds_le_percountry_perrun,f)
     
     # dump pickle of lifetime exposure per region
-    with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
         pk.dump(ds_le_perregion_perrun,f)
     
     return ds_le_percountry_perrun, ds_le_perregion_perrun
@@ -1763,16 +1844,252 @@ def calc_lifetime_exposure_pic(
 
 #%%---------------------------------------------------------------#
 # Function to compute multi-model mean across ISIMIP simulations  #
-# based on mf_exposure_mmm.m (see Thiery et al.(2021))            #
+# based on mf_exposure_mmm.m (see Thiery et al.(2021)) for        # 
+# Land Fraction Exposed annually (LFE)                            #
 #-----------------------------------------------------------------#
 
-def calc_lifetime_exposure_mmm_xr(
+def calc_landfraction_exposed_mmm(
+    ds_lfe_perrun,
+    flags,
+):
+    # remove from the output a warning that appears often  
+    import warnings
+    warnings.filterwarnings("ignore", message="All-NaN slice encountered")
+
+    # -------------------------------------------------- #
+    #             Computation of MMM and Stats           #
+    # -------------------------------------------------- #
+
+    if 'region' in ds_lfe_perrun.dims:
+
+        print("\nComputing the MMM and stats for each region")
+    
+        # ------------------------ 1.5°C trajectory ------------------------- #
+        
+        mmm_15 = ds_lfe_perrun['landfrac_peryear_perregion_15'].mean(dim='run', skipna=True)
+        mmm_15_sm = mmm_15.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_15 = ds_lfe_perrun['landfrac_peryear_perregion_15'].std(dim='run', skipna=True)
+        std_15_sm = std_15.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_15 = ds_lfe_perrun['landfrac_peryear_perregion_15'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_15 = ds_lfe_perrun['landfrac_peryear_perregion_15'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_15 = ds_lfe_perrun['landfrac_peryear_perregion_15'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_15_sm = median_15.rolling(time_ind=10, center=True, min_periods=1).mean()
+
+        # ------------------------ 2.0°C trajectory ------------------------- #
+        
+        mmm_20 = ds_lfe_perrun['landfrac_peryear_perregion_20'].mean(dim='run', skipna=True)
+        mmm_20_sm = mmm_20.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_20 = ds_lfe_perrun['landfrac_peryear_perregion_20'].std(dim='run', skipna=True)
+        std_20_sm = std_20.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_20 = ds_lfe_perrun['landfrac_peryear_perregion_20'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_20 = ds_lfe_perrun['landfrac_peryear_perregion_20'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_20 = ds_lfe_perrun['landfrac_peryear_perregion_20'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_20_sm = median_20.rolling(time_ind=10, center=True, min_periods=1).mean()
+
+        # ------------------------ NDC trajectory ------------------------- #
+        
+        mmm_NDC = ds_lfe_perrun['landfrac_peryear_perregion_NDC'].mean(dim='run', skipna=True)
+        mmm_NDC_sm = mmm_NDC.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_NDC = ds_lfe_perrun['landfrac_peryear_perregion_NDC'].std(dim='run', skipna=True)
+        std_NDC_sm = std_NDC.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_NDC = ds_lfe_perrun['landfrac_peryear_perregion_NDC'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_NDC = ds_lfe_perrun['landfrac_peryear_perregion_NDC'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_NDC = ds_lfe_perrun['landfrac_peryear_perregion_NDC'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_NDC_sm = median_NDC.rolling(time_ind=10, center=True, min_periods=1).mean()
+    
+    if 'country' in ds_lfe_perrun.dims:
+    
+        print("\nComputing the MMM and stats for each country")
+    
+        # ------------------------ 1.5°C trajectory ------------------------- #
+        
+        mmm_15 = ds_lfe_perrun['landfrac_peryear_percountry_15'].mean(dim='run', skipna=True)
+        mmm_15_sm = mmm_15.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_15 = ds_lfe_perrun['landfrac_peryear_percountry_15'].std(dim='run', skipna=True)
+        std_15_sm = std_15.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_15 = ds_lfe_perrun['landfrac_peryear_percountry_15'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_15 = ds_lfe_perrun['landfrac_peryear_percountry_15'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_15 = ds_lfe_perrun['landfrac_peryear_percountry_15'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_15_sm = median_15.rolling(time_ind=10, center=True, min_periods=1).mean()
+
+        # ------------------------ 2.0°C trajectory ------------------------- #
+        
+        mmm_20 = ds_lfe_perrun['landfrac_peryear_percountry_20'].mean(dim='run', skipna=True)
+        mmm_20_sm = mmm_20.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_20 = ds_lfe_perrun['landfrac_peryear_percountry_20'].std(dim='run', skipna=True)
+        std_20_sm = std_20.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_20 = ds_lfe_perrun['landfrac_peryear_percountry_20'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_20 = ds_lfe_perrun['landfrac_peryear_percountry_20'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_20 = ds_lfe_perrun['landfrac_peryear_percountry_20'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_20_sm = median_20.rolling(time_ind=10, center=True, min_periods=1).mean()
+
+        # ------------------------ NDC trajectory ------------------------- #
+        
+        mmm_NDC = ds_lfe_perrun['landfrac_peryear_percountry_NDC'].mean(dim='run', skipna=True)
+        mmm_NDC_sm = mmm_NDC.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_NDC = ds_lfe_perrun['landfrac_peryear_percountry_NDC'].std(dim='run', skipna=True)
+        std_NDC_sm = std_NDC.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_NDC = ds_lfe_perrun['landfrac_peryear_percountry_NDC'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_NDC = ds_lfe_perrun['landfrac_peryear_percountry_15'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_NDC = ds_lfe_perrun['landfrac_peryear_percountry_15'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_NDC_sm = median_NDC.rolling(time_ind=10, center=True, min_periods=1).mean()
+        
+    # -------------------------------------------------- #
+    #             Integration in the DataSet             #
+    # -------------------------------------------------- #
+
+    ds_lfe_perrun['mmm_15'] = mmm_15
+    ds_lfe_perrun['mmm_15_sm'] = mmm_15_sm
+    ds_lfe_perrun['std_15'] = std_15
+    ds_lfe_perrun['std_15_sm'] = std_15_sm
+    ds_lfe_perrun['lqntl_15'] = lqntl_15
+    ds_lfe_perrun['uqntl_15'] = uqntl_15
+    ds_lfe_perrun['median_15'] = median_15
+    ds_lfe_perrun['median_15_sm'] = median_15_sm
+
+    ds_lfe_perrun['mmm_20'] = mmm_20
+    ds_lfe_perrun['mmm_20_sm'] = mmm_20_sm
+    ds_lfe_perrun['std_20'] = std_20
+    ds_lfe_perrun['std_20_sm'] = std_20_sm
+    ds_lfe_perrun['lqntl_20'] = lqntl_20
+    ds_lfe_perrun['uqntl_20'] = uqntl_20
+    ds_lfe_perrun['median_20'] = median_20
+    ds_lfe_perrun['median_20_sm'] = median_20_sm
+
+    ds_lfe_perrun['mmm_NDC'] = mmm_NDC
+    ds_lfe_perrun['mmm_NDC_sm'] = mmm_NDC_sm
+    ds_lfe_perrun['std_NDC'] = std_NDC
+    ds_lfe_perrun['std_NDC_sm'] = std_NDC_sm
+    ds_lfe_perrun['lqntl_NDC'] = lqntl_NDC
+    ds_lfe_perrun['uqntl_NDC'] = uqntl_NDC
+    ds_lfe_perrun['median_NDC'] = median_NDC
+    ds_lfe_perrun['median_NDC_sm'] = median_NDC_sm
+
+    # -------------------------------------------------- #
+    #             Saving the object as Pickle            #
+    # -------------------------------------------------- #
+
+    if 'country' in ds_lfe_perrun.dims:
+    
+        # dump pickle of lifetime exposure per country
+        with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_lfe_perrun,f)
+
+    if 'region' in ds_lfe_perrun.dims:
+    
+        # dump pickle of lifetime exposure per region
+        with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_lfe_perrun,f)
+    
+    print("\nEnd of the computation\n")
+
+#%%---------------------------------------------------------------#
+# Function to compute multi-model mean across ISIMIP simulations  #
+# based on mf_exposure_mmm.m (see Thiery et al.(2021)) for        # 
+# Lifetime Exposure (LE)                                          #
+#-----------------------------------------------------------------#
+
+def calc_lifetime_exposure_mmm(
     ds_le_perrun,
     flags,
 ):
     # remove from the output a warning that appears often  
     import warnings
     warnings.filterwarnings("ignore", message="All-NaN slice encountered")
+
+    # -------------------------------------------------- #
+    #             Computation of MMM and Stats           #
+    # -------------------------------------------------- #
 
     if 'country' in ds_le_perrun.dims:
 
@@ -2258,7 +2575,9 @@ def calc_lifetime_exposure_mmm_xr(
         uqntl_EMF_BE = uqntl_BE / mmm_BE.sel(birth_year=1960)
         median_EMF_BE = median_BE / mmm_BE.sel(birth_year=1960)
 
-    # --------------------- Integration in the DataSet ---------------------------- #
+    # -------------------------------------------------- #
+    #             Integration in the DataSet             #
+    # -------------------------------------------------- #
 
     ds_le_perrun['mmm_15'] = mmm_15
     ds_le_perrun['std_15'] = std_15
@@ -2339,18 +2658,21 @@ def calc_lifetime_exposure_mmm_xr(
     ds_le_perrun['lqntl_EMF_BE'] = lqntl_EMF_BE
     ds_le_perrun['uqntl_EMF_BE'] = uqntl_EMF_BE
     ds_le_perrun['median_EMF_BE'] = median_EMF_BE 
-    
+
+    # -------------------------------------------------- #
+    #             Saving the object as Pickle            #
+    # -------------------------------------------------- #
 
     if 'region' in ds_le_perrun.dims:
 
         # dump pickle of lifetime exposure per region
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_le_perrun,f)
     
     if 'country' in ds_le_perrun.dims:
 
         # dump pickle of lifetime exposure per country
-        with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_le_perrun,f)
 
     print("\nEnd of the computation\n")
@@ -2492,11 +2814,11 @@ def calc_EMF(
 
     # Save pickles
     if 'region' in ds_le_exposure.dims:
-        with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_EMF_mmm,f)
     
     if 'country' in ds_le_exposure.dims:
-        with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_EMF_mmm,f)
 
     print("\nEnd of the computation\n")

@@ -1,0 +1,692 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_cropfailedarea - Job ID: 10774905
+Tue May 20 03:54:22 PM CEST 2025
+--- System Hardware Info ---
+Running on partition: zen5_mpi
+CPU Model:                           AMD EPYC 9535 64-Core Processor
+Number of CPU Cores: 2
+Total RAM: 755Gi
+Disk Space: 1.2P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 2.56 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=cropfailedarea
+Using extr value: cropfailedarea
+ ------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                                 |
+ ------------------------------------------------------------------------------------------------------
+
+Current date and time: 2025-05-20 15:57:17
+
+ -------------------------------------------------------------------------------
+|                       Model configuration - Manual                            |
+ -------------------------------------------------------------------------------
+
+extr: cropfailedarea
+
+gmt: original
+
+rm: rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+dem4cli: 0
+
+lifetime_exposure: 1
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+reporting: 0
+
+plots: 1
+
+ -------------------------------------------------------------------------------
+|                             Start Settings Framework                          |
+ -------------------------------------------------------------------------------
+
+Settings imported
+
+ -------------------------------------------------------------------------------
+|            Start to import and manipulate Demographic, GMT and ISIMIP data    |
+ -------------------------------------------------------------------------------
+
+GMT projections loaded
+Loading processed country and regions data
+Country and regions data loaded
+Loading processed ISIMIP data
+ISMIP data loaded
+
+ -------------------------------------------------------------------------------
+|                       Start Lifetime Exposure framework                       |
+ -------------------------------------------------------------------------------
+
+---------------------------------------------------------------
+Computing Lifetime Exposure per ISIMIP run to cropfailedarea       
+---------------------------------------------------------------
+
+---------- ISIMIP Simulation 1 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 1 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 1 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 1 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 2 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 2 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 2 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 2 use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 3 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 3 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 3 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 3 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 4 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 4 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 4 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 4 use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 5 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 5 not use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 5 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 5 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 6 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 6 not use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 6 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 6 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 7 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 7 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 7 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 7 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 8 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 8 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 8 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 8 use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 9 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 9 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 9 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 9 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 10 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 10 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 10 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 10 use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 11 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 11 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 11 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 11 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 12 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 12 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 12 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 12 use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 13 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 13 not use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 13 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 13 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 14 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 14 not use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 14 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 14 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 15 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 15 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 15 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 15 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 16 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 16 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 16 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 16 use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 17 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 17 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 17 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 17 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 18 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 18 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 18 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 18 use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 19 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 19 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 19 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 19 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 20 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 20 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 20 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 20 use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 21 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 21 not use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 21 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 21 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 22 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 22 not use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 22 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 22 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 23 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 23 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 23 not use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 23 not use for re-mapping GMT index for the NDC trajectory
+
+---------- ISIMIP Simulation 24 of 24 ----------
+
+Computation of the Land Fraction Exposed (LFE) per year to cropfailedarea
+
+Computing LFE in East Asia & Pacific
+Computing LFE in Europe & Central Asia
+Computing LFE in High income
+Computing LFE in Latin America & Caribbean
+Computing LFE in Low income
+Computing LFE in Lower middle income
+Computing LFE in Middle East & North Africa
+Computing LFE in North America
+Computing LFE in South Asia
+Computing LFE in Sub-Saharan Africa
+Computing LFE in Upper middle income
+Computing LFE in World
+
+ISMIP Simulation 24 use for re-mapping GMT index for the 1.5°C trajectory
+
+ISMIP Simulation 24 use for re-mapping GMT index for the 2.0°C trajectory
+
+ISMIP Simulation 24 use for re-mapping GMT index for the NDC trajectory
+
+---------------------------------------------------------------
+Computing MMM Land Fraction Exposed to cropfailedarea              
+---------------------------------------------------------------
+
+Computing the MMM and stats for each country
+
+End of the computation
+
+
+Computing the MMM and stats for each region
+
+End of the computation
+
+
+--- 1.0 minutes to compute Lifetime Exposure for all countries and regions ---
+
+Loading PIC Lifetime Exposure per ISIMIP simulation
+
+ -------------------------------------------------------------------------------
+|                          Start Reporting framework                            |
+ -------------------------------------------------------------------------------
+
+No reporting performed and saved
+
+ -------------------------------------------------------------------------------
+|                             Start Plots framework                             |
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------
+|        Start plots for Source2Suffering Project       |
+ -------------------------------------------------------
+
+----- Performing Plot f14 for Development : LFE MMM for the World region -----
+
+Plot performed for the World region
+
+ ------------------------------------------------------------------------------------------------------
+|                        End of computations for the Source2Suffering Project                          |
+ ------------------------------------------------------------------------------------------------------
+
+Script execution time: 83.7 seconds
+Script execution time: 1.4 minutes
+Script execution time: 0.0 hours
+
+--------------------------------------------------------------------------------------------------------
+End Job
+Tue May 20 03:58:59 PM CEST 2025
+-------------------------------------------------------------------------------------------------

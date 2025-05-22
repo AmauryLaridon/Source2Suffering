@@ -292,55 +292,6 @@ def load_GMT(
     df_GMT_noOS.index.name = None
 
     # ---------------------------------------------------------- #
-    # Definition of the OverShoot (OS) and no-OverShoot (noOS)   #
-    # trajectories from UVIC model                               #
-    # ---------------------------------------------------------- #
-
-    # Method to rebuild the GMT_OS matlab object from Thiery et al.(2021) # 
-
-    # # Read UVIC data without using the first row as header
-    # df_GMT_UVIC = pd.read_excel(
-    #     data_dir + 'temperature_trajectories_UVIC/CDRMIA_overshoot_scenario_UVic_output_GMTanomalies.xlsx',
-    #     header=None
-    # )
-
-    # # Set manual column names: [year, OS, noOS]
-    # df_GMT_UVIC.columns = ['year', 'OS', 'noOS']
-
-    # # Convert to float
-    # df_GMT_UVIC = df_GMT_UVIC.astype(float)
-
-    # # Extract historical segment (pre-2005) from SR15, first 3 rows
-    # df_hist = df_GMT_SR15.loc[df_GMT_SR15.index < 2005].iloc[:3, :].copy()
-    # df_hist = df_hist[['IPCCSR15_MESSAGEix-GLOBIOM 1.0_LowEnergyDemand_GAS',
-    #                 'IPCCSR15_IMAGE 3.0.1_SSP1-26_GAS']]
-    # df_hist.columns = ['OS', 'noOS']
-    # df_hist['year'] = df_hist.index
-
-    # # Reorder columns
-    # df_hist = df_hist[['year', 'OS', 'noOS']]
-
-    # # Combine historical with UVIC
-    # df_GMT_UVIC = pd.concat([df_hist, df_GMT_UVIC], axis=0).reset_index(drop=True)
-
-    # # Set year as index
-    # df_GMT_UVIC = df_GMT_UVIC.set_index('year')
-
-    # # Extend to year_end if needed
-    # if df_GMT_UVIC.index.max() < year_end:
-    #     GMT_last_10ymean = df_GMT_UVIC.iloc[-10:, :].mean()
-    #     for year in range(int(df_GMT_UVIC.index.max()) + 1, year_end + 1):
-    #         df_GMT_UVIC.loc[year] = GMT_last_10ymean
-
-    # # Slice final OS and noOS trajectories
-    # df_GMT_OS = df_GMT_UVIC.loc[year_start:year_end, 'OS']
-    # df_GMT_noOS = df_GMT_UVIC.loc[year_start:year_end, 'noOS']
-
-    # # Remove potential duplicate years
-    # df_GMT_OS = df_GMT_OS[~df_GMT_OS.index.duplicated(keep='first')]
-    # df_GMT_noOS = df_GMT_noOS[~df_GMT_noOS.index.duplicated(keep='first')]
-
-    # ---------------------------------------------------------- #
     # Definition of the Stress Test Scenarios (STS)              #
     # by the SPARCCLE project                                    #
     # ---------------------------------------------------------- #
@@ -601,15 +552,31 @@ def load_GMT(
 
     if flags['gmt']=='ar6_new':
 
-        with open(data_dir+'temperature_trajectories_AR6/df_GMT_strj_{}.pkl'.format(flags['rm']), 'wb') as f:
+        with open(data_dir+'temperature_trajectories_AR6/df_GMT_strj.pkl', 'wb') as f:
             pk.dump(df_GMT_strj,f)
+
+        with open(data_dir+'temperature_trajectories_STS/ds_GMT_STS.pkl', 'wb') as f:
+            ds_GMT_STS.to_netcdf("ds_GMT_STS.nc")
 
     if flags['gmt']=='original':
 
-        with open(data_dir+'temperature_trajectories_SR15/df_GMT_strj_{}.pkl'.format(flags['rm']), 'wb') as f:
-            pk.dump(df_GMT_strj,f)
+        with open(data_dir+'temperature_trajectories_SR15/df_GMT_15.pkl', 'wb') as f:
+            pk.dump(df_GMT_15,f)
 
-    
+        with open(data_dir+'temperature_trajectories_SR15/df_GMT_20.pkl', 'wb') as f:
+            pk.dump(df_GMT_20,f)
+
+        with open(data_dir+'temperature_trajectories_SR15/df_GMT_NDC.pkl', 'wb') as f:
+            pk.dump(df_GMT_NDC,f)
+        
+        with open(data_dir+'temperature_trajectories_SR15/df_GMT_OS.pkl', 'wb') as f:
+            pk.dump(df_GMT_OS,f)
+        
+        with open(data_dir+'temperature_trajectories_UVIC/df_GMT_noOS.pkl', 'wb') as f:
+            pk.dump(df_GMT_noOS,f)
+
+        with open(data_dir+'temperature_trajectories_UVIC/df_GMT_strj.pkl', 'wb') as f:
+            pk.dump(df_GMT_strj,f)
 
     return df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_OS, df_GMT_noOS, ds_GMT_STS, df_GMT_strj
 
@@ -670,6 +637,17 @@ def load_isimip(
         d_isimip_meta = {}
         pic_list = []
         d_pic_meta = {}
+
+        # rolling mean option
+        if flags['rm'] == 'no_rm':
+
+            print("\nNo smoothing apply to the GMT pathways under the RCP trajectories of the ESM/ISIMIP model\n")
+            
+            pass
+        
+        else:
+            
+            print("\nSmoothing apply to the GMT pathways under the RCP trajectories of the ESM/ISIMIP model\n")
 
         if flags['extr']=="all":
 

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 295, in <module>
+    exec(exe_load_manip,globals())
+  File "<string>", line 300, in <module>
+  File "<string>", line 876, in load_isimip
+FileNotFoundError: [Errno 2] No such file or directory: '/data/brussel/vo/000/bvo00012/vsc11137/source2suffering/data/pickles_v3/driedarea/isimip_metadata_driedarea_original_no_rm.pkl'
