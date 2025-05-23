@@ -1,0 +1,3853 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_heatwavedarea - Job ID: 10781185
+Thu May 22 11:15:07 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 2.50 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=heatwavedarea
+Using extr value: heatwavedarea
+ ------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                                 |
+ ------------------------------------------------------------------------------------------------------
+
+Current date and time: 2025-05-22 11:17:54
+
+ -------------------------------------------------------------------------------
+|                       Model configuration - Manual                            |
+ -------------------------------------------------------------------------------
+
+extr: heatwavedarea
+
+gmt: original
+
+rm: rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+dem4cli: 0
+
+lifetime_exposure: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+reporting: 0
+
+plots: 1
+
+ -------------------------------------------------------------------------------
+|                             Start Settings Framework                          |
+ -------------------------------------------------------------------------------
+
+Settings imported
+
+ -------------------------------------------------------------------------------
+|            Start to import and manipulate Demographic, GMT and ISIMIP data    |
+ -------------------------------------------------------------------------------
+
+GMT projections loaded
+Loading processed country and regions data
+Country and regions data loaded
+Loading processed ISIMIP data
+ISMIP data loaded
+
+ -------------------------------------------------------------------------------
+|                       Start Lifetime Exposure framework                       |
+ -------------------------------------------------------------------------------
+
+
+Loading processed Land Fraction Exposed per ISIMIP simulation
+
+Loading processed MMM Land Fraction Exposed
+
+Loading processed Lifetime Exposure per ISIMIP simulation
+
+Loading processed MMM Lifetime Exposure
+
+Loading EMF of Lifetime Exposure
+
+Loading PIC Lifetime Exposure per ISIMIP simulation
+
+ -------------------------------------------------------------------------------
+|                          Start Reporting framework                            |
+ -------------------------------------------------------------------------------
+
+No reporting performed and saved
+
+ -------------------------------------------------------------------------------
+|                             Start Plots framework                             |
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------
+|        Start plots for Source2Suffering Project       |
+ -------------------------------------------------------
+
+----- Performing Plot f1 for Development - LE per country per run for strj -----
+
+Performing Plot f1 for burntarea
+
+Performing Plot f1 for cropfailedarea
+
+Performing Plot f1 for driedarea
+
+Performing Plot f1 for floodedarea
+
+Performing Plot f1 for heatwavedarea
+
+Performing Plot f1 for tropicalcyclonedarea
+
+----- Performing Plot f2 for Development - LE trends per AR6 regions per run for strj -----
+
+Performing Plot f2 for tropicalcyclonedarea
+
+----- Performing Plot f3 for Development - LE per region per run for strj -----
+
+Performing Plot f3 for burntarea
+
+Performing Plot f3 for cropfailedarea
+
+Performing Plot f3 for driedarea
+
+Performing Plot f3 for floodedarea
+
+Performing Plot f3 for heatwavedarea
+
+Performing Plot f3 for tropicalcyclonedarea
+
+----- Performing Plot f4 for Development - LE MMM per country per run for strj -----
+
+Performing Plot f4 for burntarea
+
+Performing Plot f4 for cropfailedarea
+
+Performing Plot f4 for driedarea
+
+Performing Plot f4 for floodedarea
+
+Performing Plot f4 for heatwavedarea
+
+Performing Plot f4 for tropicalcyclonedarea
+
+----- Performing Plot f5 for Development - LE MMM per region per run for strj -----
+
+Performing Plot f5 for burntarea
+
+Performing Plot f5 for cropfailedarea
+
+Performing Plot f5 for driedarea
+
+Performing Plot f5 for floodedarea
+
+Performing Plot f5 for heatwavedarea
+
+Performing Plot f5 for tropicalcyclonedarea
+
+----- Performing Plot f6 for Story Lines for myclimatefuture - LE MMM & EMF for all countries and regions for 1.5/2.5/3.5°C -----
+
+Performing Plot f6 for burntarea for regions
+
+Plot performed for the East Asia & Pacific region
+Plot performed for the Europe & Central Asia region
+Plot performed for the High income region
+Plot performed for the Latin America & Caribbean region
+Plot performed for the Low income region
+Plot performed for the Lower middle income region
+Plot performed for the Middle East & North Africa region
+Plot performed for the North America region
+Plot performed for the South Asia region
+Plot performed for the Sub-Saharan Africa region
+Plot performed for the Upper middle income region
+Plot performed for the World region
+
+Performing Plot f6 for burntarea for countries
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f6 for cropfailedarea for regions
+
+Plot performed for the East Asia & Pacific region
+Plot performed for the Europe & Central Asia region
+Plot performed for the High income region
+Plot performed for the Latin America & Caribbean region
+Plot performed for the Low income region
+Plot performed for the Lower middle income region
+Plot performed for the Middle East & North Africa region
+Plot performed for the North America region
+Plot performed for the South Asia region
+Plot performed for the Sub-Saharan Africa region
+Plot performed for the Upper middle income region
+Plot performed for the World region
+
+Performing Plot f6 for cropfailedarea for countries
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f6 for driedarea for regions
+
+Plot performed for the East Asia & Pacific region
+Plot performed for the Europe & Central Asia region
+Plot performed for the High income region
+Plot performed for the Latin America & Caribbean region
+Plot performed for the Low income region
+Plot performed for the Lower middle income region
+Plot performed for the Middle East & North Africa region
+Plot performed for the North America region
+Plot performed for the South Asia region
+Plot performed for the Sub-Saharan Africa region
+Plot performed for the Upper middle income region
+Plot performed for the World region
+
+Performing Plot f6 for driedarea for countries
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f6 for floodedarea for regions
+
+Plot performed for the East Asia & Pacific region
+Plot performed for the Europe & Central Asia region
+Plot performed for the High income region
+Plot performed for the Latin America & Caribbean region
+Plot performed for the Low income region
+Plot performed for the Lower middle income region
+Plot performed for the Middle East & North Africa region
+Plot performed for the North America region
+Plot performed for the South Asia region
+Plot performed for the Sub-Saharan Africa region
+Plot performed for the Upper middle income region
+Plot performed for the World region
+
+Performing Plot f6 for floodedarea for countries
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f6 for heatwavedarea for regions
+
+Plot performed for the East Asia & Pacific region
+Plot performed for the Europe & Central Asia region
+Plot performed for the High income region
+Plot performed for the Latin America & Caribbean region
+Plot performed for the Low income region
+Plot performed for the Lower middle income region
+Plot performed for the Middle East & North Africa region
+Plot performed for the North America region
+Plot performed for the South Asia region
+Plot performed for the Sub-Saharan Africa region
+Plot performed for the Upper middle income region
+Plot performed for the World region
+
+Performing Plot f6 for heatwavedarea for countries
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f6 for tropicalcyclonedarea for regions
+
+Plot performed for the East Asia & Pacific region
+Plot performed for the Europe & Central Asia region
+Plot performed for the High income region
+Plot performed for the Latin America & Caribbean region
+Plot performed for the Low income region
+Plot performed for the Lower middle income region
+Plot performed for the Middle East & North Africa region
+Plot performed for the North America region
+Plot performed for the South Asia region
+Plot performed for the Sub-Saharan Africa region
+Plot performed for the Upper middle income region
+Plot performed for the World region
+
+Performing Plot f6 for tropicalcyclonedarea for countries
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+-----Performing Plot f7 for Development - BE LE MMM for all regions -----
+
+Performing Plot f7 for burntarea
+
+Plot performed for East Asia & Pacific
+Plot performed for Europe & Central Asia
+Plot performed for High income
+Plot performed for Latin America & Caribbean
+Plot performed for Low income
+Plot performed for Lower middle income
+Plot performed for Middle East & North Africa
+Plot performed for North America
+Plot performed for South Asia
+Plot performed for Sub-Saharan Africa
+Plot performed for Upper middle income
+Plot performed for World
+
+Performing Plot f7 for cropfailedarea
+
+Plot performed for East Asia & Pacific
+Plot performed for Europe & Central Asia
+Plot performed for High income
+Plot performed for Latin America & Caribbean
+Plot performed for Low income
+Plot performed for Lower middle income
+Plot performed for Middle East & North Africa
+Plot performed for North America
+Plot performed for South Asia
+Plot performed for Sub-Saharan Africa
+Plot performed for Upper middle income
+Plot performed for World
+
+Performing Plot f7 for driedarea
+
+Plot performed for East Asia & Pacific
+Plot performed for Europe & Central Asia
+Plot performed for High income
+Plot performed for Latin America & Caribbean
+Plot performed for Low income
+Plot performed for Lower middle income
+Plot performed for Middle East & North Africa
+Plot performed for North America
+Plot performed for South Asia
+Plot performed for Sub-Saharan Africa
+Plot performed for Upper middle income
+Plot performed for World
+
+Performing Plot f7 for floodedarea
+
+Plot performed for East Asia & Pacific
+Plot performed for Europe & Central Asia
+Plot performed for High income
+Plot performed for Latin America & Caribbean
+Plot performed for Low income
+Plot performed for Lower middle income
+Plot performed for Middle East & North Africa
+Plot performed for North America
+Plot performed for South Asia
+Plot performed for Sub-Saharan Africa
+Plot performed for Upper middle income
+Plot performed for World
+
+Performing Plot f7 for heatwavedarea
+
+Plot not performed because NaN values are present in Lifetime Exposure for East Asia & Pacific
+Plot performed for East Asia & Pacific
+Plot not performed because NaN values are present in Lifetime Exposure for Europe & Central Asia
+Plot performed for Europe & Central Asia
+Plot not performed because NaN values are present in Lifetime Exposure for High income
+Plot performed for High income
+Plot not performed because NaN values are present in Lifetime Exposure for Latin America & Caribbean
+Plot performed for Latin America & Caribbean
+Plot not performed because NaN values are present in Lifetime Exposure for Low income
+Plot performed for Low income
+Plot not performed because NaN values are present in Lifetime Exposure for Lower middle income
+Plot performed for Lower middle income
+Plot not performed because NaN values are present in Lifetime Exposure for Middle East & North Africa
+Plot performed for Middle East & North Africa
+Plot not performed because NaN values are present in Lifetime Exposure for North America
+Plot performed for North America
+Plot not performed because NaN values are present in Lifetime Exposure for South Asia
+Plot performed for South Asia
+Plot not performed because NaN values are present in Lifetime Exposure for Sub-Saharan Africa
+Plot performed for Sub-Saharan Africa
+Plot not performed because NaN values are present in Lifetime Exposure for Upper middle income
+Plot performed for Upper middle income
+Plot not performed because NaN values are present in Lifetime Exposure for World
+Plot performed for World
+
+Performing Plot f7 for tropicalcyclonedarea
+
+Plot performed for East Asia & Pacific
+Plot performed for Europe & Central Asia
+Plot performed for High income
+Plot performed for Latin America & Caribbean
+Plot performed for Low income
+Plot performed for Lower middle income
+Plot performed for Middle East & North Africa
+Plot performed for North America
+Plot performed for South Asia
+Plot performed for Sub-Saharan Africa
+Plot performed for Upper middle income
+Plot performed for World
+
+----- Performing Plot f8 for Development - BE LE MMM for all countries -----
+
+Performing Plot f8 for burntarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot not performed because NaN values are present in Lifetime Exposure for Kiribati
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot not performed because NaN values are present in Lifetime Exposure for Mauritius
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot not performed because NaN values are present in Lifetime Exposure for French Polynesia
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f8 for cropfailedarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot not performed: constant data for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot not performed: constant data for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot not performed: constant data for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot not performed because NaN values are present in Lifetime Exposure for Kiribati
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot not performed because NaN values are present in Lifetime Exposure for Mauritius
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot not performed because NaN values are present in Lifetime Exposure for French Polynesia
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot not performed: constant data for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f8 for driedarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot not performed: constant data for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot not performed because NaN values are present in Lifetime Exposure for Kiribati
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot not performed because NaN values are present in Lifetime Exposure for Mauritius
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot not performed because NaN values are present in Lifetime Exposure for French Polynesia
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot not performed: constant data for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot not performed: constant data for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f8 for floodedarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot not performed: constant data for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot not performed: constant data for Comoros
+Plot not performed because NaN values are present in Lifetime Exposure for Cape Verde
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot not performed: constant data for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot not performed: constant data for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot not performed because NaN values are present in Lifetime Exposure for Kiribati
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot not performed because NaN values are present in Lifetime Exposure for Mauritius
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot not performed because NaN values are present in Lifetime Exposure for French Polynesia
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot not performed: constant data for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot not performed: constant data for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot not performed: constant data for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot not performed: constant data for United States Virgin Islands
+Plot performed for Vietnam
+Plot not performed: constant data for Vanuatu
+Plot not performed because NaN values are present in Lifetime Exposure for Samoa
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f8 for heatwavedarea
+
+Plot not performed because NaN values are present in Lifetime Exposure for Afghanistan
+Plot performed for Afghanistan
+Plot not performed because NaN values are present in Lifetime Exposure for Angola
+Plot performed for Angola
+Plot not performed because NaN values are present in Lifetime Exposure for Albania
+Plot performed for Albania
+Plot not performed because NaN values are present in Lifetime Exposure for United Arab Emirates
+Plot performed for United Arab Emirates
+Plot not performed because NaN values are present in Lifetime Exposure for Argentina
+Plot performed for Argentina
+Plot not performed because NaN values are present in Lifetime Exposure for Armenia
+Plot performed for Armenia
+Plot not performed because NaN values are present in Lifetime Exposure for Australia
+Plot performed for Australia
+Plot not performed because NaN values are present in Lifetime Exposure for Austria
+Plot performed for Austria
+Plot not performed because NaN values are present in Lifetime Exposure for Azerbaijan
+Plot performed for Azerbaijan
+Plot not performed because NaN values are present in Lifetime Exposure for Burundi
+Plot performed for Burundi
+Plot not performed because NaN values are present in Lifetime Exposure for Belgium
+Plot performed for Belgium
+Plot not performed because NaN values are present in Lifetime Exposure for Benin
+Plot performed for Benin
+Plot not performed because NaN values are present in Lifetime Exposure for Burkina Faso
+Plot performed for Burkina Faso
+Plot not performed because NaN values are present in Lifetime Exposure for Bangladesh
+Plot performed for Bangladesh
+Plot not performed because NaN values are present in Lifetime Exposure for Bulgaria
+Plot performed for Bulgaria
+Plot not performed because NaN values are present in Lifetime Exposure for Bahamas
+Plot performed for Bahamas
+Plot not performed because NaN values are present in Lifetime Exposure for Bosnia and Herzegovina
+Plot performed for Bosnia and Herzegovina
+Plot not performed because NaN values are present in Lifetime Exposure for Belarus
+Plot performed for Belarus
+Plot not performed because NaN values are present in Lifetime Exposure for Belize
+Plot performed for Belize
+Plot not performed because NaN values are present in Lifetime Exposure for Bolivia
+Plot performed for Bolivia
+Plot not performed because NaN values are present in Lifetime Exposure for Brazil
+Plot performed for Brazil
+Plot not performed because NaN values are present in Lifetime Exposure for Brunei Darussalam
+Plot performed for Brunei Darussalam
+Plot not performed because NaN values are present in Lifetime Exposure for Bhutan
+Plot performed for Bhutan
+Plot not performed because NaN values are present in Lifetime Exposure for Botswana
+Plot performed for Botswana
+Plot not performed because NaN values are present in Lifetime Exposure for Central African Republic
+Plot performed for Central African Republic
+Plot not performed because NaN values are present in Lifetime Exposure for Canada
+Plot performed for Canada
+Plot not performed because NaN values are present in Lifetime Exposure for Switzerland
+Plot performed for Switzerland
+Plot not performed because NaN values are present in Lifetime Exposure for Chile
+Plot performed for Chile
+Plot not performed because NaN values are present in Lifetime Exposure for China
+Plot performed for China
+Plot not performed because NaN values are present in Lifetime Exposure for Cote dIvoire
+Plot performed for Cote dIvoire
+Plot not performed because NaN values are present in Lifetime Exposure for Cameroon
+Plot performed for Cameroon
+Plot not performed because NaN values are present in Lifetime Exposure for Democratic Republic of the Congo
+Plot performed for Democratic Republic of the Congo
+Plot not performed because NaN values are present in Lifetime Exposure for Republic of Congo
+Plot performed for Republic of Congo
+Plot not performed because NaN values are present in Lifetime Exposure for Colombia
+Plot performed for Colombia
+Plot not performed because NaN values are present in Lifetime Exposure for Comoros
+Plot performed for Comoros
+Plot not performed because NaN values are present in Lifetime Exposure for Cape Verde
+Plot performed for Cape Verde
+Plot not performed because NaN values are present in Lifetime Exposure for Costa Rica
+Plot performed for Costa Rica
+Plot not performed because NaN values are present in Lifetime Exposure for Cuba
+Plot performed for Cuba
+Plot not performed because NaN values are present in Lifetime Exposure for Cyprus
+Plot performed for Cyprus
+Plot not performed because NaN values are present in Lifetime Exposure for Czech Republic
+Plot performed for Czech Republic
+Plot not performed because NaN values are present in Lifetime Exposure for Germany
+Plot performed for Germany
+Plot not performed because NaN values are present in Lifetime Exposure for Djibouti
+Plot performed for Djibouti
+Plot not performed because NaN values are present in Lifetime Exposure for Denmark
+Plot performed for Denmark
+Plot not performed because NaN values are present in Lifetime Exposure for Dominican Republic
+Plot performed for Dominican Republic
+Plot not performed because NaN values are present in Lifetime Exposure for Algeria
+Plot performed for Algeria
+Plot not performed because NaN values are present in Lifetime Exposure for Ecuador
+Plot performed for Ecuador
+Plot not performed because NaN values are present in Lifetime Exposure for Egypt
+Plot performed for Egypt
+Plot not performed because NaN values are present in Lifetime Exposure for Eritrea
+Plot performed for Eritrea
+Plot not performed because NaN values are present in Lifetime Exposure for Spain
+Plot performed for Spain
+Plot not performed because NaN values are present in Lifetime Exposure for Estonia
+Plot performed for Estonia
+Plot not performed because NaN values are present in Lifetime Exposure for Ethiopia
+Plot performed for Ethiopia
+Plot not performed because NaN values are present in Lifetime Exposure for Finland
+Plot performed for Finland
+Plot not performed because NaN values are present in Lifetime Exposure for Fiji
+Plot performed for Fiji
+Plot not performed because NaN values are present in Lifetime Exposure for France
+Plot performed for France
+Plot not performed because NaN values are present in Lifetime Exposure for Gabon
+Plot performed for Gabon
+Plot not performed because NaN values are present in Lifetime Exposure for United Kingdom
+Plot performed for United Kingdom
+Plot not performed because NaN values are present in Lifetime Exposure for Georgia
+Plot performed for Georgia
+Plot not performed because NaN values are present in Lifetime Exposure for Ghana
+Plot performed for Ghana
+Plot not performed because NaN values are present in Lifetime Exposure for Guinea
+Plot performed for Guinea
+Plot not performed because NaN values are present in Lifetime Exposure for The Gambia
+Plot performed for The Gambia
+Plot not performed because NaN values are present in Lifetime Exposure for Guinea-Bissau
+Plot performed for Guinea-Bissau
+Plot not performed because NaN values are present in Lifetime Exposure for Equatorial Guinea
+Plot performed for Equatorial Guinea
+Plot not performed because NaN values are present in Lifetime Exposure for Greece
+Plot performed for Greece
+Plot not performed because NaN values are present in Lifetime Exposure for Guatemala
+Plot performed for Guatemala
+Plot not performed because NaN values are present in Lifetime Exposure for Guyana
+Plot performed for Guyana
+Plot not performed because NaN values are present in Lifetime Exposure for Hong Kong
+Plot performed for Hong Kong
+Plot not performed because NaN values are present in Lifetime Exposure for Honduras
+Plot performed for Honduras
+Plot not performed because NaN values are present in Lifetime Exposure for Croatia
+Plot performed for Croatia
+Plot not performed because NaN values are present in Lifetime Exposure for Haiti
+Plot performed for Haiti
+Plot not performed because NaN values are present in Lifetime Exposure for Hungary
+Plot performed for Hungary
+Plot not performed because NaN values are present in Lifetime Exposure for Indonesia
+Plot performed for Indonesia
+Plot not performed because NaN values are present in Lifetime Exposure for India
+Plot performed for India
+Plot not performed because NaN values are present in Lifetime Exposure for Ireland
+Plot performed for Ireland
+Plot not performed because NaN values are present in Lifetime Exposure for Iran
+Plot performed for Iran
+Plot not performed because NaN values are present in Lifetime Exposure for Iraq
+Plot performed for Iraq
+Plot not performed because NaN values are present in Lifetime Exposure for Iceland
+Plot performed for Iceland
+Plot not performed because NaN values are present in Lifetime Exposure for Israel
+Plot performed for Israel
+Plot not performed because NaN values are present in Lifetime Exposure for Italy
+Plot performed for Italy
+Plot not performed because NaN values are present in Lifetime Exposure for Jamaica
+Plot performed for Jamaica
+Plot not performed because NaN values are present in Lifetime Exposure for Jordan
+Plot performed for Jordan
+Plot not performed because NaN values are present in Lifetime Exposure for Japan
+Plot performed for Japan
+Plot not performed because NaN values are present in Lifetime Exposure for Kazakhstan
+Plot performed for Kazakhstan
+Plot not performed because NaN values are present in Lifetime Exposure for Kenya
+Plot performed for Kenya
+Plot not performed because NaN values are present in Lifetime Exposure for Kyrgyzstan
+Plot performed for Kyrgyzstan
+Plot not performed because NaN values are present in Lifetime Exposure for Cambodia
+Plot performed for Cambodia
+Plot not performed because NaN values are present in Lifetime Exposure for Kiribati
+Plot performed for Kiribati
+Plot not performed because NaN values are present in Lifetime Exposure for Republic of Korea
+Plot performed for Republic of Korea
+Plot not performed because NaN values are present in Lifetime Exposure for Kuwait
+Plot performed for Kuwait
+Plot not performed because NaN values are present in Lifetime Exposure for Lao PDR
+Plot performed for Lao PDR
+Plot not performed because NaN values are present in Lifetime Exposure for Lebanon
+Plot performed for Lebanon
+Plot not performed because NaN values are present in Lifetime Exposure for Liberia
+Plot performed for Liberia
+Plot not performed because NaN values are present in Lifetime Exposure for Libya
+Plot performed for Libya
+Plot not performed because NaN values are present in Lifetime Exposure for Sri Lanka
+Plot performed for Sri Lanka
+Plot not performed because NaN values are present in Lifetime Exposure for Lesotho
+Plot performed for Lesotho
+Plot not performed because NaN values are present in Lifetime Exposure for Lithuania
+Plot performed for Lithuania
+Plot not performed because NaN values are present in Lifetime Exposure for Luxembourg
+Plot performed for Luxembourg
+Plot not performed because NaN values are present in Lifetime Exposure for Latvia
+Plot performed for Latvia
+Plot not performed because NaN values are present in Lifetime Exposure for Morocco
+Plot performed for Morocco
+Plot not performed because NaN values are present in Lifetime Exposure for Moldova
+Plot performed for Moldova
+Plot not performed because NaN values are present in Lifetime Exposure for Madagascar
+Plot performed for Madagascar
+Plot not performed because NaN values are present in Lifetime Exposure for Mexico
+Plot performed for Mexico
+Plot not performed because NaN values are present in Lifetime Exposure for Macedonia
+Plot performed for Macedonia
+Plot not performed because NaN values are present in Lifetime Exposure for Mali
+Plot performed for Mali
+Plot not performed because NaN values are present in Lifetime Exposure for Myanmar
+Plot performed for Myanmar
+Plot not performed because NaN values are present in Lifetime Exposure for Montenegro
+Plot performed for Montenegro
+Plot not performed because NaN values are present in Lifetime Exposure for Mongolia
+Plot performed for Mongolia
+Plot not performed because NaN values are present in Lifetime Exposure for Mozambique
+Plot performed for Mozambique
+Plot not performed because NaN values are present in Lifetime Exposure for Mauritania
+Plot performed for Mauritania
+Plot not performed because NaN values are present in Lifetime Exposure for Mauritius
+Plot performed for Mauritius
+Plot not performed because NaN values are present in Lifetime Exposure for Malawi
+Plot performed for Malawi
+Plot not performed because NaN values are present in Lifetime Exposure for Malaysia
+Plot performed for Malaysia
+Plot not performed because NaN values are present in Lifetime Exposure for Namibia
+Plot performed for Namibia
+Plot not performed because NaN values are present in Lifetime Exposure for New Caledonia
+Plot performed for New Caledonia
+Plot not performed because NaN values are present in Lifetime Exposure for Niger
+Plot performed for Niger
+Plot not performed because NaN values are present in Lifetime Exposure for Nigeria
+Plot performed for Nigeria
+Plot not performed because NaN values are present in Lifetime Exposure for Nicaragua
+Plot performed for Nicaragua
+Plot not performed because NaN values are present in Lifetime Exposure for Netherlands
+Plot performed for Netherlands
+Plot not performed because NaN values are present in Lifetime Exposure for Norway
+Plot performed for Norway
+Plot not performed because NaN values are present in Lifetime Exposure for Nepal
+Plot performed for Nepal
+Plot not performed because NaN values are present in Lifetime Exposure for New Zealand
+Plot performed for New Zealand
+Plot not performed because NaN values are present in Lifetime Exposure for Oman
+Plot performed for Oman
+Plot not performed because NaN values are present in Lifetime Exposure for Pakistan
+Plot performed for Pakistan
+Plot not performed because NaN values are present in Lifetime Exposure for Panama
+Plot performed for Panama
+Plot not performed because NaN values are present in Lifetime Exposure for Peru
+Plot performed for Peru
+Plot not performed because NaN values are present in Lifetime Exposure for Philippines
+Plot performed for Philippines
+Plot not performed because NaN values are present in Lifetime Exposure for Papua New Guinea
+Plot performed for Papua New Guinea
+Plot not performed because NaN values are present in Lifetime Exposure for Poland
+Plot performed for Poland
+Plot not performed because NaN values are present in Lifetime Exposure for Puerto Rico
+Plot performed for Puerto Rico
+Plot not performed because NaN values are present in Lifetime Exposure for Dem. Rep. Korea
+Plot performed for Dem. Rep. Korea
+Plot not performed because NaN values are present in Lifetime Exposure for Portugal
+Plot performed for Portugal
+Plot not performed because NaN values are present in Lifetime Exposure for Paraguay
+Plot performed for Paraguay
+Plot not performed because NaN values are present in Lifetime Exposure for French Polynesia
+Plot performed for French Polynesia
+Plot not performed because NaN values are present in Lifetime Exposure for Qatar
+Plot performed for Qatar
+Plot not performed because NaN values are present in Lifetime Exposure for Romania
+Plot performed for Romania
+Plot not performed because NaN values are present in Lifetime Exposure for Russian Federation
+Plot performed for Russian Federation
+Plot not performed because NaN values are present in Lifetime Exposure for Rwanda
+Plot performed for Rwanda
+Plot not performed because NaN values are present in Lifetime Exposure for Saudi Arabia
+Plot performed for Saudi Arabia
+Plot not performed because NaN values are present in Lifetime Exposure for Sudan
+Plot performed for Sudan
+Plot not performed because NaN values are present in Lifetime Exposure for Senegal
+Plot performed for Senegal
+Plot not performed because NaN values are present in Lifetime Exposure for Solomon Islands
+Plot performed for Solomon Islands
+Plot not performed because NaN values are present in Lifetime Exposure for Sierra Leone
+Plot performed for Sierra Leone
+Plot not performed because NaN values are present in Lifetime Exposure for El Salvador
+Plot performed for El Salvador
+Plot not performed because NaN values are present in Lifetime Exposure for Somalia
+Plot performed for Somalia
+Plot not performed because NaN values are present in Lifetime Exposure for Serbia
+Plot performed for Serbia
+Plot not performed because NaN values are present in Lifetime Exposure for South Sudan
+Plot performed for South Sudan
+Plot not performed because NaN values are present in Lifetime Exposure for Sao Tome and Principe
+Plot performed for Sao Tome and Principe
+Plot not performed because NaN values are present in Lifetime Exposure for Suriname
+Plot performed for Suriname
+Plot not performed because NaN values are present in Lifetime Exposure for Slovakia
+Plot performed for Slovakia
+Plot not performed because NaN values are present in Lifetime Exposure for Slovenia
+Plot performed for Slovenia
+Plot not performed because NaN values are present in Lifetime Exposure for Sweden
+Plot performed for Sweden
+Plot not performed because NaN values are present in Lifetime Exposure for Swaziland
+Plot performed for Swaziland
+Plot not performed because NaN values are present in Lifetime Exposure for Syria
+Plot performed for Syria
+Plot not performed because NaN values are present in Lifetime Exposure for Chad
+Plot performed for Chad
+Plot not performed because NaN values are present in Lifetime Exposure for Togo
+Plot performed for Togo
+Plot not performed because NaN values are present in Lifetime Exposure for Thailand
+Plot performed for Thailand
+Plot not performed because NaN values are present in Lifetime Exposure for Tajikistan
+Plot performed for Tajikistan
+Plot not performed because NaN values are present in Lifetime Exposure for Turkmenistan
+Plot performed for Turkmenistan
+Plot not performed because NaN values are present in Lifetime Exposure for Timor-Leste
+Plot performed for Timor-Leste
+Plot not performed because NaN values are present in Lifetime Exposure for Trinidad and Tobago
+Plot performed for Trinidad and Tobago
+Plot not performed because NaN values are present in Lifetime Exposure for Tunisia
+Plot performed for Tunisia
+Plot not performed because NaN values are present in Lifetime Exposure for Turkey
+Plot performed for Turkey
+Plot not performed because NaN values are present in Lifetime Exposure for Tanzania
+Plot performed for Tanzania
+Plot not performed because NaN values are present in Lifetime Exposure for Uganda
+Plot performed for Uganda
+Plot not performed because NaN values are present in Lifetime Exposure for Ukraine
+Plot performed for Ukraine
+Plot not performed because NaN values are present in Lifetime Exposure for Uruguay
+Plot performed for Uruguay
+Plot not performed because NaN values are present in Lifetime Exposure for United States
+Plot performed for United States
+Plot not performed because NaN values are present in Lifetime Exposure for Uzbekistan
+Plot performed for Uzbekistan
+Plot not performed because NaN values are present in Lifetime Exposure for Saint Vincent and the Grenadines
+Plot performed for Saint Vincent and the Grenadines
+Plot not performed because NaN values are present in Lifetime Exposure for Venezuela
+Plot performed for Venezuela
+Plot not performed because NaN values are present in Lifetime Exposure for United States Virgin Islands
+Plot performed for United States Virgin Islands
+Plot not performed because NaN values are present in Lifetime Exposure for Vietnam
+Plot performed for Vietnam
+Plot not performed because NaN values are present in Lifetime Exposure for Vanuatu
+Plot performed for Vanuatu
+Plot not performed because NaN values are present in Lifetime Exposure for Samoa
+Plot performed for Samoa
+Plot not performed because NaN values are present in Lifetime Exposure for Yemen
+Plot performed for Yemen
+Plot not performed because NaN values are present in Lifetime Exposure for South Africa
+Plot performed for South Africa
+Plot not performed because NaN values are present in Lifetime Exposure for Zambia
+Plot performed for Zambia
+Plot not performed because NaN values are present in Lifetime Exposure for Zimbabwe
+Plot performed for Zimbabwe
+
+Performing Plot f8 for tropicalcyclonedarea
+
+Plot not performed: constant data for Afghanistan
+Plot performed for Angola
+Plot not performed: constant data for Albania
+Plot performed for United Arab Emirates
+Plot not performed: constant data for Argentina
+Plot not performed: constant data for Armenia
+Plot performed for Australia
+Plot not performed: constant data for Austria
+Plot not performed: constant data for Azerbaijan
+Plot not performed: constant data for Burundi
+Plot not performed: constant data for Belgium
+Plot performed for Benin
+Plot not performed: constant data for Burkina Faso
+Plot performed for Bangladesh
+Plot not performed: constant data for Bulgaria
+Plot performed for Bahamas
+Plot not performed: constant data for Bosnia and Herzegovina
+Plot not performed: constant data for Belarus
+Plot performed for Belize
+Plot not performed: constant data for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot not performed: constant data for Central African Republic
+Plot performed for Canada
+Plot not performed: constant data for Switzerland
+Plot not performed: constant data for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot not performed: constant data for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot not performed: constant data for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot not performed: constant data for Cyprus
+Plot not performed: constant data for Czech Republic
+Plot not performed: constant data for Germany
+Plot performed for Djibouti
+Plot not performed: constant data for Denmark
+Plot performed for Dominican Republic
+Plot not performed: constant data for Algeria
+Plot not performed: constant data for Ecuador
+Plot not performed: constant data for Egypt
+Plot performed for Eritrea
+Plot not performed: constant data for Spain
+Plot not performed: constant data for Estonia
+Plot performed for Ethiopia
+Plot not performed: constant data for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot not performed: constant data for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot not performed: constant data for Equatorial Guinea
+Plot not performed: constant data for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot not performed: constant data for Croatia
+Plot performed for Haiti
+Plot not performed: constant data for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot not performed: constant data for Iraq
+Plot not performed: constant data for Iceland
+Plot not performed: constant data for Israel
+Plot not performed: constant data for Italy
+Plot performed for Jamaica
+Plot not performed: constant data for Jordan
+Plot performed for Japan
+Plot not performed: constant data for Kazakhstan
+Plot performed for Kenya
+Plot not performed: constant data for Kyrgyzstan
+Plot performed for Cambodia
+Plot not performed because NaN values are present in Lifetime Exposure for Kiribati
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot not performed: constant data for Kuwait
+Plot performed for Lao PDR
+Plot not performed: constant data for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot not performed: constant data for Lesotho
+Plot not performed: constant data for Lithuania
+Plot not performed: constant data for Luxembourg
+Plot not performed: constant data for Latvia
+Plot performed for Morocco
+Plot not performed: constant data for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot not performed: constant data for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot not performed: constant data for Montenegro
+Plot not performed: constant data for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot not performed because NaN values are present in Lifetime Exposure for Mauritius
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot not performed: constant data for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot not performed: constant data for Netherlands
+Plot not performed: constant data for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot not performed: constant data for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot not performed: constant data for Portugal
+Plot not performed: constant data for Paraguay
+Plot not performed because NaN values are present in Lifetime Exposure for French Polynesia
+Plot performed for French Polynesia
+Plot not performed: constant data for Qatar
+Plot not performed: constant data for Romania
+Plot performed for Russian Federation
+Plot not performed: constant data for Rwanda
+Plot performed for Saudi Arabia
+Plot not performed: constant data for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot not performed: constant data for Serbia
+Plot performed for South Sudan
+Plot not performed: constant data for Sao Tome and Principe
+Plot performed for Suriname
+Plot not performed: constant data for Slovakia
+Plot not performed: constant data for Slovenia
+Plot not performed: constant data for Sweden
+Plot performed for Swaziland
+Plot not performed: constant data for Syria
+Plot not performed: constant data for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot not performed: constant data for Tajikistan
+Plot not performed: constant data for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot not performed: constant data for Tunisia
+Plot not performed: constant data for Turkey
+Plot performed for Tanzania
+Plot not performed: constant data for Uganda
+Plot not performed: constant data for Ukraine
+Plot not performed: constant data for Uruguay
+Plot performed for United States
+Plot not performed: constant data for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+----- Performing Plot f11 for Assessment - SPARCCLE-STS : Comparison of the different GMT pathways between GMT_15, GMT_20, GMT_NDC, GMT_OS and GMT_noOS -----
+
+----- Performing Plot f12 for Assessment - SPARCCLE-STS : Comparison of the different GMT pathways between GMT_OS, GMT_noOS and GMT_STS -----
+
+----- Performing Plot f13 for Assessment - SPARCCLE-STS : LE MMM for all regions under STS_ModAct and STS_Ren -----
+
+----- Performing Plot f14 for Development : LFE MMM for the World region -----
+
+Performing Plot f14 for burntarea
+
+Plot performed for the World region
+
+Performing Plot f14 for cropfailedarea
+
+Plot performed for the World region
+
+Performing Plot f14 for driedarea
+
+Plot performed for the World region
+
+Performing Plot f14 for floodedarea
+
+Plot performed for the World region
+
+Performing Plot f14 for heatwavedarea
+
+Plot performed for the World region
+
+Performing Plot f14 for tropicalcyclonedarea
+
+Plot performed for the World region
+
+----- Performing Plot f15 for Development : LFE MMM for all countries -----
+
+Performing Plot f15 for burntarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f15 for cropfailedarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f15 for driedarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f15 for floodedarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f15 for heatwavedarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+Performing Plot f15 for tropicalcyclonedarea
+
+Plot performed for Afghanistan
+Plot performed for Angola
+Plot performed for Albania
+Plot performed for United Arab Emirates
+Plot performed for Argentina
+Plot performed for Armenia
+Plot performed for Australia
+Plot performed for Austria
+Plot performed for Azerbaijan
+Plot performed for Burundi
+Plot performed for Belgium
+Plot performed for Benin
+Plot performed for Burkina Faso
+Plot performed for Bangladesh
+Plot performed for Bulgaria
+Plot performed for Bahamas
+Plot performed for Bosnia and Herzegovina
+Plot performed for Belarus
+Plot performed for Belize
+Plot performed for Bolivia
+Plot performed for Brazil
+Plot performed for Brunei Darussalam
+Plot performed for Bhutan
+Plot performed for Botswana
+Plot performed for Central African Republic
+Plot performed for Canada
+Plot performed for Switzerland
+Plot performed for Chile
+Plot performed for China
+Plot performed for Cote dIvoire
+Plot performed for Cameroon
+Plot performed for Democratic Republic of the Congo
+Plot performed for Republic of Congo
+Plot performed for Colombia
+Plot performed for Comoros
+Plot performed for Cape Verde
+Plot performed for Costa Rica
+Plot performed for Cuba
+Plot performed for Cyprus
+Plot performed for Czech Republic
+Plot performed for Germany
+Plot performed for Djibouti
+Plot performed for Denmark
+Plot performed for Dominican Republic
+Plot performed for Algeria
+Plot performed for Ecuador
+Plot performed for Egypt
+Plot performed for Eritrea
+Plot performed for Spain
+Plot performed for Estonia
+Plot performed for Ethiopia
+Plot performed for Finland
+Plot performed for Fiji
+Plot performed for France
+Plot performed for Gabon
+Plot performed for United Kingdom
+Plot performed for Georgia
+Plot performed for Ghana
+Plot performed for Guinea
+Plot performed for The Gambia
+Plot performed for Guinea-Bissau
+Plot performed for Equatorial Guinea
+Plot performed for Greece
+Plot performed for Guatemala
+Plot performed for Guyana
+Plot performed for Hong Kong
+Plot performed for Honduras
+Plot performed for Croatia
+Plot performed for Haiti
+Plot performed for Hungary
+Plot performed for Indonesia
+Plot performed for India
+Plot performed for Ireland
+Plot performed for Iran
+Plot performed for Iraq
+Plot performed for Iceland
+Plot performed for Israel
+Plot performed for Italy
+Plot performed for Jamaica
+Plot performed for Jordan
+Plot performed for Japan
+Plot performed for Kazakhstan
+Plot performed for Kenya
+Plot performed for Kyrgyzstan
+Plot performed for Cambodia
+Plot performed for Kiribati
+Plot performed for Republic of Korea
+Plot performed for Kuwait
+Plot performed for Lao PDR
+Plot performed for Lebanon
+Plot performed for Liberia
+Plot performed for Libya
+Plot performed for Sri Lanka
+Plot performed for Lesotho
+Plot performed for Lithuania
+Plot performed for Luxembourg
+Plot performed for Latvia
+Plot performed for Morocco
+Plot performed for Moldova
+Plot performed for Madagascar
+Plot performed for Mexico
+Plot performed for Macedonia
+Plot performed for Mali
+Plot performed for Myanmar
+Plot performed for Montenegro
+Plot performed for Mongolia
+Plot performed for Mozambique
+Plot performed for Mauritania
+Plot performed for Mauritius
+Plot performed for Malawi
+Plot performed for Malaysia
+Plot performed for Namibia
+Plot performed for New Caledonia
+Plot performed for Niger
+Plot performed for Nigeria
+Plot performed for Nicaragua
+Plot performed for Netherlands
+Plot performed for Norway
+Plot performed for Nepal
+Plot performed for New Zealand
+Plot performed for Oman
+Plot performed for Pakistan
+Plot performed for Panama
+Plot performed for Peru
+Plot performed for Philippines
+Plot performed for Papua New Guinea
+Plot performed for Poland
+Plot performed for Puerto Rico
+Plot performed for Dem. Rep. Korea
+Plot performed for Portugal
+Plot performed for Paraguay
+Plot performed for French Polynesia
+Plot performed for Qatar
+Plot performed for Romania
+Plot performed for Russian Federation
+Plot performed for Rwanda
+Plot performed for Saudi Arabia
+Plot performed for Sudan
+Plot performed for Senegal
+Plot performed for Solomon Islands
+Plot performed for Sierra Leone
+Plot performed for El Salvador
+Plot performed for Somalia
+Plot performed for Serbia
+Plot performed for South Sudan
+Plot performed for Sao Tome and Principe
+Plot performed for Suriname
+Plot performed for Slovakia
+Plot performed for Slovenia
+Plot performed for Sweden
+Plot performed for Swaziland
+Plot performed for Syria
+Plot performed for Chad
+Plot performed for Togo
+Plot performed for Thailand
+Plot performed for Tajikistan
+Plot performed for Turkmenistan
+Plot performed for Timor-Leste
+Plot performed for Trinidad and Tobago
+Plot performed for Tunisia
+Plot performed for Turkey
+Plot performed for Tanzania
+Plot performed for Uganda
+Plot performed for Ukraine
+Plot performed for Uruguay
+Plot performed for United States
+Plot performed for Uzbekistan
+Plot performed for Saint Vincent and the Grenadines
+Plot performed for Venezuela
+Plot performed for United States Virgin Islands
+Plot performed for Vietnam
+Plot performed for Vanuatu
+Plot performed for Samoa
+Plot performed for Yemen
+Plot performed for South Africa
+Plot performed for Zambia
+Plot performed for Zimbabwe
+
+ ------------------------------------------------------------------------------------------------------
+|                        End of computations for the Source2Suffering Project                          |
+ ------------------------------------------------------------------------------------------------------
+
+Script execution time: 503.5 seconds
+Script execution time: 8.4 minutes
+Script execution time: 0.1 hours
+
+--------------------------------------------------------------------------------------------------------
+End Job
+Thu May 22 11:26:18 CEST 2025
+-------------------------------------------------------------------------------------------------

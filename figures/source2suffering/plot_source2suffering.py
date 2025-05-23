@@ -180,7 +180,7 @@ def plot_dev_fig1(flags, extr, ds, country, run, GMT):
     plt.ylabel("Lifetime Exposure")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig1_lifetime_exposure_{}_GMT_{}_isimip_sim_{}_gmt_{}.png'.format(extr,country,GMT,run,flags['gmt']))
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig1_lifetime_exposure_{}_GMT_{}_isimip_sim_{}_gmt_{}_{}.png'.format(extr,country,GMT,run,flags['gmt'],flags['rm']))
 
 def plot_dev_fig2(flags, ds, var_name, coords_dict):
     """
@@ -263,7 +263,7 @@ def plot_dev_fig3(ds_regions, flags, extr, ds, region, run, GMT):
     plt.ylabel("Lifetime Exposure")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig3_lifetime_exposure_region_{}_GMT_{}_isimip_sim_{}_gmt_{}.png'.format(extr,region_name,GMT,run,flags['gmt']))
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig3_lifetime_exposure_region_{}_GMT_{}_isimip_sim_{}_gmt_{}_{}.png'.format(extr,region_name,GMT,run,flags['gmt'],flags['rm']))
 
 
 def plot_dev_fig4(flags, extr, ds, country, GMT):
@@ -286,7 +286,7 @@ def plot_dev_fig4(flags, extr, ds, country, GMT):
     y_std = ds['std_BE'].sel(
         country = country,
         GMT = GMT
-    )
+    )/2
 
     birth_years = ds['birth_year'].values
 
@@ -300,7 +300,7 @@ def plot_dev_fig4(flags, extr, ds, country, GMT):
     plt.grid(True)
     plt.tight_layout()
     plt.legend()
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig4_mmm_lifetime_exposure_{}_GMT_{}_gmt_{}.png'.format(extr,country,GMT,flags['gmt']))
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig4_mmm_lifetime_exposure_{}_GMT_{}_gmt_{}_{}.png'.format(extr,country,GMT,flags['gmt'],flags['rm']))
 
 
 def plot_dev_fig5(ds_regions, flags, extr, ds, region, GMT):
@@ -325,7 +325,7 @@ def plot_dev_fig5(ds_regions, flags, extr, ds, region, GMT):
     y_std = ds['std_BE'].sel(
         region = region,
         GMT = GMT
-    )
+    )/2
 
     # Plot
     plt.figure(figsize=(10, 6))
@@ -337,7 +337,7 @@ def plot_dev_fig5(ds_regions, flags, extr, ds, region, GMT):
     plt.grid(True)
     plt.tight_layout()
     plt.legend()
-    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig5_mmm_lifetime_exposure_region_{}_GMT_{}_gmt_{}.png'.format(extr,region_name,GMT,flags['gmt']))
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig5_mmm_lifetime_exposure_region_{}_GMT_{}_gmt_{}_{}.png'.format(extr,region_name,GMT,flags['gmt'],flags['rm']))
 
 def plot_dev_fig6_country(flags, extr, ds, country, EMF):
     """
@@ -391,7 +391,7 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
             # y_std = ds['std'].sel(
             #     country = country,
             #     GMT = GMT
-            # )
+            # )/2
 
             plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i])
             #plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i])
@@ -404,7 +404,7 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
         plt.grid(True)
         plt.tight_layout()
         plt.legend()
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_EMF_{}_gmt_{}.png'.format(extr,country,flags['gmt']))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_EMF_{}_gmt_{}_{}.png'.format(extr,country,flags['gmt'],flags['rm']))
 
     else:
 
@@ -420,7 +420,7 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
                 y_std = ds['std_BE'].sel(
                     country = country,
                     GMT = GMT
-                )
+                )/2
 
                 plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i], lw=3)
                 plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i], lw=3)
@@ -435,7 +435,7 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
 
             y_std_15 = ds['std_15'].sel(
                 country = country,
-            )
+            )/2
 
             exposure_20 = ds['mmm_20'].sel(
                     country=country,
@@ -443,7 +443,7 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
 
             y_std_20 = ds['std_20'].sel(
                 country = country,
-            )
+            )/2
 
             exposure_NDC = ds['mmm_NDC'].sel(
                     country=country,
@@ -451,7 +451,7 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
 
             y_std_NDC = ds['std_NDC'].sel(
                 country = country,
-            )
+            )/2
 
             plt.plot(birth_years, exposure_15, linestyle='-',color=GMT_color[0],label=GMT_label[0],lw=3)
             plt.fill_between(birth_years, exposure_15 - y_std_15, exposure_15 + y_std_15, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0],lw=3)
@@ -470,7 +470,7 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
         plt.grid(True)
         plt.tight_layout()
         plt.legend(fontsize=16)
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_{}_gmt_{}.png'.format(extr,country,flags['gmt']))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_{}_gmt_{}_{}.png'.format(extr,country,flags['gmt'],flags['rm']))
         print("Plot performed for {}".format(country))
 
 def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
@@ -538,7 +538,7 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
         plt.grid(True)
         plt.tight_layout()
         plt.legend()
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_EMF_region_{}_gmt_{}.png'.format(extr,region_name,flags['gmt']))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_EMF_region_{}_gmt_{}_{}.png'.format(extr,region_name,flags['gmt'],flags['rm']))
 
     else: 
 
@@ -554,7 +554,7 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
                 y_std = ds['std_BE'].sel(
                     region=region,
                     GMT = GMT
-                )
+                )/2
 
                 plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i],lw=3)
                 plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i],lw=3)
@@ -569,7 +569,7 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
 
             y_std_15 = ds['std_15'].sel(
                 region=region,
-            )
+            )/2
 
             exposure_20 = ds['mmm_20'].sel(
                 region=region,
@@ -577,7 +577,7 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
 
             y_std_20 = ds['std_20'].sel(
                 region=region,
-            )
+            )/2
 
             exposure_NDC = ds['mmm_NDC'].sel(
                 region=region,
@@ -585,7 +585,7 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
 
             y_std_NDC = ds['std_NDC'].sel(
                 region=region,
-            )
+            )/2
 
             plt.plot(birth_years, exposure_15, linestyle='-',color=GMT_color[0],label=GMT_label[0], lw=3)
             plt.fill_between(birth_years, exposure_15 - y_std_15, exposure_15 + y_std_15, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0], lw=3)
@@ -604,7 +604,7 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
         plt.grid(True)
         plt.tight_layout()
         plt.legend(fontsize=16)
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}_gmt_{}.png'.format(extr,region_name,flags['gmt']))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(extr,region_name,flags['gmt'],flags['rm']))
         print("Plot performed for the {} region".format(region_name))
 
 def plot_dev_fig7(
@@ -637,7 +637,7 @@ def plot_dev_fig7(
 
         GMT_indices_ticks=[0,5,10,15,20]
 
-        with open(data_dir+'temperature_trajectories_AR6/df_GMT_strj_{}.pkl'.format(flags['rm']), 'rb') as f:
+        with open(data_dir+'temperature_trajectories_AR6/df_GMT_strj.pkl', 'rb') as f:
             df_GMT_plots = pk.load(f)
 
 
@@ -645,7 +645,7 @@ def plot_dev_fig7(
 
         GMT_indices_ticks=[7,12,17,24,27]
 
-        with open(data_dir+'temperature_trajectories_SR15/df_GMT_strj_{}.pkl'.format(flags['rm']), 'rb') as f:
+        with open(data_dir+'temperature_trajectories_SR15/df_GMT_strj.pkl', 'rb') as f:
             df_GMT_plots = pk.load(f)
 
     gmts2100 = np.round(df_GMT_plots.loc[2100,GMT_indices_ticks].values,1)    
@@ -786,8 +786,8 @@ def plot_dev_fig7(
         plt.tight_layout()
 
         plt.savefig(
-            scripts_dir + '/figures/source2suffering/development/{}/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}.png'.format(
-                extr, extr, region_name, flags['gmt']
+            scripts_dir + '/figures/source2suffering/development/{}/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(
+                extr, extr, region_name, flags['gmt'],flags['rm']
             )
         )
 
@@ -820,7 +820,7 @@ def plot_dev_fig8(
 
         GMT_indices_ticks=[0,5,10,15,20]
 
-        with open(data_dir+'temperature_trajectories_AR6/df_GMT_strj_{}.pkl'.format(flags['rm']), 'rb') as f:
+        with open(data_dir+'temperature_trajectories_AR6/df_GMT_strj.pkl'.format(flags['rm']), 'rb') as f:
             df_GMT_plots = pk.load(f)
 
 
@@ -828,7 +828,7 @@ def plot_dev_fig8(
 
         GMT_indices_ticks=[7,12,17,24,27]
 
-        with open(data_dir+'temperature_trajectories_SR15/df_GMT_strj_{}.pkl'.format(flags['rm']), 'rb') as f:
+        with open(data_dir+'temperature_trajectories_SR15/df_GMT_strj.pkl'.format(flags['rm']), 'rb') as f:
             df_GMT_plots = pk.load(f)
 
     gmts2100 = np.round(df_GMT_plots.loc[2100,GMT_indices_ticks].values,1)     
@@ -981,8 +981,8 @@ def plot_dev_fig8(
         plt.tight_layout()
 
         plt.savefig(
-            scripts_dir + '/figures/source2suffering/development/{}/fig8_BE_{}_lifetime_exposure_{}_gmt_{}.png'.format(
-                extr, extr, country, flags['gmt']
+            scripts_dir + '/figures/source2suffering/development/{}/fig8_BE_{}_lifetime_exposure_{}_gmt_{}_{}.png'.format(
+                extr, extr, country, flags['gmt'],flags['rm']
             )
         )
 
@@ -1010,14 +1010,27 @@ def plot_dev_fig9(
 
     plt.figure(figsize=(13, 9))
 
+    if hazards=='burntarea':
+        hazards_name = 'Wildfires'
+    if hazards=='cropfailedarea':
+        hazards_name = 'Crop failures'
+    if hazards=='driedarea':
+        hazards_name = 'Droughts'
+    if hazards=='floodedarea':
+        hazards_name = 'River floods'
+    if hazards=='heatwavedarea':
+        hazards_name = 'Heatwaves'
+    if hazards=='tropicalcyclonedarea':
+        hazards_name = 'Tropical Cyclones'
+
     # Plot lines with markers (instead of only points)
     plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard, 
-            '-o', color="tab:orange", label="Source2Suffering", markersize=10,lw=2)
+            '-o', color="tab:orange", label="S2S flags['gmt'] = {} & flags['rm'] = {}".format(flags['gmt'],flags['rm']), markersize=10,lw=2)
     plt.plot(birth_cohort_int, wt_valc_nr_children_facing_extra_hazard, 
             '-o', color="tab:blue", label="W.Thiery", markersize=10,lw=2)
 
     # Set the figure title
-    plt.title("Number of children facing at\nleast one extra {} due to NeptunDeep".format(hazards),
+    plt.title("Number of children facing at\nleast one extra {} due to NeptunDeep".format(hazards_name),
             fontsize=22, fontweight='bold')
 
     # Axis labels
@@ -1035,7 +1048,7 @@ def plot_dev_fig9(
     plt.tight_layout()
 
     # Save the figure
-    plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/nr_children_facing_extra_{}_NeptunDeep_gmt_{}.png'.format(hazards, flags['gmt']))
+    plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/fig9_nr_children_facing_extra_{}_NeptunDeep_gmt_{}_{}.png'.format(hazards, flags['gmt'],flags['rm']))
 
 def plot_dev_fig10(
     s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new,
@@ -1059,19 +1072,32 @@ def plot_dev_fig10(
 
     plt.figure(figsize=(13, 9))
 
+    if hazards=='burntarea':
+        hazards_name = 'Wildfires'
+    if hazards=='cropfailedarea':
+        hazards_name = 'Crop failures'
+    if hazards=='driedarea':
+        hazards_name = 'Droughts'
+    if hazards=='floodedarea':
+        hazards_name = 'River floods'
+    if hazards=='heatwavedarea':
+        hazards_name = 'Heatwaves'
+    if hazards=='tropicalcyclonedarea':
+        hazards_name = 'Tropical Cyclones'
+
     # Plot lines with markers (instead of only points)
 
     plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new, 
-            '-o', color="tab:orange", label="S2S - GMT AR6_new", markersize=10,lw=2)
+            '-o', color="tab:orange", label="S2S - GMT AR6_new & flags['rm'] = {}".format(flags['rm']), markersize=10,lw=2)
 
     plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard_gmt_original, 
-            '-o', color="tab:red", label="S2S - GMT Original", markersize=10,lw=2)
+            '-o', color="tab:red", label="S2S - GMT Original & flags['rm'] = {}".format(flags['rm']), markersize=10,lw=2)
 
     plt.plot(birth_cohort_int, wt_valc_nr_children_facing_extra_hazard, 
             '-o', color="tab:blue", label="W.Thiery", markersize=10,lw=2)
 
     # Set the figure title
-    plt.title("Number of children facing at\nleast one extra {} due to NeptunDeep".format(hazards),
+    plt.title("Number of children facing at\nleast one extra {} due to NeptunDeep".format(hazards_name),
             fontsize=22, fontweight='bold')
 
     # Axis labels
@@ -1089,7 +1115,7 @@ def plot_dev_fig10(
     plt.tight_layout()
 
     # Save the figure
-    plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/nr_children_facing_extra_{}_NeptunDeep_gmt_comp.png'.format(hazards))
+    plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/fig10_nr_children_facing_extra_{}_NeptunDeep_gmt_comp_{}.png'.format(hazards,flags['rm']))
 
 
 def plot_dev_fig11(df_GMT_15, df_GMT_20, df_GMT_NDC, df_GMT_OS, df_GMT_noOS):
@@ -1208,7 +1234,7 @@ def plot_dev_fig13_regions(ds_regions, extr, flags, ds_le, region_ind, EMF):
 
     le_ModAct_std = ds_le['std_STS_ModAct'].sel(
         region=region_ind,
-    )
+    )/2
     
     le_Ren = ds_le['mmm_STS_Ren'].sel(
         region=region_ind,
@@ -1216,7 +1242,7 @@ def plot_dev_fig13_regions(ds_regions, extr, flags, ds_le, region_ind, EMF):
 
     le_Ren_std = ds_le['std_STS_Ren'].sel(
         region=region_ind,
-    )
+    )/2
 
     plt.plot(birth_years, le_ModAct, linestyle='-',color=GMT_color[0],label=GMT_label[0],lw=3)
     plt.fill_between(birth_years, le_ModAct - le_ModAct_std, le_ModAct + le_ModAct_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0], lw=3)
@@ -1231,4 +1257,273 @@ def plot_dev_fig13_regions(ds_regions, extr, flags, ds_le, region_ind, EMF):
     plt.grid(True)
     plt.tight_layout()
     plt.legend(fontsize=16)
-    plt.savefig(scripts_dir+'/figures/assessment/SPARCCLE_STS/lifetime_exposure_{}_region_{}.png'.format(extr,region_name))
+    plt.savefig(scripts_dir+'/figures/assessment/SPARCCLE_STS/lifetime_exposure_{}_region_{}_{}.png'.format(extr,region_name,flags['rm']))
+
+def plot_dev_fig14_regions(flags, extr, ds_lfe_perregion, ind_region):
+    """
+    Plot MMM fraction of land exposed to hazard for the a specific region under the Thiery et al.(2021) trajectories.
+
+    Parameters:
+    - extr (str): flags['extr']
+    - ds_lfe_perregion (xarray.Dataset): Dataset with all the countries per region
+    - ind_region (int): Index of the region under interest
+    """
+    
+    plt.close('all') 
+
+    plt.figure(figsize=(12, 8))
+
+    if extr=='burntarea':
+        extr_name = 'Wildfires'
+    if extr=='cropfailedarea':
+        extr_name = 'Crop failures'
+    if extr=='driedarea':
+        extr_name = 'Droughts'
+    if extr=='floodedarea':
+        extr_name = 'River floods'
+    if extr=='heatwavedarea':
+        extr_name = 'Heatwaves'
+    if extr=='tropicalcyclonedarea':
+        extr_name = 'Tropical Cyclones'
+
+    if flags['gmt']=='original':
+
+        GMT_label = ['1.5°C', '2.0°C','NDC']  
+
+    if flags['gmt']=='ar6_new':
+
+        GMT_list = [0,11,20]
+        GMT_label = ['1.5°C', '2.5°C','3.5°C']  
+
+    GMT_color = ['#FFC72C', '#FF5A1F', '#C74135']
+    region_name = ds_regions['name'].sel(region=ind_region)
+
+    if flags['gmt']=='original':
+
+        lfe_15 = ds_lfe_perregion['mmm_15_sm'].sel(region=ind_region).isel(time_ind=slice(0, -13))
+
+        y_std_15 = ds_lfe_perregion['std_15_sm'].sel(region=ind_region).isel(time_ind=slice(0, -13))/2
+
+        lfe_20 = ds_lfe_perregion['mmm_20_sm'].sel(region=ind_region).isel(time_ind=slice(0, -13))
+
+        y_std_20 = ds_lfe_perregion['std_20_sm'].sel(region=ind_region).isel(time_ind=slice(0, -13))/2
+
+        lfe_NDC = ds_lfe_perregion['mmm_NDC_sm'].sel(region=ind_region).isel(time_ind=slice(0, -13))
+
+        y_std_NDC = ds_lfe_perregion['std_NDC_sm'].sel(region=ind_region).isel(time_ind=slice(0, -13))/2
+
+        plt.plot(year_range[:-13], lfe_15*100, linestyle='-',color=GMT_color[0],label=GMT_label[0], lw=3)
+        plt.fill_between(year_range[:-13], lfe_15*100 - y_std_15*100, lfe_15*100 + y_std_15*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0], lw=3)
+
+        plt.plot(year_range[:-13], lfe_20*100, linestyle='-',color=GMT_color[1],label=GMT_label[1], lw=3)
+        plt.fill_between(year_range[:-13], lfe_20*100 - y_std_20*100, lfe_20*100 + y_std_20*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[1], lw=3)
+
+        plt.plot(year_range[:-13],lfe_NDC*100, linestyle='-',color=GMT_color[2],label=GMT_label[2], lw=3)
+        plt.fill_between(year_range[:-13], lfe_NDC*100 - y_std_NDC*100, lfe_NDC*100 + y_std_NDC*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[2], lw=3)
+
+    # Plot script works but I have not yet generelized the pipeline before to produce the object of the mmm_BE_sm #
+
+    if flags['gmt']=='ar6_new':
+        
+        print("\nPlot not performed for the {} region because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new".format(region_name))
+
+        return 
+
+    #         for GMT in GMT_list:
+
+    #             lfe = ds_lfe_perregion['mmm_BE_sm'].sel(
+    #                 region=ind_region,
+    #                 GMT=GMT
+    #             ).isel(time_ind=slice(0, -13))
+
+    #             y_std = ds_lfe_perregion['std_BE_sm'].sel(
+    #                 region=ind_region,
+    #                 GMT = GMT
+    #             ).isel(time_ind=slice(0, -13))/2
+
+    #             plt.plot(year_range[:-13], lfe*100, linestyle='-',color=GMT_color[i],label=GMT_label[i],lw=3)
+    #             plt.fill_between(year_range[:-13], lfe*100 - y_std*100, lfe*100 + y_std*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i],lw=3)
+
+    plt.title("Land Fraction Exposed to {} \n in the {} region".format(extr_name, region_name),fontsize=18,fontweight='bold')
+    plt.xlabel("Time",fontsize=16,fontweight='bold')
+    plt.ylabel("Area annually exposed to {} (%)".format(extr_name),fontsize=16,fontweight='bold')
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend(fontsize=16)
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig14_mmm_landfrac_exposed_region_{}_gmt_{}_{}.png'.format(extr,region_name,flags['gmt'],flags['rm']))
+    print("\nPlot performed for the {} region".format(region_name))
+
+def plot_dev_fig15_country(flags, extr, ds_lfe_percountry, country_name):
+    """
+    Plot MMM fraction of land exposed to hazard for all countries under the Thiery et al.(2021) trajectories.
+
+    Parameters:
+    - extr (str): flags['extr']
+    - ds_lfe_percountry (xarray.Dataset): Dataset with all the countries 
+    - country (str): Name of the country under study 
+    """
+    
+    plt.close('all') 
+
+    plt.figure(figsize=(12, 8))
+
+    if extr=='burntarea':
+        extr_name = 'Wildfires'
+    if extr=='cropfailedarea':
+        extr_name = 'Crop failures'
+    if extr=='driedarea':
+        extr_name = 'Droughts'
+    if extr=='floodedarea':
+        extr_name = 'River floods'
+    if extr=='heatwavedarea':
+        extr_name = 'Heatwaves'
+    if extr=='tropicalcyclonedarea':
+        extr_name = 'Tropical Cyclones'
+
+    if flags['gmt']=='original':
+
+        GMT_label = ['1.5°C', '2.0°C','NDC']  
+
+    if flags['gmt']=='ar6_new':
+
+        GMT_list = [0,11,20]
+        GMT_label = ['1.5°C', '2.5°C','3.5°C']  
+
+    GMT_color = ['#FFC72C', '#FF5A1F', '#C74135']
+    region_name = ds_regions['name'].sel(region=ind_region)
+
+    if flags['gmt']=='original':
+
+        lfe_15 = ds_lfe_percountry['mmm_15_sm'].sel(country=country_name).isel(time_ind=slice(0, -13))
+
+        y_std_15 = ds_lfe_percountry['std_15_sm'].sel(country=country_name).isel(time_ind=slice(0, -13))/2
+
+        lfe_20 = ds_lfe_percountry['mmm_20_sm'].sel(country=country_name).isel(time_ind=slice(0, -13))
+
+        y_std_20 = ds_lfe_percountry['std_20_sm'].sel(country=country_name).isel(time_ind=slice(0, -13))/2
+
+        lfe_NDC = ds_lfe_percountry['mmm_NDC_sm'].sel(country=country_name).isel(time_ind=slice(0, -13))
+
+        y_std_NDC = ds_lfe_percountry['std_NDC_sm'].sel(country=country_name).isel(time_ind=slice(0, -13))/2
+
+        plt.plot(year_range[:-13], lfe_15*100, linestyle='-',color=GMT_color[0],label=GMT_label[0], lw=3)
+        plt.fill_between(year_range[:-13], lfe_15*100 - y_std_15*100, lfe_15*100 + y_std_15*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0], lw=3)
+
+        plt.plot(year_range[:-13], lfe_20*100, linestyle='-',color=GMT_color[1],label=GMT_label[1], lw=3)
+        plt.fill_between(year_range[:-13], lfe_20*100 - y_std_20*100, lfe_20*100 + y_std_20*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[1], lw=3)
+
+        plt.plot(year_range[:-13],lfe_NDC*100, linestyle='-',color=GMT_color[2],label=GMT_label[2], lw=3)
+        plt.fill_between(year_range[:-13], lfe_NDC*100 - y_std_NDC*100, lfe_NDC*100 + y_std_NDC*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[2], lw=3)
+
+    # Plot script works but I have not yet generelized the pipeline before to produce the object of the mmm_BE_sm #
+    if flags['gmt']=='ar6_new':
+        
+        print("\nPlot not performed for {} because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new".format(country_name))
+
+        return 
+        
+            # for GMT in GMT_list:
+
+            #     lfe = ds_lfe_percountry['mmm_BE_sm'].sel(
+            #         country=country_name,
+            #         GMT=GMT
+            #     ).isel(time_ind=slice(0, -13))
+
+            #     y_std = ds_lfe_percountry['std_BE_sm'].sel(
+            #         country=country_name,
+            #         GMT = GMT
+            #     ).isel(time_ind=slice(0, -13))
+
+            #     plt.plot(year_range[:-13], lfe*100, linestyle='-',color=GMT_color[i],label=GMT_label[i],lw=3)
+            #     plt.fill_between(year_range[:-13], lfe*100 - y_std*100, lfe*100 + y_std*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i],lw=3)
+
+    plt.title("Land Fraction Exposed to {} \n in {}".format(extr_name, country_name),fontsize=18,fontweight='bold')
+    plt.xlabel("Time",fontsize=16,fontweight='bold')
+    plt.ylabel("Area annually exposed to {} (%)".format(extr_name),fontsize=16,fontweight='bold')
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend(fontsize=16)
+    plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/fig15_mmm_landfrac_exposed_{}_gmt_{}_{}.png'.format(extr,country_name,flags['gmt'],flags['rm']))
+    print("Plot performed for {}".format(country_name))
+
+def plot_dev_fig16(
+    wt_valc_nr_children_facing_extra_hazard,
+    s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new_rm,
+    s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new_no_rm,
+    s2s_valc_nr_children_facing_extra_hazard_gmt_original_rm,
+    s2s_valc_nr_children_facing_extra_hazard_gmt_original_no_rm,
+    birth_cohort_int,
+    hazards,
+):
+    """
+    Plot comparison of the assessment report produced by W.Thiery et al.(2021) and the Source2Suffering framework and the two different GMT options + the thwo different rm options
+
+    Parameters:
+    - wt_valc_nr_children_facing_extra_hazard (Array) : Contains per birth cohort of interested the number of extra children affected computed by W.Thiery
+    - s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new_rm (Array) : Value produce by the S2S framework with the ar6_new and rm configuration
+    - s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new_no_rm (Array) : Value produce by the S2S framework with the ar6_new and no_rm configuration
+    - s2s_valc_nr_children_facing_extra_hazard_gmt_original_rm (Array) : Value produce by the S2S framework with the original and rm configuration
+    - s2s_valc_nr_children_facing_extra_hazard_gmt_original_no_rm (Array) : Value produce by the S2S framework with the original and no_rm configuration
+    - birth_cohort_int (Array) : Contains the birth cohort of interest
+    - flags (Array) : contains the parameters of the configuration
+    """
+
+    plt.close('all')
+
+    plt.figure(figsize=(13, 9))
+
+    if hazards=='burntarea':
+        hazards_name = 'Wildfires'
+    if hazards=='cropfailedarea':
+        hazards_name = 'Crop failures'
+    if hazards=='driedarea':
+        hazards_name = 'Droughts'
+    if hazards=='floodedarea':
+        hazards_name = 'River floods'
+    if hazards=='heatwavedarea':
+        hazards_name = 'Heatwaves'
+    if hazards=='tropicalcyclonedarea':
+        hazards_name = 'Tropical Cyclones'
+
+    # Plot lines with markers (instead of only points)
+
+
+    plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard_gmt_original_rm, 
+            '--o', color="tab:orange", label="S2S - GMT Original & {}".format('rm'), markersize=10,lw=3)
+
+    plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new_no_rm, 
+            '-o', color="tab:red", label="S2S - GMT AR6_new & {}".format('no_rm'), markersize=10,lw=3)
+
+    plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard_gmt_ar6_new_rm, 
+            '--o', color="tab:red", label="S2S - GMT AR6_new & {}".format('rm'), markersize=10,lw=3)
+
+    plt.plot(birth_cohort_int, s2s_valc_nr_children_facing_extra_hazard_gmt_original_no_rm, 
+            '-o', color="tab:orange", label="S2S - GMT Original & {}".format('no_rm'), markersize=10,lw=6)
+
+    plt.plot(birth_cohort_int, wt_valc_nr_children_facing_extra_hazard, 
+            '-o', color="tab:blue", label="W.Thiery", markersize=10,lw=3)
+
+    # Set the figure title
+    plt.title("Number of children facing at\nleast one extra {} due to NeptunDeep".format(hazards_name),
+            fontsize=22, fontweight='bold')
+
+    # Axis labels
+    plt.xlabel("Birth cohort", fontsize=20, fontweight='bold')
+    plt.ylabel("Number of children", fontsize=20, fontweight='bold')
+
+    # Display the legend
+    plt.legend(fontsize=18)
+
+    # Set x-axis ticks for each birth cohort
+    plt.xticks(birth_cohort_int, rotation=45, fontsize=14)
+    plt.yticks(fontsize=14, rotation=45)
+    plt.grid()
+
+    plt.tight_layout()
+
+    # Save the figure
+    plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/fig16_nr_children_facing_extra_{}_NeptunDeep_gmt_and_rm_comp.png'.format(hazards))

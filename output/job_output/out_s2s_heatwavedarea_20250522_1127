@@ -1,0 +1,133 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_heatwavedarea - Job ID: 10781224
+Thu May 22 11:27:47 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 2.36 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=heatwavedarea
+Using extr value: heatwavedarea
+ ------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                                 |
+ ------------------------------------------------------------------------------------------------------
+
+Current date and time: 2025-05-22 11:30:15
+
+ -------------------------------------------------------------------------------
+|                       Model configuration - Manual                            |
+ -------------------------------------------------------------------------------
+
+extr: heatwavedarea
+
+gmt: original
+
+rm: rm
+
+version: pickles_v3
+
+run: 0
+
+mask: 0
+
+dem4cli: 0
+
+lifetime_exposure: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+reporting: 0
+
+plots: 1
+
+ -------------------------------------------------------------------------------
+|                             Start Settings Framework                          |
+ -------------------------------------------------------------------------------
+
+Settings imported
+
+ -------------------------------------------------------------------------------
+|            Start to import and manipulate Demographic, GMT and ISIMIP data    |
+ -------------------------------------------------------------------------------
+
+GMT projections loaded
+Loading processed country and regions data
+Country and regions data loaded
+Loading processed ISIMIP data
+ISMIP data loaded
+
+ -------------------------------------------------------------------------------
+|                       Start Lifetime Exposure framework                       |
+ -------------------------------------------------------------------------------
+
+
+Loading processed Land Fraction Exposed per ISIMIP simulation
+
+Loading processed MMM Land Fraction Exposed
+
+Loading processed Lifetime Exposure per ISIMIP simulation
+
+Loading processed MMM Lifetime Exposure
+
+Loading EMF of Lifetime Exposure
+
+Loading PIC Lifetime Exposure per ISIMIP simulation
+
+ -------------------------------------------------------------------------------
+|                          Start Reporting framework                            |
+ -------------------------------------------------------------------------------
+
+No reporting performed and saved
+
+ -------------------------------------------------------------------------------
+|                             Start Plots framework                             |
+ -------------------------------------------------------------------------------
+
+ -------------------------------------------------------
+|        Start plots for Source2Suffering Project       |
+ -------------------------------------------------------
+
+----- Performing Plot f11 for Assessment - SPARCCLE-STS : Comparison of the different GMT pathways between GMT_15, GMT_20, GMT_NDC, GMT_OS and GMT_noOS -----
+
+----- Performing Plot f12 for Assessment - SPARCCLE-STS : Comparison of the different GMT pathways between GMT_OS, GMT_noOS and GMT_STS -----
+
+----- Performing Plot f13 for Assessment - SPARCCLE-STS : LE MMM for all regions under STS_ModAct and STS_Ren -----
+
+ ------------------------------------------------------------------------------------------------------
+|                        End of computations for the Source2Suffering Project                          |
+ ------------------------------------------------------------------------------------------------------
+
+Script execution time: 48.5 seconds
+Script execution time: 0.8 minutes
+Script execution time: 0.0 hours
+
+--------------------------------------------------------------------------------------------------------
+End Job
+Thu May 22 11:31:04 CEST 2025
+-------------------------------------------------------------------------------------------------

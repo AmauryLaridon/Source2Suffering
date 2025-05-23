@@ -167,7 +167,7 @@ if not env_value_paper:
                                                     # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
                                                     # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
 
-    flags['rm'] = 'rm'                              # no_rm: no smoothing of RCP GMTs before mapping
+    flags['rm'] = 'no_rm'                              # no_rm: no smoothing of RCP GMTs before mapping
                                                     # rm: 21-year rolling mean on RCP GMTs
     
     #-------------- Version of the input Data ---------------#
@@ -181,7 +181,7 @@ if not env_value_paper:
                                                         # 5 percentiles for PIC threshold and emergence for each
                                                     # pickles_v3: version generated after the 2021 toolchains were taken away from hydra. could not longer use old pickles effectively
 
-    flags['run'] = 1                                # 0: do not process ISIMIP runs (i.e. load runs pickle)
+    flags['run'] = 0                                # 0: do not process ISIMIP runs (i.e. load runs pickle)
                                                     # 1: process ISIMIP runs (i.e. produce and save runs as pickle)
 
     flags['mask'] = 0                               # 0: do not process country data (i.e. load masks pickle)
@@ -194,7 +194,7 @@ if not env_value_paper:
 
     #--------- Thiery et al.(2021) Lifetime Exposure ----------#
     
-    flags['lifetime_exposure'] = 1                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
+    flags['lifetime_exposure'] = 0                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
                                                                         
     flags['lifetime_exposure_pic'] = 0              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
@@ -244,7 +244,7 @@ if not env_value_paper:
     flags['reporting'] = 0                          # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
 
-    flags['plots'] = 0                              # 0 do not produce and save plots 
+    flags['plots'] = 1                              # 0 do not produce and save plots 
                                                     # 1 produce and load plots
 
     # Use for specific climate extreme jobs - HPC only

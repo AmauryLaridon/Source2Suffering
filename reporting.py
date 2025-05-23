@@ -422,6 +422,7 @@ if Source2Suffering:
 
         # Dictionary to store values for each extreme hazard type
         valc_dict = {}
+        valc_total_dict = {}
 
         # Loop over all extreme hazard types
         for extr in all_extremes:
@@ -445,6 +446,11 @@ if Source2Suffering:
                 valp_cohort_size_abs=valp_cohort_size_abs,
                 rounding=1
             )
+
+            nr_total = valc_nr_children_facing_extra_hazard_NeptunDeep[-1]
+
+            # Store the value of the total number of people exposed
+            valc_total_dict[extr] = nr_total
 
             # Exclude the last value along the only dimension (since the array is 1D)
             da_trimmed = valc_nr_children_facing_extra_hazard_NeptunDeep[:-1]
@@ -480,10 +486,34 @@ if Source2Suffering:
             name="valc_nr_children_facing_extra_hazard_NeptunDeep"
         )
 
-        # dump pickle of valc_nr_children_facing_extra_hazard
+        # Create a DataArray containing the values of the total of people exposed for each hazard
+        da_valc_total_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
+            data=[valc_total_dict[extr] for extr in all_extremes],
+            coords={
+                "hazard": all_extremes,
+            },
+            dims=["hazard"],
+            name="valc_total_nr_children_facing_extra_hazard_NeptunDeep"
+        )
 
+        ds_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.Dataset(
+        {
+            "valc_nr_children_facing_extra_hazard_NeptunDeep": da_valc_nr_children_facing_extra_hazard_NeptunDeep,
+            "valc_total_nr_children_facing_extra_hazard_NeptunDeep": da_valc_total_nr_children_facing_extra_hazard_NeptunDeep
+        }
+        )
+
+        # dump pickle of da_valc_nr_children_facing_extra_hazard_NeptunDeep
         with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(da_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
+        
+        # dump pickle of da_valc_total_nr_children_facing_extra_hazard_NeptunDeep
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_total_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(da_valc_total_nr_children_facing_extra_hazard_NeptunDeep,f)
+
+        # dump pickle of ds_valc_nr_children_facing_extra_hazard_NeptunDeep
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
 
         # impacts = {1: "wildfire", 2: "crop failure", 3: "drought", 4: "river floods", 5: "heatwaves", 6: "tropical cyclones"}
         # valc_impacts_NeptunDeep = {}

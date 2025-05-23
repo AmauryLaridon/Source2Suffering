@@ -496,26 +496,28 @@ if Source2Suffering:
 
     # Fig 9 - Number of new exposed children due to specific GHG emission and comparison with flags['gmt] and Thiery et al.(2021)  #
 
-    plot_fig9 = 0       # 0: do not plot figure 9 
+    plot_fig9 = 1       # 0: do not plot figure 9 
                         # 1: plot figure 9 
     plot_fig10 = 0      # 0: do not plot figure 10  
                         # 1: plot figure 10  (only works if plot_fig9=1)
+    plot_fig16 = 0      # 0: do not plot figure 16 
+                        # 1: plot figure 16
 
     # -------------------- Plots for Assessment - SPARCCLE-STS ------------------- #
 
     # Fig 11 - Comparison of the different GMT pathways between GMT_15, GMT_20, GMT_NDC, GMT_OS and GMT_noOS  #
 
-    plot_fig11 = 1      # 0: do not plot figure 11 
+    plot_fig11 = 0      # 0: do not plot figure 11 
                         # 1: plot figure 11 
 
     # Fig 12 - Comparison of the different GMT pathways between GMT_OS, GMT_noOS and GMT_STS  #
 
-    plot_fig12 = 1      # 0: do not plot figure 12 
+    plot_fig12 = 0      # 0: do not plot figure 12 
                         # 1: plot figure 12 
 
     # Fig 13 - LE MMM for all regions under STS_ModAct and STS_Ren  #
 
-    plot_fig13 = 1      # 0: do not plot figure 13 
+    plot_fig13 = 0      # 0: do not plot figure 13 
                         # 1: plot figure 13 
 
     
@@ -784,6 +786,13 @@ if Source2Suffering:
         wt_valc_nr_children_facing_extra_heatwavedarea = [127000,123000,120000,116000,113000,110000,106000,103000,99000,95000,91000]
         wt_valc_nr_children_facing_extra_tropicalcyclone = [1000]*9 + [0]*2
 
+        wt_total_valc_nr_children_facing_extra_wildfire = [11000]
+        wt_total_valc_nr_children_facing_extra_cropfailure = [29000]
+        wt_total_valc_nr_children_facing_extra_drought = [31000]
+        wt_total_valc_nr_children_facing_extra_flood = [np.nan]
+        wt_total_valc_nr_children_facing_extra_heatwavedarea = [1203000]
+        wt_total_valc_nr_children_facing_extra_tropicalcyclone = [9000]
+
         # Creating a DataArray to store 
         data = np.array([
             wt_valc_nr_children_facing_extra_wildfire,
@@ -803,6 +812,17 @@ if Source2Suffering:
             wt_valc_nr_children_facing_extra_tropicalcyclone
         ]), axis=1)
 
+        data_total = np.array([
+            wt_total_valc_nr_children_facing_extra_wildfire,
+            wt_total_valc_nr_children_facing_extra_cropfailure,
+            wt_total_valc_nr_children_facing_extra_drought,
+            wt_total_valc_nr_children_facing_extra_flood,
+            wt_total_valc_nr_children_facing_extra_heatwavedarea,
+            wt_total_valc_nr_children_facing_extra_tropicalcyclone    
+        ])
+
+        data_total = data_total.squeeze()
+
         year_start_as = 2010
         year_end_as = 2020
 
@@ -816,10 +836,44 @@ if Source2Suffering:
             name="wt_valc_nr_children_facing_extra_hazard_NeptunDeep"
         )
 
+        # Init DataArray
+        da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
+            data_total,
+            dims=["hazard"],
+            coords={"hazard": hazards},
+            name="wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep"
+        )
+
+        # Save the reference data 
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.pkl', 'wb') as f:
+            pk.dump(da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
+
+        # Save the reference total data 
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep.pkl', 'wb') as f:
+            pk.dump(da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
+
+        # Save as DataSet
+
+        ds_wt_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.Dataset(
+        {
+            "wt_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,
+            "wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep
+        }
+        )
+
+        # Save as pickles 
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.pkl', 'wb') as f:
+            pk.dump(ds_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
+
         # Load the values computed by the Source2Suffering framework #
 
         with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'rb') as f:
             da_valc_nr_children_facing_extra_hazard_NeptunDeep = pk.load(f)
+
+        # Plots 
 
         for i in range(len(da_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
 
@@ -832,10 +886,10 @@ if Source2Suffering:
 
             print("\n----- Performing Plot f10 for Assessment - Neptun Deep : Number of new exposed children to hazard comparison with flags['gmt] and Thiery et al.(2021) -----")
 
-            with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new.pkl', 'rb') as f:
+            with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_{}.pkl'.format(flags['rm']), 'rb') as f:
                 da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new = pk.load(f)
 
-            with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original.pkl', 'rb') as f:
+            with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_{}.pkl'.format(flags['rm']), 'rb') as f:
                 da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original = pk.load(f)
             
             for i in range(len(da_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
@@ -846,6 +900,49 @@ if Source2Suffering:
 
                 plot_dev_fig10(da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel, da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel, da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel, birth_cohort_int,hazards[i], flags)
         
+    if plot_fig16:
+
+        print("\n----- Performing Plot f16 for Assessment - Neptun Deep : Number of new exposed children to hazard : Comparison between the 'rm' and 'gmt' configurations -----")
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.pkl', 'rb') as f:
+            da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep = pk.load(f)
+        
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_{}.pkl'.format('rm'), 'rb') as f:
+                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_rm = pk.load(f)
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_{}.pkl'.format('no_rm'), 'rb') as f:
+                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_no_rm = pk.load(f)
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_{}.pkl'.format('rm'), 'rb') as f:
+                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_rm = pk.load(f)
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_{}.pkl'.format('no_rm'), 'rb') as f:
+                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_no_rm = pk.load(f)
+
+        year_start_as = 2010
+        year_end_as = 2020
+
+        birth_cohort_int = list(range(year_start_as, year_end_as + 1))
+        
+        for i in range(len(da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
+
+            da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel= da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)
+
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_rm_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_rm.isel(hazard=i)
+
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_no_rm_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_no_rm.isel(hazard=i)
+
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_rm_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_rm.isel(hazard=i)
+
+            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_no_rm_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_no_rm.isel(hazard=i)
+
+            plot_dev_fig16(da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,
+             da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_rm_sel, 
+             da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_no_rm_sel,
+             da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_rm_sel,
+             da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_no_rm_sel,
+             birth_cohort_int,hazards[i])
+    
     if plot_fig11:
 
         print("\n----- Performing Plot f11 for Assessment - SPARCCLE-STS : Comparison of the different GMT pathways between GMT_15, GMT_20, GMT_NDC, GMT_OS and GMT_noOS -----")
@@ -934,29 +1031,51 @@ if Source2Suffering:
             Contact author : Amaury.Laridon@vub.be
             """
 
-            ds_subset_ModAct.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_ModAct_{}_lifetime_exposure_perregion.nc'.format(extr))
-            ds_subset_Ren.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_Ren_{}_lifetime_exposure_perregion.nc'.format(extr))
+            ds_subset_ModAct.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_ModAct_{}_lifetime_exposure_perregion_{}.nc'.format(extr,flags['rm']))
+            ds_subset_Ren.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_Ren_{}_lifetime_exposure_perregion_{}.nc'.format(extr,flags['rm']))
 
     if plot_fig14:
     
         print("\n----- Performing Plot f14 for Development : LFE MMM for the World region -----")
 
-        with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_lfe_perregion = pk.load(f)
+        if flags['gmt'] =='ar6_new':
+    
+            print("\nPlot not performed because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new")
 
-        plot_dev_fig14_regions(flags, extr=flags['extr'], ds_lfe_perregion=ds_lfe_perregion, ind_region=11)
+        if flags['gmt']=='original':
+
+            for extr in hazards:
+
+                print("\nPerforming Plot f14 for {}".format(extr))
+
+                with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_lfe_perregion = pk.load(f)
+
+                plot_dev_fig14_regions(flags, extr=extr, ds_lfe_perregion=ds_lfe_perregion, ind_region=11)
+        
 
     if plot_fig15:
         
         print("\n----- Performing Plot f15 for Development : LFE MMM for all countries -----")
 
-        with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_lfe_percountry = pk.load(f)
+        if flags['gmt'] =='ar6_new':
 
-        for country_name in ds_le_percountry['country'].values:
+            print("\nPlot not performed for because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new")
 
-            plot_dev_fig15_country(flags, extr=flags['extr'], ds_lfe_percountry=ds_lfe_percountry, country_name=country_name)
+        if flags['gmt']=='original':
+
+            for extr in hazards:
+
+                print("\nPerforming Plot f15 for {}\n".format(extr))
+
+                with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_lfe_percountry = pk.load(f)
+            
+                for country_name in ds_le_percountry['country'].values:
+
+                    plot_dev_fig15_country(flags, extr=extr, ds_lfe_percountry=ds_lfe_percountry, country_name=country_name)
     
+
 #%%-----------------------------------------------------------------------#
 # Framework to plots not configured                                       #
 #-------------------------------------------------------------------------#
