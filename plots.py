@@ -498,9 +498,9 @@ if Source2Suffering:
 
     plot_fig9 = 1       # 0: do not plot figure 9 
                         # 1: plot figure 9 
-    plot_fig10 = 0      # 0: do not plot figure 10  
+    plot_fig10 = 1      # 0: do not plot figure 10  
                         # 1: plot figure 10  (only works if plot_fig9=1)
-    plot_fig16 = 0      # 0: do not plot figure 16 
+    plot_fig16 = 1      # 0: do not plot figure 16 
                         # 1: plot figure 16
 
     # -------------------- Plots for Assessment - SPARCCLE-STS ------------------- #
@@ -776,172 +776,93 @@ if Source2Suffering:
         
         print("\n----- Performing Plot f9 for Assessment - Neptun Deep : Number of new exposed children to hazard due to specific GHG emission -----")
 
-        # Values from Neptun Deep expert report by W.Thiery # 
-
-        # Definition of the values 
-        wt_valc_nr_children_facing_extra_wildfire = [1000]*11
-        wt_valc_nr_children_facing_extra_cropfailure = [3000]*7 + [2000]*4
-        wt_valc_nr_children_facing_extra_drought = [4000] + [3000]*6 + [2000]*4
-        wt_valc_nr_children_facing_extra_flood = [np.nan] * 11
-        wt_valc_nr_children_facing_extra_heatwavedarea = [127000,123000,120000,116000,113000,110000,106000,103000,99000,95000,91000]
-        wt_valc_nr_children_facing_extra_tropicalcyclone = [1000]*9 + [0]*2
-
-        wt_total_valc_nr_children_facing_extra_wildfire = [11000]
-        wt_total_valc_nr_children_facing_extra_cropfailure = [29000]
-        wt_total_valc_nr_children_facing_extra_drought = [31000]
-        wt_total_valc_nr_children_facing_extra_flood = [np.nan]
-        wt_total_valc_nr_children_facing_extra_heatwavedarea = [1203000]
-        wt_total_valc_nr_children_facing_extra_tropicalcyclone = [9000]
-
-        # Creating a DataArray to store 
-        data = np.array([
-            wt_valc_nr_children_facing_extra_wildfire,
-            wt_valc_nr_children_facing_extra_cropfailure,
-            wt_valc_nr_children_facing_extra_drought,
-            wt_valc_nr_children_facing_extra_flood,
-            wt_valc_nr_children_facing_extra_heatwavedarea,
-            wt_valc_nr_children_facing_extra_tropicalcyclone
-        ])
-
-        data = np.flip(np.array([
-            wt_valc_nr_children_facing_extra_wildfire,
-            wt_valc_nr_children_facing_extra_cropfailure,
-            wt_valc_nr_children_facing_extra_drought,
-            wt_valc_nr_children_facing_extra_flood,
-            wt_valc_nr_children_facing_extra_heatwavedarea,
-            wt_valc_nr_children_facing_extra_tropicalcyclone
-        ]), axis=1)
-
-        data_total = np.array([
-            wt_total_valc_nr_children_facing_extra_wildfire,
-            wt_total_valc_nr_children_facing_extra_cropfailure,
-            wt_total_valc_nr_children_facing_extra_drought,
-            wt_total_valc_nr_children_facing_extra_flood,
-            wt_total_valc_nr_children_facing_extra_heatwavedarea,
-            wt_total_valc_nr_children_facing_extra_tropicalcyclone    
-        ])
-
-        data_total = data_total.squeeze()
-
-        year_start_as = 2010
-        year_end_as = 2020
-
-        birth_cohort_int = list(range(year_start_as, year_end_as + 1))  
-
-        # Init DataArray
-        da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
-            data,
-            dims=["hazard", "birth_year"],
-            coords={"hazard": hazards, "birth_year": birth_cohort_int},
-            name="wt_valc_nr_children_facing_extra_hazard_NeptunDeep"
-        )
-
-        # Init DataArray
-        da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
-            data_total,
-            dims=["hazard"],
-            coords={"hazard": hazards},
-            name="wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep"
-        )
-
-        # Save the reference data 
-
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.pkl', 'wb') as f:
-            pk.dump(da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
-
-        # Save the reference total data 
-
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep.pkl', 'wb') as f:
-            pk.dump(da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
-
-        # Save as DataSet
-
-        ds_wt_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.Dataset(
-        {
-            "wt_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,
-            "wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep
-        }
-        )
-
-        # Save as pickles 
-
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.pkl', 'wb') as f:
-            pk.dump(ds_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
-
         # Load the values computed by the Source2Suffering framework #
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'rb') as f:
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep = pk.load(f)
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'rb') as f:
+            ds_S2S_NeptunDeep = pk.load(f)
+
+        # Load the values computed by the Wim Thiery Expert Report #
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl', 'rb') as f:
+            ds_WT_NeptunDeep = pk.load(f)
 
         # Plots 
 
-        for i in range(len(da_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
+        for extr in ds_S2S_NeptunDeep.coords["hazard"]:
 
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)                          
-            da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel= da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)
+            ds_S2S_NeptunDeep_sel = ds_S2S_NeptunDeep['valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr,birth_year=birth_cohort_int)                          
+            ds_WT_NeptunDeep_sel = ds_WT_NeptunDeep['wt_valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr)
 
-            plot_dev_fig9(da_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,birth_cohort_int,hazards[i],flags)
+            plot_dev_fig9(ds_S2S_NeptunDeep_sel,ds_WT_NeptunDeep_sel,birth_cohort_int,extr,flags)
 
-        if plot_fig10:
+    if plot_fig10:
 
-            print("\n----- Performing Plot f10 for Assessment - Neptun Deep : Number of new exposed children to hazard comparison with flags['gmt] and Thiery et al.(2021) -----")
+        print("\n----- Performing Plot f10 for Assessment - Neptun Deep : Number of new exposed children to hazard comparison with flags['gmt] and Thiery et al.(2021) -----")
 
-            with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_{}.pkl'.format(flags['rm']), 'rb') as f:
-                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new = pk.load(f)
+        # Load the values computed by the Source2Suffering framework #
 
-            with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_{}.pkl'.format(flags['rm']), 'rb') as f:
-                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original = pk.load(f)
-            
-            for i in range(len(da_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('ar6_new',flags['rm']), 'rb') as f:
+            ds_S2S_NeptunDeep_gmt_ar6_new_flags_rm = pk.load(f)
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('original',flags['rm']), 'rb') as f:
+            ds_S2S_NeptunDeep_gmt_original_flags_rm = pk.load(f)
+
+        # Load the values computed by the Wim Thiery Expert Report #
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl', 'rb') as f:
+            ds_WT_NeptunDeep = pk.load(f)
         
-                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new.isel(hazard=i)
-                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original.isel(hazard=i)                           
-                da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel= da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)
+        for extr in ds_WT_NeptunDeep.coords["hazard"]:
+    
+            ds_S2S_NeptunDeep_gmt_ar6_new_flags_rm_sel = ds_S2S_NeptunDeep_gmt_ar6_new_flags_rm['valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr,birth_year=birth_cohort_int)
+            ds_S2S_NeptunDeep_gmt_original_flags_rm_sel = ds_S2S_NeptunDeep_gmt_original_flags_rm['valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr,birth_year=birth_cohort_int)                       
+            ds_WT_NeptunDeep_sel = ds_WT_NeptunDeep['wt_valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr)
 
-                plot_dev_fig10(da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_sel, da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_sel, da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel, birth_cohort_int,hazards[i], flags)
-        
+            plot_dev_fig10(ds_S2S_NeptunDeep_gmt_ar6_new_flags_rm_sel, ds_S2S_NeptunDeep_gmt_original_flags_rm_sel, ds_WT_NeptunDeep_sel, birth_cohort_int, extr, flags)
+    
     if plot_fig16:
 
         print("\n----- Performing Plot f16 for Assessment - Neptun Deep : Number of new exposed children to hazard : Comparison between the 'rm' and 'gmt' configurations -----")
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.pkl', 'rb') as f:
-            da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep = pk.load(f)
+        # Load the values computed by the Wim Thiery Expert Report #
+
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl', 'rb') as f:
+            ds_WT_NeptunDeep = pk.load(f)
         
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_{}.pkl'.format('rm'), 'rb') as f:
-                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_rm = pk.load(f)
+        # Load the values computed by the Source2Suffering framework #
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_{}.pkl'.format('no_rm'), 'rb') as f:
-                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_no_rm = pk.load(f)
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('ar6_new','rm'), 'rb') as f:
+            ds_S2S_NeptunDeep_gmt_ar6_new_rm = pk.load(f)
+        
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('ar6_new','no_rm'), 'rb') as f:
+            ds_S2S_NeptunDeep_gmt_ar6_new_no_rm = pk.load(f)
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_{}.pkl'.format('rm'), 'rb') as f:
-                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_rm = pk.load(f)
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('original','rm'), 'rb') as f:
+            ds_S2S_NeptunDeep_gmt_original_rm = pk.load(f)
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_{}.pkl'.format('no_rm'), 'rb') as f:
-                da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_no_rm = pk.load(f)
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('original','no_rm'), 'rb') as f:
+            ds_S2S_NeptunDeep_gmt_original_no_rm = pk.load(f)
 
         year_start_as = 2010
         year_end_as = 2020
 
         birth_cohort_int = list(range(year_start_as, year_end_as + 1))
         
-        for i in range(len(da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.coords["hazard"])):
+        for extr in ds_S2S_NeptunDeep.coords["hazard"]:
 
-            da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel= da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep.isel(hazard=i)
+            ds_WT_NeptunDeep_sel = ds_WT_NeptunDeep['wt_valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr)
 
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_rm_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_rm.isel(hazard=i)
+            ds_S2S_NeptunDeep_gmt_ar6_new_rm_sel = ds_S2S_NeptunDeep_gmt_ar6_new_rm['valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr,birth_year=birth_cohort_int)
+            ds_S2S_NeptunDeep_gmt_ar6_new_no_rm_sel = ds_S2S_NeptunDeep_gmt_ar6_new_no_rm['valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr,birth_year=birth_cohort_int)
+            ds_S2S_NeptunDeep_gmt_original_rm_sel = ds_S2S_NeptunDeep_gmt_original_rm['valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr,birth_year=birth_cohort_int)
+            ds_S2S_NeptunDeep_gmt_original_no_rm_sel = ds_S2S_NeptunDeep_gmt_original_no_rm['valc_nr_children_facing_extra_hazard_NeptunDeep'].sel(hazard=extr,birth_year=birth_cohort_int)
 
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_no_rm_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_no_rm.isel(hazard=i)
-
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_rm_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_rm.isel(hazard=i)
-
-            da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_no_rm_sel = da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_no_rm.isel(hazard=i)
-
-            plot_dev_fig16(da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep_sel,
-             da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_rm_sel, 
-             da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_ar6_new_no_rm_sel,
-             da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_rm_sel,
-             da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_original_no_rm_sel,
-             birth_cohort_int,hazards[i])
+            plot_dev_fig16(ds_WT_NeptunDeep_sel,
+             ds_S2S_NeptunDeep_gmt_ar6_new_rm_sel, 
+             ds_S2S_NeptunDeep_gmt_ar6_new_no_rm_sel,
+             ds_S2S_NeptunDeep_gmt_original_rm_sel,
+             ds_S2S_NeptunDeep_gmt_original_no_rm_sel,
+             birth_cohort_int,extr)
     
     if plot_fig11:
 

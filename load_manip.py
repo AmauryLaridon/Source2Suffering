@@ -270,28 +270,35 @@ if Thiery_2021 or Source2Suffering:
 
     valp_cohort_size_abs = np.zeros((len(ages), nregions))
 
-    # Boucle sur les âges
+    # Loop on the ages 
     for ind_age, age in enumerate(ages):
         
-        # Boucle sur les régions
+        # Loop over regions
         for ind_region, region_name in enumerate(regions_list):
             
-            # Accès au DataFrame correspondant à la région
+            # Access the DataFrame for the region
             df_cohort = d_cohort_weights_regions[region_name]  # shape: [age x countries]
             
-            # Vérifie que l'âge est bien présent dans les index du DataFrame
+            # Check that the age is in the index
             if age in df_cohort.index:
-                # On sélectionne la ligne correspondant à l'âge (série avec pays en colonnes)
+                # Select the row corresponding to the age (series with countries as columns)
                 cohort_row = df_cohort.loc[age]
                 
-                # Somme sur tous les pays (colonnes) et conversion en valeurs absolues
+                # Sum across countries and convert to absolute values
                 total = cohort_row.sum() * 1000
                 
-                # Stocke la valeur arrondie
+                # Store the rounded value
                 valp_cohort_size_abs[ind_age, ind_region] = np.round(total, 1)
             else:
-                # Si l'âge n'est pas présent, on laisse 0 ou on met NaN
+                # If age is missing, set as NaN
                 valp_cohort_size_abs[ind_age, ind_region] = np.nan
+
+    # Flip the array along the age axis (axis 0)
+    valp_cohort_size_abs = np.flip(valp_cohort_size_abs, axis=0)
+
+    # Save as pickle
+    with open(data_dir + 'Wittgenstein_Centre/valp_cohort_size_abs.pkl', 'wb') as f:
+        pk.dump(valp_cohort_size_abs, f)
 
 # --------------------------------------------------------------- #
 # load ISIMIP model data                                          #

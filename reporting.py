@@ -307,6 +307,228 @@ if Source2Suffering:
         print(" ---------------------------------------------------------")
 
         # -------------------------------------------------------------------------- #
+        # Load the data  computed for the original Expert Report of Wim Thiery       #
+        # These are the data that with wich we will compare the results of the       #
+        # Source2Suffering framework and its different configurations                #
+        # -------------------------------------------------------------------------- #
+
+        # ----------------------------------------------------------- #
+        #        valc_nr_extra people facing additionnal hazard       #
+        # ----------------------------------------------------------- #
+
+        # Definition of the values per birth cohort
+
+        wt_valc_nr_children_facing_extra_wildfire = [1000]*11
+        wt_valc_nr_children_facing_extra_cropfailure = [3000]*7 + [2000]*4
+        wt_valc_nr_children_facing_extra_drought = [4000] + [3000]*6 + [2000]*4
+        wt_valc_nr_children_facing_extra_flood = [np.nan] * 11
+        wt_valc_nr_children_facing_extra_heatwavedarea = [127000,123000,120000,116000,113000,110000,106000,103000,99000,95000,91000]
+        wt_valc_nr_children_facing_extra_tropicalcyclone = [1000]*9 + [0]*2
+
+        # Definition of the values for the total birth cohorts of interest
+
+        wt_total_valc_nr_children_facing_extra_wildfire = [11000]
+        wt_total_valc_nr_children_facing_extra_cropfailure = [29000]
+        wt_total_valc_nr_children_facing_extra_drought = [31000]
+        wt_total_valc_nr_children_facing_extra_flood = [np.nan]
+        wt_total_valc_nr_children_facing_extra_heatwavedarea = [1203000]
+        wt_total_valc_nr_children_facing_extra_tropicalcyclone = [9000]
+
+        # Definition of the values for the total reference birth cohorts of interest
+
+        wt_total_valc_nr_children_facing_extra_wildfire_ref = [0]
+        wt_total_valc_nr_children_facing_extra_cropfailure_ref = [0]
+        wt_total_valc_nr_children_facing_extra_drought_ref = [0]
+        wt_total_valc_nr_children_facing_extra_flood_ref = [np.nan]
+        wt_total_valc_nr_children_facing_extra_heatwavedarea_ref = [78000]
+        wt_total_valc_nr_children_facing_extra_tropicalcyclone_ref = [0]
+
+        # Creating DataArrays to store the objets  
+        
+        data = np.array([
+            wt_valc_nr_children_facing_extra_wildfire,
+            wt_valc_nr_children_facing_extra_cropfailure,
+            wt_valc_nr_children_facing_extra_drought,
+            wt_valc_nr_children_facing_extra_flood,
+            wt_valc_nr_children_facing_extra_heatwavedarea,
+            wt_valc_nr_children_facing_extra_tropicalcyclone
+        ])
+
+        data = np.flip(np.array([
+            wt_valc_nr_children_facing_extra_wildfire,
+            wt_valc_nr_children_facing_extra_cropfailure,
+            wt_valc_nr_children_facing_extra_drought,
+            wt_valc_nr_children_facing_extra_flood,
+            wt_valc_nr_children_facing_extra_heatwavedarea,
+            wt_valc_nr_children_facing_extra_tropicalcyclone
+        ]), axis=1)
+
+        data_total = np.array([
+            wt_total_valc_nr_children_facing_extra_wildfire,
+            wt_total_valc_nr_children_facing_extra_cropfailure,
+            wt_total_valc_nr_children_facing_extra_drought,
+            wt_total_valc_nr_children_facing_extra_flood,
+            wt_total_valc_nr_children_facing_extra_heatwavedarea,
+            wt_total_valc_nr_children_facing_extra_tropicalcyclone    
+        ])
+
+        data_total_ref = np.array([
+            wt_total_valc_nr_children_facing_extra_wildfire_ref,
+            wt_total_valc_nr_children_facing_extra_cropfailure_ref,
+            wt_total_valc_nr_children_facing_extra_drought_ref,
+            wt_total_valc_nr_children_facing_extra_flood_ref,
+            wt_total_valc_nr_children_facing_extra_heatwavedarea_ref,
+            wt_total_valc_nr_children_facing_extra_tropicalcyclone_ref    
+        ])
+
+        data_total = data_total.squeeze()
+        data_total_ref = data_total_ref.squeeze()
+
+        year_start_as = 2010
+        year_end_as = 2020
+
+        birth_cohort_int = list(range(year_start_as, year_end_as + 1))  
+
+        hazards = [
+            'burntarea', 
+            'cropfailedarea', 
+            'driedarea', 
+            'floodedarea', 
+            'heatwavedarea', 
+            'tropicalcyclonedarea'
+        ]
+
+        da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
+            data,
+            dims=["hazard", "birth_year"],
+            coords={"hazard": hazards, "birth_year": birth_cohort_int},
+            name="wt_valc_nr_children_facing_extra_hazard_NeptunDeep"
+        )
+
+        da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
+            data_total,
+            dims=["hazard"],
+            coords={"hazard": hazards},
+            name="wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep"
+        )
+
+        da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep_ref = xr.DataArray(
+            data_total_ref,
+            dims=["hazard"],
+            coords={"hazard": hazards},
+            name="wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep_ref"
+        )
+
+        # ----------------------------------------------------------- #
+        #                    valc_slope_exposure                      #
+        # ----------------------------------------------------------- #
+
+        # Importing the .mat objets from WT 
+        from scipy.io import loadmat
+
+        slope_exposure_NeptunDeep_heatwave = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_heatwave.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_heatwave = slope_exposure_NeptunDeep_heatwave['slope_exposure_NeptunDeep_heatwave'][:-1]
+
+        slope_exposure_NeptunDeep_heatwave_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_heatwave_ref.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_heatwave_ref = slope_exposure_NeptunDeep_heatwave_ref['slope_exposure_NeptunDeep_heatwave_ref'][:-1]
+
+        slope_exposure_NeptunDeep_cropfailure = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_cropfailure.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_cropfailure = slope_exposure_NeptunDeep_cropfailure['slope_exposure_NeptunDeep_cropfailure'][:-1]
+
+        slope_exposure_NeptunDeep_cropfailure_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_cropfailure_ref.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_cropfailure_ref = slope_exposure_NeptunDeep_cropfailure_ref['slope_exposure_NeptunDeep_cropfailure_ref'][:-1]
+
+        slope_exposure_NeptunDeep_drought = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_drought.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_drought = slope_exposure_NeptunDeep_drought['slope_exposure_NeptunDeep_drought'][:-1]
+
+        slope_exposure_NeptunDeep_drought_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_drought_ref.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_drought_ref = slope_exposure_NeptunDeep_drought_ref['slope_exposure_NeptunDeep_drought_ref'][:-1]
+
+        slope_exposure_NeptunDeep_riverflood = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_riverflood.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_riverflood = slope_exposure_NeptunDeep_riverflood['slope_exposure_NeptunDeep_riverflood'][:-1]
+
+        slope_exposure_NeptunDeep_riverflood_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_riverflood_ref.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_riverflood_ref = slope_exposure_NeptunDeep_riverflood_ref['slope_exposure_NeptunDeep_riverflood_ref'][:-1]
+
+        slope_exposure_NeptunDeep_tropcyclone = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_tropcyclone.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_tropcyclone = slope_exposure_NeptunDeep_tropcyclone['slope_exposure_NeptunDeep_tropcyclone'][:-1]
+
+        slope_exposure_NeptunDeep_tropcyclone_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_tropcyclone_ref.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_tropcyclone_ref = slope_exposure_NeptunDeep_tropcyclone_ref['slope_exposure_NeptunDeep_tropcyclone_ref'][:-1]
+
+        slope_exposure_NeptunDeep_wildfire = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_wildfire.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_wildfire = slope_exposure_NeptunDeep_wildfire['slope_exposure_NeptunDeep_wildfire'][:-1]
+
+        slope_exposure_NeptunDeep_wildfire_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_wildfire_ref.mat',squeeze_me=True)
+        slope_exposure_NeptunDeep_wildfire_ref = slope_exposure_NeptunDeep_wildfire_ref['slope_exposure_NeptunDeep_wildfire_ref'][:-1]
+
+        # Mapping from extreme types to their corresponding slope exposure arrays
+        extreme_to_var = {
+            'burntarea': slope_exposure_NeptunDeep_wildfire,
+            'cropfailedarea': slope_exposure_NeptunDeep_cropfailure,
+            'driedarea': slope_exposure_NeptunDeep_drought,
+            'floodedarea': slope_exposure_NeptunDeep_riverflood,
+            'heatwavedarea': slope_exposure_NeptunDeep_heatwave,
+            'tropicalcyclonedarea': slope_exposure_NeptunDeep_tropcyclone
+        }
+
+        # Same mapping for the "_ref" slope exposure arrays (reference scenario)
+        extreme_to_var_ref = {
+            'burntarea': slope_exposure_NeptunDeep_wildfire_ref,
+            'cropfailedarea': slope_exposure_NeptunDeep_cropfailure_ref,
+            'driedarea': slope_exposure_NeptunDeep_drought_ref,
+            'floodedarea': slope_exposure_NeptunDeep_riverflood_ref,
+            'heatwavedarea': slope_exposure_NeptunDeep_heatwave_ref,
+            'tropicalcyclonedarea': slope_exposure_NeptunDeep_tropcyclone_ref
+        }
+
+        # Build the main DataArray for valc_slope_exposure
+        da_valc_slope_exposure = xr.DataArray(
+            data=[extreme_to_var[ext] for ext in hazards],
+            coords={
+                "hazard": hazards,
+                "birth_year": birth_cohort_int
+            },
+            dims=["hazard", "birth_year"],
+            name="valc_slope_exposure"
+        )
+
+        # Build the reference DataArray for valc_slope_exposure_ref
+        da_valc_slope_exposure_ref = xr.DataArray(
+            data=[extreme_to_var_ref[ext] for ext in hazards],
+            coords={
+                "hazard": hazards,
+                "birth_year": birth_cohort_int
+            },
+            dims=["hazard", "birth_year"],
+            name="valc_slope_exposure_ref"
+        )
+
+        # ----------------------------------------------------------- #
+        #                  ds_WT_NeptunDeep saving                    #
+        # ----------------------------------------------------------- #
+
+        # Save as DataSet
+
+        ds_WT_NeptunDeep = xr.Dataset(
+        {
+            "wt_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,
+            "wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep,
+            "wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep_ref" : da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep_ref
+        }
+        )
+
+        # Add both variables to the existing dataset
+        ds_WT_NeptunDeep = ds_WT_NeptunDeep.assign(
+            valc_slope_exposure=da_valc_slope_exposure,
+            valc_slope_exposure_ref=da_valc_slope_exposure_ref
+        )
+
+        # Save the DataSet reference as pickles 
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl', 'wb') as f:
+            pk.dump(ds_WT_NeptunDeep,f)
+
+        # -------------------------------------------------------------------------- #
         # Define Total emissions of the fossiel fuel project under study             #
         # -------------------------------------------------------------------------- #
         
@@ -326,6 +548,16 @@ if Source2Suffering:
         # emissies zit dan zou je dat een beetje moeten aanpassen.
         
         TCRE_init = 0.45 / 1e12 # 1.65°C / 3.7 = 0,45°C per 1000 Gt CO2eq
+        
+        # -------------------------------------------------------------------------- #
+        # GMT produce by Neptun Deep using the TCRE                                  #
+        # -------------------------------------------------------------------------- #
+
+        print("\nCO2 emissions of the Neptun Deep Project = {} MtCO2eq\n".format(CO2_emissions_NeptunDeep/10**6))
+
+        print("Value used for TCRE = 0.45 °C per 1000 Gt CO2eq\n")
+
+        print("GMT produce by Neptun Deep = {} °C".format(TCRE_init*CO2_emissions_NeptunDeep))
 
         # -------------------------------------------------------------------------- #
         # Question 1: call function to compute the number of children in the world   #
@@ -333,7 +565,11 @@ if Source2Suffering:
         # emissions of the three fields of Neptun Deep                               #
         # -------------------------------------------------------------------------- #
 
-        print("\nQ.(1) - Number of children in the world facing an additional heatwave due to the total emissions of Neptun Deep\n")
+        print("")
+        print(" -----------------------------------------------------------------------------------------------------------------")
+        print("| Q.(1) - Number of children in the world facing an additional heatwave due to the total emissions of Neptun Deep |")
+        print(" -----------------------------------------------------------------------------------------------------------------")
+        print("")
 
         with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
             ds_le_perregion = pk.load(f)
@@ -343,12 +579,11 @@ if Source2Suffering:
         year_start_as = 2010
         year_end_as = 2020
 
-        valc_nr_children_facing_extra_heatwave_NeptunDeep = emissions2npeople(
+        valc_nr_children_facing_extra_heatwave_NeptunDeep, S2S_slope_exposure = emissions2npeople(
             CO2_emissions = CO2_emissions_NeptunDeep,
             TCRE = TCRE_init,
             ds_le = ds_le_perregion,
             region_ind = 11,
-            birth_years = birth_years,
             year_start = year_start_as,
             year_end = year_end_as,
             df_GMT_strj = df_GMT_strj, 
@@ -365,51 +600,62 @@ if Source2Suffering:
         
         print("For total birth of the {}-{} period = {} children \n".format(year_start_as,year_end_as, int(valc_nr_children_facing_extra_heatwave_NeptunDeep[-1])))
 
-        # # Computation for the reference 1960 - 1970 birth cohorts # 
+        # Computation for the reference 1960 - 1970 birth cohorts # 
 
-        # year_start_as_ref = 1960
-        # year_end_as_ref = 1970
+        year_start_as_ref = 1960
+        year_end_as_ref = 1970
 
-        # # Generate list of birth years for iteration
-        # years_loop = list(range(year_end_as_ref, year_start_as_ref - 1, -1))
+        # Generate list of birth years for iteration
+        #years_loop = list(range(year_end_as_ref, year_start_as_ref - 1, -1))
 
-        # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = emissions2npeople(
-        #     CO2_emissions = CO2_emissions_NeptunDeep,
-        #     TCRE = TCRE_init,
-        #     ds_le = ds_le_perregion,
-        #     region_ind = 11,
-        #     birth_years = birth_years,
-        #     year_start = year_start_as_ref,
-        #     year_end = year_end_as_ref,
-        #     df_GMT_strj = df_GMT_strj, 
-        #     valp_cohort_size_abs = valp_cohort_size_abs,
-        #     rounding = 1)
+        valc_nr_children_facing_extra_heatwave_NeptunDeep_ref, S2S_slope_exposure_ref = emissions2npeople(
+            CO2_emissions = CO2_emissions_NeptunDeep,
+            TCRE = TCRE_init,
+            ds_le = ds_le_perregion,
+            region_ind = 11,
+            year_start = year_start_as_ref,
+            year_end = year_end_as_ref,
+            df_GMT_strj = df_GMT_strj, 
+            valp_cohort_size_abs = valp_cohort_size_abs,
+            rounding = 1)
 
-        # # Only keep the value for the total of the birth cohort between 1960 and 1970
+        # Only keep the value for the total of the birth cohort between 1960 and 1970
 
-        # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]
+        valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]
 
-        # # Compute the relative exposure to an additionnal heatwaves between the 2010-2020 and the 1960-1970 birth cohort
-        # valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
-        #     valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
-        #     round((valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref) * 100)
-        # ]
+        # Compute the relative exposure to an additionnal heatwaves between the 2010-2020 and the 1960-1970 birth cohort
+        
+        if valc_nr_children_facing_extra_heatwave_NeptunDeep_ref != 0:
 
-        # print("Number of people born between 1960 and 1970 that will be exposed to an additionnal heatwave due to the total emissions of Neptun Deep = {} people".format(int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[0])))
-        # print("Relative difference between the 2010-2020 and the 1960-1970 birth cohorts = {} %".format(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]))
+            rel_percentage = round((valc_nr_children_facing_extra_heatwave_NeptunDeep[-1] / valc_nr_children_facing_extra_heatwave_NeptunDeep_ref) * 100)
+        
+        else:
 
+            rel_percentage = np.nan
+
+        valc_nr_children_facing_extra_heatwave_NeptunDeep_ref = [
+            valc_nr_children_facing_extra_heatwave_NeptunDeep_ref,
+            rel_percentage
+        ]
+
+        print("Number of people born between 1960 and 1970 that will be exposed to an additionnal heatwave due to the total emissions of Neptun Deep = {} people".format(int(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[0])))
+        print("Relative difference between the 2010-2020 and the 1960-1970 birth cohorts = {} %".format(valc_nr_children_facing_extra_heatwave_NeptunDeep_ref[-1]))
 
         # # -------------------------------------------------------------------------- #
         # # Question 2: call function to compute the number of people facing one       #
         # # extra ... due to emissions                                                 #
         # # -------------------------------------------------------------------------- #
 
-        print("\nQ.(2) - Number of children in the world facing an additional hazard due to the total emissions of Neptun Deep\n")
-
-        # Computation for the 2010 to 2020 birth cohorts #
+        print("")
+        print(" ---------------------------------------------------------------------------------------------------------------")
+        print("| Q.(2) - Number of children in the world facing an additional hazard due to the total emissions of Neptun Deep |")
+        print(" ---------------------------------------------------------------------------------------------------------------")
+        print("")
 
         year_start_as = 2010
         year_end_as = 2020
+        year_start_as_ref = 1960
+        year_end_as_ref = 1970
         
         all_extremes = [
             'burntarea', 
@@ -420,26 +666,41 @@ if Source2Suffering:
             'tropicalcyclonedarea'
         ]
 
-        # Dictionary to store values for each extreme hazard type
-        valc_dict = {}
-        valc_total_dict = {}
+        hazards_name = [
+            'Wild Fires', 
+            'Crop Failures', 
+            'Droughts', 
+            'River Floods', 
+            'Heatwaves', 
+            'Tropical Cyclones'
+        ]
 
+        # Dictionary to store values for each extreme hazard type
+        d_valc = {}
+        d_valc_ref = {}
+        d_valc_total = {}
+        d_valc_total_ref = {}
+        d_valc_slope_exposure = {}
+        d_valc_slope_exposure_ref = {}
+
+        n = 0
         # Loop over all extreme hazard types
         for extr in all_extremes:
 
-            print("Hazard = {}\n".format(extr))
+            extr_name = hazards_name[n]
+            print("---------- Hazard = {} ----------\n".format(extr_name))
+            n+=1
 
             # Load the corresponding exposure dataset
             with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
                 ds_le_perregion = pk.load(f)
 
             # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario
-            valc_nr_children_facing_extra_hazard_NeptunDeep = emissions2npeople(
+            valc_nr_children_facing_extra_hazard_NeptunDeep, S2S_slope_exposure = emissions2npeople(
                 CO2_emissions=CO2_emissions_NeptunDeep,
                 TCRE=TCRE_init,
                 ds_le=ds_le_perregion,
                 region_ind=11,
-                birth_years=birth_years,
                 year_start=year_start_as,
                 year_end=year_end_as,
                 df_GMT_strj=df_GMT_strj,
@@ -447,23 +708,48 @@ if Source2Suffering:
                 rounding=1
             )
 
+            # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario for the reference birth cohorts
+            valc_nr_children_facing_extra_hazard_NeptunDeep_ref, S2S_slope_exposure_ref = emissions2npeople(
+                CO2_emissions=CO2_emissions_NeptunDeep,
+                TCRE=TCRE_init,
+                ds_le=ds_le_perregion,
+                region_ind=11,
+                year_start=year_start_as_ref,
+                year_end=year_end_as_ref,
+                df_GMT_strj=df_GMT_strj,
+                valp_cohort_size_abs=valp_cohort_size_abs,
+                rounding=1
+            )
+
             nr_total = valc_nr_children_facing_extra_hazard_NeptunDeep[-1]
+            nr_total_ref = valc_nr_children_facing_extra_hazard_NeptunDeep_ref[-1]
 
             # Store the value of the total number of people exposed
-            valc_total_dict[extr] = nr_total
+            d_valc_total[extr] = nr_total
+            d_valc_total_ref[extr] = nr_total_ref
+
+            # Store the value of slope exposure for each hazard
+
+            d_valc_slope_exposure[extr] = S2S_slope_exposure
+            d_valc_slope_exposure_ref[extr] = S2S_slope_exposure_ref
 
             # Exclude the last value along the only dimension (since the array is 1D)
             da_trimmed = valc_nr_children_facing_extra_hazard_NeptunDeep[:-1]
+            da_ref_trimmed = valc_nr_children_facing_extra_hazard_NeptunDeep_ref[:-1]
 
             # Reverse the values
             da_reversed = da_trimmed[::-1]
+            da_ref_reversed = da_ref_trimmed[::-1]
 
             # Store the result in the dictionary under the key 'extr'
-            valc_dict[extr] = da_reversed
+            d_valc[extr] = da_reversed
+            d_valc_ref[extr] = da_ref_reversed
 
             # Generate list of birth years in descending order
             years_loop = list(range(year_end_as, year_start_as - 1, -1))
             nbirthyears = len(years_loop)
+            years_loop_ref = list(range(year_end_as_ref, year_start_as_ref - 1, -1))
+            nbirthyears_ref = len(years_loop_ref)
 
             # Print number of exposed children per birth year
             for i in range(nbirthyears):
@@ -474,10 +760,16 @@ if Source2Suffering:
             print("For total birth of the {}–{} period = {} children \n".format(
                 year_start_as, year_end_as, int(valc_nr_children_facing_extra_hazard_NeptunDeep[-1]))
             )
+            # Print total number of exposed children across all birth years for the reference period
+            print("For total birth of the {}–{} period = {} children \n".format(
+                year_start_as_ref, year_end_as_ref, int(valc_nr_children_facing_extra_hazard_NeptunDeep_ref[-1]))
+            )
+
+        # ----------------------- Creating DataArray and DataSet ---------------------------- #
 
         # Create a DataArray containing all values for each hazard and birth year
         da_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
-            data=[valc_dict[extr] for extr in all_extremes],
+            data=[d_valc[extr] for extr in all_extremes],
             coords={
                 "hazard": all_extremes,
                 "birth_year": list(range(year_start_as, year_end_as + 1))  # in ascending order
@@ -486,9 +778,19 @@ if Source2Suffering:
             name="valc_nr_children_facing_extra_hazard_NeptunDeep"
         )
 
+        da_valc_nr_children_facing_extra_hazard_NeptunDeep_ref = xr.DataArray(
+            data=[d_valc_ref[extr] for extr in all_extremes],
+            coords={
+                "hazard": all_extremes,
+                "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))  # in ascending order
+            },
+            dims=["hazard", "birth_year"],
+            name="valc_nr_children_facing_extra_hazard_NeptunDeep_ref"
+        )
+
         # Create a DataArray containing the values of the total of people exposed for each hazard
         da_valc_total_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
-            data=[valc_total_dict[extr] for extr in all_extremes],
+            data=[d_valc_total[extr] for extr in all_extremes],
             coords={
                 "hazard": all_extremes,
             },
@@ -496,44 +798,55 @@ if Source2Suffering:
             name="valc_total_nr_children_facing_extra_hazard_NeptunDeep"
         )
 
-        ds_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.Dataset(
+        da_valc_total_nr_children_facing_extra_hazard_NeptunDeep_ref = xr.DataArray(
+            data=[d_valc_total_ref[extr] for extr in all_extremes],
+            coords={
+                "hazard": all_extremes,
+            },
+            dims=["hazard"],
+            name="valc_total_nr_children_facing_extra_hazard_NeptunDeep_ref"
+        )
+
+        # Create a DataArray containing the values of the slope exposure for each hazard
+
+        da_valc_slope_exposure = xr.DataArray(
+            data=[d_valc_slope_exposure[extr] for extr in all_extremes],
+            coords={
+                "hazard": all_extremes,
+                "birth_year": list(range(year_start_as, year_end_as + 1))  # in ascending order
+            },
+            dims=["hazard", "birth_year"],
+            name="valc_slope_exposure"
+        )
+
+        da_valc_slope_exposure_ref = xr.DataArray(
+            data=[d_valc_slope_exposure_ref[extr] for extr in all_extremes],
+            coords={
+                "hazard": all_extremes,
+                "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))  # in ascending order
+            },
+            dims=["hazard", "birth_year"],
+            name="valc_slope_exposure_ref"
+        )
+
+        ds_S2S_NeptunDeep = xr.Dataset(
         {
             "valc_nr_children_facing_extra_hazard_NeptunDeep": da_valc_nr_children_facing_extra_hazard_NeptunDeep,
-            "valc_total_nr_children_facing_extra_hazard_NeptunDeep": da_valc_total_nr_children_facing_extra_hazard_NeptunDeep
+            "valc_total_nr_children_facing_extra_hazard_NeptunDeep": da_valc_total_nr_children_facing_extra_hazard_NeptunDeep,
+            "valc_slope_exposure": da_valc_slope_exposure,
+            "valc_nr_children_facing_extra_hazard_NeptunDeep_ref": da_valc_nr_children_facing_extra_hazard_NeptunDeep_ref,
+            "valc_total_nr_children_facing_extra_hazard_NeptunDeep_ref": da_valc_total_nr_children_facing_extra_hazard_NeptunDeep_ref,
+            "valc_slope_exposure_ref": da_valc_slope_exposure_ref
+
         }
         )
 
-        # dump pickle of da_valc_nr_children_facing_extra_hazard_NeptunDeep
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(da_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
         
-        # dump pickle of da_valc_total_nr_children_facing_extra_hazard_NeptunDeep
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/da_valc_total_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(da_valc_total_nr_children_facing_extra_hazard_NeptunDeep,f)
+        # -------------------------------- Save as Pickles ---------------------------------- #
 
         # dump pickle of ds_valc_nr_children_facing_extra_hazard_NeptunDeep
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_valc_nr_children_facing_extra_hazard_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_valc_nr_children_facing_extra_hazard_NeptunDeep,f)
-
-        # impacts = {1: "wildfire", 2: "crop failure", 3: "drought", 4: "river floods", 5: "heatwaves", 6: "tropical cyclones"}
-        # valc_impacts_NeptunDeep = {}
-        # valc_impacts_NeptunDeep_ref = {}
-
-        # for key, impact in impacts.items():
-        #     valc_impacts_NeptunDeep[impact] = mf_emissions2npeople(
-        #         CO2_emissions_NeptunDeep, TCRE, ds_le_perregion_GMT, birth_years, 2010, 2020, 
-        #         GMT_BE, valp_cohort_size_abs, 1, key)
-    
-        #     # Include a small add-on table for the reference years 1960-1970
-
-        #     valc_impacts_NeptunDeep_ref[impact] = mf_emissions2npeople(
-        #         CO2_emissions_NeptunDeep, TCRE, ds_le_perregion_GMT, birth_years, 1960, 1970, 
-        #         GMT_BE, valp_cohort_size_abs, 1, key)
-        #     valc_impacts_NeptunDeep_ref[impact] = valc_impacts_NeptunDeep_ref[impact][-1]
-        #     valc_impacts_NeptunDeep_ref[impact] = [
-        #         valc_impacts_NeptunDeep_ref[impact],
-        #         round(valc_impacts_NeptunDeep[impact][-1] / valc_impacts_NeptunDeep_ref[impact] * 100)
-        #     ]
+        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_S2S_NeptunDeep,f)
 
         # -------------------------------------------------------------------------- #
         # Question 3: compute the number of heat-related deaths between              #
@@ -542,7 +855,11 @@ if Source2Suffering:
 
         valc_mortality_NeptunDeep = mortality_cost_carbon(CO2_emissions=CO2_emissions_NeptunDeep)
         
-        print("Q.(3) - Number of heat-related deaths that are expected worldwide until 2100 due to the total emissions of Neptun Deep\n")
+        print("")
+        print(" ------------------------------------------------------------------------------------------------------------------------")
+        print("| Q.(3) - Number of heat-related deaths that are expected worldwide until 2100 due to the total emissions of Neptun Deep |")
+        print(" ------------------------------------------------------------------------------------------------------------------------")
+        print("")
 
 
         print("Mortality Cost of Carbon = {} heat-related deaths until 2100".format(valc_mortality_NeptunDeep))

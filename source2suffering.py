@@ -42,7 +42,7 @@ import cartopy.crs as ccrs
 #-------------------------------------------------------------------------------------- #
 
 
-def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_start, year_end, df_GMT_strj, valp_cohort_size_abs, rounding):
+def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_end, df_GMT_strj, valp_cohort_size_abs, rounding):
     """Compute the number of people affected by additional climate extremes in their lifetime
     due to specific CO2 emissions"""
 
@@ -57,6 +57,7 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_
     nr_newborns = np.zeros(nbirthyears)
     nr_extra_climate_extremes_newborns = np.zeros(nbirthyears)
     nr_children_facing_extra_climate_extreme = np.zeros(nbirthyears)
+    slope_exposure = np.zeros(nbirthyears)
 
     # Loop over birth years from year_end to year_start
     for i in range(nbirthyears):
@@ -77,11 +78,13 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_
         # Fit a linear curve between the exposure to climate extreme and the GMT anomaly and extract the slope #
         valc_pf = np.polyfit(valc_GMT_2100, valc_exposure_climate_extreme_newborns, 1)
         valc_slope_exposure_climate_extreme = valc_pf[0]
-        #print(valc_slope_exposure_climate_extreme)
+        slope_exposure[i] = valc_slope_exposure_climate_extreme
 
         # Extract the number of people in the cohort #
-        nr_newborns[i] = valp_cohort_size_abs[-i-1, region_ind] #should be corrected if we want year_end not equal to 2020
+        nr_newborns[i] = valp_cohort_size_abs[i, region_ind] #should be corrected if we want year_end not equal to 2020
         #print(nr_newborns[i])
+
+        print("Number of people in 2020 of the birth years = {} - nr_newborns[i] = {}".format(years_loop[i],nr_newborns[i]))
 
         # Compute the average change in lifetime exposure #
         nr_extra_climate_extremes_newborns[i] = valc_slope_exposure_climate_extreme * dGMT
@@ -107,7 +110,7 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, birth_years, year_
         np.nansum(nr_children_facing_extra_climate_extreme)
     )
 
-    return nr_children_facing_extra_climate_extreme
+    return nr_children_facing_extra_climate_extreme, slope_exposure
 
 
 #%%------------------------------------------------------------------------------------ #
