@@ -1527,3 +1527,65 @@ def plot_dev_fig16(
 
     # Save the figure
     plt.savefig(scripts_dir + '/figures/assessment/NeptunDeep/fig16_nr_children_facing_extra_{}_NeptunDeep_gmt_and_rm_comp.png'.format(hazards))
+
+def plot_dev_fig17_regions(ds_regions, extr, flags, ds_lfe, region_ind, EMF):
+    """
+    Plot MMM landfraction exposed to specific hazard for all regions, and the two STS scenarios for the SPARCCLE Delivery.
+
+    Parameters:
+    - ds_regions (xarray.Dataset): Dataset with all the countries per region
+    - ds_lfe (xarray.Dataset): Dataset containing the "land fraction exposed" variable
+    - region (int): Index of the region (ex: '1')
+    """
+    
+    plt.close('all') 
+
+    plt.figure(figsize=(12, 8))
+
+    GMT_color = ['tab:red','tab:blue']
+    GMT_label = ['ModAct', 'Ren']  
+    region_name = ds_regions['name'].sel(region=region_ind)
+
+    if extr=='burntarea':
+        extr_name = 'Wildfires'
+    if extr=='cropfailedarea':
+        extr_name = 'Crop failures'
+    if extr=='driedarea':
+        extr_name = 'Droughts'
+    if extr=='floodedarea':
+        extr_name = 'River floods'
+    if extr=='heatwavedarea':
+        extr_name = 'Heatwaves'
+    if extr=='tropicalcyclonedarea':
+        extr_name = 'Tropical Cyclones'
+
+    lfe_ModAct = ds_lfe['mmm_STS_ModAct_sm'].sel(
+        region=region_ind,
+    )
+
+    lfe_ModAct_std = ds_lfe['std_STS_ModAct_sm'].sel(
+        region=region_ind,
+    )/2
+    
+    lfe_Ren = ds_lfe['mmm_STS_Ren_sm'].sel(
+        region=region_ind,
+    )
+
+    lfe_Ren_std = ds_lfe['std_STS_Ren_sm'].sel(
+        region=region_ind,
+    )/2
+
+    plt.plot(year_range[:-13], lfe_ModAct.isel(time_ind=slice(0, -13))*100, linestyle='-',color=GMT_color[0],label=GMT_label[0],lw=3)
+    plt.fill_between(year_range[:-13], (lfe_ModAct.isel(time_ind=slice(0, -13)) - lfe_ModAct_std.isel(time_ind=slice(0, -13)))*100, (lfe_ModAct.isel(time_ind=slice(0, -13)) + lfe_ModAct_std.isel(time_ind=slice(0, -13)))*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0], lw=3)
+    plt.plot(year_range[:-13], lfe_Ren.isel(time_ind=slice(0, -13))*100, linestyle='-',color=GMT_color[1],label=GMT_label[1],lw=3)
+    plt.fill_between(year_range[:-13], (lfe_Ren.isel(time_ind=slice(0, -13)) - lfe_Ren_std.isel(time_ind=slice(0, -13)))*100, (lfe_Ren.isel(time_ind=slice(0, -13)) + lfe_Ren_std.isel(time_ind=slice(0, -13)))*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[1], lw=3)
+
+    plt.title("Land Fraction Exposed to {} \n in {}".format(extr_name, region_name),fontsize=18,fontweight='bold')
+    plt.xlabel("Time",fontsize=16,fontweight='bold')
+    plt.ylabel("Area annually exposed to {} (%)".format(extr_name),fontsize=16,fontweight='bold')
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.legend(fontsize=16)
+    plt.savefig(scripts_dir+'/figures/assessment/SPARCCLE_STS/landfraction_exposed_{}_region_{}_{}.png'.format(extr,region_name,flags['rm']))

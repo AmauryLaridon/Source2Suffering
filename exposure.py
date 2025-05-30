@@ -30,37 +30,79 @@ with open(adr_pf_exposure) as f:
     exec(f.read(), globals())
 
 # ----------------------------------------------------------------#
+# Process Land Fraction Exposed (LFE) across ISIMIP runs          #
+# ----------------------------------------------------------------#
+
+if flags['landfraction_exposed']:
+
+    print("----------------------------------------------------------------------")
+    print("Computing Land Fraction Exposed (LFE) per ISIMIP run to {}       ".format(flags['extr']))
+    print("---------------------------------------------------------------------")
+    start_time = time.time()
+
+    #--------------  Compute per ISIMIP run Land Fraction Exposed --------------#
+
+    ds_lfe_percountry_perrun, ds_lfe_perregion_perrun = calc_landfraction_exposed(
+        d_isimip_meta,
+        df_countries,
+        countries_regions,
+        countries_mask,
+        ds_regions,
+        flags,)
+
+    #-------------------  Compute MMM Land Fraction Exposed --------------------#
+
+    print("\n---------------------------------------------------------------")
+    print("Computing MMM Land Fraction Exposed (LFE) to {}              ".format(flags['extr']))
+    print("---------------------------------------------------------------")
+
+    ds_lfe_percountry = calc_landfraction_exposed_mmm(ds_lfe_percountry_perrun, flags)
+    
+    ds_lfe_perregion = calc_landfraction_exposed_mmm(ds_lfe_perregion_perrun, flags)
+
+    print("\n--- {} minutes to compute Land Fraction Exposed for all countries and regions ---".format(
+        np.floor((time.time() - start_time) / 60),
+        )
+          )
+
+# ----------------------------------------------------------------#
+# Load Land Fraction Exposed (LFE) across ISIMIP runs             #
+# ----------------------------------------------------------------#
+  
+else: # load processed land fraction exposed data
+
+    #---------------  Load per ISIMIP run Land Fraction Exposed -------------#
+
+    print('\nLoading processed Land Fraction Exposed per ISIMIP simulation')
+
+    with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+        ds_lfe_percountry_perrun = pk.load(f)
+
+    with open(data_dir+'{}/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+        ds_lfe_perregion_perrun = pk.load(f)
+
+    #--------------------  Load MMM Land Fraction Exposed -------------------#
+
+    print('\nLoading processed MMM Land Fraction Exposed')
+
+    with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+        ds_lfe_percountry = pk.load(f)
+
+    with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+        ds_lfe_perregion = pk.load(f)
+
+# ----------------------------------------------------------------#
 # Process lifetime exposure across cohorts                        #
 # ----------------------------------------------------------------#
 
 if flags['lifetime_exposure']:
 
     print("---------------------------------------------------------------")
-    print("Computing Lifetime Exposure per ISIMIP run to {}       ".format(flags['extr']))
+    print("Computing Lifetime Exposure (LE) per ISIMIP run to {}       ".format(flags['extr']))
     print("---------------------------------------------------------------")
     start_time = time.time()
 
     if Thiery_2021 or Source2Suffering:
-
-        #--------------  Compute per ISIMIP run Land Fraction Exposed --------------#
-
-        ds_lfe_percountry_perrun, ds_lfe_perregion_perrun = calc_landfraction_exposed(
-            d_isimip_meta,
-            df_countries,
-            countries_regions,
-            countries_mask,
-            ds_regions,
-            flags,)
-
-        #-------------------  Compute MMM Land Fraction Exposed --------------------#
-
-        print("\n---------------------------------------------------------------")
-        print("Computing MMM Land Fraction Exposed to {}              ".format(flags['extr']))
-        print("---------------------------------------------------------------")
-
-        ds_lfe_percountry = calc_landfraction_exposed_mmm(ds_lfe_percountry_perrun, flags)
-        
-        ds_lfe_perregion = calc_landfraction_exposed_mmm(ds_lfe_perregion_perrun, flags)
 
         #-----------------  Compute per ISIMIP run Lifetime Exposure ---------------#
         
@@ -78,7 +120,7 @@ if flags['lifetime_exposure']:
         #---------------------  Compute MMM Lifetime Exposure ---------------------#
 
         print("\n---------------------------------------------------------------")
-        print("Computing MMM Lifetime Exposure to {}              ".format(flags['extr']))
+        print("Computing MMM Lifetime Exposure (LE) to {}              ".format(flags['extr']))
         print("---------------------------------------------------------------")
 
         ds_le_percountry = calc_lifetime_exposure_mmm(ds_le_percountry_perrun, flags)
@@ -88,7 +130,7 @@ if flags['lifetime_exposure']:
         #----------------------------- Compute EMF  -------------------------------#
 
         print("\n---------------------------------------------------------------")
-        print("Computing EMF of Lifetime Exposure to {}            ".format(flags['extr']))
+        print("Computing EMF of Lifetime Exposure (LE) to {}            ".format(flags['extr']))
         print("---------------------------------------------------------------")
 
         ds_EMF_percountry = calc_EMF(flags, ds_le_exposure=ds_le_percountry, ref_pic = False)
@@ -132,26 +174,6 @@ else: # load processed cohort exposure data
         print('Loading processed Lifetime Exposures across cohorts will be done in the emergence analysis')
 
     elif Thiery_2021 or Source2Suffering:
-
-        #---------------  Load per ISIMIP run Land Fraction Exposed -------------#
-
-        print('\nLoading processed Land Fraction Exposed per ISIMIP simulation')
-
-        with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_lfe_percountry_perrun = pk.load(f)
-
-        with open(data_dir+'{}/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_lfe_perregion_perrun = pk.load(f)
-
-        #--------------------  Load MMM Land Fraction Exposed -------------------#
-
-        print('\nLoading processed MMM Land Fraction Exposed')
-
-        with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_lfe_percountry = pk.load(f)
-
-        with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_lfe_perregion = pk.load(f)
         
         #-----------------  Load per ISIMIP run Lifetime Exposure ---------------#
 
@@ -194,9 +216,9 @@ if flags['lifetime_exposure_pic']:
 
     #-----------------  Compute per ISIMIP run Lifetime Exposure ---------------#
     
-    print("\n ---------------------------------------------------------------")
-    print("|            Computing Lifetime Exposure to {} under PI         |".format(flags['extr']))
-    print(" ---------------------------------------------------------------")
+    print("\n ------------------------------------------------------------------")
+    print("|            Computing Lifetime Exposure to {} under PI         ".format(flags['extr']))
+    print(" ------------------------------------------------------------------")
     start_time = time.time()
     
     d_pic_le_percountry_perrun = calc_lifetime_exposure_pic(

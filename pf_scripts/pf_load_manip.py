@@ -588,26 +588,52 @@ def load_population(
     year_start,
     year_end,
 ):
+    
+    if Thiery_2021 == False:
 
-    # load 2D model constants
-    da_population_histsoc = xr.open_dataset(data_dir+'isimip/population/population_histsoc_0p5deg_annual_1861-2005.nc4', decode_times=False)['number_of_people'] 
-    da_population_ssp2soc = xr.open_dataset(data_dir+'isimip/population/corrected_population_ssp2soc_0p5deg_annual_2006-2100.nc4', decode_times=False)['number_of_people'] 
+        # load 2D model constants
+        da_population_histsoc = xr.open_dataset(data_dir+'isimip/population/population_histsoc_0p5deg_annual_1861-2005.nc4', decode_times=False)['number_of_people'] 
+        da_population_ssp2soc = xr.open_dataset(data_dir+'isimip/population/corrected_population_ssp2soc_0p5deg_annual_2006-2100.nc4', decode_times=False)['number_of_people'] 
 
-    # manually adjust time dimension in both data arrays (because original times could not be decoded)
-    da_population_histsoc['time'] = np.arange(1861,2006)
-    da_population_ssp2soc['time'] = np.arange(2006,2101)
-    # concatenate historical and future data
-    da_population = xr.concat([da_population_histsoc, da_population_ssp2soc], dim='time') 
+        # manually adjust time dimension in both data arrays (because original times could not be decoded)
+        da_population_histsoc['time'] = np.arange(1861,2006)
+        da_population_ssp2soc['time'] = np.arange(2006,2101)
+        # concatenate historical and future data
+        da_population = xr.concat([da_population_histsoc, da_population_ssp2soc], dim='time') 
 
 
-    # if needed, repeat last year until entire period of interest is covered
-    if np.nanmax(da_population.time) < year_end:
-        population_10y_mean = da_population[-10:,:,:].mean(dim='time').expand_dims(dim='time',axis=0) # repeat average of last 10 years (i.e. end-9 to end ==> 2090:2099)
-        for year in range(np.nanmax(da_population.time)+1,year_end+1): 
-            da_population = xr.concat([da_population,population_10y_mean.assign_coords(time = [year])], dim='time')
+        # if needed, repeat last year until entire period of interest is covered
+        if np.nanmax(da_population.time) < year_end:
+            population_10y_mean = da_population[-10:,:,:].mean(dim='time').expand_dims(dim='time',axis=0) # repeat average of last 10 years (i.e. end-9 to end ==> 2090:2099)
+            for year in range(np.nanmax(da_population.time)+1,year_end+1): 
+                da_population = xr.concat([da_population,population_10y_mean.assign_coords(time = [year])], dim='time')
 
-    # retain only period of interest
-    da_population = da_population.sel(time=slice(year_start,year_end))
+        # retain only period of interest
+        da_population = da_population.sel(time=slice(year_start,year_end))
+
+    if Thiery_2021 == True:
+
+        from scipy.io import loadmat
+
+        WT_population = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/population.mat',squeeze_me=True)
+        WT_population = WT_population['population']
+
+        # Transpose the WT_population array to match the desired dimension order: (time, lat, lon)
+        # Original shape: (lat, lon, time) → Target shape: (time, lat, lon)
+        WT_population_transposed = np.transpose(WT_population, (2, 0, 1))  # shape becomes (154, 360, 720)
+
+        # Create a DataArray using the same coordinates and dimension names as da_populations
+        da_population = xr.DataArray(
+            data=WT_population_transposed,
+            dims=["time", "lat", "lon"],
+            coords={
+                "time": np.arange(year_start,year_end+1),
+                "lat": np.linspace(89.75,-89.75,360),
+                "lon": np.linspace(-179.75,179.75,720)
+            },
+            name="number_of_people",
+            attrs={"units": "1", "source": "WT_population converted from .mat file"}
+)
 
     return da_population
 
@@ -1143,6 +1169,8 @@ def get_regions_data(
         index=df_countries.index, 
         columns=ages
     )
+
+    #print(df_cohort_size_year_ref)
 
     d_cohort_weights_regions = {}
     for region in d_region_countries.keys():

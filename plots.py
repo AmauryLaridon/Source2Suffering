@@ -492,15 +492,15 @@ if Source2Suffering:
     plot_fig15 = 0      # 0: do not plot figure 15 
                         # 1: plot figure 15
 
-    # --------------------- Plots for Assessment - Neptun Deep ------------------- #
+    # --------------- Plots for Assessment Source2Suffering - Neptun Deep -------- #
 
     # Fig 9 - Number of new exposed children due to specific GHG emission and comparison with flags['gmt] and Thiery et al.(2021)  #
 
-    plot_fig9 = 1       # 0: do not plot figure 9 
+    plot_fig9 = 0       # 0: do not plot figure 9 
                         # 1: plot figure 9 
-    plot_fig10 = 1      # 0: do not plot figure 10  
+    plot_fig10 = 0      # 0: do not plot figure 10  
                         # 1: plot figure 10  (only works if plot_fig9=1)
-    plot_fig16 = 1      # 0: do not plot figure 16 
+    plot_fig16 = 0      # 0: do not plot figure 16 
                         # 1: plot figure 16
 
     # -------------------- Plots for Assessment - SPARCCLE-STS ------------------- #
@@ -518,7 +518,12 @@ if Source2Suffering:
     # Fig 13 - LE MMM for all regions under STS_ModAct and STS_Ren  #
 
     plot_fig13 = 0      # 0: do not plot figure 13 
-                        # 1: plot figure 13 
+                        # 1: plot figure 13
+                        
+    # Fig 17 - LFE MMM for all regions under STS_ModAct and STS_Ren  #
+
+    plot_fig17 = 0      # 0: do not plot figure 17 
+                        # 1: plot figure 17
 
     
     #-----------------------------------------------------------------------------------------#
@@ -542,9 +547,9 @@ if Source2Suffering:
             "tropicalcyclonedarea"
         ]
 
-    #-----------------------------------------------------------------------------------------#
-    #                                      Execution                                          #
-    #-----------------------------------------------------------------------------------------# 
+    # -------------------------------------------------------------------------------------------------------- #
+    #                                          Plots for Development                                           # 
+    # -------------------------------------------------------------------------------------------------------- #
     
     if plot_fig1:
 
@@ -772,18 +777,63 @@ if Source2Suffering:
     
                 plot_dev_fig8(df_GMT_strj, ds_le_percountry, flags, extr, country=country_name)
 
+    if plot_fig14:
+        
+        print("\n----- Performing Plot f14 for Development : LFE MMM for the World region -----")
+
+        if flags['gmt'] =='ar6_new':
+    
+            print("\nPlot not performed because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new")
+
+        if flags['gmt']=='original':
+
+            for extr in hazards:
+
+                print("\nPerforming Plot f14 for {}".format(extr))
+
+                with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_lfe_perregion = pk.load(f)
+
+                plot_dev_fig14_regions(flags, extr=extr, ds_lfe_perregion=ds_lfe_perregion, ind_region=11)
+        
+
+    if plot_fig15:
+        
+        print("\n----- Performing Plot f15 for Development : LFE MMM for all countries -----")
+
+        if flags['gmt'] =='ar6_new':
+
+            print("\nPlot not performed for because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new")
+
+        if flags['gmt']=='original':
+
+            for extr in hazards:
+
+                print("\nPerforming Plot f15 for {}\n".format(extr))
+
+                with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_lfe_percountry = pk.load(f)
+            
+                for country_name in ds_le_percountry['country'].values:
+
+                    plot_dev_fig15_country(flags, extr=extr, ds_lfe_percountry=ds_lfe_percountry, country_name=country_name)
+
+    # -------------------------------------------------------------------------------------------------------- #
+    #                           Plots for Assessment Source2Suffering- Neptun Deep                             # 
+    # -------------------------------------------------------------------------------------------------------- #
+
     if plot_fig9:
         
         print("\n----- Performing Plot f9 for Assessment - Neptun Deep : Number of new exposed children to hazard due to specific GHG emission -----")
 
         # Load the values computed by the Source2Suffering framework #
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'rb') as f:
             ds_S2S_NeptunDeep = pk.load(f)
 
         # Load the values computed by the Wim Thiery Expert Report #
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl', 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl'.format(flags['version']), 'rb') as f:
             ds_WT_NeptunDeep = pk.load(f)
 
         # Plots 
@@ -801,15 +851,15 @@ if Source2Suffering:
 
         # Load the values computed by the Source2Suffering framework #
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('ar6_new',flags['rm']), 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],'ar6_new',flags['rm']), 'rb') as f:
             ds_S2S_NeptunDeep_gmt_ar6_new_flags_rm = pk.load(f)
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('original',flags['rm']), 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],'original',flags['rm']), 'rb') as f:
             ds_S2S_NeptunDeep_gmt_original_flags_rm = pk.load(f)
 
         # Load the values computed by the Wim Thiery Expert Report #
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl', 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl'.format(flags['version']), 'rb') as f:
             ds_WT_NeptunDeep = pk.load(f)
         
         for extr in ds_WT_NeptunDeep.coords["hazard"]:
@@ -826,21 +876,21 @@ if Source2Suffering:
 
         # Load the values computed by the Wim Thiery Expert Report #
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl', 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl'.format(flags['version']), 'rb') as f:
             ds_WT_NeptunDeep = pk.load(f)
         
         # Load the values computed by the Source2Suffering framework #
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('ar6_new','rm'), 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],'ar6_new','rm'), 'rb') as f:
             ds_S2S_NeptunDeep_gmt_ar6_new_rm = pk.load(f)
         
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('ar6_new','no_rm'), 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],'ar6_new','no_rm'), 'rb') as f:
             ds_S2S_NeptunDeep_gmt_ar6_new_no_rm = pk.load(f)
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('original','rm'), 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],'original','rm'), 'rb') as f:
             ds_S2S_NeptunDeep_gmt_original_rm = pk.load(f)
 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('original','no_rm'), 'rb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],'original','no_rm'), 'rb') as f:
             ds_S2S_NeptunDeep_gmt_original_no_rm = pk.load(f)
 
         year_start_as = 2010
@@ -863,6 +913,10 @@ if Source2Suffering:
              ds_S2S_NeptunDeep_gmt_original_rm_sel,
              ds_S2S_NeptunDeep_gmt_original_no_rm_sel,
              birth_cohort_int,extr)
+
+    # -------------------------------------------------------------------------------------------------------- #
+    #                                    Plots for Assessment - SPARCCLE STS                                   # 
+    # -------------------------------------------------------------------------------------------------------- #
     
     if plot_fig11:
 
@@ -955,46 +1009,87 @@ if Source2Suffering:
             ds_subset_ModAct.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_ModAct_{}_lifetime_exposure_perregion_{}.nc'.format(extr,flags['rm']))
             ds_subset_Ren.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_Ren_{}_lifetime_exposure_perregion_{}.nc'.format(extr,flags['rm']))
 
-    if plot_fig14:
-    
-        print("\n----- Performing Plot f14 for Development : LFE MMM for the World region -----")
-
-        if flags['gmt'] =='ar6_new':
-    
-            print("\nPlot not performed because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new")
-
-        if flags['gmt']=='original':
-
-            for extr in hazards:
-
-                print("\nPerforming Plot f14 for {}".format(extr))
-
-                with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-                    ds_lfe_perregion = pk.load(f)
-
-                plot_dev_fig14_regions(flags, extr=extr, ds_lfe_perregion=ds_lfe_perregion, ind_region=11)
+    if plot_fig17:
         
+        print("\n----- Performing Plot f17 for Assessment - SPARCCLE-STS : LFE MMM for all regions under STS_ModAct and STS_Ren -----")
 
-    if plot_fig15:
-        
-        print("\n----- Performing Plot f15 for Development : LFE MMM for all countries -----")
+        # Definition of the coordinates 
+        hazards = [
+            "burntarea",
+            "cropfailedarea",
+            "driedarea",
+            "floodedarea",
+            "heatwavedarea",
+            "tropicalcyclonedarea"
+        ]
 
-        if flags['gmt'] =='ar6_new':
+        for extr in hazards:
 
-            print("\nPlot not performed for because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new")
+            # Loading the pickles 
+                    
+            with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                ds_lfe_perregion = pk.load(f)
 
-        if flags['gmt']=='original':
+            for region_ind in ds_lfe_perregion['mmm_STS_ModAct']['region'].values:
 
-            for extr in hazards:
-
-                print("\nPerforming Plot f15 for {}\n".format(extr))
-
-                with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-                    ds_lfe_percountry = pk.load(f)
+                # Produce the figures of the absolute value of the lifetime exposure per birth cohort and save the results in a .nc file #
+                
+                plot_dev_fig17_regions(ds_regions, extr, flags, ds_lfe=ds_lfe_perregion, region_ind=region_ind, EMF=False)
             
-                for country_name in ds_le_percountry['country'].values:
+            # Save the results of interest for SPARCCLE STS in a .nc file
 
-                    plot_dev_fig15_country(flags, extr=extr, ds_lfe_percountry=ds_lfe_percountry, country_name=country_name)
+            ds_subset_ModAct = ds_lfe_perregion[["mmm_STS_ModAct", "std_STS_ModAct", "median_STS_ModAct","mmm_STS_ModAct_sm", "std_STS_ModAct_sm", "median_STS_ModAct_sm", "lqntl_STS_ModAct", "uqntl_STS_ModAct"]]
+            ds_subset_Ren = ds_lfe_perregion[["mmm_STS_Ren", "std_STS_Ren", "median_STS_Ren", "mmm_STS_Ren_sm", "std_STS_Ren_sm", "median_STS_Ren_sm", "lqntl_STS_Ren", "uqntl_STS_Ren"]]
+
+            ds_subset_ModAct.attrs['README'] = """
+            This dataset contains the values of the Land Fraction Exposed (LFE) per birth year (from 1960 to 2020) for the STS ModAct scenario for 12 different regions.
+
+            The index of the 'region' coordinate is the following:
+            0: East Asia & Pacific
+            1: Europe & Central Asia
+            2: High income
+            3: Latin America & Caribbean
+            4: Low income
+            5: Lower middle income
+            6: Middle East & North Africa
+            7: North America
+            8: South Asia
+            9: Sub-Saharan Africa
+            10: Upper middle income
+            11: World
+
+            For the variables 'mmm' = multi model mean, 'std' = standard deviation, 'median' = median (p0.5), 'lqntl' = lower quartile (p0.25), 'uqntl' = upper quartile (p0.75). 
+            'sm' means there is a 10 year rolling mean applied to smooth the results.
+
+            Contact author : Amaury.Laridon@vub.be
+            """
+
+            ds_subset_Ren.attrs['README'] = """
+            This dataset contains the values of the Land Fraction Exposed (LFE) per birth year (from 1960 to 2020) for the STS Ren scenario for 12 different regions.
+
+            The index of the 'region' coordinate is the following:
+            0: East Asia & Pacific
+            1: Europe & Central Asia
+            2: High income
+            3: Latin America & Caribbean
+            4: Low income
+            5: Lower middle income
+            6: Middle East & North Africa
+            7: North America
+            8: South Asia
+            9: Sub-Saharan Africa
+            10: Upper middle income
+            11: World
+
+            For the variables 'mmm' = multi model mean, 'std' = standard deviation, 'median' = median (p0.5), 'lqntl' = lower quartile (p0.25), 'uqntl' = upper quartile (p0.75)
+            'sm' means there is a 10 year rolling mean applied to smooth the results.
+
+            Contact author : Amaury.Laridon@vub.be
+            """
+
+            ds_subset_ModAct.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_ModAct_{}_landfraction_exposed_perregion_{}.nc'.format(extr,flags['rm']))
+            ds_subset_Ren.to_netcdf(scripts_dir + '/output/assessment/SPARCCLE_STS/STS_Ren_{}_landfraction_exposed_perregion_{}.nc'.format(extr,flags['rm']))
+
     
 
 #%%-----------------------------------------------------------------------#

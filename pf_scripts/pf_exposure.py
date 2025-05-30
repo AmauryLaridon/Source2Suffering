@@ -372,6 +372,28 @@ def calc_landfraction_exposed(
                 ),
                 fill_value=np.nan
                 )
+            ),
+            'landfrac_peryear_perregion_STS_ModAct': (
+            ['run', 'region', 'time_ind'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    nregions,
+                    len(np.arange(0,len(year_range),1))
+                ),
+                fill_value=np.nan
+                )
+            ),
+            'landfrac_peryear_perregion_STS_Ren': (
+            ['run', 'region', 'time_ind'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    nregions,
+                    len(np.arange(0,len(year_range),1))
+                ),
+                fill_value=np.nan
+                )
             )
 
         },
@@ -424,6 +446,28 @@ def calc_landfraction_exposed(
                 )
             ),
             'landfrac_peryear_percountry_NDC': (
+            ['run', 'country', 'time_ind'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    len(df_countries['name'].values),
+                    len(np.arange(0,len(year_range),1))
+                ),
+                fill_value=np.nan
+                )
+            ),
+            'landfrac_peryear_percountry_STS_ModAct': (
+            ['run', 'country', 'time_ind'],
+            np.full(
+                (
+                    len(d_isimip_meta),
+                    len(df_countries['name'].values),
+                    len(np.arange(0,len(year_range),1))
+                ),
+                fill_value=np.nan
+                )
+            ),
+            'landfrac_peryear_percountry_STS_Ren': (
             ['run', 'country', 'time_ind'],
             np.full(
                 (
@@ -636,7 +680,93 @@ def calc_landfraction_exposed(
 
         else:
 
-            print("\nISMIP Simulation {} not use for re-mapping GMT index for the NDC trajectory".format(i))       
+            print("\nISMIP Simulation {} not use for re-mapping GMT index for the NDC trajectory".format(i)) 
+
+        #------------- Remaping of the LFE for the STS-ModAct trajectory ------------#  
+
+        # if max threshold criteria met, run gmt mapping
+        if d_isimip_meta[i]['GMT_STS_ModAct_valid']:
+            
+            print("\nISMIP Simulation {} use for re-mapping GMT index for the STS-ModAct trajectory".format(i))
+
+            for ind_region in range(nregions):
+
+                for t in range(len(year_range)):
+            
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_STS_ModAct'][t]
+
+                    ds_lfe_perregion_perrun['landfrac_peryear_perregion_STS_ModAct'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=t
+                    )] = ds_lfe_perregion_perrun['landfrac_peryear_perregion_RCP'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=ind_RCP
+                    )]
+            
+            for j, country in enumerate(df_countries['name']):
+        
+                for t in range(len(year_range)):
+                
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_STS_ModAct'][t]
+
+                    ds_lfe_percountry_perrun['landfrac_peryear_percountry_STS_ModAct'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=t
+                    )] = ds_lfe_percountry_perrun['landfrac_peryear_percountry_RCP'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=ind_RCP
+                    )]
+
+        else:
+
+            print("\nISMIP Simulation {} not use for re-mapping GMT index for the STS-ModAct trajectory".format(i))      
+
+        #------------- Remaping of the LFE for the STS-Ren trajectory ------------#  
+
+        # if max threshold criteria met, run gmt mapping
+        if d_isimip_meta[i]['GMT_STS_Ren_valid']:
+            
+            print("\nISMIP Simulation {} use for re-mapping GMT index for the STS-Ren trajectory".format(i))
+
+            for ind_region in range(nregions):
+
+                for t in range(len(year_range)):
+            
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_STS_Ren'][t]
+
+                    ds_lfe_perregion_perrun['landfrac_peryear_perregion_STS_Ren'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=t
+                    )] = ds_lfe_perregion_perrun['landfrac_peryear_perregion_RCP'].loc[dict(
+                        run=i,
+                        region=ind_region,
+                        time_ind=ind_RCP
+                    )]
+            
+            for j, country in enumerate(df_countries['name']):
+        
+                for t in range(len(year_range)):
+                
+                    ind_RCP = d_isimip_meta[i]['ind_RCP2GMT_STS_Ren'][t]
+
+                    ds_lfe_percountry_perrun['landfrac_peryear_percountry_STS_Ren'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=t
+                    )] = ds_lfe_percountry_perrun['landfrac_peryear_percountry_RCP'].loc[dict(
+                        run=i,
+                        country=country,
+                        time_ind=ind_RCP
+                    )]
+
+        else:
+
+            print("\nISMIP Simulation {} not use for re-mapping GMT index for the STS-Ren trajectory".format(i)) 
 
     #---------------------------------------------------------------------#
     # Saving object as Pickle                                             #
@@ -1941,6 +2071,58 @@ def calc_landfraction_exposed_mmm(
             skipna=True
         )
         median_NDC_sm = median_NDC.rolling(time_ind=10, center=True, min_periods=1).mean()
+
+        # ------------------------ STS-ModAct trajectory ------------------------- #
+        
+        mmm_STS_ModAct = ds_lfe_perrun['landfrac_peryear_perregion_STS_ModAct'].mean(dim='run', skipna=True)
+        mmm_STS_ModAct_sm = mmm_STS_ModAct.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_STS_ModAct = ds_lfe_perrun['landfrac_peryear_perregion_STS_ModAct'].std(dim='run', skipna=True)
+        std_STS_ModAct_sm = std_STS_ModAct.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_STS_ModAct = ds_lfe_perrun['landfrac_peryear_perregion_STS_ModAct'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_STS_ModAct = ds_lfe_perrun['landfrac_peryear_perregion_STS_ModAct'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_STS_ModAct = ds_lfe_perrun['landfrac_peryear_perregion_STS_ModAct'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_STS_ModAct_sm = median_STS_ModAct.rolling(time_ind=10, center=True, min_periods=1).mean()
+
+        # ------------------------ STS-Ren trajectory ------------------------- #
+        
+        mmm_STS_Ren = ds_lfe_perrun['landfrac_peryear_perregion_STS_Ren'].mean(dim='run', skipna=True)
+        mmm_STS_Ren_sm = mmm_STS_Ren.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_STS_Ren = ds_lfe_perrun['landfrac_peryear_perregion_STS_Ren'].std(dim='run', skipna=True)
+        std_STS_Ren_sm = std_STS_Ren.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_STS_Ren = ds_lfe_perrun['landfrac_peryear_perregion_STS_Ren'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_STS_Ren = ds_lfe_perrun['landfrac_peryear_perregion_STS_Ren'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_STS_Ren = ds_lfe_perrun['landfrac_peryear_perregion_STS_Ren'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_STS_Ren_sm = median_STS_Ren.rolling(time_ind=10, center=True, min_periods=1).mean()
     
     if 'country' in ds_lfe_perrun.dims:
     
@@ -2023,6 +2205,58 @@ def calc_landfraction_exposed_mmm(
             skipna=True
         )
         median_NDC_sm = median_NDC.rolling(time_ind=10, center=True, min_periods=1).mean()
+
+         # ------------------------ STS-ModAct trajectory ------------------------- #
+        
+        mmm_STS_ModAct = ds_lfe_perrun['landfrac_peryear_percountry_STS_ModAct'].mean(dim='run', skipna=True)
+        mmm_STS_ModAct_sm = mmm_STS_ModAct.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_STS_ModAct = ds_lfe_perrun['landfrac_peryear_percountry_STS_ModAct'].std(dim='run', skipna=True)
+        std_STS_ModAct_sm = std_STS_ModAct.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_STS_ModAct = ds_lfe_perrun['landfrac_peryear_percountry_STS_ModAct'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_STS_ModAct = ds_lfe_perrun['landfrac_peryear_percountry_STS_ModAct'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_STS_ModAct = ds_lfe_perrun['landfrac_peryear_percountry_STS_ModAct'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_STS_ModAct_sm = median_STS_ModAct.rolling(time_ind=10, center=True, min_periods=1).mean()
+
+        # ------------------------ STS-Ren trajectory ------------------------- #
+        
+        mmm_STS_Ren = ds_lfe_perrun['landfrac_peryear_percountry_STS_Ren'].mean(dim='run', skipna=True)
+        mmm_STS_Ren_sm = mmm_STS_Ren.rolling(time_ind=10, center=True, min_periods=1).mean()
+        std_STS_Ren = ds_lfe_perrun['landfrac_peryear_percountry_STS_Ren'].std(dim='run', skipna=True)
+        std_STS_Ren_sm = std_STS_Ren.rolling(time_ind=10, center=True, min_periods=1).mean()
+        lqntl_STS_Ren = ds_lfe_perrun['landfrac_peryear_percountry_STS_Ren'].quantile(
+            q=0.25,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        uqntl_STS_Ren = ds_lfe_perrun['landfrac_peryear_percountry_STS_Ren'].quantile(
+            q=0.75,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_STS_Ren = ds_lfe_perrun['landfrac_peryear_percountry_STS_Ren'].quantile(
+            q=0.5,
+            dim='run',
+            method='inverted_cdf',
+            skipna=True
+        )
+        median_STS_Ren_sm = median_STS_Ren.rolling(time_ind=10, center=True, min_periods=1).mean()
         
     # -------------------------------------------------- #
     #             Integration in the DataSet             #
@@ -2054,6 +2288,24 @@ def calc_landfraction_exposed_mmm(
     ds_lfe_perrun['uqntl_NDC'] = uqntl_NDC
     ds_lfe_perrun['median_NDC'] = median_NDC
     ds_lfe_perrun['median_NDC_sm'] = median_NDC_sm
+
+    ds_lfe_perrun['mmm_STS_ModAct'] = mmm_STS_ModAct
+    ds_lfe_perrun['mmm_STS_ModAct_sm'] = mmm_STS_ModAct_sm
+    ds_lfe_perrun['std_STS_ModAct'] = std_STS_ModAct
+    ds_lfe_perrun['std_STS_ModAct_sm'] = std_STS_ModAct_sm
+    ds_lfe_perrun['lqntl_STS_ModAct'] = lqntl_STS_ModAct
+    ds_lfe_perrun['uqntl_STS_ModAct'] = uqntl_STS_ModAct
+    ds_lfe_perrun['median_STS_ModAct'] = median_STS_ModAct
+    ds_lfe_perrun['median_STS_ModAct_sm'] = median_STS_ModAct_sm
+
+    ds_lfe_perrun['mmm_STS_Ren'] = mmm_STS_Ren
+    ds_lfe_perrun['mmm_STS_Ren_sm'] = mmm_STS_Ren_sm
+    ds_lfe_perrun['std_STS_Ren'] = std_STS_Ren
+    ds_lfe_perrun['std_STS_Ren_sm'] = std_STS_Ren_sm
+    ds_lfe_perrun['lqntl_STS_Ren'] = lqntl_STS_Ren
+    ds_lfe_perrun['uqntl_STS_Ren'] = uqntl_STS_Ren
+    ds_lfe_perrun['median_STS_Ren'] = median_STS_Ren
+    ds_lfe_perrun['median_STS_Ren_sm'] = median_STS_Ren_sm
 
     # -------------------------------------------------- #
     #             Saving the object as Pickle            #

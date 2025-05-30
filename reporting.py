@@ -525,7 +525,7 @@ if Source2Suffering:
         )
 
         # Save the DataSet reference as pickles 
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl', 'wb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_WT_NeptunDeep.pkl'.format(flags['version']), 'wb') as f:
             pk.dump(ds_WT_NeptunDeep,f)
 
         # -------------------------------------------------------------------------- #
@@ -588,7 +588,7 @@ if Source2Suffering:
             year_end = year_end_as,
             df_GMT_strj = df_GMT_strj, 
             valp_cohort_size_abs = valp_cohort_size_abs,
-            rounding = 1)  
+            rounding = 2)  
         
         # Generate list of birth years for iteration
         years_loop = list(range(year_end_as, year_start_as - 1, -1))
@@ -617,7 +617,7 @@ if Source2Suffering:
             year_end = year_end_as_ref,
             df_GMT_strj = df_GMT_strj, 
             valp_cohort_size_abs = valp_cohort_size_abs,
-            rounding = 1)
+            rounding = 2)
 
         # Only keep the value for the total of the birth cohort between 1960 and 1970
 
@@ -705,7 +705,7 @@ if Source2Suffering:
                 year_end=year_end_as,
                 df_GMT_strj=df_GMT_strj,
                 valp_cohort_size_abs=valp_cohort_size_abs,
-                rounding=1
+                rounding=2
             )
 
             # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario for the reference birth cohorts
@@ -718,7 +718,7 @@ if Source2Suffering:
                 year_end=year_end_as_ref,
                 df_GMT_strj=df_GMT_strj,
                 valp_cohort_size_abs=valp_cohort_size_abs,
-                rounding=1
+                rounding=2
             )
 
             nr_total = valc_nr_children_facing_extra_hazard_NeptunDeep[-1]
@@ -845,7 +845,7 @@ if Source2Suffering:
         # -------------------------------- Save as Pickles ---------------------------------- #
 
         # dump pickle of ds_valc_nr_children_facing_extra_hazard_NeptunDeep
-        with open(data_dir+'source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['gmt'],flags['rm']), 'wb') as f:
+        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_S2S_NeptunDeep,f)
 
         # -------------------------------------------------------------------------- #

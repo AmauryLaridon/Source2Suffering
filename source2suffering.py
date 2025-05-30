@@ -66,6 +66,8 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
         # for each cohort among the birth_years between year_start and year_end #
         valc_exposure_climate_extreme_newborns = ds_le['mmm_BE'].sel(region=region_ind, birth_year=years_loop[i])
 
+        birth_year=years_loop[i]
+
         # Recover the 2113 GMT anomaly ? To be confirmed. Should be placed outside of the loop
         valc_GMT_2100 = df_GMT_strj.iloc[-1]  
 
@@ -81,15 +83,21 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
         slope_exposure[i] = valc_slope_exposure_climate_extreme
 
         # Extract the number of people in the cohort #
-        nr_newborns[i] = valp_cohort_size_abs[i, region_ind] #should be corrected if we want year_end not equal to 2020
-        #print(nr_newborns[i])
 
-        print("Number of people in 2020 of the birth years = {} - nr_newborns[i] = {}".format(years_loop[i],nr_newborns[i]))
+        if year_end == 2020:
+
+            nr_newborns[i] = valp_cohort_size_abs[-(1+i), region_ind]
+
+            #print("Number of people in 2020 of the birth years = {} - nr_newborns[i] = {}".format(years_loop[i],nr_newborns[i]))
+        
+        if year_start == 1960:
+
+            nr_newborns[i] = valp_cohort_size_abs[(year_end-year_start)-i, region_ind]
+
+            #print("Number of people in 2020 of the birth years = {} - nr_newborns[i] = {}".format(years_loop[i],nr_newborns[i]))
 
         # Compute the average change in lifetime exposure #
         nr_extra_climate_extremes_newborns[i] = valc_slope_exposure_climate_extreme * dGMT
-
-        #print(nr_extra_climate_extremes_newborns[i])
 
         # Compute the number of children facing at least one additional extreme #
         val = nr_newborns[i] * nr_extra_climate_extremes_newborns[i]

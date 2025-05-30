@@ -76,11 +76,7 @@ env_value_paper= 0
 
 # Use for specific paper's configuration jobs
 env_value_paper = os.getenv("CONFIG_PAPER_VALUE")
-if env_value_paper:
-    Thiery_2021 = False 
-    Grant_2025 = False 
-    Laridon_2025 = False
-    Source2Suffering = True 
+if env_value_paper: 
     if env_value_paper == "thiery_2021":
         Thiery_2021 = True
     if env_value_paper == "grant_2025":
@@ -99,10 +95,11 @@ if env_value_paper:
         flags['extr'] = 'heatwavedarea'
         flags['gmt'] = 'original'
         flags['rm'] = 'no_rm'
-        flags['version'] = 'pickles'
+        flags['version'] = 'pickles_WT'
         flags['run'] = 1
         flags['mask'] = 1
         flags['dem4clim'] = 0
+        flags['landfraction_exposed'] = 1
         flags['lifetime_exposure'] = 1
         flags['lifetime_exposure_pic'] = 1
         flags['emergence'] = 0
@@ -121,10 +118,11 @@ if env_value_paper:
         flags['extr'] = 'heatwavedarea'
         flags['gmt'] = 'ar6_new'
         flags['rm'] = 'rm'
-        flags['version'] = 'pickles_v3'
+        flags['version'] = 'pickles_S2S_v1'
         flags['run'] = 0
         flags['mask'] = 0
         flags['dem4clim'] = 0
+        flags['landfraction_exposed'] = 0
         flags['lifetime_exposure'] = 0
         flags['lifetime_exposure_pic'] = 0
         flags['emergence'] = 1
@@ -170,16 +168,16 @@ if not env_value_paper:
     flags['rm'] = 'no_rm'                              # no_rm: no smoothing of RCP GMTs before mapping
                                                     # rm: 21-year rolling mean on RCP GMTs
     
-    #-------------- Version of the input Data ---------------#
+    #------------ Version of the Computed Data --------------#
 
-    flags['version'] = 'pickles_v3'                 # pickles: original version, submitted to Nature
-                                                        # inconsistent GMT steps (not perfect 0.1 degree intervals)
-                                                        # GMT steps ranging 1-4 (although study only shows ~1.5-3.5, so runs are inefficient)
-                                                        # only 99.99% percentile for PIC threshold
-                                                    # pickles_v2: version generated after submission to Nature in preparation for criticism/review
-                                                        # steps fixed in load_manip to be only 1.5-3.5, with clean 0.1 degree intervals
-                                                        # 5 percentiles for PIC threshold and emergence for each
-                                                    # pickles_v3: version generated after the 2021 toolchains were taken away from hydra. could not longer use old pickles effectively
+    if Thiery_2021==False:                          # Ensure that the computed data are stored/loaded from the right directory
+
+        flags['version'] = 'pickles_S2S_v1'             # pickles_S2S_v1: Final versions of data used by Grant et al.(2025) and for Laridon et al.(2025)
+                                                    
+
+    if Thiery_2021==True:                           # Ensure that the computed data are stored/loaded from the right directory
+
+        flags['version'] = 'pickles_WT'             # pickles_WT_v1 : data versions used in Thiery et al.(2021)
 
     flags['run'] = 0                                # 0: do not process ISIMIP runs (i.e. load runs pickle)
                                                     # 1: process ISIMIP runs (i.e. produce and save runs as pickle)
@@ -189,8 +187,13 @@ if not env_value_paper:
 
     #--------- Pietroiusti et al.(2025) Demographic -----------#
 
-    flags['dem4cli'] = 0                           # 0: do not use the assessment by Pietroiusti et al. for gridded population data
+    flags['dem4cli'] = 0                            # 0: do not use the assessment by Pietroiusti et al. for gridded population data
                                                     # 1: use the assessment by Pietroiusti et al. for gridded population data
+
+    #------- Thiery et al.(2021) Land Fraction Exposed --------#
+    
+    flags['landfraction_exposed'] = 0               # 0: do not process ISIMIP runs to compute land fraction exposed (i.e load pickles)
+                                                    # 1: process ISIMIP runs to compute land fraction exposed (i.e. produce and save as pickle) 
 
     #--------- Thiery et al.(2021) Lifetime Exposure ----------#
     
@@ -244,7 +247,7 @@ if not env_value_paper:
     flags['reporting'] = 1                          # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
 
-    flags['plots'] = 0                              # 0 do not produce and save plots 
+    flags['plots'] = 1                              # 0 do not produce and save plots 
                                                     # 1 produce and load plots
 
     # Use for specific climate extreme jobs - HPC only
