@@ -978,6 +978,7 @@ def get_life_expectancies(
 
 #%%---------------------------------------------------------------#
 # Interpolate cohortsize per country                              #
+# Function written by Luke Grant but never used in his paper      #
 # ----------------------------------------------------------------#
 
 def get_cohortsize_countries(
@@ -1016,10 +1017,10 @@ def get_cohortsize_countries(
     
     return d_cohort_size
 
-
 #%%---------------------------------------------------------------#
-# interpolate cohortsize per country (changing to use same start  #
+# Interpolate cohortsize per country (changing to use same start  #
 # points as original cohort extraction for ages 0-60)             #
+# Function written by Luke Grant and used in his paper            #
 # ----------------------------------------------------------------#
 
 def get_all_cohorts(
@@ -1181,6 +1182,52 @@ def get_regions_data(
         pk.dump(d_cohort_weights_regions,f)
 
     return d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohort_weights_regions
+
+#%%---------------------------------------------------------------#
+# Get regions cohort size based on the da_cohort_size object      #
+# that has been used and validate in the final analysis of        #  
+# Grant et al.(2025) and WT                                       #
+#-----------------------------------------------------------------#
+
+def get_regions_cohort(df_countries, ds_regions, da_cohort_size, flags):
+    # Ensure 'ages' is in descending order and select the target range
+    da_cohort_size = da_cohort_size.sel(time=year_ref)
+    da_cohort_size = da_cohort_size.sel(ages=ages)  # safer than slice(60, 0)
+
+    nregions = len(ds_regions['name'])
+
+    # Initialize output DataArray with NaNs
+    da_cohort_size_regions = xr.DataArray(
+        np.full(
+            (nregions, len(df_countries['name'].values), len(ages)),
+            fill_value=np.nan
+        ),
+        dims=['region', 'country', 'ages'],
+        coords={
+            'region': ('region', np.arange(0, nregions)),
+            'country': ('country', df_countries['name'].values),
+            'ages': ('ages', ages)
+        }
+    )
+
+    # Fill values per region
+    for region_ind, region in enumerate(ds_regions.region.values):
+        member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
+
+        # Ensure countries exist in the target DataArray
+        available_countries = [c for c in member_countries if c in df_countries['name'].values]
+
+        if available_countries:
+            da_cohort_size_regions.loc[dict(
+                region=region_ind,
+                country=available_countries
+            )] = da_cohort_size.sel(country=available_countries).values
+
+    # dump pickle of lifetime exposure per region
+    with open(data_dir+'{}/country/da_cohort_size_regions.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(da_cohort_size_regions,f)
+
+    return da_cohort_size_regions
 
 #%%---------------------------------------------------------------#
 # Country data                                                    #

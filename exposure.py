@@ -73,7 +73,7 @@ else: # load processed land fraction exposed data
 
     #---------------  Load per ISIMIP run Land Fraction Exposed -------------#
 
-    print('\nLoading processed Land Fraction Exposed per ISIMIP simulation')
+    print('Loading processed Land Fraction Exposed per ISIMIP simulation')
 
     with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
         ds_lfe_percountry_perrun = pk.load(f)
@@ -83,7 +83,7 @@ else: # load processed land fraction exposed data
 
     #--------------------  Load MMM Land Fraction Exposed -------------------#
 
-    print('\nLoading processed MMM Land Fraction Exposed')
+    print('\nLoading processed MMM Land Fraction Exposed\n')
 
     with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
         ds_lfe_percountry = pk.load(f)
@@ -115,6 +115,7 @@ if flags['lifetime_exposure']:
             df_life_expectancy_5,
             ds_regions,
             d_cohort_weights_regions,
+            da_cohort_size_regions,
             flags,)
 
         #---------------------  Compute MMM Lifetime Exposure ---------------------#

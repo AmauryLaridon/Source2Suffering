@@ -197,7 +197,7 @@ if not env_value_paper:
 
     #--------- Thiery et al.(2021) Lifetime Exposure ----------#
     
-    flags['lifetime_exposure'] = 0                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
+    flags['lifetime_exposure'] = 1                  # 0: do not process ISIMIP runs to compute exposure across cohorts (i.e. load exposure pickle)
                                                     # 1: process ISIMIP runs to compute exposure across cohorts (i.e. produce and save exposure as pickle)   
                                                                         
     flags['lifetime_exposure_pic'] = 0              # 0: do not process ISIMIP runs to compute picontrol exposure (i.e. load exposure pickle)
@@ -244,10 +244,10 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['reporting'] = 1                          # 0 do not produce results for reporting 
+    flags['reporting'] = 0                         # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
 
-    flags['plots'] = 1                              # 0 do not produce and save plots 
+    flags['plots'] = 0                              # 0 do not produce and save plots 
                                                     # 1 produce and load plots
 
     # Use for specific climate extreme jobs - HPC only

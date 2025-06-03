@@ -126,14 +126,32 @@ else:
 
 d_cohort_size = get_cohortsize_countries(df_countries,flags)
 
+# Save as pickle
+with open(data_dir + '{}/country/df_countries.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(df_countries, f)
+with open(data_dir + '{}/country/gdf_country_borders.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(gdf_country_borders, f)
+with open(data_dir + '{}/country/da_regions.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(da_regions, f)
+with open(data_dir + '{}/country/da_population.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(da_population, f)
+with open(data_dir + '{}/country/df_birthyears.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(df_birthyears, f)
+with open(data_dir + '{}/country/df_life_expectancy_5.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(df_life_expectancy_5, f)
+with open(data_dir + '{}/country/da_cohort_size.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(da_cohort_size, f)
+with open(data_dir + '{}/country/countries_regions.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(countries_regions, f)
+with open(data_dir + '{}/country/countries_mask.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(countries_mask, f)
+with open(data_dir + '{}/country/d_cohort_size.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(d_cohort_size, f)
 
-# --------------------------------------------------------------- #
-# load Regions                                                    #
-# --------------------------------------------------------------- #
-
-#------------------------------- Manual configuration of ds_regions ------------------------------------#
-# based on ms_manip.m from Thiery et al.(2021)                                                          #
-#-------------------------------------------------------------------------------------------------------#
+# --------------------------------------------------------------------------------------- #
+# Build ds_regions partialy based on loading the original object from Thiery et al.(2021) #
+# based on ms.manip.m                                                                     #
+# --------------------------------------------------------------------------------------- #
 
 from scipy.io import loadmat
 
@@ -235,8 +253,14 @@ ds_regions['member_countries'] = xr.DataArray(
     coords={'region': coord_region}
 )
 
-#------------------------------------ Luke's get_regions_data() ---------------------------------------#
+with open(data_dir + '{}/country/ds_regions.pkl'.format(flags['version']), 'wb') as f:
+    pk.dump(ds_regions, f)
 
+# --------------------------------------------------------------------- #
+# Construction of d_cohort_weights_regions based on                     #
+# d_cohort_size and the get_regions_data() function written by          #
+# L.Grant but that was not used in final analysis of Grant et al.(2025) #
+# --------------------------------------------------------------------- #
 
 df_worldbank_region = worldbank[1]
 df_unwpp_region = unwpp[1]
@@ -250,17 +274,26 @@ d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohor
     flags,
 )
 
-# print(d_cohort_weights_regions)
-# print(type(d_cohort_weights_regions['North America']))
-# print(np.shape(d_cohort_weights_regions['North America']))
-# print("d_cohort_weights_regions", d_cohort_weights_regions['North America'])
+# --------------------------------------------------------------------- #
+# Construction of da_cohort_size_regions based on da_cohort_size which  #
+# is used in the final analysis of Grant et al.(2025).                  #
+# The get_regions_cohort() function is written by A.Laridon for         # 
+# Laridon et al.(2025)                                                  #
+# --------------------------------------------------------------------- #
+
+da_cohort_size_regions = get_regions_cohort(
+    df_countries, 
+    ds_regions, 
+    da_cohort_size, 
+    flags
+)
 
 
-# --------------------------------------------------------------- #
-# Construction of valp_cohort_size_abs which containts the total  # 
-# number of population of a given age per region. This object is  # 
-# used in source2suffering.py                                     #
-# --------------------------------------------------------------- #
+# --------------------------------------------------------------------- #
+# Construction of valp_cohort_size_abs which containts the total        # 
+# number of population of a given age per region. This object is        # 
+# used in source2suffering.py                                           #
+# --------------------------------------------------------------------- #
 
 if Source2Suffering:
 

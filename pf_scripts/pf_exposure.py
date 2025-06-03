@@ -810,10 +810,13 @@ def calc_lifetime_exposure(
     df_life_expectancy_5,
     ds_regions,
     d_cohort_weights_regions,
+    da_cohort_size_regions,
     flags,
 ):
 
     ### Init of the ds_le_percountry_perrun DataSet that will contain all the lifetime exposure outputs per country ### 
+
+    #birth_years = np.arange(year_start,year_ref+1,1)
 
     ds_le_percountry_perrun = xr.Dataset(
 
@@ -1115,23 +1118,65 @@ def calc_lifetime_exposure(
             # Per region                                                          #
             #---------------------------------------------------------------------#
 
-            for region_ind, region in enumerate(ds_regions.region.values):
+            # for region_ind, region in enumerate(ds_regions.region.values):
             
+            #     region_name = ds_regions['name'].sel(region=region_ind).item()
+            #     member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
+
+            #     # Computation of the regional lifetime exposure weighted by population of each country # 
+
+            #     weights = d_cohort_weights_regions[region_name]
+
+            #     le_percountry_perrun = ds_le_percountry_perrun['le_percountry_perrun_15'].loc[{
+            #         'run': i,
+            #         'country': member_countries,
+            #         'birth_year': slice(None)
+            #     }]
+
+            #     weighted_avg = np.nansum(le_percountry_perrun.values * weights.values.T, axis=0) / np.nansum(weights.values.T, axis=0)
+
+            #     ds_le_perregion_perrun['le_perregion_perrun_15'].loc[{
+            #         'run': i,
+            #         'region': region_ind,
+            #         'birth_year': slice(None)
+            #     }] = weighted_avg
+
+            #---------------------------------------------------------------------#
+            # Per region                                                          #
+            #---------------------------------------------------------------------#
+
+            for region_ind, region in enumerate(ds_regions.region.values):
+
                 region_name = ds_regions['name'].sel(region=region_ind).item()
                 member_countries = ds_regions['member_countries'].sel(region=region_ind).values.tolist()
 
-                # Computation of the regional lifetime exposure weighted by population of each country # 
-
-                weights = d_cohort_weights_regions[region_name]
-
+                # Get the lifetime exposure per country for this region and run
                 le_percountry_perrun = ds_le_percountry_perrun['le_percountry_perrun_15'].loc[{
                     'run': i,
                     'country': member_countries,
                     'birth_year': slice(None)
                 }]
 
-                weighted_avg = np.nansum(le_percountry_perrun.values * weights.values.T, axis=0) / np.nansum(weights.values.T, axis=0)
+                # Extract cohort size weights for region and member countries
+                da_weights = da_cohort_size_regions.sel(
+                    region=region_ind,
+                    country=member_countries
+                )
 
+                # Convert 'ages' (60→0) to 'birth_year' (1960→2020) assuming ref year = 2020
+                # birth_years = 2020 - da_weights['ages'].values
+                da_weights = da_weights.assign_coords(birth_year=('ages', birth_years))
+                da_weights = da_weights.swap_dims({'ages': 'birth_year'}).sortby('birth_year')
+
+                # Now da_weights has shape (country, birth_year)
+                # Align both arrays to avoid misalignment issues
+                le_percountry_perrun, da_weights = xr.align(le_percountry_perrun, da_weights, join="exact")
+
+                # Compute weighted average over countries (dim=0)
+                weighted_avg = (le_percountry_perrun * da_weights).sum(dim='country', skipna=True) / \
+                            da_weights.sum(dim='country', skipna=True)
+
+                # Store result in the output dataset
                 ds_le_perregion_perrun['le_perregion_perrun_15'].loc[{
                     'run': i,
                     'region': region_ind,
@@ -1529,7 +1574,7 @@ def calc_lifetime_exposure(
         pk.dump(ds_le_percountry_perrun,f)
     
     # dump pickle of lifetime exposure per region
-    with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
         pk.dump(ds_le_perregion_perrun,f)
     
     return ds_le_percountry_perrun, ds_le_perregion_perrun
@@ -2918,7 +2963,7 @@ def calc_lifetime_exposure_mmm(
     if 'region' in ds_le_perrun.dims:
 
         # dump pickle of lifetime exposure per region
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_le_perrun,f)
     
     if 'country' in ds_le_perrun.dims:
