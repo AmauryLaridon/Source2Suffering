@@ -604,7 +604,8 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
         plt.grid(True)
         plt.tight_layout()
         plt.legend(fontsize=16)
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(extr,region_name,flags['gmt'],flags['rm']))
+        plt.savefig(scripts_dir+'/figures/source2suffering/sandbox/fig6_mmm_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(region_name,flags['gmt'],flags['rm']))
+        #plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(extr,region_name,flags['gmt'],flags['rm']))
         print("Plot performed for the {} region".format(region_name))
 
 def plot_dev_fig7(
@@ -785,9 +786,15 @@ def plot_dev_fig7(
 
         plt.tight_layout()
 
+        # plt.savefig(
+        #     scripts_dir + '/figures/source2suffering/development/{}/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(
+        #         extr, extr, region_name, flags['gmt'],flags['rm']
+        #     )
+        # )
+
         plt.savefig(
-            scripts_dir + '/figures/source2suffering/development/{}/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(
-                extr, extr, region_name, flags['gmt'],flags['rm']
+            scripts_dir + '/figures/source2suffering/sandbox/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(
+                extr, region_name, flags['gmt'],flags['rm']
             )
         )
 

@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=s2s_burntarea
 #SBATCH --ntasks=2
-#SBATCH --mem=160G
-#SBATCH --time=48:00:00
+#SBATCH --mem=32G
+#SBATCH --time=12:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=amaury.laridon@vub.be
 #SBATCH --output=/dev/null

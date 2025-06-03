@@ -1223,6 +1223,9 @@ def get_regions_cohort(df_countries, ds_regions, da_cohort_size, flags):
                 country=available_countries
             )] = da_cohort_size.sel(country=available_countries).values
 
+    # multiplication to have the number of people (and not per thousands of people)
+    da_cohort_size_regions *= 1e3
+
     # dump pickle of lifetime exposure per region
     with open(data_dir+'{}/country/da_cohort_size_regions.pkl'.format(flags['version']), 'wb') as f:
         pk.dump(da_cohort_size_regions,f)

@@ -571,8 +571,13 @@ if Source2Suffering:
         print(" -----------------------------------------------------------------------------------------------------------------")
         print("")
 
+        # Load the corresponding exposure dataset
         with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
             ds_le_perregion = pk.load(f)
+
+        # Load the absolute cohort sizes at the regional level
+            with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version'])) as f:
+                da_valp_cohort_size_abs = pk.load(f)
 
         # Computation for the 2010 to 2020 birth cohorts #
 
@@ -587,7 +592,7 @@ if Source2Suffering:
             year_start = year_start_as,
             year_end = year_end_as,
             df_GMT_strj = df_GMT_strj, 
-            valp_cohort_size_abs = valp_cohort_size_abs,
+            da_valp_cohort_size_abs = da_valp_cohort_size_abs,
             rounding = 2)  
         
         # Generate list of birth years for iteration
@@ -616,7 +621,7 @@ if Source2Suffering:
             year_start = year_start_as_ref,
             year_end = year_end_as_ref,
             df_GMT_strj = df_GMT_strj, 
-            valp_cohort_size_abs = valp_cohort_size_abs,
+            da_valp_cohort_size_abs = da_valp_cohort_size_abs,
             rounding = 2)
 
         # Only keep the value for the total of the birth cohort between 1960 and 1970
@@ -695,6 +700,10 @@ if Source2Suffering:
             with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
                 ds_le_perregion = pk.load(f)
 
+            # Load the absolute cohort sizes at the regional level
+            with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version'])) as f:
+                da_valp_cohort_size_abs = pk.load(f)
+
             # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario
             valc_nr_children_facing_extra_hazard_NeptunDeep, S2S_slope_exposure = emissions2npeople(
                 CO2_emissions=CO2_emissions_NeptunDeep,
@@ -704,7 +713,7 @@ if Source2Suffering:
                 year_start=year_start_as,
                 year_end=year_end_as,
                 df_GMT_strj=df_GMT_strj,
-                valp_cohort_size_abs=valp_cohort_size_abs,
+                da_valp_cohort_size_abs=da_valp_cohort_size_abs,
                 rounding=2
             )
 
@@ -717,7 +726,7 @@ if Source2Suffering:
                 year_start=year_start_as_ref,
                 year_end=year_end_as_ref,
                 df_GMT_strj=df_GMT_strj,
-                valp_cohort_size_abs=valp_cohort_size_abs,
+                da_valp_cohort_size_abs=da_valp_cohort_size_abs,
                 rounding=2
             )
 

@@ -114,7 +114,6 @@ if flags['lifetime_exposure']:
             da_population,
             df_life_expectancy_5,
             ds_regions,
-            d_cohort_weights_regions,
             da_cohort_size_regions,
             flags,)
 

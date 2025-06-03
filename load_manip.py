@@ -298,37 +298,49 @@ da_cohort_size_regions = get_regions_cohort(
 if Source2Suffering:
 
     # --------------------------------------------------------------- #
+    # Construction of da_valp_cohort_size_abs based based on the      #
+    # da_cohort_size_regions object                                   #
+    # --------------------------------------------------------------- #
+
+    da_valp_cohort_size_abs = da_cohort_size_regions.sum(dim="country", skipna=True)
+
+    # Save as pickle
+    with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(da_valp_cohort_size_abs, f)
+
+    # --------------------------------------------------------------- #
     # Construction of valp_cohort_size_abs based on ms_valp.m from    #
-    # Thiery et al.(2021).                                            #
+    # Thiery et al.(2021). Creation of the object based on            #
+    # d_cohort_weights_regions                                        #
     # --------------------------------------------------------------- #
     
-    regions_list = list(d_cohort_weights_regions.keys())
-    nregions = len(regions_list)
+    # regions_list = list(d_cohort_weights_regions.keys())
+    # nregions = len(regions_list)
 
-    valp_cohort_size_abs = np.zeros((len(ages), nregions))
+    # valp_cohort_size_abs = np.zeros((len(ages), nregions))
 
-    # Loop on the ages 
-    for ind_age, age in enumerate(ages):
+    # # Loop on the ages 
+    # for ind_age, age in enumerate(ages):
         
-        # Loop over regions
-        for ind_region, region_name in enumerate(regions_list):
+    #     # Loop over regions
+    #     for ind_region, region_name in enumerate(regions_list):
             
-            # Access the DataFrame for the region
-            df_cohort = d_cohort_weights_regions[region_name]  # shape: [age x countries]
+    #         # Access the DataFrame for the region
+    #         df_cohort = d_cohort_weights_regions[region_name]  # shape: [age x countries]
             
-            # Check that the age is in the index
-            if age in df_cohort.index:
-                # Select the row corresponding to the age (series with countries as columns)
-                cohort_row = df_cohort.loc[age]
+    #         # Check that the age is in the index
+    #         if age in df_cohort.index:
+    #             # Select the row corresponding to the age (series with countries as columns)
+    #             cohort_row = df_cohort.loc[age]
                 
-                # Sum across countries and convert to absolute values
-                total = cohort_row.sum() * 1000
+    #             # Sum across countries and convert to absolute values
+    #             total = cohort_row.sum() * 1000
                 
-                # Store the rounded value
-                valp_cohort_size_abs[ind_age, ind_region] = np.round(total, 1)
-            else:
-                # If age is missing, set as NaN
-                valp_cohort_size_abs[ind_age, ind_region] = np.nan
+    #             # Store the rounded value
+    #             valp_cohort_size_abs[ind_age, ind_region] = np.round(total, 1)
+    #         else:
+    #             # If age is missing, set as NaN
+    #             valp_cohort_size_abs[ind_age, ind_region] = np.nan
     
 if Thiery_2021:
 
@@ -336,32 +348,32 @@ if Thiery_2021:
     # Importation of valp_cohort_size_abs from Thiery et al.(2021)    #                                            #
     # --------------------------------------------------------------- #
 
-    valp_cohort_size_abs = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/valp_cohort_size_abs.mat',squeeze_me=True)
-    valp_cohort_size_abs = valp_cohort_size_abs['valp_cohort_size_abs']
+    valp_cohort_size_abs_WT = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/valp_cohort_size_abs.mat',squeeze_me=True)
+    valp_cohort_size_abs_WT = valp_cohort_size_abs_WT['valp_cohort_size_abs']
 
-# -------------------------------------- #
-# Save the object as DataSet in a pickle #
-# -------------------------------------- #
+    # -------------------------------------- #
+    # Save the object as DataSet in a pickle #
+    # -------------------------------------- #
 
-regions = np.arange(nregions)  # regions indexed from 0 to nregions-1
+    regions = np.arange(nregions)  # regions indexed from 0 to nregions-1
 
-# Create a DataArray
-da_valp_cohort_size_abs = xr.DataArray(
-    data=valp_cohort_size_abs,  # shape (age, region)
-    dims=("age", "region"),
-    coords={
-        "age": ages,
-        "region": regions
-    },
-    name="cohort_size_abs"
-)
+    # Transpose the numpy array to match (region, ages)
+    valp_cohort_size_abs_WT_transposed = valp_cohort_size_abs_WT.T  # now shape (12, 61)
 
-# Create the Dataset
-ds_valp_cohort_size_abs = xr.Dataset({"cohort_size_abs": da_valp_cohort_size_abs})
+    # Create the DataArray with correct dimension order
+    da_valp_cohort_size_abs_WT = xr.DataArray(
+        data=valp_cohort_size_abs_WT_transposed,
+        dims=("region", "ages"),
+        coords={
+            "region": regions,  # array/list of 12 region labels
+            "ages": ages         # array/list of 61 ages
+        },
+        name="cohort_size_abs"
+    )
 
-# Save as pickle
-with open(data_dir + '{}/country/ds_valp_cohort_size_abs.pkl'.format(flags['version']), 'wb') as f:
-    pk.dump(ds_valp_cohort_size_abs, f)
+    # Save as pickle
+    with open(data_dir + '{}/country/da_valp_cohort_size_abs_WT.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(da_valp_cohort_size_abs_WT, f)
 
 # --------------------------------------------------------------- #
 # load ISIMIP model data                                          #

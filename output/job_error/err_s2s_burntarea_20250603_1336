@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/vscmnt/brussel_pixiu_data/_data_brussel/vo/000/bvo00012/vsc11137/source2suffering/main.py", line 298, in <module>
+    exec(exe_load_manip,globals())
+  File "<string>", line 358, in <module>
+NameError: name 'valp_cohort_size_abs' is not defined. Did you mean: 'da_valp_cohort_size_abs'?

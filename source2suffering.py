@@ -42,7 +42,7 @@ import cartopy.crs as ccrs
 #-------------------------------------------------------------------------------------- #
 
 
-def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_end, df_GMT_strj, valp_cohort_size_abs, rounding):
+def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_end, df_GMT_strj, da_valp_cohort_size_abs, rounding):
     """Compute the number of people affected by additional climate extremes in their lifetime
     due to specific CO2 emissions"""
 
@@ -86,13 +86,15 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
 
         if year_end == 2020:
 
-            nr_newborns[i] = valp_cohort_size_abs[-(1+i), region_ind]
+            #nr_newborns[i] = da_valp_cohort_size_abs[-(1+i), region_ind]
+            nr_newborns[i] = da_valp_cohort_size_abs.sel(region=region_ind, ages=ages[-(1+i)]).item()
 
             #print("Number of people in 2020 of the birth years = {} - nr_newborns[i] = {}".format(years_loop[i],nr_newborns[i]))
         
         if year_start == 1960:
 
-            nr_newborns[i] = valp_cohort_size_abs[(year_end-year_start)-i, region_ind]
+            #nr_newborns[i] = da_valp_cohort_size_abs[(year_end-year_start)-i, region_ind]
+            nr_newborns[i] = da_valp_cohort_size_abs.sel(region=region_ind, ages=ages[(year_end-year_start)-i]).item()
 
             #print("Number of people in 2020 of the birth years = {} - nr_newborns[i] = {}".format(years_loop[i],nr_newborns[i]))
 
