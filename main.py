@@ -249,10 +249,10 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['reporting'] = 1                         # 0 do not produce results for reporting 
+    flags['reporting'] = 0                         # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
 
-    flags['plots'] = 0                              # 0 do not produce and save plots 
+    flags['plots'] = 1                              # 0 do not produce and save plots 
                                                     # 1 produce and load plots
 
     # Use for specific climate extreme jobs - HPC only

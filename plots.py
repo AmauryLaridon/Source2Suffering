@@ -444,52 +444,52 @@ if Source2Suffering:
 
     # Fig1 - LE per country per run for strj # 
     
-    plot_fig1 = 1       # 0: do not plot figure 1
+    plot_fig1 = 0       # 0: do not plot figure 1
                         # 1: plot figure 1 
     
     # Fig 2 - LE trends per AR6 regions per run for strj #
 
-    plot_fig2 = 1       # 0: do not plot figure 2 
+    plot_fig2 = 0       # 0: do not plot figure 2 
                         # 1: plot figure 2 
     
     # Fig 3 - LE per region per run for strj #
 
-    plot_fig3 = 1       # 0: do not plot figure 3 
+    plot_fig3 = 0       # 0: do not plot figure 3 
                         # 1: plot figure 3
 
     # Fig 4 - LE MMM per country per run for strj #
 
-    plot_fig4 = 1       # 0: do not plot figure 4 
+    plot_fig4 = 0       # 0: do not plot figure 4 
                         # 1: plot figure 4 
 
     # Fig 5 - LE MMM per region per run for strj #
 
-    plot_fig5 = 1       # 0: do not plot figure 5
+    plot_fig5 = 0       # 0: do not plot figure 5
                         # 1: plot figure 5 
 
     # Fig 6 - LE MMM and EMF for all countries and regions for 1.5/2.5/3.5°C #
 
-    plot_fig6 = 1       # 0: do not plot figure 6
+    plot_fig6 = 0       # 0: do not plot figure 6
                         # 1: plot figure 6 
 
     # Fig 7 - BE LE MMM for all regions  #
 
-    plot_fig7 = 1       # 0: do not plot figure 7  
+    plot_fig7 = 0       # 0: do not plot figure 7  
                         # 1: plot figure 7 
 
     # Fig 8 - BE LE MMM for all countries  #
 
-    plot_fig8 = 1       # 0: do not plot figure 8 
+    plot_fig8 = 0       # 0: do not plot figure 8 
                         # 1: plot figure 8 
 
     # Fig 14 - LFE MMM for the world region  #
 
-    plot_fig14 = 1      # 0: do not plot figure 14 
+    plot_fig14 = 0      # 0: do not plot figure 14 
                         # 1: plot figure 14
 
     # Fig 15 - LFE MMM for all countries  #
 
-    plot_fig15 = 1      # 0: do not plot figure 15 
+    plot_fig15 = 0      # 0: do not plot figure 15 
                         # 1: plot figure 15
 
     # --------------- Plots for Assessment Source2Suffering - Neptun Deep -------- #
@@ -517,12 +517,12 @@ if Source2Suffering:
 
     # Fig 13 - LE MMM for all regions under STS_ModAct and STS_Ren  #
 
-    plot_fig13 = 0      # 0: do not plot figure 13 
+    plot_fig13 = 1      # 0: do not plot figure 13 
                         # 1: plot figure 13
                         
     # Fig 17 - LFE MMM for all regions under STS_ModAct and STS_Ren  #
 
-    plot_fig17 = 0      # 0: do not plot figure 17 
+    plot_fig17 = 1      # 0: do not plot figure 17 
                         # 1: plot figure 17
 
     
