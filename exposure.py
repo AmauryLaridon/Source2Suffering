@@ -177,7 +177,7 @@ else: # load processed cohort exposure data
         
         #-----------------  Load per ISIMIP run Lifetime Exposure ---------------#
 
-        print('\nLoading processed Lifetime Exposure per ISIMIP simulation')
+        print('Loading processed Lifetime Exposure per ISIMIP simulation')
 
         with open(data_dir+'{}/{}/ds_le_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
             ds_le_percountry_perrun = pk.load(f)

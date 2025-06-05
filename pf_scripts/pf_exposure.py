@@ -1665,7 +1665,7 @@ def calc_lifetime_exposure(
         pk.dump(ds_le_percountry_perrun,f)
     
     # dump pickle of lifetime exposure per region
-    with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+    with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
         pk.dump(ds_le_perregion_perrun,f)
     
     return ds_le_percountry_perrun, ds_le_perregion_perrun
@@ -3054,7 +3054,7 @@ def calc_lifetime_exposure_mmm(
     if 'region' in ds_le_perrun.dims:
 
         # dump pickle of lifetime exposure per region
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_le_perrun,f)
     
     if 'country' in ds_le_perrun.dims:

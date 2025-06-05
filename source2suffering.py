@@ -47,7 +47,10 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
     due to specific CO2 emissions"""
 
     # Compute change in GMT from emissions 
-    dGMT = TCRE * CO2_emissions                           
+    dGMT = TCRE * CO2_emissions             
+
+    # List of the ages of interest
+    ages = np.arange(60,-1,-1)              
 
     # Generate list of birth years for iteration
     years_loop = list(range(year_end, year_start - 1, -1))

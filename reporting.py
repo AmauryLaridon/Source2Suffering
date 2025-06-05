@@ -493,12 +493,17 @@ if Source2Suffering:
             name="valc_slope_exposure"
         )
 
+        year_start_as_ref = 1960
+        year_end_as_ref = 1970
+
+        birth_cohort_int_ref = list(range(year_start_as_ref, year_end_as_ref + 1))
+
         # Build the reference DataArray for valc_slope_exposure_ref
         da_valc_slope_exposure_ref = xr.DataArray(
             data=[extreme_to_var_ref[ext] for ext in hazards],
             coords={
                 "hazard": hazards,
-                "birth_year": birth_cohort_int
+                "birth_year": birth_cohort_int_ref
             },
             dims=["hazard", "birth_year"],
             name="valc_slope_exposure_ref"
@@ -571,12 +576,24 @@ if Source2Suffering:
         print(" -----------------------------------------------------------------------------------------------------------------")
         print("")
 
-        # Load the corresponding exposure dataset
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
-            ds_le_perregion = pk.load(f)
+        if flags['old_demo']:
 
-        # Load the absolute cohort sizes at the regional level
-            with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version'])) as f:
+            # Load the corresponding exposure dataset with old demography
+            with open(data_dir+'{}/old_demography/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox','heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
+
+            # Load the absolute cohort sizes at the regional level with the old demography
+            with open(data_dir + '{}/old_demography/country/da_valp_cohort_size_abs.pkl'.format('pickles_sandbox'), 'rb') as f:
+                da_valp_cohort_size_abs = pk.load(f)
+
+        else: 
+
+            # Load the corresponding exposure dataset with new demography
+            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
+
+            # Load the absolute cohort sizes at the regional level with the new demography
+            with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'rb') as f:
                 da_valp_cohort_size_abs = pk.load(f)
 
         # Computation for the 2010 to 2020 birth cohorts #
@@ -696,13 +713,25 @@ if Source2Suffering:
             print("---------- Hazard = {} ----------\n".format(extr_name))
             n+=1
 
-            # Load the corresponding exposure dataset
-            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-                ds_le_perregion = pk.load(f)
+            if flags['old_demo']:
 
-            # Load the absolute cohort sizes at the regional level
-            with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version'])) as f:
-                da_valp_cohort_size_abs = pk.load(f)
+                # Load the corresponding exposure dataset with old demography
+                with open(data_dir+'{}/old_demography/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)
+
+                # Load the absolute cohort sizes at the regional level with the old demography
+                with open(data_dir + '{}/old_demography/country/da_valp_cohort_size_abs.pkl'.format('pickles_sandbox'), 'rb') as f:
+                    da_valp_cohort_size_abs = pk.load(f)
+
+            else: 
+
+                # Load the corresponding exposure dataset with new demography
+                with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)
+
+                # Load the absolute cohort sizes at the regional level with the new demography
+                with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'rb') as f:
+                    da_valp_cohort_size_abs = pk.load(f)
 
             # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario
             valc_nr_children_facing_extra_hazard_NeptunDeep, S2S_slope_exposure = emissions2npeople(
@@ -853,10 +882,18 @@ if Source2Suffering:
         
         # -------------------------------- Save as Pickles ---------------------------------- #
 
-        # dump pickle of ds_valc_nr_children_facing_extra_hazard_NeptunDeep
-        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_S2S_NeptunDeep,f)
+        if flags['old_demo']:
 
+            # dump pickle of ds_valc_nr_children_facing_extra_hazard_NeptunDeep with the old demography
+            with open(data_dir+'{}/old_demography/assessment/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_S2S_NeptunDeep,f)
+
+        else: 
+
+            # dump pickle of ds_valc_nr_children_facing_extra_hazard_NeptunDeep with the new demography
+            with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_S2S_NeptunDeep,f)
+        
         # -------------------------------------------------------------------------- #
         # Question 3: compute the number of heat-related deaths between              #
         # today and 2100 due to the total emissions of the three fields              #

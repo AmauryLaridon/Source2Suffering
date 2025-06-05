@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=s2s_tropicalcyclonedarea
 #SBATCH --ntasks=2
-#SBATCH --mem=32G
+#SBATCH --mem=64G
 #SBATCH --time=12:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=amaury.laridon@vub.be

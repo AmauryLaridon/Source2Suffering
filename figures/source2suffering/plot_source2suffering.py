@@ -604,8 +604,7 @@ def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
         plt.grid(True)
         plt.tight_layout()
         plt.legend(fontsize=16)
-        plt.savefig(scripts_dir+'/figures/source2suffering/sandbox/fig6_mmm_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(region_name,flags['gmt'],flags['rm']))
-        #plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(extr,region_name,flags['gmt'],flags['rm']))
+        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(extr,region_name,flags['gmt'],flags['rm']))
         print("Plot performed for the {} region".format(region_name))
 
 def plot_dev_fig7(
@@ -786,17 +785,20 @@ def plot_dev_fig7(
 
         plt.tight_layout()
 
-        # plt.savefig(
-        #     scripts_dir + '/figures/source2suffering/development/{}/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(
-        #         extr, extr, region_name, flags['gmt'],flags['rm']
-        #     )
-        # )
+        if flags['old_demo']:
 
-        plt.savefig(
-            scripts_dir + '/figures/source2suffering/sandbox/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(
-                extr, region_name, flags['gmt'],flags['rm']
+            plt.savefig(
+                scripts_dir + '/figures/source2suffering/sandbox/old_demography/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(extr, region_name, flags['gmt'],flags['rm']
+                )
             )
-        )
+
+        else: 
+
+            plt.savefig(
+                scripts_dir + '/figures/source2suffering/development/{}/fig7_BE_{}_lifetime_exposure_region_{}_gmt_{}_{}.png'.format(
+                    extr, extr, region_name, flags['gmt'],flags['rm']
+                )
+            )
 
     print("Plot performed for {}".format(region_name))
 
@@ -987,11 +989,21 @@ def plot_dev_fig8(
 
         plt.tight_layout()
 
-        plt.savefig(
-            scripts_dir + '/figures/source2suffering/development/{}/fig8_BE_{}_lifetime_exposure_{}_gmt_{}_{}.png'.format(
-                extr, extr, country, flags['gmt'],flags['rm']
+        if flags['old_demo']:
+
+            plt.savefig(
+                scripts_dir + '/figures/source2suffering/sandbox/old_demography/fig8_BE_{}_lifetime_exposure_{}_gmt_{}_{}.png'.format(
+                    extr, country, flags['gmt'],flags['rm']
+                )
             )
-        )
+
+        else:
+
+            plt.savefig(
+                scripts_dir + '/figures/source2suffering/development/{}/fig8_BE_{}_lifetime_exposure_{}_gmt_{}_{}.png'.format(
+                    extr, extr, country, flags['gmt'],flags['rm']
+                )
+            )
 
     print(f"Plot performed for {country}")
 
@@ -1399,7 +1411,6 @@ def plot_dev_fig15_country(flags, extr, ds_lfe_percountry, country_name):
         GMT_label = ['1.5°C', '2.5°C','3.5°C']  
 
     GMT_color = ['#FFC72C', '#FF5A1F', '#C74135']
-    region_name = ds_regions['name'].sel(region=ind_region)
 
     if flags['gmt']=='original':
 
@@ -1425,26 +1436,27 @@ def plot_dev_fig15_country(flags, extr, ds_lfe_percountry, country_name):
         plt.fill_between(year_range[:-13], lfe_NDC*100 - y_std_NDC*100, lfe_NDC*100 + y_std_NDC*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[2], lw=3)
 
     # Plot script works but I have not yet generelized the pipeline before to produce the object of the mmm_BE_sm #
+
     if flags['gmt']=='ar6_new':
         
-        print("\nPlot not performed for {} because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new".format(country_name))
-
-        return 
+        #print("\nPlot not performed for {} because routine with the stylized trajectories not yet settle for the LFE with flags['gmt'] = ar6_new".format(country_name))
         
-            # for GMT in GMT_list:
+        #return
+            
+        for GMT in GMT_list:
 
-            #     lfe = ds_lfe_percountry['mmm_BE_sm'].sel(
-            #         country=country_name,
-            #         GMT=GMT
-            #     ).isel(time_ind=slice(0, -13))
+            lfe = ds_lfe_percountry['mmm_BE_sm'].sel(
+                country=country_name,
+                GMT=GMT
+            ).isel(time_ind=slice(0, -13))
 
-            #     y_std = ds_lfe_percountry['std_BE_sm'].sel(
-            #         country=country_name,
-            #         GMT = GMT
-            #     ).isel(time_ind=slice(0, -13))
+            y_std = ds_lfe_percountry['std_BE_sm'].sel(
+                country=country_name,
+                GMT = GMT
+            ).isel(time_ind=slice(0, -13))
 
-            #     plt.plot(year_range[:-13], lfe*100, linestyle='-',color=GMT_color[i],label=GMT_label[i],lw=3)
-            #     plt.fill_between(year_range[:-13], lfe*100 - y_std*100, lfe*100 + y_std*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i],lw=3)
+            plt.plot(year_range[:-13], lfe*100, linestyle='-',color=GMT_color[i],label=GMT_label[i],lw=3)
+            plt.fill_between(year_range[:-13], lfe*100 - y_std*100, lfe*100 + y_std*100, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i],lw=3)
 
     plt.title("Land Fraction Exposed to {} \n in {}".format(extr_name, country_name),fontsize=18,fontweight='bold')
     plt.xlabel("Time",fontsize=16,fontweight='bold')
@@ -1595,4 +1607,4 @@ def plot_dev_fig17_regions(ds_regions, extr, flags, ds_lfe, region_ind, EMF):
     plt.grid(True)
     plt.tight_layout()
     plt.legend(fontsize=16)
-    plt.savefig(scripts_dir+'/figures/assessment/SPARCCLE_STS/landfraction_exposed_{}_region_{}_{}.png'.format(extr,region_name,flags['rm']))
+    plt.savefig(scripts_dir+'/figures/assessment/SPARCCLE_STS/landfraction_exposed_{}_region_{}.png'.format(extr,region_name))

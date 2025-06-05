@@ -444,27 +444,27 @@ if Source2Suffering:
 
     # Fig1 - LE per country per run for strj # 
     
-    plot_fig1 = 0       # 0: do not plot figure 1
+    plot_fig1 = 1       # 0: do not plot figure 1
                         # 1: plot figure 1 
     
     # Fig 2 - LE trends per AR6 regions per run for strj #
 
-    plot_fig2 = 0       # 0: do not plot figure 2 
+    plot_fig2 = 1       # 0: do not plot figure 2 
                         # 1: plot figure 2 
     
     # Fig 3 - LE per region per run for strj #
 
-    plot_fig3 = 0       # 0: do not plot figure 3 
+    plot_fig3 = 1       # 0: do not plot figure 3 
                         # 1: plot figure 3
 
     # Fig 4 - LE MMM per country per run for strj #
 
-    plot_fig4 = 0       # 0: do not plot figure 4 
+    plot_fig4 = 1       # 0: do not plot figure 4 
                         # 1: plot figure 4 
 
     # Fig 5 - LE MMM per region per run for strj #
 
-    plot_fig5 = 0       # 0: do not plot figure 5
+    plot_fig5 = 1       # 0: do not plot figure 5
                         # 1: plot figure 5 
 
     # Fig 6 - LE MMM and EMF for all countries and regions for 1.5/2.5/3.5°C #
@@ -479,17 +479,17 @@ if Source2Suffering:
 
     # Fig 8 - BE LE MMM for all countries  #
 
-    plot_fig8 = 0       # 0: do not plot figure 8 
+    plot_fig8 = 1       # 0: do not plot figure 8 
                         # 1: plot figure 8 
 
     # Fig 14 - LFE MMM for the world region  #
 
-    plot_fig14 = 0      # 0: do not plot figure 14 
+    plot_fig14 = 1      # 0: do not plot figure 14 
                         # 1: plot figure 14
 
     # Fig 15 - LFE MMM for all countries  #
 
-    plot_fig15 = 0      # 0: do not plot figure 15 
+    plot_fig15 = 1      # 0: do not plot figure 15 
                         # 1: plot figure 15
 
     # --------------- Plots for Assessment Source2Suffering - Neptun Deep -------- #
@@ -713,17 +713,21 @@ if Source2Suffering:
 
             print("\nPerforming Plot f6 for {} for regions\n".format(extr))
 
-            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
-                ds_le_perregion = pk.load(f)
+            if flags['old_demo']:
             
-            # with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-            #     ds_le_perregion = pk.load(f)
+                with open(data_dir+'{}/old_demography/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)
+
+            else: 
+
+                with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)
 
             for region_ind in ds_le_perregion['mmm_BE']['region'].values:
         
                 plot_dev_fig6_region(ds_regions, flags, extr, ds=ds_le_perregion, region=region_ind, EMF=False)
             
-            # with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt']), 'rb') as f:
+            # with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
             #     ds_EMF_mmm_region = pk.load(f)
 
             # for region_ind in ds_le_perregion['mmm_BE']['region'].values:
@@ -732,16 +736,16 @@ if Source2Suffering:
 
             #------------------------------------ Country ----------------------------------------#
 
-            # print("\nPerforming Plot f6 for {} for countries\n".format(extr))
+            print("\nPerforming Plot f6 for {} for countries\n".format(extr))
 
-            # with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-            #     ds_le_percountry = pk.load(f)
+            with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_percountry = pk.load(f)
 
-            # for country_name in ds_le_percountry['country'].values:
+            for country_name in ds_le_percountry['country'].values:
         
-            #     plot_dev_fig6_country(flags, extr, ds=ds_le_percountry, country=country_name, EMF=False)
+                plot_dev_fig6_country(flags, extr, ds=ds_le_percountry, country=country_name, EMF=False)
 
-            # with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt']), 'rb') as f:
+            # with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
             #     ds_EMF_mmm_country = pk.load(f)
 
             # for country_name in ds_le_percountry['country'].values:
@@ -757,11 +761,15 @@ if Source2Suffering:
 
             print("\nPerforming Plot f7 for {}\n".format(extr))
 
-            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+            if flags['old_demo']:
+                
+                with open(data_dir+'{}/old_demography/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
                     ds_le_perregion = pk.load(f)
 
-            # with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-            #         ds_le_perregion = pk.load(f)
+            else: 
+
+                with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)
 
             for i in ds_regions['region'].values:
 

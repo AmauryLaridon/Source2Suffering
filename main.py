@@ -98,6 +98,7 @@ if env_value_paper:
         flags['version'] = 'pickles_WT'
         flags['run'] = 1
         flags['mask'] = 1
+        flags['old_demo'] = 0
         flags['dem4clim'] = 0
         flags['landfraction_exposed'] = 1
         flags['lifetime_exposure'] = 1
@@ -121,6 +122,7 @@ if env_value_paper:
         flags['version'] = 'pickles_S2S_v1'
         flags['run'] = 0
         flags['mask'] = 0
+        flags['old_demo'] = 0
         flags['dem4clim'] = 0
         flags['landfraction_exposed'] = 0
         flags['lifetime_exposure'] = 0
@@ -161,11 +163,11 @@ if not env_value_paper:
 
     #-------------- GMT Stylized Trajectories ---------------#
 
-    flags['gmt'] = 'original'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
+    flags['gmt'] = 'ar6_new'                        # original: use Wim's stylized trajectory approach with max trajectory a linear increase to 3.5 deg                               
                                                     # ar6: substitute the linear max wth the highest IASA c7 scenario (increasing to ~4.0), new lower bound, and new 1.5, 2.0, NDC (2.8), 3.0
                                                     # ar6_new: works off ar6, but ensures only 1.5-3.5 with perfect intervals of 0.1 degrees (less proc time and data volume)
 
-    flags['rm'] = 'no_rm'                              # no_rm: no smoothing of RCP GMTs before mapping
+    flags['rm'] = 'rm'                              # no_rm: no smoothing of RCP GMTs before mapping
                                                     # rm: 21-year rolling mean on RCP GMTs
     
     #------------ Version of the Computed Data --------------#
@@ -184,6 +186,9 @@ if not env_value_paper:
 
     flags['mask'] = 0                               # 0: do not process country data (i.e. load masks pickle)
                                                     # 1: process country data (i.e. produce and save masks as pickle)
+
+    flags['old_demo'] = 0                           # 0: do not use the old demography objects at the regional level (using d_cohort_size)
+                                                    # 1: use the old demography objects at the regional level (using d_cohort_size)
 
     #--------- Pietroiusti et al.(2025) Demographic -----------#
 
@@ -244,10 +249,10 @@ if not env_value_paper:
     # Flags - Outputs                                          #
     #----------------------------------------------------------#
 
-    flags['reporting'] = 0                         # 0 do not produce results for reporting 
+    flags['reporting'] = 1                         # 0 do not produce results for reporting 
                                                     # 1 produce results for reporting
 
-    flags['plots'] = 1                              # 0 do not produce and save plots 
+    flags['plots'] = 0                              # 0 do not produce and save plots 
                                                     # 1 produce and load plots
 
     # Use for specific climate extreme jobs - HPC only

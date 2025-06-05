@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_tropicalcyclonedarea - Job ID: 10808301
+Wed Jun  4 16:10:38 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 1
+Total RAM: 377Gi
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project

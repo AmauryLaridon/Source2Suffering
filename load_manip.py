@@ -256,38 +256,51 @@ ds_regions['member_countries'] = xr.DataArray(
 with open(data_dir + '{}/country/ds_regions.pkl'.format(flags['version']), 'wb') as f:
     pk.dump(ds_regions, f)
 
-# --------------------------------------------------------------------- #
-# Construction of d_cohort_weights_regions based on                     #
-# d_cohort_size and the get_regions_data() function written by          #
-# L.Grant but that was not used in final analysis of Grant et al.(2025) #
-# --------------------------------------------------------------------- #
+if flags['old_demo']:
 
-df_worldbank_region = worldbank[1]
-df_unwpp_region = unwpp[1]
+    # -------------------------------------------------------------------------- #
+    # Construction of d_cohort_weights_regions based on                          #
+    # d_cohort_size and the get_regions_data() function written by               #
+    # L.Grant but that was not used in final analysis of Grant et al.(2025)      #
+    #                                                                            #
+    # This was the first cohort object at the regional level used in the         #
+    # Source2Suffering framework. After some investiguation it has been          #
+    # shown (cfr. scripts_dir/notebooks/validation_backward_compatibility.ipynb) #
+    # that it contains major errors. The ds_le_perregion* objects build with     #
+    # theses demographics objets are in data/pickles_sandbock/old_demography/    #
+    # -------------------------------------------------------------------------- #
 
-d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohort_weights_regions = get_regions_data(
-    df_countries, 
-    df_regions, 
-    df_worldbank_region, 
-    df_unwpp_region, 
-    d_cohort_size,
-    flags,
-)
+    df_worldbank_region = worldbank[1]
+    df_unwpp_region = unwpp[1]
 
-# --------------------------------------------------------------------- #
-# Construction of da_cohort_size_regions based on da_cohort_size which  #
-# is used in the final analysis of Grant et al.(2025).                  #
-# The get_regions_cohort() function is written by A.Laridon for         # 
-# Laridon et al.(2025)                                                  #
-# --------------------------------------------------------------------- #
+    d_region_countries, df_birthyears_regions, df_life_expectancy_5_regions, d_cohort_weights_regions = get_regions_data(
+        df_countries, 
+        df_regions, 
+        df_worldbank_region, 
+        df_unwpp_region, 
+        d_cohort_size,
+        flags,
+    )
 
-da_cohort_size_regions = get_regions_cohort(
-    df_countries, 
-    ds_regions, 
-    da_cohort_size, 
-    flags
-)
+else: 
 
+    # -------------------------------------------------------------------------- #
+    # Construction of da_cohort_size_regions based on da_cohort_size which       #
+    # is used in the final analysis of Grant et al.(2025).                       #
+    # The get_regions_cohort() function is written by A.Laridon for              # 
+    # Laridon et al.(2025)                                                       #
+    #                                                                            #
+    # This is the first validated demography objects use in the S2S framework    #
+    # The ds_le_perregion* objects build with these demography objects are in    #
+    # data/pickles_sandbox/old_demograhy and in data/pickles_S2S_v1/             #
+    # -------------------------------------------------------------------------- #
+
+    da_cohort_size_regions = get_regions_cohort(
+        df_countries, 
+        ds_regions, 
+        da_cohort_size, 
+        flags
+    )
 
 # --------------------------------------------------------------------- #
 # Construction of valp_cohort_size_abs which containts the total        # 
@@ -297,50 +310,68 @@ da_cohort_size_regions = get_regions_cohort(
 
 if Source2Suffering:
 
-    # --------------------------------------------------------------- #
-    # Construction of da_valp_cohort_size_abs based based on the      #
-    # da_cohort_size_regions object                                   #
-    # --------------------------------------------------------------- #
+    if flags['old_demo']==0:
 
-    da_valp_cohort_size_abs = da_cohort_size_regions.sum(dim="country", skipna=True)
+        # --------------------------------------------------------------- #
+        # Construction of da_valp_cohort_size_abs based based on the      #
+        # da_cohort_size_regions object                                   #
+        # --------------------------------------------------------------- #
 
-    # Save as pickle
-    with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'wb') as f:
-        pk.dump(da_valp_cohort_size_abs, f)
+        da_valp_cohort_size_abs = da_cohort_size_regions.sum(dim="country", skipna=True)
 
-    # --------------------------------------------------------------- #
-    # Construction of valp_cohort_size_abs based on ms_valp.m from    #
-    # Thiery et al.(2021). Creation of the object based on            #
-    # d_cohort_weights_regions                                        #
-    # --------------------------------------------------------------- #
-    
-    # regions_list = list(d_cohort_weights_regions.keys())
-    # nregions = len(regions_list)
+        # Save as pickle
+        with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'wb') as f:
+            pk.dump(da_valp_cohort_size_abs, f)
 
-    # valp_cohort_size_abs = np.zeros((len(ages), nregions))
+    if flags['old_demo']:
 
-    # # Loop on the ages 
-    # for ind_age, age in enumerate(ages):
+        # --------------------------------------------------------------- #
+        # Construction of valp_cohort_size_abs based on ms_valp.m from    #
+        # Thiery et al.(2021). Creation of the object based on            #
+        # d_cohort_weights_regions                                        #
+        # --------------------------------------------------------------- #
         
-    #     # Loop over regions
-    #     for ind_region, region_name in enumerate(regions_list):
+        regions_list = list(d_cohort_weights_regions.keys())
+        nregions = len(regions_list)
+
+        valp_cohort_size_abs = np.zeros((len(ages), nregions))
+
+        # Loop on the ages 
+        for ind_age, age in enumerate(ages):
             
-    #         # Access the DataFrame for the region
-    #         df_cohort = d_cohort_weights_regions[region_name]  # shape: [age x countries]
-            
-    #         # Check that the age is in the index
-    #         if age in df_cohort.index:
-    #             # Select the row corresponding to the age (series with countries as columns)
-    #             cohort_row = df_cohort.loc[age]
+            # Loop over regions
+            for ind_region, region_name in enumerate(regions_list):
                 
-    #             # Sum across countries and convert to absolute values
-    #             total = cohort_row.sum() * 1000
+                # Access the DataFrame for the region
+                df_cohort = d_cohort_weights_regions[region_name]  # shape: [age x countries]
                 
-    #             # Store the rounded value
-    #             valp_cohort_size_abs[ind_age, ind_region] = np.round(total, 1)
-    #         else:
-    #             # If age is missing, set as NaN
-    #             valp_cohort_size_abs[ind_age, ind_region] = np.nan
+                # Check that the age is in the index
+                if age in df_cohort.index:
+                    # Select the row corresponding to the age (series with countries as columns)
+                    cohort_row = df_cohort.loc[age]
+                    
+                    # Sum across countries and convert to absolute values
+                    total = cohort_row.sum() * 1000
+                    
+                    # Store the rounded value
+                    valp_cohort_size_abs[ind_age, ind_region] = np.round(total, 1)
+                else:
+                    # If age is missing, set as NaN
+                    valp_cohort_size_abs[ind_age, ind_region] = np.nan
+        
+        # Create DataArray from the 2D numpy array
+        da_valp_cohort_size_abs = xr.DataArray(
+            data=valp_cohort_size_abs.T,  # Transpose to get [region, age] instead of [age, region]
+            dims=['region', 'ages'],
+            coords={
+                'region': np.arange(nregions),
+                'ages': ages
+            },
+        )
+
+        # Save as pickle
+        with open(data_dir + '{}/old_demography/country/da_valp_cohort_size_abs.pkl'.format('pickles_sandbox'), 'wb') as f:
+            pk.dump(da_valp_cohort_size_abs, f)
     
 if Thiery_2021:
 
