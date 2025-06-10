@@ -1,0 +1,270 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_heatwavedarea - Job ID: 10812552
+Fri Jun  6 13:16:23 CEST 2025
+--- System Hardware Info ---
+Running on partition: zen4
+CPU Model:          AMD EPYC 9384X 32-Core Processor
+Number of CPU Cores: 2
+Total RAM: 377Gi
+Disk Space: 5.6P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project
+Execution time to load the modules: 2.65 minutes
+-------------------------------------------------------------------------------------------------
+Start executing the scripts
+Running main.py with extr=heatwavedarea
+Using extr value: heatwavedarea
+ ------------------------------------------------------------------------------------------------------
+|                            Start to run the Source2Suffering Project                                 |
+ ------------------------------------------------------------------------------------------------------
+
+Current date and time: 2025-06-06 13:19:30
+
+ -------------------------------------------------------------------------------
+|                       Model configuration - Manual                            |
+ -------------------------------------------------------------------------------
+
+extr: heatwavedarea
+
+gmt: ar6_new
+
+rm: rm
+
+version: pickles_S2S_v1
+
+run: 0
+
+mask: 0
+
+old_demo: 0
+
+dem4cli: 0
+
+landfraction_exposed: 0
+
+lifetime_exposure: 0
+
+lifetime_exposure_pic: 0
+
+emergence: 0
+
+birthyear_emergence: 0
+
+gridscale: 0
+
+gridscale_le_test: 0
+
+gridscale_country_subset: 0
+
+global_emergence_recollect: 0
+
+global_avg_emergence: 0
+
+gdp_deprivation: 0
+
+vulnerability: 0
+
+reporting: 1
+
+plots: 0
+
+ -------------------------------------------------------------------------------
+|                             Start Settings Framework                          |
+ -------------------------------------------------------------------------------
+
+Settings imported
+
+ -------------------------------------------------------------------------------
+|            Start to import and manipulate Demographic, GMT and ISIMIP data    |
+ -------------------------------------------------------------------------------
+
+GMT projections loaded
+Loading processed country and regions data
+Country and regions data loaded
+Loading processed ISIMIP data
+ISMIP data loaded
+
+ -------------------------------------------------------------------------------
+|                       Start Lifetime Exposure framework                       |
+ -------------------------------------------------------------------------------
+
+Loading processed Land Fraction Exposed per ISIMIP simulation
+
+Loading processed MMM Land Fraction Exposed
+
+Loading processed Lifetime Exposure per ISIMIP simulation
+
+Loading processed MMM Lifetime Exposure
+
+Loading EMF of Lifetime Exposure
+
+Loading PIC Lifetime Exposure per ISIMIP simulation
+
+ -------------------------------------------------------------------------------
+|                          Start Reporting framework                            |
+ -------------------------------------------------------------------------------
+
+
+ ---------------------------------------------------------
+|          Assessment of the Neptun Deep project          |
+|                for Greenpeace Romania                   |
+ ---------------------------------------------------------
+
+CO2 emissions of the Neptun Deep Project = 207.0 MtCO2eq
+
+Value used for TCRE = 0.45 °C per 1000 Gt CO2eq
+
+GMT produce by Neptun Deep = 9.315e-05 °C
+
+ -----------------------------------------------------------------------------------------------------------------
+| Q.(1) - Number of children in the world facing an additional heatwave due to the total emissions of Neptun Deep |
+ -----------------------------------------------------------------------------------------------------------------
+
+For birth year 2020 = 123900 children
+For birth year 2019 = 119800 children
+For birth year 2018 = 115700 children
+For birth year 2017 = 111800 children
+For birth year 2016 = 108100 children
+For birth year 2015 = 104800 children
+For birth year 2014 = 101300 children
+For birth year 2013 = 97800 children
+For birth year 2012 = 93600 children
+For birth year 2011 = 89100 children
+For birth year 2010 = 85100 children
+For total birth of the 2010-2020 period = 1151000 children 
+
+Number of people born between 1960 and 1970 that will be exposed to an additionnal heatwave due to the total emissions of Neptun Deep = 13900 people
+Relative difference between the 2010-2020 and the 1960-1970 birth cohorts = 8281 %
+
+ ---------------------------------------------------------------------------------------------------------------
+| Q.(2) - Number of children in the world facing an additional hazard due to the total emissions of Neptun Deep |
+ ---------------------------------------------------------------------------------------------------------------
+
+---------- Hazard = Wild Fires ----------
+
+For birth year 2020 = 1800 children
+For birth year 2019 = 1800 children
+For birth year 2018 = 1700 children
+For birth year 2017 = 1700 children
+For birth year 2016 = 1600 children
+For birth year 2015 = 1600 children
+For birth year 2014 = 1600 children
+For birth year 2013 = 1500 children
+For birth year 2012 = 1500 children
+For birth year 2011 = 1400 children
+For birth year 2010 = 1400 children
+For total birth of the 2010–2020 period = 17600 children 
+
+For total birth of the 1960–1970 period = 2700 children 
+
+---------- Hazard = Crop Failures ----------
+
+For birth year 2020 = 300 children
+For birth year 2019 = 200 children
+For birth year 2018 = 100 children
+For birth year 2017 = 0 children
+For birth year 2016 = 0 children
+For birth year 2015 = 0 children
+For birth year 2014 = 0 children
+For birth year 2013 = 0 children
+For birth year 2012 = 0 children
+For birth year 2011 = 0 children
+For birth year 2010 = 0 children
+For total birth of the 2010–2020 period = 600 children 
+
+For total birth of the 1960–1970 period = 0 children 
+
+---------- Hazard = Droughts ----------
+
+For birth year 2020 = 2800 children
+For birth year 2019 = 2600 children
+For birth year 2018 = 2500 children
+For birth year 2017 = 2400 children
+For birth year 2016 = 2300 children
+For birth year 2015 = 2200 children
+For birth year 2014 = 2100 children
+For birth year 2013 = 2000 children
+For birth year 2012 = 1900 children
+For birth year 2011 = 1700 children
+For birth year 2010 = 1600 children
+For total birth of the 2010–2020 period = 24100 children 
+
+For total birth of the 1960–1970 period = 0 children 
+
+---------- Hazard = River Floods ----------
+
+For birth year 2020 = 900 children
+For birth year 2019 = 900 children
+For birth year 2018 = 800 children
+For birth year 2017 = 800 children
+For birth year 2016 = 800 children
+For birth year 2015 = 700 children
+For birth year 2014 = 700 children
+For birth year 2013 = 700 children
+For birth year 2012 = 600 children
+For birth year 2011 = 600 children
+For birth year 2010 = 500 children
+For total birth of the 2010–2020 period = 8000 children 
+
+For total birth of the 1960–1970 period = 0 children 
+
+---------- Hazard = Heatwaves ----------
+
+For birth year 2020 = 123900 children
+For birth year 2019 = 119800 children
+For birth year 2018 = 115700 children
+For birth year 2017 = 111800 children
+For birth year 2016 = 108100 children
+For birth year 2015 = 104800 children
+For birth year 2014 = 101300 children
+For birth year 2013 = 97800 children
+For birth year 2012 = 93600 children
+For birth year 2011 = 89100 children
+For birth year 2010 = 85100 children
+For total birth of the 2010–2020 period = 1151000 children 
+
+For total birth of the 1960–1970 period = 13900 children 
+
+---------- Hazard = Tropical Cyclones ----------
+
+For birth year 2020 = 1400 children
+For birth year 2019 = 1400 children
+For birth year 2018 = 1400 children
+For birth year 2017 = 1300 children
+For birth year 2016 = 1300 children
+For birth year 2015 = 1300 children
+For birth year 2014 = 1300 children
+For birth year 2013 = 1200 children
+For birth year 2012 = 1200 children
+For birth year 2011 = 1100 children
+For birth year 2010 = 1100 children
+For total birth of the 2010–2020 period = 14000 children 
+
+For total birth of the 1960–1970 period = 500 children 
+
+
+ ------------------------------------------------------------------------------------------------------------------------
+| Q.(3) - Number of heat-related deaths that are expected worldwide until 2100 due to the total emissions of Neptun Deep |
+ ------------------------------------------------------------------------------------------------------------------------
+
+Mortality Cost of Carbon = 46000.0 heat-related deaths until 2100
+
+ -------------------------------------------------------------------------------
+|                             Start Plots framework                             |
+ -------------------------------------------------------------------------------
+
+No plots performed and saved
+
+ ------------------------------------------------------------------------------------------------------
+|                        End of computations for the Source2Suffering Project                          |
+ ------------------------------------------------------------------------------------------------------
+
+Script execution time: 36.1 seconds
+Script execution time: 0.6 minutes
+Script execution time: 0.0 hours
+
+--------------------------------------------------------------------------------------------------------
+End Job
+Fri Jun  6 13:20:06 CEST 2025

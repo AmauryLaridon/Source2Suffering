@@ -22,4 +22,5 @@ ml Python/3.10.4-GCCcore-11.3.0 geopandas/0.12.2-foss-2022a openpyxl/3.0.10-GCCc
 
  **Born into the Climate Crisis 2 (BiCC2) - Spain** : Commit full SHA : 37864688cbe3b507bbcdd258f9cd2c9e16dbd8b3
 
- **Nikkei Journal - Japan** : Commit Full SHA : 4c764e0d30ffb908d3904157897361ce158e06b0
+ **Nikkei Journal - Japan** : Commit Full SHA : 
+ 7b4f99ce4c5b150d82d3f5a773c83d588ff21f75

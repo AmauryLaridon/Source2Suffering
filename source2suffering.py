@@ -89,17 +89,11 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
 
         if year_end == 2020:
 
-            #nr_newborns[i] = da_valp_cohort_size_abs[-(1+i), region_ind]
             nr_newborns[i] = da_valp_cohort_size_abs.sel(region=region_ind, ages=ages[-(1+i)]).item()
-
-            #print("Number of people in 2020 of the birth years = {} - nr_newborns[i] = {}".format(years_loop[i],nr_newborns[i]))
         
         if year_start == 1960:
 
-            #nr_newborns[i] = da_valp_cohort_size_abs[(year_end-year_start)-i, region_ind]
             nr_newborns[i] = da_valp_cohort_size_abs.sel(region=region_ind, ages=ages[(year_end-year_start)-i]).item()
-
-            #print("Number of people in 2020 of the birth years = {} - nr_newborns[i] = {}".format(years_loop[i],nr_newborns[i]))
 
         # Compute the average change in lifetime exposure #
         nr_extra_climate_extremes_newborns[i] = valc_slope_exposure_climate_extreme * dGMT
@@ -113,6 +107,8 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
             nr_children_facing_extra_climate_extreme[i] = np.floor(val / 1000) * 1000
         elif rounding == 2:
             nr_children_facing_extra_climate_extreme[i] = np.floor(val / 100) * 100
+        elif rounding == 3:
+            nr_children_facing_extra_climate_extreme[i] = val
 
         # Ensure no negative values #
         nr_children_facing_extra_climate_extreme[i] = max(nr_children_facing_extra_climate_extreme[i], 0)
