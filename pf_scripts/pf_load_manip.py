@@ -556,7 +556,7 @@ def load_GMT(
             pk.dump(df_GMT_strj,f)
 
         with open(data_dir+'temperature_trajectories_STS/ds_GMT_STS.pkl', 'wb') as f:
-            ds_GMT_STS.to_netcdf("ds_GMT_STS.nc")
+            ds_GMT_STS.to_netcdf(data_dir+'temperature_trajectories_STS/ds_GMT_STS.nc')
 
     if flags['gmt']=='original':
 
