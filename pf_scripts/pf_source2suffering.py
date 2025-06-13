@@ -84,12 +84,6 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
         # Recover the 2113 GMT anomaly ? To be confirmed. Should be placed outside of the loop
         valc_GMT_2100 = df_GMT_strj.iloc[-1]  
 
-        # print(valc_exposure_climate_extreme_newborns)
-        # print(np.shape(valc_exposure_climate_extreme_newborns))
-
-        # print(valc_GMT_2100)
-        # print(np.shape(valc_GMT_2100))
-
         # Fit a linear curve between the exposure to climate extreme and the GMT anomaly and extract the slope #
         valc_pf = np.polyfit(valc_GMT_2100, valc_exposure_climate_extreme_newborns, 1)
         valc_slope_exposure_climate_extreme = valc_pf[0]
@@ -121,7 +115,7 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
             nr_children_facing_extra_climate_extreme[i] = val
 
         # Ensure no negative values #
-        nr_children_facing_extra_climate_extreme[i] = max(nr_children_facing_extra_climate_extreme[i], 0)
+        nr_children_facing_extra_climate_extreme[i] = max(nr_children_facing_extra_climate_extreme[i], 0)  
 
     # Compute total for all the birth cohorts of interest #
     nr_children_facing_extra_climate_extreme = np.append(
@@ -147,6 +141,160 @@ def mortality_cost_carbon(CO2_emissions):
     valc_mortality = (CO2_emissions / mortality_cost_carbon_val // 1000) * 1000
 
     return valc_mortality
+
+#%%------------------------------------------------------------------------------------ #
+# Compute the PDFs of the emissions                                                     #
+#-------------------------------------------------------------------------------------- #
+
+def pdf_emissions(best_estimate,std_dev):
+
+    """
+    Returns a probability density function (PDF) of a normal distribution
+    based on the given best estimate (mean) and standard deviation.
+
+    Parameters
+    ----------
+    best_estimate : float
+        The central value (mean) of the normal distribution.
+    std_dev : float
+        The standard deviation of the normal distribution.
+
+    Returns
+    -------
+    pdf : function
+        A function that takes a numeric input x and returns the PDF value at x.
+    """
+
+    from scipy.stats import norm
+
+    # Create the scipy.stats.norm object
+    distribution = norm(loc=best_estimate, scale=std_dev)
+
+    pdf_emissions = distribution.pdf
+
+    # ---------------------------- Save as Pickles ------------------------------ #
+    with open(data_dir+'{}/source2suffering/pdf/emissions/pdf_emissions_norm_test.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(pdf_emissions,f)
+
+    # Return the PDF function
+    return pdf_emissions
+
+
+
+
+#%%------------------------------------------------------------------------------------ #
+# Compute the PDFs of the TCRE                                                          #
+#-------------------------------------------------------------------------------------- #
+
+def pdf_tcre(best_estimate,std_dev):
+    
+    """
+    Returns a probability density function (PDF) of a normal distribution
+    based on the given best estimate (mean) and standard deviation.
+
+    Parameters
+    ----------
+    best_estimate : float
+        The central value (mean) of the normal distribution.
+    std_dev : float
+        The standard deviation of the normal distribution.
+
+    Returns
+    -------
+    pdf : function
+        A function that takes a numeric input x and returns the PDF value at x.
+    """
+
+    from scipy.stats import norm
+
+    # Create the scipy.stats.norm object
+    distribution = norm(loc=best_estimate, scale=std_dev)
+
+    pdf_tcre = distribution.pdf
+
+    # ---------------------------- Save as Pickles ------------------------------ #
+    with open(data_dir+'{}/source2suffering/pdf/tcre/pdf_tcre_norm_test.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(pdf_tcre,f)
+
+    # Return the PDF function
+    return pdf_tcre
+
+
+#%%------------------------------------------------------------------------------------ #
+# Compute the PDFs of the exposure slope                                                #
+#-------------------------------------------------------------------------------------- #
+
+def pdf_exposure_slope(best_estimate,std_dev):
+    
+    """
+    Returns a probability density function (PDF) of a normal distribution
+    based on the given best estimate (mean) and standard deviation.
+
+    Parameters
+    ----------
+    best_estimate : float
+        The central value (mean) of the normal distribution.
+    std_dev : float
+        The standard deviation of the normal distribution.
+
+    Returns
+    -------
+    pdf : function
+        A function that takes a numeric input x and returns the PDF value at x.
+    """
+
+    from scipy.stats import norm
+
+    # Create the scipy.stats.norm object
+    distribution = norm(loc=best_estimate, scale=std_dev)
+
+    pdf_exposure_slope = distribution.pdf
+
+    # ---------------------------- Save as Pickles ------------------------------ #
+    with open(data_dir+'{}/source2suffering/pdf/exposure_slope/pdf_exposure_slope_norm_test.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(pdf_exposure_slope,f)
+
+    # Return the PDF function
+    return pdf_exposure_slope
+
+
+#%%------------------------------------------------------------------------------------ #
+# Compute the PDFs of the birth cohort                                                  #
+#-------------------------------------------------------------------------------------- #
+
+def pdf_cohort_size(best_estimate,std_dev):
+    
+    """
+    Returns a probability density function (PDF) of a normal distribution
+    based on the given best estimate (mean) and standard deviation.
+
+    Parameters
+    ----------
+    best_estimate : float
+        The central value (mean) of the normal distribution.
+    std_dev : float
+        The standard deviation of the normal distribution.
+
+    Returns
+    -------
+    pdf : function
+        A function that takes a numeric input x and returns the PDF value at x.
+    """
+
+    from scipy.stats import norm
+
+    # Create the scipy.stats.norm object
+    distribution = norm(loc=best_estimate, scale=std_dev)
+
+    pdf_cohort_size = distribution.pdf
+
+    # ---------------------------- Save as Pickles ------------------------------ #
+    with open(data_dir+'{}/source2suffering/pdf/birth_cohort/pdf_cohort_size_norm_test.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(pdf_cohort_size,f)
+
+    # Return the PDF function
+    return pdf_cohort_size
+
 
 
 #-------------------------------------------------------------------------------------------------------------------------------#
@@ -277,10 +425,6 @@ def reference_pulse():
         d_valc_total[extr] = nr_total
         d_valc_total_ref[extr] = nr_total_ref
 
-        # Store the value of slope exposure for each hazard
-        d_valc_slope_exposure[extr] = S2S_slope_exposure
-        d_valc_slope_exposure_ref[extr] = S2S_slope_exposure_ref
-
         # Exclude the last value along the only dimension (since the array is 1D)
         da_trimmed = valc_nr_children_facing_extra_hazard_Reference_Pulse[:-1]
         da_ref_trimmed = valc_nr_children_facing_extra_hazard_Reference_Pulse_ref[:-1]
@@ -292,6 +436,14 @@ def reference_pulse():
         # Store the result in the dictionary under the key 'extr'
         d_valc[extr] = da_reversed
         d_valc_ref[extr] = da_ref_reversed
+
+        # Reverse the values for the slope exposure
+        da_reversed_slope = S2S_slope_exposure[::-1]
+        da_ref_reversed_slope = S2S_slope_exposure_ref[::-1]
+
+        # Store the value of slope exposure for each hazard
+        d_valc_slope_exposure[extr] = da_reversed_slope
+        d_valc_slope_exposure_ref[extr] = da_ref_reversed_slope
 
         # Generate list of birth years in descending order
         years_loop = list(range(year_end_as, year_start_as - 1, -1))
@@ -551,18 +703,6 @@ def reference_pulse():
         pk.dump(ds_S2S_Reference_Pulse_Regions,f)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 #-------------------------------------------------------------------------------------------------------------------------------#
 #                                      Source2Suffering Applications for Assessment Reports                                     #
 #-------------------------------------------------------------------------------------------------------------------------------#
@@ -586,30 +726,59 @@ def assessment_Neptun_Deep():
 
     # Definition of the values per birth cohort
 
-    wt_valc_nr_children_facing_extra_wildfire = [1000]*11
-    wt_valc_nr_children_facing_extra_cropfailure = [3000]*7 + [2000]*4
-    wt_valc_nr_children_facing_extra_drought = [4000] + [3000]*6 + [2000]*4
-    wt_valc_nr_children_facing_extra_flood = [np.nan] * 11
-    wt_valc_nr_children_facing_extra_heatwavedarea = [127000,123000,120000,116000,113000,110000,106000,103000,99000,95000,91000]
-    wt_valc_nr_children_facing_extra_tropicalcyclone = [1000]*9 + [0]*2
+
+    # WT data with rounding = 1 #  
+    # wt_valc_nr_children_facing_extra_wildfire = [1000]*11
+    # wt_valc_nr_children_facing_extra_cropfailure = [3000]*7 + [2000]*4
+    # wt_valc_nr_children_facing_extra_drought = [4000] + [3000]*6 + [2000]*4
+    # wt_valc_nr_children_facing_extra_flood = [np.nan] * 11
+    # wt_valc_nr_children_facing_extra_heatwavedarea = [127000,123000,120000,116000,113000,110000,106000,103000,99000,95000,91000]
+    # wt_valc_nr_children_facing_extra_tropicalcyclone = [1000]*9 + [0]*2
+
+    # WT data with rounding = 2 #
+    wt_valc_nr_children_facing_extra_wildfire = [1300,1200,1200,1200,1200,1100,1100,1100,1000,1000,1000]
+    wt_valc_nr_children_facing_extra_cropfailure = [3400,3300,3200,3200,3100,3000,3000,2900,2800,2700,2600]
+    wt_valc_nr_children_facing_extra_drought = [4100,3900,3700,3600,3500,3300,3200,3100,2900,2800,2600]
+    wt_valc_nr_children_facing_extra_flood = [900,800,800,800,700,700,700,700,600,600,600]
+    wt_valc_nr_children_facing_extra_heatwavedarea = [127300,123700,120200,116800,113400,110100,106700,103300,99300,95400,91600]
+    wt_valc_nr_children_facing_extra_tropicalcyclone = [1200,1200,1200,1100,1100,1100,1100,1000,1000,900,900]
 
     # Definition of the values for the total birth cohorts of interest
 
-    wt_total_valc_nr_children_facing_extra_wildfire = [11000]
-    wt_total_valc_nr_children_facing_extra_cropfailure = [29000]
-    wt_total_valc_nr_children_facing_extra_drought = [31000]
-    wt_total_valc_nr_children_facing_extra_flood = [np.nan]
-    wt_total_valc_nr_children_facing_extra_heatwavedarea = [1203000]
-    wt_total_valc_nr_children_facing_extra_tropicalcyclone = [9000]
+    # WT data with rounding = 1 # 
+    # wt_total_valc_nr_children_facing_extra_wildfire = [11000]
+    # wt_total_valc_nr_children_facing_extra_cropfailure = [29000]
+    # wt_total_valc_nr_children_facing_extra_drought = [31000]
+    # wt_total_valc_nr_children_facing_extra_flood = [np.nan]
+    # wt_total_valc_nr_children_facing_extra_heatwavedarea = [1203000]
+    # wt_total_valc_nr_children_facing_extra_tropicalcyclone = [9000]
+
+    # WT data with rounding = 2 # 
+    wt_total_valc_nr_children_facing_extra_wildfire = [12400]
+    wt_total_valc_nr_children_facing_extra_cropfailure = [33200]
+    wt_total_valc_nr_children_facing_extra_drought = [36700]
+    wt_total_valc_nr_children_facing_extra_flood = [7900]
+    wt_total_valc_nr_children_facing_extra_heatwavedarea = [1207800]
+    wt_total_valc_nr_children_facing_extra_tropicalcyclone = [11800]
 
     # Definition of the values for the total reference birth cohorts of interest
 
-    wt_total_valc_nr_children_facing_extra_wildfire_ref = [0]
-    wt_total_valc_nr_children_facing_extra_cropfailure_ref = [0]
+    # WT data with rounding = 1 #
+    # wt_total_valc_nr_children_facing_extra_wildfire_ref = [0]
+    # wt_total_valc_nr_children_facing_extra_cropfailure_ref = [0]
+    # wt_total_valc_nr_children_facing_extra_drought_ref = [0]
+    # wt_total_valc_nr_children_facing_extra_flood_ref = [np.nan]
+    # wt_total_valc_nr_children_facing_extra_heatwavedarea_ref = [78000]
+    # wt_total_valc_nr_children_facing_extra_tropicalcyclone_ref = [0]
+
+    # WT data with rounding = 2 #
+    wt_total_valc_nr_children_facing_extra_wildfire_ref = [3100]
+    wt_total_valc_nr_children_facing_extra_cropfailure_ref = [2700]
     wt_total_valc_nr_children_facing_extra_drought_ref = [0]
-    wt_total_valc_nr_children_facing_extra_flood_ref = [np.nan]
-    wt_total_valc_nr_children_facing_extra_heatwavedarea_ref = [78000]
-    wt_total_valc_nr_children_facing_extra_tropicalcyclone_ref = [0]
+    wt_total_valc_nr_children_facing_extra_flood_ref = [0]
+    wt_total_valc_nr_children_facing_extra_heatwavedarea_ref = [81700]
+    wt_total_valc_nr_children_facing_extra_tropicalcyclone_ref = [800]
+
 
     # Creating DataArrays to store the objets  
     
@@ -694,41 +863,30 @@ def assessment_Neptun_Deep():
     # Importing the .mat objets from WT 
     from scipy.io import loadmat
 
-    slope_exposure_NeptunDeep_heatwave = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_heatwave.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_heatwave = slope_exposure_NeptunDeep_heatwave['slope_exposure_NeptunDeep_heatwave'][:-1]
+    # Helper function to load, extract, slice, and invert the array
+    def load_and_invert(filepath, key):
+        data = loadmat(filepath, squeeze_me=True)[key][:-1]
+        return data[::-1]  # Reverse along the array axis
 
-    slope_exposure_NeptunDeep_heatwave_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_heatwave_ref.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_heatwave_ref = slope_exposure_NeptunDeep_heatwave_ref['slope_exposure_NeptunDeep_heatwave_ref'][:-1]
+    # Load and invert each .mat file
+    slope_exposure_NeptunDeep_heatwave = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_heatwave.mat', 'slope_exposure_NeptunDeep_heatwave')
+    slope_exposure_NeptunDeep_heatwave_ref = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_heatwave_ref.mat', 'slope_exposure_NeptunDeep_heatwave_ref')
 
-    slope_exposure_NeptunDeep_cropfailure = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_cropfailure.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_cropfailure = slope_exposure_NeptunDeep_cropfailure['slope_exposure_NeptunDeep_cropfailure'][:-1]
+    slope_exposure_NeptunDeep_cropfailure = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_cropfailure.mat', 'slope_exposure_NeptunDeep_cropfailure')
+    slope_exposure_NeptunDeep_cropfailure_ref = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_cropfailure_ref.mat', 'slope_exposure_NeptunDeep_cropfailure_ref')
 
-    slope_exposure_NeptunDeep_cropfailure_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_cropfailure_ref.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_cropfailure_ref = slope_exposure_NeptunDeep_cropfailure_ref['slope_exposure_NeptunDeep_cropfailure_ref'][:-1]
+    slope_exposure_NeptunDeep_drought = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_drought.mat', 'slope_exposure_NeptunDeep_drought')
+    slope_exposure_NeptunDeep_drought_ref = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_drought_ref.mat', 'slope_exposure_NeptunDeep_drought_ref')
 
-    slope_exposure_NeptunDeep_drought = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_drought.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_drought = slope_exposure_NeptunDeep_drought['slope_exposure_NeptunDeep_drought'][:-1]
+    slope_exposure_NeptunDeep_riverflood = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_riverflood.mat', 'slope_exposure_NeptunDeep_riverflood')
+    slope_exposure_NeptunDeep_riverflood_ref = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_riverflood_ref.mat', 'slope_exposure_NeptunDeep_riverflood_ref')
 
-    slope_exposure_NeptunDeep_drought_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_drought_ref.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_drought_ref = slope_exposure_NeptunDeep_drought_ref['slope_exposure_NeptunDeep_drought_ref'][:-1]
+    slope_exposure_NeptunDeep_tropcyclone = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_tropcyclone.mat', 'slope_exposure_NeptunDeep_tropcyclone')
+    slope_exposure_NeptunDeep_tropcyclone_ref = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_tropcyclone_ref.mat', 'slope_exposure_NeptunDeep_tropcyclone_ref')
 
-    slope_exposure_NeptunDeep_riverflood = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_riverflood.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_riverflood = slope_exposure_NeptunDeep_riverflood['slope_exposure_NeptunDeep_riverflood'][:-1]
+    slope_exposure_NeptunDeep_wildfire = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_wildfire.mat', 'slope_exposure_NeptunDeep_wildfire')
+    slope_exposure_NeptunDeep_wildfire_ref = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_wildfire_ref.mat', 'slope_exposure_NeptunDeep_wildfire_ref')
 
-    slope_exposure_NeptunDeep_riverflood_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_riverflood_ref.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_riverflood_ref = slope_exposure_NeptunDeep_riverflood_ref['slope_exposure_NeptunDeep_riverflood_ref'][:-1]
-
-    slope_exposure_NeptunDeep_tropcyclone = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_tropcyclone.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_tropcyclone = slope_exposure_NeptunDeep_tropcyclone['slope_exposure_NeptunDeep_tropcyclone'][:-1]
-
-    slope_exposure_NeptunDeep_tropcyclone_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_tropcyclone_ref.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_tropcyclone_ref = slope_exposure_NeptunDeep_tropcyclone_ref['slope_exposure_NeptunDeep_tropcyclone_ref'][:-1]
-
-    slope_exposure_NeptunDeep_wildfire = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_wildfire.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_wildfire = slope_exposure_NeptunDeep_wildfire['slope_exposure_NeptunDeep_wildfire'][:-1]
-
-    slope_exposure_NeptunDeep_wildfire_ref = loadmat(scripts_dir+'/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_wildfire_ref.mat',squeeze_me=True)
-    slope_exposure_NeptunDeep_wildfire_ref = slope_exposure_NeptunDeep_wildfire_ref['slope_exposure_NeptunDeep_wildfire_ref'][:-1]
 
     # Mapping from extreme types to their corresponding slope exposure arrays
     extreme_to_var = {
@@ -1034,22 +1192,25 @@ def assessment_Neptun_Deep():
         d_valc_total[extr] = nr_total
         d_valc_total_ref[extr] = nr_total_ref
 
-        # Store the value of slope exposure for each hazard
-
-        d_valc_slope_exposure[extr] = S2S_slope_exposure
-        d_valc_slope_exposure_ref[extr] = S2S_slope_exposure_ref
-
         # Exclude the last value along the only dimension (since the array is 1D)
         da_trimmed = valc_nr_children_facing_extra_hazard_NeptunDeep[:-1]
         da_ref_trimmed = valc_nr_children_facing_extra_hazard_NeptunDeep_ref[:-1]
 
-        # Reverse the values
-        da_reversed = da_trimmed[::-1]
-        da_ref_reversed = da_ref_trimmed[::-1]
+        # Reverse the values for the total number of people exposed
+        da_reversed_valc = da_trimmed[::-1]
+        da_ref_reversed_valc = da_ref_trimmed[::-1]
 
         # Store the result in the dictionary under the key 'extr'
-        d_valc[extr] = da_reversed
-        d_valc_ref[extr] = da_ref_reversed
+        d_valc[extr] = da_reversed_valc
+        d_valc_ref[extr] = da_ref_reversed_valc
+
+        # Reverse the values for the slope exposure
+        da_reversed_slope = S2S_slope_exposure[::-1]
+        da_ref_reversed_slope = S2S_slope_exposure_ref[::-1]
+
+        # Store the value of slope exposure for each hazard
+        d_valc_slope_exposure[extr] = da_reversed_slope
+        d_valc_slope_exposure_ref[extr] = da_ref_reversed_slope
 
         # Generate list of birth years in descending order
         years_loop = list(range(year_end_as, year_start_as - 1, -1))
