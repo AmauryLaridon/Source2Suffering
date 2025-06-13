@@ -75,21 +75,41 @@ else: # load processed land fraction exposed data
 
     print('Loading processed Land Fraction Exposed per ISIMIP simulation')
 
-    with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-        ds_lfe_percountry_perrun = pk.load(f)
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
 
-    with open(data_dir+'{}/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-        ds_lfe_perregion_perrun = pk.load(f)
+        with open(data_dir+'{}/rm_config/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+            ds_lfe_percountry_perrun = pk.load(f)
+
+        with open(data_dir+'{}/rm_config/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+            ds_lfe_perregion_perrun = pk.load(f)
+
+    else:
+
+        with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+            ds_lfe_percountry_perrun = pk.load(f)
+
+        with open(data_dir+'{}/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+            ds_lfe_perregion_perrun = pk.load(f)
 
     #--------------------  Load MMM Land Fraction Exposed -------------------#
 
     print('\nLoading processed MMM Land Fraction Exposed\n')
 
-    with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-        ds_lfe_percountry = pk.load(f)
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
 
-    with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-        ds_lfe_perregion = pk.load(f)
+        with open(data_dir+'{}/rm_config/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+            ds_lfe_percountry = pk.load(f)
+
+        with open(data_dir+'{}/rm_config/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+            ds_lfe_perregion = pk.load(f)
+
+    else:
+
+        with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_lfe_percountry = pk.load(f)
+
+        with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+            ds_lfe_perregion = pk.load(f)
 
 # ----------------------------------------------------------------#
 # Process lifetime exposure across cohorts                        #
@@ -179,33 +199,65 @@ else: # load processed cohort exposure data
 
         print('Loading processed Lifetime Exposure per ISIMIP simulation')
 
-        with open(data_dir+'{}/{}/ds_le_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_le_percountry_perrun = pk.load(f)
-        
-        with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_le_perregion_perrun = pk.load(f)
+        if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+            with open(data_dir+'{}/rm_config/{}/ds_le_percountry_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_percountry_perrun = pk.load(f)
+            
+            with open(data_dir+'{}/rm_config/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion_perrun = pk.load(f)
+
+        else:
+
+            with open(data_dir+'{}/{}/ds_le_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_percountry_perrun = pk.load(f)
+            
+            with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion_perrun = pk.load(f)
 
         #---------------------  Load MMM Lifetime Exposure ---------------------#
 
         print('\nLoading processed MMM Lifetime Exposure')
 
-        with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_le_percountry = pk.load(f)
-        
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            ds_le_perregion = pk.load(f)
+        if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+            with open(data_dir+'{}/rm_config/{}/ds_le_percountry_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_percountry = pk.load(f)
+            
+            with open(data_dir+'{}/rm_config/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
+
+        else:
+
+            with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_percountry = pk.load(f)
+            
+            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
 
         #----------------------------- Load EMF  -------------------------------#
 
         print('\nLoading EMF of Lifetime Exposure')
 
-        with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+        if flags['rm'] == 'rm' and flags['rm_config'] =='11':
 
-            ds_EMF_percountry_GMT = pk.load(f)
+            with open(data_dir+'{}/rm_config/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+    
+                ds_EMF_percountry_GMT = pk.load(f)
 
-        with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+            with open(data_dir+'{}/rm_config/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
 
-            ds_EMF_perregion_GMT = pk.load(f)
+                ds_EMF_perregion_GMT = pk.load(f)
+
+        else: 
+
+            with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+
+                ds_EMF_percountry_GMT = pk.load(f)
+
+            with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+
+                ds_EMF_perregion_GMT = pk.load(f)
 
 # --------------------------------------------------------------- #
 # Process lifetime exposure across cohorts for                    #

@@ -772,13 +772,25 @@ def calc_landfraction_exposed(
     # Saving object as Pickle                                             #
     #---------------------------------------------------------------------#
 
-    # dump pickle of land fraction exposed per country
-    with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-        pk.dump(ds_lfe_percountry_perrun,f)
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
 
-    # dump pickle of land fraction exposed per region
-    with open(data_dir+'{}/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-        pk.dump(ds_lfe_perregion_perrun,f)
+        # dump pickle of land fraction exposed per country
+        with open(data_dir+'{}/rm_config/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_lfe_percountry_perrun,f)
+
+        # dump pickle of land fraction exposed per region
+        with open(data_dir+'{}/rm_config/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_lfe_perregion_perrun,f)
+
+    else:
+
+        # dump pickle of land fraction exposed per country
+        with open(data_dir+'{}/{}/ds_lfe_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_lfe_percountry_perrun,f)
+
+        # dump pickle of land fraction exposed per region
+        with open(data_dir+'{}/{}/ds_lfe_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_lfe_perregion_perrun,f)
 
     return ds_lfe_percountry_perrun, ds_lfe_perregion_perrun
 
@@ -1660,13 +1672,29 @@ def calc_lifetime_exposure(
 
                 print("ISMIP Simulation {} can not be used for re-mapping GMT index = {} of the BE".format(i, step))
 
-    # dump pickle of lifetime exposure per country
-    with open(data_dir+'{}/{}/ds_le_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-        pk.dump(ds_le_percountry_perrun,f)
-    
-    # dump pickle of lifetime exposure per region
-    with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-        pk.dump(ds_le_perregion_perrun,f)
+
+    # ------------------------------- Save as Pickles ----------------------------------- #
+
+
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+        # dump pickle of lifetime exposure per country
+        with open(data_dir+'{}/rm_config/{}/ds_le_percountry_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_le_percountry_perrun,f)
+        
+        # dump pickle of lifetime exposure per region
+        with open(data_dir+'{}/rm_config/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_le_perregion_perrun,f)
+
+    else:
+
+        # dump pickle of lifetime exposure per country
+        with open(data_dir+'{}/{}/ds_le_percountry_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_le_percountry_perrun,f)
+        
+        # dump pickle of lifetime exposure per region
+        with open(data_dir+'{}/{}/ds_le_perregion_perrun_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_le_perregion_perrun,f)
     
     return ds_le_percountry_perrun, ds_le_perregion_perrun
 #%%---------------------------------------------------------------#
@@ -2447,17 +2475,33 @@ def calc_landfraction_exposed_mmm(
     #             Saving the object as Pickle            #
     # -------------------------------------------------- #
 
-    if 'country' in ds_lfe_perrun.dims:
-    
-        # dump pickle of lifetime exposure per country
-        with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_lfe_perrun,f)
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
 
-    if 'region' in ds_lfe_perrun.dims:
-    
-        # dump pickle of lifetime exposure per region
-        with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_lfe_perrun,f)
+        if 'country' in ds_lfe_perrun.dims:
+            
+            # dump pickle of lifetime exposure per country
+            with open(data_dir+'{}/rm_config/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_lfe_perrun,f)
+
+        if 'region' in ds_lfe_perrun.dims:
+        
+            # dump pickle of lifetime exposure per region
+            with open(data_dir+'{}/rm_config/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_lfe_perrun,f)
+
+    else: 
+
+        if 'country' in ds_lfe_perrun.dims:
+        
+            # dump pickle of lifetime exposure per country
+            with open(data_dir+'{}/{}/ds_lfe_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_lfe_perrun,f)
+
+        if 'region' in ds_lfe_perrun.dims:
+        
+            # dump pickle of lifetime exposure per region
+            with open(data_dir+'{}/{}/ds_lfe_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_lfe_perrun,f)
     
     print("\nEnd of the computation\n")
 
@@ -3051,17 +3095,33 @@ def calc_lifetime_exposure_mmm(
     #             Saving the object as Pickle            #
     # -------------------------------------------------- #
 
-    if 'region' in ds_le_perrun.dims:
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
 
-        # dump pickle of lifetime exposure per region
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_le_perrun,f)
+        if 'region' in ds_le_perrun.dims:
     
-    if 'country' in ds_le_perrun.dims:
+            # dump pickle of lifetime exposure per region
+            with open(data_dir+'{}/rm_config/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_le_perrun,f)
+        
+        if 'country' in ds_le_perrun.dims:
 
-        # dump pickle of lifetime exposure per country
-        with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_le_perrun,f)
+            # dump pickle of lifetime exposure per country
+            with open(data_dir+'{}/rm_config/{}/ds_le_percountry_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_le_perrun,f)
+
+    else:
+
+        if 'region' in ds_le_perrun.dims:
+
+            # dump pickle of lifetime exposure per region
+            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_le_perrun,f)
+        
+        if 'country' in ds_le_perrun.dims:
+
+            # dump pickle of lifetime exposure per country
+            with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_le_perrun,f)
 
     print("\nEnd of the computation\n")
 
@@ -3200,14 +3260,27 @@ def calc_EMF(
     # Replace infinite values by 100
     ds_EMF_mmm = ds_EMF_mmm.where(~np.isinf(ds_EMF_mmm), 100)
 
-    # Save pickles
-    if 'region' in ds_le_exposure.dims:
-        with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_EMF_mmm,f)
-    
-    if 'country' in ds_le_exposure.dims:
-        with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_EMF_mmm,f)
+    # ------------------------------- Save pickles -------------------------------- #
+
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+        if 'region' in ds_le_exposure.dims:
+            with open(data_dir+'{}/rm_config/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_EMF_mmm,f)
+        
+        if 'country' in ds_le_exposure.dims:
+            with open(data_dir+'{}/rm_config/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_EMF_mmm,f)
+
+    else: 
+
+        if 'region' in ds_le_exposure.dims:
+            with open(data_dir+'{}/{}/ds_EMF_perregion_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_EMF_mmm,f)
+        
+        if 'country' in ds_le_exposure.dims:
+            with open(data_dir+'{}/{}/ds_EMF_percountry_gmt_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_EMF_mmm,f)
 
     print("\nEnd of the computation\n")
 

@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_cropfailedarea - Job ID: 10849933
+Fri Jun 13 05:02:41 PM CEST 2025
+--- System Hardware Info ---
+Running on partition: zen5_mpi
+CPU Model:                           AMD EPYC 9535 64-Core Processor
+Number of CPU Cores: 2
+Total RAM: 755Gi
+Disk Space: 1.2P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project

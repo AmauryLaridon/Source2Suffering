@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------------------------
+Start Job - Job Name: s2s_floodedarea - Job ID: 10849937
+Fri Jun 13 05:03:37 PM CEST 2025
+--- System Hardware Info ---
+Running on partition: zen5_mpi
+CPU Model:                           AMD EPYC 9535 64-Core Processor
+Number of CPU Cores: 2
+Total RAM: 1.5Ti
+Disk Space: 1.1P
+GPU Info: Matrox Electronics Systems Ltd. MGA G200eH3 (rev 03)
+System Architecture: x86_64
+-------------------------------------------------------------------------------------------------
+Start loading the modules for the Source2Suffering Project

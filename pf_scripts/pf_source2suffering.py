@@ -615,10 +615,13 @@ def reference_pulse():
 
             d_valc_total[extr] = valc_nr[-1]
             d_valc_total_ref[extr] = valc_nr_ref[-1]
-            d_valc_slope_exposure[extr] = slope_expo
-            d_valc_slope_exposure_ref[extr] = slope_expo_ref
+
+            # Apply reversed before storing (like in your first example)
             d_valc[extr] = valc_nr[:-1][::-1]
             d_valc_ref[extr] = valc_nr_ref[:-1][::-1]
+            d_valc_slope_exposure[extr] = slope_expo[::-1]
+            d_valc_slope_exposure_ref[extr] = slope_expo_ref[::-1]
+
 
         # Create DataArrays for this region
         da_valc_nr = xr.DataArray(
@@ -772,12 +775,12 @@ def assessment_Neptun_Deep():
     # wt_total_valc_nr_children_facing_extra_tropicalcyclone_ref = [0]
 
     # WT data with rounding = 2 #
-    wt_total_valc_nr_children_facing_extra_wildfire_ref = [3100]
-    wt_total_valc_nr_children_facing_extra_cropfailure_ref = [2700]
+    wt_total_valc_nr_children_facing_extra_wildfire_ref = [1500]
+    wt_total_valc_nr_children_facing_extra_cropfailure_ref = [1300]
     wt_total_valc_nr_children_facing_extra_drought_ref = [0]
     wt_total_valc_nr_children_facing_extra_flood_ref = [0]
-    wt_total_valc_nr_children_facing_extra_heatwavedarea_ref = [81700]
-    wt_total_valc_nr_children_facing_extra_tropicalcyclone_ref = [800]
+    wt_total_valc_nr_children_facing_extra_heatwavedarea_ref = [51500]
+    wt_total_valc_nr_children_facing_extra_tropicalcyclone_ref = [200]
 
 
     # Creating DataArrays to store the objets  
@@ -821,10 +824,22 @@ def assessment_Neptun_Deep():
     data_total = data_total.squeeze()
     data_total_ref = data_total_ref.squeeze()
 
+      
+
+    # ----------------------------------------------------------- #
+    #                       Birth years                           #
+    # ----------------------------------------------------------- #
+
     year_start_as = 2010
     year_end_as = 2020
+    year_start_as_ref = 1960
+    year_end_as_ref = 1970
 
-    birth_cohort_int = list(range(year_start_as, year_end_as + 1))  
+    birth_cohort_int = np.arange(year_start_as, year_end_as + 1)
+    birth_cohort_int_ref = np.arange(year_start_as_ref, year_end_as_ref + 1)
+
+    # Full range of birth years (1960-2020)
+    birth_year_full = np.arange(year_start_as_ref, year_end_as + 1)
 
     hazards = [
         'burntarea', 
@@ -835,13 +850,19 @@ def assessment_Neptun_Deep():
         'tropicalcyclonedarea'
     ]
 
+    # ----------------------------------------------------------- #
+    #            DataArray for number of children facing hazard   #
+    # ----------------------------------------------------------- #
+
+    # DataArray with 'hazard' and 'birth_year'
     da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
         data,
         dims=["hazard", "birth_year"],
         coords={"hazard": hazards, "birth_year": birth_cohort_int},
         name="wt_valc_nr_children_facing_extra_hazard_NeptunDeep"
-    )
+    ).reindex(birth_year=birth_year_full)
 
+    # Scalars per hazard (no birth_year dimension, so no reindex needed)
     da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep = xr.DataArray(
         data_total,
         dims=["hazard"],
@@ -857,18 +878,13 @@ def assessment_Neptun_Deep():
     )
 
     # ----------------------------------------------------------- #
-    #                    valc_slope_exposure                      #
+    #                      Load .mat data                         #
     # ----------------------------------------------------------- #
 
-    # Importing the .mat objets from WT 
-    from scipy.io import loadmat
-
-    # Helper function to load, extract, slice, and invert the array
     def load_and_invert(filepath, key):
         data = loadmat(filepath, squeeze_me=True)[key][:-1]
-        return data[::-1]  # Reverse along the array axis
+        return data[::-1]
 
-    # Load and invert each .mat file
     slope_exposure_NeptunDeep_heatwave = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_heatwave.mat', 'slope_exposure_NeptunDeep_heatwave')
     slope_exposure_NeptunDeep_heatwave_ref = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_heatwave_ref.mat', 'slope_exposure_NeptunDeep_heatwave_ref')
 
@@ -887,8 +903,6 @@ def assessment_Neptun_Deep():
     slope_exposure_NeptunDeep_wildfire = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_wildfire.mat', 'slope_exposure_NeptunDeep_wildfire')
     slope_exposure_NeptunDeep_wildfire_ref = load_and_invert(scripts_dir + '/references/lifetime_exposure_wim/lifetime_exposure_wim_v1/slope_exposure_NeptunDeep_wildfire_ref.mat', 'slope_exposure_NeptunDeep_wildfire_ref')
 
-
-    # Mapping from extreme types to their corresponding slope exposure arrays
     extreme_to_var = {
         'burntarea': slope_exposure_NeptunDeep_wildfire,
         'cropfailedarea': slope_exposure_NeptunDeep_cropfailure,
@@ -898,7 +912,6 @@ def assessment_Neptun_Deep():
         'tropicalcyclonedarea': slope_exposure_NeptunDeep_tropcyclone
     }
 
-    # Same mapping for the "_ref" slope exposure arrays (reference scenario)
     extreme_to_var_ref = {
         'burntarea': slope_exposure_NeptunDeep_wildfire_ref,
         'cropfailedarea': slope_exposure_NeptunDeep_cropfailure_ref,
@@ -908,51 +921,38 @@ def assessment_Neptun_Deep():
         'tropicalcyclonedarea': slope_exposure_NeptunDeep_tropcyclone_ref
     }
 
-    # Build the main DataArray for valc_slope_exposure
+    # ----------------------------------------------------------- #
+    #                  Build valc_slope_exposure                   #
+    # ----------------------------------------------------------- #
+
+    # DataArray for 2010-2020 → expanded to full birth_year
     da_valc_slope_exposure = xr.DataArray(
         data=[extreme_to_var[ext] for ext in hazards],
-        coords={
-            "hazard": hazards,
-            "birth_year": birth_cohort_int
-        },
+        coords={"hazard": hazards, "birth_year": birth_cohort_int},
         dims=["hazard", "birth_year"],
         name="valc_slope_exposure"
-    )
+    ).reindex(birth_year=birth_year_full)
 
-    year_start_as_ref = 1960
-    year_end_as_ref = 1970
-
-    birth_cohort_int_ref = list(range(year_start_as_ref, year_end_as_ref + 1))
-
-    # Build the reference DataArray for valc_slope_exposure_ref
+    # DataArray for 1960-1970 → expanded to full birth_year
     da_valc_slope_exposure_ref = xr.DataArray(
         data=[extreme_to_var_ref[ext] for ext in hazards],
-        coords={
-            "hazard": hazards,
-            "birth_year": birth_cohort_int_ref
-        },
+        coords={"hazard": hazards, "birth_year": birth_cohort_int_ref},
         dims=["hazard", "birth_year"],
         name="valc_slope_exposure_ref"
-    )
+    ).reindex(birth_year=birth_year_full)
 
     # ----------------------------------------------------------- #
-    #                  ds_WT_NeptunDeep saving                    #
+    #                  Assemble Dataset                            #
     # ----------------------------------------------------------- #
-
-    # Save as DataSet
 
     ds_WT_NeptunDeep = xr.Dataset(
-    {
-        "wt_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,
-        "wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep,
-        "wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep_ref" : da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep_ref
-    }
-    )
-
-    # Add both variables to the existing dataset
-    ds_WT_NeptunDeep = ds_WT_NeptunDeep.assign(
-        valc_slope_exposure=da_valc_slope_exposure,
-        valc_slope_exposure_ref=da_valc_slope_exposure_ref
+        {
+            "wt_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_valc_nr_children_facing_extra_hazard_NeptunDeep,
+            "wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep": da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep,
+            "wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep_ref": da_wt_total_valc_nr_children_facing_extra_hazard_NeptunDeep_ref,
+            "valc_slope_exposure": da_valc_slope_exposure,
+            "valc_slope_exposure_ref": da_valc_slope_exposure_ref
+        }
     )
 
     # Save the DataSet reference as pickles 
@@ -1065,7 +1065,7 @@ def assessment_Neptun_Deep():
         year_end = year_end_as_ref,
         df_GMT_strj = df_GMT_strj, 
         da_valp_cohort_size_abs = da_valp_cohort_size_abs,
-        rounding = 2)
+        rounding = 2) 
 
     # Only keep the value for the total of the birth cohort between 1960 and 1970
 

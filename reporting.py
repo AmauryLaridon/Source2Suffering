@@ -293,7 +293,7 @@ if Source2Suffering:
     # Configurations of the outputs                                   #
     # --------------------------------------------------------------- #
 
-    validation_backward_comp = 1                # 0: do not produce reports for backward compatibility of 2025 Python Lifetime Exposure Framework with 2021 Matlab Thiery Lifetime Exposure Framework
+    validation_backward_comp = 0                # 0: do not produce reports for backward compatibility of 2025 Python Lifetime Exposure Framework with 2021 Matlab Thiery Lifetime Exposure Framework
                                                 # 1: produce reports for backward compatibility of 2025 Python Lifetime Exposure Framework with 2021 Matlab Thiery Lifetime Exposure Framework
     
     if validation_backward_comp:
@@ -303,7 +303,7 @@ if Source2Suffering:
         Greenpeace_Nordic_Barents_Sea = 0       # 0: do not produce reports of Barents Sea project for Greenpeace Nordic
                                                 # 1: produce reports of Barents Sea project for Greenpeace Nordic
 
-    out_reference_pulse = 0                     # 0: do not produce outputs for the reference pulse of 1 GtC 
+    out_reference_pulse = 1                     # 0: do not produce outputs for the reference pulse of 1 GtC 
                                                 # 1: produce outputs for the reference pulse of 1 GtC
 
     out_monte_carlo = 0                         # 0: do not produce the Monte Carlo sampling 

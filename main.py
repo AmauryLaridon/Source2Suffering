@@ -169,6 +169,9 @@ if not env_value_paper:
 
     flags['rm'] = 'rm'                              # no_rm: no smoothing of RCP GMTs before mapping
                                                     # rm: 21-year rolling mean on RCP GMTs
+                                                
+    flags['rm_config'] = '21'                       # 21: 21-year rolling mean on RCP GMTs such as Grant et al.(2025)
+                                                    # 11: 11-year rolling mean on RCP GMTs developped for testing during the S2S development 
     
     #------------ Version of the Computed Data --------------#
 

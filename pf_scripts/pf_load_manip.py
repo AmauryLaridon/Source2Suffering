@@ -768,12 +768,17 @@ def load_isimip(
                         pass
                     
                     else:
+
+                        if flags['rm_config'] =='21':
                         
-                        df_GMT = df_GMT.rolling(window=21,min_periods=10,center=True,).mean()
+                            df_GMT = df_GMT.rolling(window=21,min_periods=10,center=True,).mean()
+
+                        if flags['rm_config'] =='11':
+                            
+                            df_GMT = df_GMT.rolling(window=11,min_periods=5,center=True,).mean()
 
                     # save GMT in metadatadict
                     d_isimip_meta[i]['GMT'] = df_GMT 
-
 
                     # recover the two GMT for the two scenario of interest in the STS pathways 
 
@@ -888,10 +893,20 @@ def load_isimip(
         
             # save metadata dictionary as a pickle
             print('Saving metadata for {}'.format(extreme))
-            with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
-                pk.dump(d_isimip_meta,f)
-            with open(data_dir+'{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
-                pk.dump(d_pic_meta,f)
+
+            if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+                with open(data_dir+'{}/rm_config/{}/isimip_metadata_{}_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                    pk.dump(d_isimip_meta,f)
+                with open(data_dir+'{}/rm_config/{}/isimip_pic_metadata_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['extr']), 'wb') as f:
+                    pk.dump(d_pic_meta,f) 
+        
+            else:
+
+                with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
+                    pk.dump(d_isimip_meta,f)
+                with open(data_dir+'{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
+                    pk.dump(d_pic_meta,f)
 
     else: 
         
@@ -899,10 +914,19 @@ def load_isimip(
         print('Loading processed ISIMIP data')
         # loac pickled metadata for isimip and isimip-pic simulations
 
-        with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
-            d_isimip_meta = pk.load(f)
-        with open(data_dir+'{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-            d_pic_meta = pk.load(f)                
+        if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+    
+            with open(data_dir+'{}/rm_config/{}/isimip_metadata_{}_{}_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                d_isimip_meta = pk.load(f)
+            with open(data_dir+'{}/rm_config/{}/isimip_pic_metadata_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['extr']), 'rb') as f:
+                d_pic_meta = pk.load(f) 
+        
+        else:
+
+            with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
+                d_isimip_meta = pk.load(f)
+            with open(data_dir+'{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
+                d_pic_meta = pk.load(f)                
 
     return d_isimip_meta,d_pic_meta
 
