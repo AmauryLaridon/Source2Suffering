@@ -344,59 +344,47 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
     Plot MMM lifetime exposure to heatwave for all countries, and three GMT values.
 
     Parameters:
-    - ds (xarray.Dataset): Dataset contenant la variable 'lifetime_exposure'
+    - ds (xarray.Dataset): Dataset containing the variable 'lifetime_exposure'
     - country (string): Name of the country (ex: 'Belgium')
-    - GMT (str or int): Niveau GMT (ex: '21')
-    - EMF (Boolean) : Chose to express the results in terms of the EMF or remains in the absolute lifetime exposure
+    - EMF (Boolean): Choose to express the results in terms of EMF or remain in absolute lifetime exposure
     """
-    
+
     plt.close('all') 
 
     plt.figure(figsize=(12, 8))
 
-    if extr=='burntarea':
+    if extr == 'burntarea':
         extr_name = 'Wildfires'
-    if extr=='cropfailedarea':
+    if extr == 'cropfailedarea':
         extr_name = 'Crop failures'
-    if extr=='driedarea':
+    if extr == 'driedarea':
         extr_name = 'Droughts'
-    if extr=='floodedarea':
+    if extr == 'floodedarea':
         extr_name = 'River floods'
-    if extr=='heatwavedarea':
+    if extr == 'heatwavedarea':
         extr_name = 'Heatwaves'
-    if extr=='tropicalcyclonedarea':
+    if extr == 'tropicalcyclonedarea':
         extr_name = 'Tropical Cyclones'
 
     if flags['gmt'] == 'ar6_new':
-    
-        GMT_list = [0,11,20]
+        GMT_list = [0, 11, 20]
         GMT_label = ['1.5°C', '2.5°C', '3.5°C']
-
     if flags['gmt'] == 'original':
-
         GMT_label = ['1.5°C', '2.0°C', 'NDC']
 
-    GMT_color = ['tab:blue','tab:orange','tab:red']
+    GMT_color = ['tab:blue', 'tab:orange', 'tab:red']
     i = 0
 
     if EMF:
 
         for GMT in GMT_list:
-    
             exposure = ds.sel(
                 country=country,
-                GMT=GMT  
+                GMT=GMT
             )
 
-            # y_std = ds['std'].sel(
-            #     country = country,
-            #     GMT = GMT
-            # )/2
-
-            plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i])
-            #plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i])
-
-            i +=1
+            plt.plot(birth_years, exposure, linestyle='-', color=GMT_color[i], label=GMT_label[i])
+            i += 1
 
         plt.title("{} : MMM Lifetime Exposure EMF in {}".format(extr, country))
         plt.xlabel("Birth Year")
@@ -404,74 +392,93 @@ def plot_dev_fig6_country(flags, extr, ds, country, EMF):
         plt.grid(True)
         plt.tight_layout()
         plt.legend()
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_EMF_{}_gmt_{}_{}.png'.format(extr,country,flags['gmt'],flags['rm']))
+        plt.savefig(scripts_dir + '/figures/source2suffering/development/{}/storyline/fig6_mmm_EMF_{}_gmt_{}_{}.png'.format(extr, country, flags['gmt'], flags['rm']))
 
     else:
 
-        if flags['gmt']=='ar6_new':
+        if flags['gmt'] == 'ar6_new':
+
+            exposure_data = []  # To store data for CSV export if needed
 
             for GMT in GMT_list:
 
                 exposure = ds['mmm_BE'].sel(
                     country=country,
-                    GMT=GMT  
-                )
+                    GMT=GMT
+                ).values
 
-                y_std = ds['std_BE'].sel(
-                    country = country,
-                    GMT = GMT
-                )/2
-
-                plt.plot(birth_years, exposure, linestyle='-',color=GMT_color[i],label=GMT_label[i], lw=3)
-                plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[i], lw=3)
-
-                i +=1
-        
-        if flags['gmt']=='original':
-
-            exposure_15 = ds['mmm_15'].sel(
+                y_std = (ds['std_BE'].sel(
                     country=country,
-                )
+                    GMT=GMT
+                ).values) / 2
 
-            y_std_15 = ds['std_15'].sel(
-                country = country,
-            )/2
+                plt.plot(birth_years, exposure, linestyle='-', color=GMT_color[i], label=GMT_label[i], lw=3)
+                plt.fill_between(birth_years, exposure - y_std, exposure + y_std, alpha=0.3, color=GMT_color[i], lw=3)
 
-            exposure_20 = ds['mmm_20'].sel(
-                    country=country,
-                )
+                exposure_data.append((GMT_label[i], exposure, y_std))
 
-            y_std_20 = ds['std_20'].sel(
-                country = country,
-            )/2
+                i += 1
 
-            exposure_NDC = ds['mmm_NDC'].sel(
-                    country=country,
-                )
+        if flags['gmt'] == 'original':
 
-            y_std_NDC = ds['std_NDC'].sel(
-                country = country,
-            )/2
+            exposure_data = []
 
-            plt.plot(birth_years, exposure_15, linestyle='-',color=GMT_color[0],label=GMT_label[0],lw=3)
-            plt.fill_between(birth_years, exposure_15 - y_std_15, exposure_15 + y_std_15, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[0],lw=3)
+            exposure_15 = ds['mmm_15'].sel(country=country).values
+            y_std_15 = ds['std_15'].sel(country=country).values / 2
 
-            plt.plot(birth_years, exposure_20, linestyle='-',color=GMT_color[1],label=GMT_label[1],lw=3)
-            plt.fill_between(birth_years, exposure_20 - y_std_20, exposure_20 + y_std_20, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[1],lw=3)
+            exposure_20 = ds['mmm_20'].sel(country=country).values
+            y_std_20 = ds['std_20'].sel(country=country).values / 2
 
-            plt.plot(birth_years, exposure_NDC, linestyle='-',color=GMT_color[2],label=GMT_label[2],lw=3)
-            plt.fill_between(birth_years, exposure_NDC - y_std_NDC, exposure_NDC + y_std_NDC, alpha=0.3, label=r'$\pm \sigma$',color=GMT_color[2],lw=3)
+            exposure_NDC = ds['mmm_NDC'].sel(country=country).values
+            y_std_NDC = ds['std_NDC'].sel(country=country).values / 2
 
-        plt.title("Lifetime Exposure to {} \n in {} ".format(extr_name, country),fontsize=18,fontweight='bold')
-        plt.xlabel("Birth Year",fontsize=16)
-        plt.ylabel("Lifetime Exposure",fontsize=16)
+            plt.plot(birth_years, exposure_15, linestyle='-', color=GMT_color[0], label=GMT_label[0], lw=3)
+            plt.fill_between(birth_years, exposure_15 - y_std_15, exposure_15 + y_std_15, alpha=0.3, color=GMT_color[0], lw=3)
+
+            plt.plot(birth_years, exposure_20, linestyle='-', color=GMT_color[1], label=GMT_label[1], lw=3)
+            plt.fill_between(birth_years, exposure_20 - y_std_20, exposure_20 + y_std_20, alpha=0.3, color=GMT_color[1], lw=3)
+
+            plt.plot(birth_years, exposure_NDC, linestyle='-', color=GMT_color[2], label=GMT_label[2], lw=3)
+            plt.fill_between(birth_years, exposure_NDC - y_std_NDC, exposure_NDC + y_std_NDC, alpha=0.3, color=GMT_color[2], lw=3)
+
+            exposure_data.append((GMT_label[0], exposure_15, y_std_15))
+            exposure_data.append((GMT_label[1], exposure_20, y_std_20))
+            exposure_data.append((GMT_label[2], exposure_NDC, y_std_NDC))
+
+        plt.title("Lifetime Exposure to {}\nin {}".format(extr_name, country), fontsize=18, fontweight='bold')
+        plt.xlabel("Birth Year", fontsize=16)
+        plt.ylabel("Lifetime Exposure", fontsize=16)
         plt.xticks(fontsize=14)
         plt.yticks(fontsize=14)
         plt.grid(True)
         plt.tight_layout()
         plt.legend(fontsize=16)
-        plt.savefig(scripts_dir+'/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_{}_gmt_{}_{}.png'.format(extr,country,flags['gmt'],flags['rm']))
+        plt.savefig(scripts_dir + '/figures/source2suffering/development/{}/storyline/fig6_mmm_lifetime_exposure_{}_gmt_{}_{}.png'.format(extr, country, flags['gmt'], flags['rm']))
         print("Plot performed for {}".format(country))
+
+        # CSV export for Japan
+        if (country == 'Japan') and (flags['gmt'] == 'ar6_new'):
+            print('Saving .csv file with data of the figure for Nikkei Japan')
+
+            csv_filename = scripts_dir + '/output/assessment/Nikkei Japan/Lifetime Exposure/{}_fig1.csv'.format(extr_name)
+
+            with open(csv_filename, 'w') as f:
+                # Write header
+                header = 'Birth Year'
+                for label in GMT_label:
+                    header += f', Exposure {label}, Std.dev {label}'
+                f.write(header + '\n')
+
+                # Write data rows
+                for idx, year in enumerate(birth_years):
+                    row = f"{year}"
+                    for (_, exposure_vals, std_vals) in exposure_data:
+                        row += f", {exposure_vals[idx]}, {std_vals[idx]}"
+                    f.write(row + '\n')
+
+            print(f'Data exported to: {csv_filename}')
+
+
 
 def plot_dev_fig6_region(ds_regions, flags, extr, ds, region, EMF):
     """

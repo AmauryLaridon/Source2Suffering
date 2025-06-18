@@ -900,13 +900,23 @@ def load_isimip(
                     pk.dump(d_isimip_meta,f)
                 with open(data_dir+'{}/rm_config/{}/isimip_pic_metadata_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['extr']), 'wb') as f:
                     pk.dump(d_pic_meta,f) 
+                with open(data_dir+'{}/rm_config/{}/df_GMT_rm_config_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['rm_config']), 'wb') as f:
+                    pk.dump(df_GMT,f) 
+            
+            elif flags['rm'] == 'rm' and flags['rm_config'] =='21':
         
-            else:
-
                 with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'wb') as f:
                     pk.dump(d_isimip_meta,f)
                 with open(data_dir+'{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'wb') as f:
                     pk.dump(d_pic_meta,f)
+
+                with open(data_dir+'{}/{}/df_GMT_rm_config_{}.pkl'.format(flags['version'],flags['extr'],flags['rm_config']), 'wb') as f:
+                    pk.dump(df_GMT,f)
+
+            elif flags['rm'] == 'no_rm':
+
+                with open(data_dir+'{}/{}/df_GMT_no_rm.pkl'.format(flags['version'],flags['extr']), 'wb') as f:
+                    pk.dump(df_GMT,f)
 
     else: 
         
@@ -920,13 +930,22 @@ def load_isimip(
                 d_isimip_meta = pk.load(f)
             with open(data_dir+'{}/rm_config/{}/isimip_pic_metadata_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['extr']), 'rb') as f:
                 d_pic_meta = pk.load(f) 
+            with open(data_dir+'{}/rm_config/{}/df_GMT_rm_config_{}.pkl'.format('pickles_sandbox',flags['extr'],flags['rm_config']), 'rb') as f:
+                df_GMT = pk.load(f) 
         
-        else:
-
+        elif flags['rm'] == 'rm' and flags['rm_config'] =='21':
+            
             with open(data_dir+'{}/{}/isimip_metadata_{}_{}_{}.pkl'.format(flags['version'],flags['extr'],flags['extr'],flags['gmt'],flags['rm']), 'rb') as f:
                 d_isimip_meta = pk.load(f)
             with open(data_dir+'{}/{}/isimip_pic_metadata_{}.pkl'.format(flags['version'],flags['extr'],flags['extr']), 'rb') as f:
-                d_pic_meta = pk.load(f)                
+                d_pic_meta = pk.load(f)
+            with open(data_dir+'{}/{}/df_GMT_rm_config_{}.pkl'.format(flags['version'],flags['extr'],flags['rm_config']), 'rb') as f:
+                df_GMT = pk.load(f)
+
+        elif flags['rm'] == 'no_rm':
+
+            with open(data_dir+'{}/{}/df_GMT_no_rm.pkl'.format(flags['version'],flags['extr']), 'rb') as f:
+                df_GMT = pk.load(f)            
 
     return d_isimip_meta,d_pic_meta
 
@@ -1255,6 +1274,30 @@ def get_regions_cohort(df_countries, ds_regions, da_cohort_size, flags):
         pk.dump(da_cohort_size_regions,f)
 
     return da_cohort_size_regions
+
+#%%---------------------------------------------------------------#
+# Get countries cohort size for the reference year and selected   #
+# slice of ages of interest. This function is build to create     #
+# the object used for spatialisation of the results of            #
+# emissions2npeople at the country level. It is based on the      #
+# da_cohort_size object that has been used and validate in the    # 
+# final analysis of Grant et al.(2025) and WT                     #
+#-----------------------------------------------------------------#
+
+def get_countries_cohort_2020(da_cohort_size,flags):
+
+    # Select only the year of reference for the demography and the ages # 
+    da_cohort_size_countries_2020 = da_cohort_size.sel(time=year_ref,ages=ages)
+
+    # multiplication to have the number of people (and not per thousands of people)
+    da_cohort_size_countries_2020 *= 1e3
+
+    # dump pickle of lifetime exposure per region
+    with open(data_dir+'{}/country/da_cohort_size_countries_2020.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(da_cohort_size_countries_2020,f)
+
+    return da_cohort_size_countries_2020
+
 
 #%%---------------------------------------------------------------#
 # Country data                                                    #

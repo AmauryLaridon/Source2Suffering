@@ -469,7 +469,7 @@ if Source2Suffering:
 
     # Fig 6 - LE MMM and EMF for all countries and regions for 1.5/2.5/3.5°C #
 
-    plot_fig6 = 0       # 0: do not plot figure 6
+    plot_fig6 = 1       # 0: do not plot figure 6
                         # 1: plot figure 6 
 
     # Fig 7 - BE LE MMM for all regions  #
@@ -517,12 +517,12 @@ if Source2Suffering:
 
     # Fig 13 - LE MMM for all regions under STS_ModAct and STS_Ren  #
 
-    plot_fig13 = 1      # 0: do not plot figure 13 
+    plot_fig13 = 0      # 0: do not plot figure 13 
                         # 1: plot figure 13
                         
     # Fig 17 - LFE MMM for all regions under STS_ModAct and STS_Ren  #
 
-    plot_fig17 = 1      # 0: do not plot figure 17 
+    plot_fig17 = 0      # 0: do not plot figure 17 
                         # 1: plot figure 17
 
     

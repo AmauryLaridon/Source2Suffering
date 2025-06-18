@@ -2,7 +2,7 @@
 # Functions needed and developped for the Source2Suffering project               #
 #                                                                                #
 # This script contains in its first part the technical functions such            #
-# as emissions2npeople(), monte_carlo_sampling() and the functions to builds     #
+# as emissions2npeople_country(), monte_carlo_sampling() and the functions to builds     #
 # PDFs for the 4 main variables needed to link emissions to human                #
 # lifetime exposure.                                                             #
 #                                                                                #
@@ -52,9 +52,9 @@ import cartopy.crs as ccrs
 #-------------------------------------------------------------------------------------- #
 
 
-def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_end, df_GMT_strj, da_valp_cohort_size_abs, rounding):
+def emissions2npeople_region(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_end, df_GMT_strj, da_valp_cohort_size_abs, rounding):
     """Compute the number of people affected by additional climate extremes in their lifetime
-    due to specific CO2 emissions"""
+    due to specific CO2 emissions at the regional level"""
 
     # Compute change in GMT from emissions 
     dGMT = TCRE * CO2_emissions             
@@ -98,6 +98,79 @@ def emissions2npeople(CO2_emissions, TCRE, ds_le, region_ind, year_start, year_e
         if year_start == 1960:
 
             nr_newborns[i] = da_valp_cohort_size_abs.sel(region=region_ind, ages=ages[(year_end-year_start)-i]).item()
+
+        # Compute the average change in lifetime exposure #
+        nr_extra_climate_extremes_newborns[i] = valc_slope_exposure_climate_extreme * dGMT
+
+        # Compute the number of children facing at least one additional extreme #
+        val = nr_newborns[i] * nr_extra_climate_extremes_newborns[i]
+
+        if rounding == 0:
+            nr_children_facing_extra_climate_extreme[i] = np.floor(val)
+        elif rounding == 1:
+            nr_children_facing_extra_climate_extreme[i] = np.floor(val / 1000) * 1000
+        elif rounding == 2:
+            nr_children_facing_extra_climate_extreme[i] = np.floor(val / 100) * 100
+        elif rounding == 3:
+            nr_children_facing_extra_climate_extreme[i] = val
+
+        # Ensure no negative values #
+        nr_children_facing_extra_climate_extreme[i] = max(nr_children_facing_extra_climate_extreme[i], 0)  
+
+    # Compute total for all the birth cohorts of interest #
+    nr_children_facing_extra_climate_extreme = np.append(
+        nr_children_facing_extra_climate_extreme, 
+        np.nansum(nr_children_facing_extra_climate_extreme)
+    )
+
+    return nr_children_facing_extra_climate_extreme, slope_exposure
+
+def emissions2npeople_country(CO2_emissions, TCRE, ds_le, country, year_start, year_end, df_GMT_strj, da_cohort_size_countries_2020, rounding):
+    """Compute the number of people affected by additional climate extremes in their lifetime
+    due to specific CO2 emissions at the country level"""
+
+    # Compute change in GMT from emissions 
+    dGMT = TCRE * CO2_emissions             
+
+    # List of the ages of interest
+    ages = np.arange(60,-1,-1)              
+
+    # Generate list of birth years for iteration
+    years_loop = list(range(year_end, year_start - 1, -1))
+    nbirthyears = len(years_loop)
+
+    # Initialize arrays
+    nr_newborns = np.zeros(nbirthyears)
+    nr_extra_climate_extremes_newborns = np.zeros(nbirthyears)
+    nr_children_facing_extra_climate_extreme = np.zeros(nbirthyears)
+    slope_exposure = np.zeros(nbirthyears)
+
+    # Loop over birth years from year_end to year_start
+    for i in range(nbirthyears):
+
+        # Extract lifetime exposure data and GMT anomaly in 2100 
+        # for each cohort among the birth_years between year_start and year_end #
+        valc_exposure_climate_extreme_newborns = ds_le['mmm_BE'].sel(country=country, birth_year=years_loop[i])
+
+        birth_year=years_loop[i]
+
+        # Recover the 2113 GMT anomaly ? To be confirmed. Should be placed outside of the loop
+        valc_GMT_2100 = df_GMT_strj.iloc[-1]  
+
+        # Fit a linear curve between the exposure to climate extreme and the GMT anomaly and extract the slope #
+        valc_pf = np.polyfit(valc_GMT_2100, valc_exposure_climate_extreme_newborns, 1)
+        valc_slope_exposure_climate_extreme = valc_pf[0]
+        slope_exposure[i] = valc_slope_exposure_climate_extreme
+
+        # Extract the number of people in the cohort #
+
+        if year_end == 2020:
+
+            nr_newborns[i] = da_cohort_size_countries_2020.sel(country=country, ages=ages[-(1+i)]).item()
+        
+        if year_start == 1960:
+
+            nr_newborns[i] = da_cohort_size_countries_2020.sel(country=country, ages=ages[(year_end-year_start)-i]).item()
 
         # Compute the average change in lifetime exposure #
         nr_extra_climate_extremes_newborns[i] = valc_slope_exposure_climate_extreme * dGMT
@@ -368,7 +441,7 @@ def reference_pulse():
         'Tropical Cyclones'
     ]
 
-    # Dictionary to store values for each extreme hazard type
+    # Dictionary to store values for each extreme hazard type at the regional level
     d_valc = {}
     d_valc_ref = {}
     d_valc_total = {}
@@ -384,16 +457,24 @@ def reference_pulse():
         print("---------- Hazard = {} ----------\n".format(extr_name))
         n+=1
 
-        # Load the corresponding exposure dataset with new demography
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-            ds_le_perregion = pk.load(f)
+        if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+            # Load the corresponding exposure dataset with the different rm configuration
+            with open(data_dir+'{}/rm_config/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
+        
+        else:
+
+            # Load the corresponding exposure dataset with new demography and the rm configuration of Grant et al.(2025)
+            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
 
         # Load the absolute cohort sizes at the regional level with the new demography
         with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'rb') as f:
             da_valp_cohort_size_abs = pk.load(f)
 
         # Compute the number of children exposed to the extra hazard under the Reference Pulse
-        valc_nr_children_facing_extra_hazard_Reference_Pulse, S2S_slope_exposure = emissions2npeople(
+        valc_nr_children_facing_extra_hazard_Reference_Pulse, S2S_slope_exposure = emissions2npeople_region(
             CO2_emissions=CO2_emissions_Reference_Pulse,
             TCRE=TCRE_init,
             ds_le=ds_le_perregion,
@@ -406,7 +487,7 @@ def reference_pulse():
         )
 
         # Compute the number of children exposed to the extra hazard under the Reference Pulse scenario for the reference birth cohorts
-        valc_nr_children_facing_extra_hazard_Reference_Pulse_ref, S2S_slope_exposure_ref = emissions2npeople(
+        valc_nr_children_facing_extra_hazard_Reference_Pulse_ref, S2S_slope_exposure_ref = emissions2npeople_region(
             CO2_emissions=CO2_emissions_Reference_Pulse,
             TCRE=TCRE_init,
             ds_le=ds_le_perregion,
@@ -529,7 +610,7 @@ def reference_pulse():
         name="valc_slope_exposure_ref"
     )
 
-    ds_S2S_Reference_Pulse = xr.Dataset(
+    ds_S2S_Reference_Pulse_World = xr.Dataset(
     {
         "valc_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_nr_children_facing_extra_hazard_Reference_Pulse,
         "valc_total_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse,
@@ -551,29 +632,37 @@ def reference_pulse():
     print(" ---------------------------------------------------- ")
     print("")
 
+    # -------------------------------------------- Regional Level ----------------------------------------- #
+
+    print("")
+    print(" ---------------------------- ")
+    print("| Q.(2.1) - Regional Level   |")
+    print(" ---------------------------- ")
+    print("")
+
     # Define the list of geographical regions
     region_int_ind = [0, 1, 3, 6, 7, 8, 9, 11] 
     region_names = ds_regions['name'].sel(region=region_int_ind).values
 
     # Prepare empty lists to store datasets for each region
-    list_da_valc_nr = []
-    list_da_valc_nr_ref = []
-    list_da_valc_total = []
-    list_da_valc_total_ref = []
-    list_da_valc_slope = []
-    list_da_valc_slope_ref = []
+    list_da_valc_nr_regions = []
+    list_da_valc_nr_ref_regions = []
+    list_da_valc_total_regions = []
+    list_da_valc_total_ref_regions = []
+    list_da_valc_slope_regions = []
+    list_da_valc_slope_ref_regions = []
 
     for region_idx, region_name in zip(region_int_ind, region_names):
         print(f"\n------------------------------------------------")
         print(f"   Computing for REGION = {region_name}")
         print(f"------------------------------------------------\n")
 
-        d_valc = {}
-        d_valc_ref = {}
-        d_valc_total = {}
-        d_valc_total_ref = {}
-        d_valc_slope_exposure = {}
-        d_valc_slope_exposure_ref = {}
+        d_valc_regions = {}
+        d_valc_ref_regions = {}
+        d_valc_total_regions = {}
+        d_valc_total_ref_regions = {}
+        d_valc_slope_exposure_regions = {}
+        d_valc_slope_exposure_ref_regions = {}
 
         n = 0
         for extr in all_extremes:
@@ -581,14 +670,23 @@ def reference_pulse():
             print(f"Hazard = {extr_name}\n")
             n += 1
 
-            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-                ds_le_perregion = pk.load(f)
+            if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+                # Load the corresponding exposure dataset with the different rm configuration
+                with open(data_dir+'{}/rm_config/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)
+            
+            else: 
+
+                # Load the corresponding exposure dataset with the different rm configuration of Grant et al.(2025) 
+                with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)
 
             with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'rb') as f:
                 da_valp_cohort_size_abs = pk.load(f)
 
             # Exposures for current birth cohort
-            valc_nr, slope_expo = emissions2npeople(
+            valc_nr_region, slope_expo_region = emissions2npeople_region(
                 CO2_emissions=CO2_emissions_Reference_Pulse,
                 TCRE=TCRE_init,
                 ds_le=ds_le_perregion,
@@ -601,7 +699,7 @@ def reference_pulse():
             )
 
             # Exposures for reference birth cohort
-            valc_nr_ref, slope_expo_ref = emissions2npeople(
+            valc_nr_ref_region, slope_expo_ref_region = emissions2npeople_region(
                 CO2_emissions=CO2_emissions_Reference_Pulse,
                 TCRE=TCRE_init,
                 ds_le=ds_le_perregion,
@@ -613,97 +711,290 @@ def reference_pulse():
                 rounding=3
             )
 
-            d_valc_total[extr] = valc_nr[-1]
-            d_valc_total_ref[extr] = valc_nr_ref[-1]
+            d_valc_total_regions[extr] = valc_nr_region[-1]
+            d_valc_total_ref_regions[extr] = valc_nr_ref_region[-1]
 
-            # Apply reversed before storing (like in your first example)
-            d_valc[extr] = valc_nr[:-1][::-1]
-            d_valc_ref[extr] = valc_nr_ref[:-1][::-1]
-            d_valc_slope_exposure[extr] = slope_expo[::-1]
-            d_valc_slope_exposure_ref[extr] = slope_expo_ref[::-1]
+            # Apply reversed before storing 
+            d_valc_regions[extr] = valc_nr_region[:-1][::-1]
+            d_valc_ref_regions[extr] = valc_nr_ref_region[:-1][::-1]
+            d_valc_slope_exposure_regions[extr] = slope_expo_region[::-1]
+            d_valc_slope_exposure_ref_regions[extr] = slope_expo_ref_region[::-1]
 
 
         # Create DataArrays for this region
-        da_valc_nr = xr.DataArray(
-            data=[d_valc[extr] for extr in all_extremes],
+        da_valc_nr_regions = xr.DataArray(
+            data=[d_valc_regions[extr] for extr in all_extremes],
             coords={"hazard": all_extremes, "birth_year": list(range(year_start_as, year_end_as + 1))},
             dims=["hazard", "birth_year"]
         )
 
-        da_valc_nr_ref = xr.DataArray(
-            data=[d_valc_ref[extr] for extr in all_extremes],
+        da_valc_nr_ref_regions = xr.DataArray(
+            data=[d_valc_ref_regions[extr] for extr in all_extremes],
             coords={"hazard": all_extremes, "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))},
             dims=["hazard", "birth_year"]
         )
 
-        da_valc_total = xr.DataArray(
-            data=[d_valc_total[extr] for extr in all_extremes],
+        da_valc_total_regions = xr.DataArray(
+            data=[d_valc_total_regions[extr] for extr in all_extremes],
             coords={"hazard": all_extremes},
             dims=["hazard"]
         )
 
-        da_valc_total_ref = xr.DataArray(
-            data=[d_valc_total_ref[extr] for extr in all_extremes],
+        da_valc_total_ref_regions = xr.DataArray(
+            data=[d_valc_total_ref_regions[extr] for extr in all_extremes],
             coords={"hazard": all_extremes},
             dims=["hazard"]
         )
 
-        da_slope = xr.DataArray(
-            data=[d_valc_slope_exposure[extr] for extr in all_extremes],
+        da_slope_regions = xr.DataArray(
+            data=[d_valc_slope_exposure_regions[extr] for extr in all_extremes],
             coords={"hazard": all_extremes, "birth_year": list(range(year_start_as, year_end_as + 1))},
             dims=["hazard", "birth_year"]
         )
 
-        da_slope_ref = xr.DataArray(
-            data=[d_valc_slope_exposure_ref[extr] for extr in all_extremes],
+        da_slope_ref_regions = xr.DataArray(
+            data=[d_valc_slope_exposure_ref_regions[extr] for extr in all_extremes],
             coords={"hazard": all_extremes, "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))},
             dims=["hazard", "birth_year"]
         )
 
-        list_da_valc_nr.append(da_valc_nr)
-        list_da_valc_nr_ref.append(da_valc_nr_ref)
-        list_da_valc_total.append(da_valc_total)
-        list_da_valc_total_ref.append(da_valc_total_ref)
-        list_da_valc_slope.append(da_slope)
-        list_da_valc_slope_ref.append(da_slope_ref)
+        list_da_valc_nr_regions.append(da_valc_nr_regions)
+        list_da_valc_nr_ref_regions.append(da_valc_nr_ref_regions)
+        list_da_valc_total_regions.append(da_valc_total_regions)
+        list_da_valc_total_ref_regions.append(da_valc_total_ref_regions)
+        list_da_valc_slope_regions.append(da_slope_regions)
+        list_da_valc_slope_ref_regions.append(da_slope_ref_regions)
 
     # Convert lists into stacked DataArrays using region names as coordinate
-    da_valc_nr_children_facing_extra_hazard_Reference_Pulse = xr.concat(list_da_valc_nr, dim="region")
-    da_valc_nr_children_facing_extra_hazard_Reference_Pulse["region"] = region_names
+    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions = xr.concat(list_da_valc_nr_regions, dim="region")
+    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions["region"] = region_names
 
-    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref = xr.concat(list_da_valc_nr_ref, dim="region")
-    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref["region"] = region_names
+    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions = xr.concat(list_da_valc_nr_ref_regions, dim="region")
+    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions["region"] = region_names
 
-    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse = xr.concat(list_da_valc_total, dim="region")
-    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse["region"] = region_names
+    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions = xr.concat(list_da_valc_total_regions, dim="region")
+    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions["region"] = region_names
 
-    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref = xr.concat(list_da_valc_total_ref, dim="region")
-    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref["region"] = region_names
+    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions = xr.concat(list_da_valc_total_ref_regions, dim="region")
+    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions["region"] = region_names
 
-    da_valc_slope_exposure = xr.concat(list_da_valc_slope, dim="region")
-    da_valc_slope_exposure["region"] = region_names
+    da_valc_slope_exposure_regions = xr.concat(list_da_valc_slope_regions, dim="region")
+    da_valc_slope_exposure_regions["region"] = region_names
 
-    da_valc_slope_exposure_ref = xr.concat(list_da_valc_slope_ref, dim="region")
-    da_valc_slope_exposure_ref["region"] = region_names
+    da_valc_slope_exposure_ref_regions = xr.concat(list_da_valc_slope_ref_regions, dim="region")
+    da_valc_slope_exposure_ref_regions["region"] = region_names
 
     # Assemble the final dataset with named regions
     ds_S2S_Reference_Pulse_Regions = xr.Dataset(
         {
-            "valc_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_nr_children_facing_extra_hazard_Reference_Pulse,
-            "valc_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref,
-            "valc_total_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse,
-            "valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref,
-            "valc_slope_exposure": da_valc_slope_exposure,
-            "valc_slope_exposure_ref": da_valc_slope_exposure_ref
+            "valc_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions,
+            "valc_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions,
+            "valc_total_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions,
+            "valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions,
+            "valc_slope_exposure": da_valc_slope_exposure_regions,
+            "valc_slope_exposure_ref": da_valc_slope_exposure_ref_regions
+        }
+    )
+
+    # -------------------------------------------- Country Level ----------------------------------------- #
+
+    print("")
+    print(" --------------------------- ")
+    print("| Q.(2.2) - National Level   |")
+    print(" --------------------------- ")
+    print("")
+
+    # Prepare empty lists to store datasets for each country
+    list_da_valc_nr_countries = []
+    list_da_valc_nr_ref_countries = []
+    list_da_valc_total_countries = []
+    list_da_valc_total_ref_countries = []
+    list_da_valc_slope_countries = []
+    list_da_valc_slope_ref_countries = []
+
+    countries_names = df_countries['name'].values
+
+    for country_name in countries_names:
+
+        print(f"\n------------------------------------------------")
+        print(f"   Computing for COUNTRY = {country_name}")
+        print(f"------------------------------------------------\n")
+
+        d_valc_countries = {}
+        d_valc_ref_countries = {}
+        d_valc_total_countries = {}
+        d_valc_total_ref_countries = {}
+        d_valc_slope_exposure_countries = {}
+        d_valc_slope_exposure_ref_countries = {}
+    
+        n = 0
+        for extr in all_extremes:
+            extr_name = hazards_name[n]
+            print(f"Hazard = {extr_name}\n")
+            n += 1
+
+            if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+                # Load the corresponding exposure dataset with the different rm configuration
+                with open(data_dir+'{}/rm_config/{}/ds_le_percountry_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_percountry = pk.load(f)
+            
+            else: 
+
+                # Load the corresponding exposure dataset with the different rm configuration of Grant et al.(2025) 
+                with open(data_dir+'{}/{}/ds_le_percountry_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_percountry = pk.load(f)
+
+            with open(data_dir + '{}/country/da_cohort_size_countries_2020.pkl'.format(flags['version']), 'rb') as f:
+                da_cohort_size_countries_2020 = pk.load(f)
+
+            # Exposures for current birth cohort
+            valc_nr_country, slope_expo_country = emissions2npeople_country(
+                CO2_emissions=CO2_emissions_Reference_Pulse,
+                TCRE=TCRE_init,
+                ds_le=ds_le_percountry,
+                country=country_name,
+                year_start=year_start_as,
+                year_end=year_end_as,
+                df_GMT_strj=df_GMT_strj,
+                da_cohort_size_countries_2020=da_cohort_size_countries_2020,
+                rounding=3
+            )
+
+            # Exposures for reference birth cohort
+            valc_nr_ref_country, slope_expo_ref_country = emissions2npeople_country(
+                CO2_emissions=CO2_emissions_Reference_Pulse,
+                TCRE=TCRE_init,
+                ds_le=ds_le_percountry,
+                country=country_name,
+                year_start=year_start_as_ref,
+                year_end=year_end_as_ref,
+                df_GMT_strj=df_GMT_strj,
+                da_cohort_size_countries_2020=da_cohort_size_countries_2020,
+                rounding=3
+            )
+
+            d_valc_total_countries[extr] = valc_nr_country[-1]
+            d_valc_total_ref_countries[extr] = valc_nr_ref_country[-1]
+
+            # Apply reversed before storing 
+            d_valc_countries[extr] = valc_nr_country[:-1][::-1]
+            d_valc_ref_countries[extr] = valc_nr_ref_country[:-1][::-1]
+            d_valc_slope_exposure_countries[extr] = slope_expo_country[::-1]
+            d_valc_slope_exposure_ref_countries[extr] = slope_expo_ref_country[::-1]
+
+        # Create DataArrays for this country
+        da_valc_nr_countries = xr.DataArray(
+            data=[d_valc_countries[extr] for extr in all_extremes],
+            coords={"hazard": all_extremes, "birth_year": list(range(year_start_as, year_end_as + 1))},
+            dims=["hazard", "birth_year"]
+        )
+
+        da_valc_nr_ref_countries = xr.DataArray(
+            data=[d_valc_ref_countries[extr] for extr in all_extremes],
+            coords={"hazard": all_extremes, "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))},
+            dims=["hazard", "birth_year"]
+        )
+
+        da_valc_total_countries = xr.DataArray(
+            data=[d_valc_total_countries[extr] for extr in all_extremes],
+            coords={"hazard": all_extremes},
+            dims=["hazard"]
+        )
+
+        da_valc_total_ref_countries = xr.DataArray(
+            data=[d_valc_total_ref_countries[extr] for extr in all_extremes],
+            coords={"hazard": all_extremes},
+            dims=["hazard"]
+        )
+
+        da_slope_countries = xr.DataArray(
+            data=[d_valc_slope_exposure_countries[extr] for extr in all_extremes],
+            coords={"hazard": all_extremes, "birth_year": list(range(year_start_as, year_end_as + 1))},
+            dims=["hazard", "birth_year"]
+        )
+
+        da_slope_ref_countries = xr.DataArray(
+            data=[d_valc_slope_exposure_ref_countries[extr] for extr in all_extremes],
+            coords={"hazard": all_extremes, "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))},
+            dims=["hazard", "birth_year"]
+        )
+
+        list_da_valc_nr_countries.append(da_valc_nr_countries)
+        list_da_valc_nr_ref_countries.append(da_valc_nr_ref_countries)
+        list_da_valc_total_countries.append(da_valc_total_countries)
+        list_da_valc_total_ref_countries.append(da_valc_total_ref_countries)
+        list_da_valc_slope_countries.append(da_slope_countries)
+        list_da_valc_slope_ref_countries.append(da_slope_ref_countries)
+
+    # Convert lists into stacked DataArrays using countries names as coordinate
+    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_countries = xr.concat(list_da_valc_nr_countries, dim="country")
+    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_countries["country"] = countries_names
+
+    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_countries = xr.concat(list_da_valc_nr_ref_countries, dim="country")
+    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_countries["country"] = countries_names
+
+    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_countries = xr.concat(list_da_valc_total_countries, dim="country")
+    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_countries["country"] = countries_names
+
+    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_countries = xr.concat(list_da_valc_total_ref_countries, dim="country")
+    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_countries["country"] = countries_names
+
+    da_valc_slope_exposure_countries = xr.concat(list_da_valc_slope_countries, dim="country")
+    da_valc_slope_exposure_countries["country"] = countries_names
+
+    da_valc_slope_exposure_ref_countries = xr.concat(list_da_valc_slope_ref_countries, dim="country")
+    da_valc_slope_exposure_ref_countries["country"] = countries_names
+
+    # Assemble the final dataset with named countries
+    ds_S2S_Reference_Pulse_Countries = xr.Dataset(
+        {
+            "valc_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_countries,
+            "valc_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_countries,
+            "valc_total_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_countries,
+            "valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_countries,
+            "valc_slope_exposure": da_valc_slope_exposure_countries,
+            "valc_slope_exposure_ref": da_valc_slope_exposure_ref_countries
         }
     )
 
     # -------------------------------- Save as Pickles ---------------------------------- #
-    with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
-        pk.dump(ds_S2S_Reference_Pulse,f)
 
-    with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
-        pk.dump(ds_S2S_Reference_Pulse_Regions,f)
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+        # Save as pickles the DataSet with the different rm configuration
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_World_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_World,f)
+
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_Regions,f)
+
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Countries_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_Countries,f)
+
+    elif flags['rm'] == 'rm' and flags['rm_config'] =='21':
+
+        # Save as pickles the DataSet with the Grant et al.(2025) configuration
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_World_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_World,f)
+
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_Regions,f)
+
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Countries_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_Countries,f)
+
+    elif flags['rm'] == 'no_rm':
+    
+        # Save as pickles the DataSet without the rolling mean
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_World_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_World,f)
+
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_Regions,f)
+
+        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Countries_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+            pk.dump(ds_S2S_Reference_Pulse_Countries,f)
 
 
 #-------------------------------------------------------------------------------------------------------------------------------#
@@ -1012,11 +1303,19 @@ def assessment_Neptun_Deep():
         with open(data_dir + '{}/old_demography/country/da_valp_cohort_size_abs.pkl'.format('pickles_sandbox'), 'rb') as f:
             da_valp_cohort_size_abs = pk.load(f)
 
-    else: 
+    else:
 
-        # Load the corresponding exposure dataset with new demography
-        with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
-            ds_le_perregion = pk.load(f)
+        if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+        
+            # Load the corresponding exposure dataset with new demography and different rm configuration
+            with open(data_dir+'{}/rm_config/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox','heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
+
+        else:
+
+            # Load the corresponding exposure dataset with new demography and Grant et al.(2025) rm configuration or no_rm flags 
+            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],'heatwavedarea',flags['gmt'],flags['rm']), 'rb') as f:
+                ds_le_perregion = pk.load(f)
 
         # Load the absolute cohort sizes at the regional level with the new demography
         with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'rb') as f:
@@ -1027,7 +1326,7 @@ def assessment_Neptun_Deep():
     year_start_as = 2010
     year_end_as = 2020
 
-    valc_nr_children_facing_extra_heatwave_NeptunDeep, S2S_slope_exposure = emissions2npeople(
+    valc_nr_children_facing_extra_heatwave_NeptunDeep, S2S_slope_exposure = emissions2npeople_region(
         CO2_emissions = CO2_emissions_NeptunDeep,
         TCRE = TCRE_init,
         ds_le = ds_le_perregion,
@@ -1056,7 +1355,7 @@ def assessment_Neptun_Deep():
     # Generate list of birth years for iteration
     #years_loop = list(range(year_end_as_ref, year_start_as_ref - 1, -1))
 
-    valc_nr_children_facing_extra_heatwave_NeptunDeep_ref, S2S_slope_exposure_ref = emissions2npeople(
+    valc_nr_children_facing_extra_heatwave_NeptunDeep_ref, S2S_slope_exposure_ref = emissions2npeople_region(
         CO2_emissions = CO2_emissions_NeptunDeep,
         TCRE = TCRE_init,
         ds_le = ds_le_perregion,
@@ -1151,16 +1450,24 @@ def assessment_Neptun_Deep():
 
         else: 
 
-            # Load the corresponding exposure dataset with new demography
-            with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
-                ds_le_perregion = pk.load(f)
+            if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+    
+                # Load the corresponding exposure dataset with new demography and different rm configuration
+                with open(data_dir+'{}/rm_config/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)
+
+            else:
+
+                # Load the corresponding exposure dataset with new demography and Grant et al.(2025) rm configuration or no_rm flags
+                with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+                    ds_le_perregion = pk.load(f)                
 
             # Load the absolute cohort sizes at the regional level with the new demography
             with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'rb') as f:
                 da_valp_cohort_size_abs = pk.load(f)
 
         # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario
-        valc_nr_children_facing_extra_hazard_NeptunDeep, S2S_slope_exposure = emissions2npeople(
+        valc_nr_children_facing_extra_hazard_NeptunDeep, S2S_slope_exposure = emissions2npeople_region(
             CO2_emissions=CO2_emissions_NeptunDeep,
             TCRE=TCRE_init,
             ds_le=ds_le_perregion,
@@ -1173,7 +1480,7 @@ def assessment_Neptun_Deep():
         )
 
         # Compute the number of children exposed to the extra hazard under the NeptunDeep scenario for the reference birth cohorts
-        valc_nr_children_facing_extra_hazard_NeptunDeep_ref, S2S_slope_exposure_ref = emissions2npeople(
+        valc_nr_children_facing_extra_hazard_NeptunDeep_ref, S2S_slope_exposure_ref = emissions2npeople_region(
             CO2_emissions=CO2_emissions_NeptunDeep,
             TCRE=TCRE_init,
             ds_le=ds_le_perregion,
@@ -1313,15 +1620,31 @@ def assessment_Neptun_Deep():
 
     if flags['old_demo']:
 
-        # dump pickle of ds_valc_nr_children_facing_extra_hazard_NeptunDeep with the old demography
+        # dump pickle of ds_S2S_NeptunDeep with the old demography
         with open(data_dir+'{}/old_demography/assessment/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format('pickles_sandbox',flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_S2S_NeptunDeep,f)
 
-    else: 
+    else:
 
-        # dump pickle of ds_valc_nr_children_facing_extra_hazard_NeptunDeep with the new demography
-        with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_S2S_NeptunDeep,f)
+        if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+            # dump pickle of ds_S2S_NeptunDeep with the new demography and different rm configuration
+            with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_NeptunDeep,f)
+
+        elif flags['rm'] == 'rm' and flags['rm_config'] =='21':
+
+             # dump pickle of ds_S2S_NeptunDeep with the new demography and Grant et al.(2021) rm configuration
+            with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_NeptunDeep,f)
+
+        elif flags['rm'] == 'no_rm':
+
+            # dump pickle of ds_S2S_NeptunDeep with the new demography but without rolling mean 
+            with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_NeptunDeep_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+                pk.dump(ds_S2S_NeptunDeep,f)
+
+    
     
     # -------------------------------------------------------------------------- #
     # Question 3: compute the number of heat-related deaths between              #

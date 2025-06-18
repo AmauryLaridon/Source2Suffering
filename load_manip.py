@@ -302,6 +302,11 @@ else:
         flags
     )
 
+    da_cohort_size_countries_2020 = get_countries_cohort_2020(
+        da_cohort_size,
+        flags
+    )
+    
 # --------------------------------------------------------------------- #
 # Construction of valp_cohort_size_abs which containts the total        # 
 # number of population of a given age per region. This object is        # 
