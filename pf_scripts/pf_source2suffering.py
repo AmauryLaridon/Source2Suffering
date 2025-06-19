@@ -38,12 +38,12 @@ from scipy import interpolate
 import cartopy.crs as ccrs
 
 
-#-------------------------------------------------------------------------------------------------------------------------------#
+#%%-----------------------------------------------------------------------------------------------------------------------------#
 #                                           Source2Suffering Technical Core Functions                                           #
 #-------------------------------------------------------------------------------------------------------------------------------#
 
 
-#%%------------------------------------------------------------------------------------ #
+#-------------------------------------------------------------------------------------- #
 # Transcription of the mf_emissions2npeople.m script from Wim Thiery to python. This    #
 # function will serve as a basis for the Source2Suffering development below.            #
 #                                                                                       #
@@ -198,230 +198,12 @@ def emissions2npeople_country(CO2_emissions, TCRE, ds_le, country, year_start, y
 
     return nr_children_facing_extra_climate_extreme, slope_exposure
 
-
-#%%------------------------------------------------------------------------------------ #
-# Compute heat-related mortality associated with the emissions using the                #
-# concept of 'mortality cost of carbon' from Bessler et al.(2021) in Nature Com.        #
+#-------------------------------------------------------------------------------------- #
+# Compututation of the number of new additional people exposed to a one hazard,         # 
+# the slope of exposure for both birth cohorts at the World level                       #
 #-------------------------------------------------------------------------------------- #
 
-def mortality_cost_carbon(CO2_emissions):
-
-    # 4,434 metric tons of carbon dioxide in 2020 cfr. (Bressler, 2021) 
-    # causes one excess death globally in expectation between 2020-2100 
-
-    mortality_cost_carbon_val = 4434 
-
-    valc_mortality = (CO2_emissions / mortality_cost_carbon_val // 1000) * 1000
-
-    return valc_mortality
-
-#%%------------------------------------------------------------------------------------ #
-# Compute the PDFs of the emissions                                                     #
-#-------------------------------------------------------------------------------------- #
-
-def pdf_emissions(best_estimate,std_dev):
-
-    """
-    Returns a probability density function (PDF) of a normal distribution
-    based on the given best estimate (mean) and standard deviation.
-
-    Parameters
-    ----------
-    best_estimate : float
-        The central value (mean) of the normal distribution.
-    std_dev : float
-        The standard deviation of the normal distribution.
-
-    Returns
-    -------
-    pdf : function
-        A function that takes a numeric input x and returns the PDF value at x.
-    """
-
-    from scipy.stats import norm
-
-    # Create the scipy.stats.norm object
-    distribution = norm(loc=best_estimate, scale=std_dev)
-
-    pdf_emissions = distribution.pdf
-
-    # ---------------------------- Save as Pickles ------------------------------ #
-    with open(data_dir+'{}/source2suffering/pdf/emissions/pdf_emissions_norm_test.pkl'.format(flags['version']), 'wb') as f:
-        pk.dump(pdf_emissions,f)
-
-    # Return the PDF function
-    return pdf_emissions
-
-
-
-
-#%%------------------------------------------------------------------------------------ #
-# Compute the PDFs of the TCRE                                                          #
-#-------------------------------------------------------------------------------------- #
-
-def pdf_tcre(best_estimate,std_dev):
-    
-    """
-    Returns a probability density function (PDF) of a normal distribution
-    based on the given best estimate (mean) and standard deviation.
-
-    Parameters
-    ----------
-    best_estimate : float
-        The central value (mean) of the normal distribution.
-    std_dev : float
-        The standard deviation of the normal distribution.
-
-    Returns
-    -------
-    pdf : function
-        A function that takes a numeric input x and returns the PDF value at x.
-    """
-
-    from scipy.stats import norm
-
-    # Create the scipy.stats.norm object
-    distribution = norm(loc=best_estimate, scale=std_dev)
-
-    pdf_tcre = distribution.pdf
-
-    # ---------------------------- Save as Pickles ------------------------------ #
-    with open(data_dir+'{}/source2suffering/pdf/tcre/pdf_tcre_norm_test.pkl'.format(flags['version']), 'wb') as f:
-        pk.dump(pdf_tcre,f)
-
-    # Return the PDF function
-    return pdf_tcre
-
-
-#%%------------------------------------------------------------------------------------ #
-# Compute the PDFs of the exposure slope                                                #
-#-------------------------------------------------------------------------------------- #
-
-def pdf_exposure_slope(best_estimate,std_dev):
-    
-    """
-    Returns a probability density function (PDF) of a normal distribution
-    based on the given best estimate (mean) and standard deviation.
-
-    Parameters
-    ----------
-    best_estimate : float
-        The central value (mean) of the normal distribution.
-    std_dev : float
-        The standard deviation of the normal distribution.
-
-    Returns
-    -------
-    pdf : function
-        A function that takes a numeric input x and returns the PDF value at x.
-    """
-
-    from scipy.stats import norm
-
-    # Create the scipy.stats.norm object
-    distribution = norm(loc=best_estimate, scale=std_dev)
-
-    pdf_exposure_slope = distribution.pdf
-
-    # ---------------------------- Save as Pickles ------------------------------ #
-    with open(data_dir+'{}/source2suffering/pdf/exposure_slope/pdf_exposure_slope_norm_test.pkl'.format(flags['version']), 'wb') as f:
-        pk.dump(pdf_exposure_slope,f)
-
-    # Return the PDF function
-    return pdf_exposure_slope
-
-
-#%%------------------------------------------------------------------------------------ #
-# Compute the PDFs of the birth cohort                                                  #
-#-------------------------------------------------------------------------------------- #
-
-def pdf_cohort_size(best_estimate,std_dev):
-    
-    """
-    Returns a probability density function (PDF) of a normal distribution
-    based on the given best estimate (mean) and standard deviation.
-
-    Parameters
-    ----------
-    best_estimate : float
-        The central value (mean) of the normal distribution.
-    std_dev : float
-        The standard deviation of the normal distribution.
-
-    Returns
-    -------
-    pdf : function
-        A function that takes a numeric input x and returns the PDF value at x.
-    """
-
-    from scipy.stats import norm
-
-    # Create the scipy.stats.norm object
-    distribution = norm(loc=best_estimate, scale=std_dev)
-
-    pdf_cohort_size = distribution.pdf
-
-    # ---------------------------- Save as Pickles ------------------------------ #
-    with open(data_dir+'{}/source2suffering/pdf/birth_cohort/pdf_cohort_size_norm_test.pkl'.format(flags['version']), 'wb') as f:
-        pk.dump(pdf_cohort_size,f)
-
-    # Return the PDF function
-    return pdf_cohort_size
-
-
-
-#-------------------------------------------------------------------------------------------------------------------------------#
-#                                   Source2Suffering Applications for Laridon et al.(2025)                                      #
-#-------------------------------------------------------------------------------------------------------------------------------#
-
-def reference_pulse():
-
-    print("\n ---------------------------------------------------------")
-    print("|          Assessment for a Reference Pulse               |")
-    print("|                      of 1 GtCO2                         |")
-    print(" ---------------------------------------------------------")
-
-    # -------------------------------------------------------------------------- #
-    # Define Total emissions of the reference fossil fuel project under study    #
-    # -------------------------------------------------------------------------- #
-    
-    # TOTAL emissions reference pulse (MtCO2e: add E6 to express as tCO2e) #
-    CO2_emissions_Reference_Pulse = 1000e6
-
-    # -------------------------------------------------------------------------- #
-    # Define Transient Climate response to cumulative emission                   #
-    # -------------------------------------------------------------------------- #
-
-    # Use of the reference value given by the inital expert advice (27/03/24)
-
-    TCRE_init = 0.45 / 1e12 # 1.65°C / 3.7 = 0,45°C per 1000 Gt CO2eq
-    
-    # -------------------------------------------------------------------------- #
-    # GMT produce by Reference Pulse using the TCRE                              #
-    # -------------------------------------------------------------------------- #
-
-    print("\nCO2 emissions of the Reference Pulse = {} MtCO2eq\n".format(CO2_emissions_Reference_Pulse/10**6))
-
-    print("Value used for TCRE = 0.45 °C per 1000 Gt CO2eq\n")
-
-    print("GMT produce by Reference Pulse = {} °C".format(TCRE_init*CO2_emissions_Reference_Pulse))
-
-    # -------------------------------------------------------------------------- #
-    # Baseline Question : How many additional hazards will the 2010-2020         #
-    # birth cohort experience due to the emissions of the Reference Pulse        # 
-    # compared to the reference birth cohorts of 1960-1970                       #
-    # -------------------------------------------------------------------------- #
-
-    print("")
-    print(" --------------------------------------------------------------------------------------------------------------------")
-    print("| Q.(1) - Number of children in the world facing an additional hazard due to the total emissions the Reference Pulse |")
-    print(" --------------------------------------------------------------------------------------------------------------------")
-    print("")
-
-    year_start_as = 2010
-    year_end_as = 2020
-    year_start_as_ref = 1960
-    year_end_as_ref = 1970
+def emissions2npeople_exposure_world(flags,co2_emissions,tcre,year_start_as,year_end_as,year_start_as_ref,year_end_as_ref,output_name):
 
     all_extremes = [
             'burntarea', 
@@ -622,23 +404,43 @@ def reference_pulse():
     }
     )
 
-    # -------------------------------------------------------------------------- #
-    # Spatialization Question : How many does the exposure spread among space ?  #
-    # -------------------------------------------------------------------------- #
 
-    print("")
-    print(" ---------------------------------------------------- ")
-    print("| Q.(2) - How does the exposure spread among space ? |")
-    print(" ---------------------------------------------------- ")
-    print("")
+
+#%%-----------------------------------------------------------------------------------------------------------------------------#
+#                                  Source2Suffering Spatialization of the Exposure Functions                                    #
+#-------------------------------------------------------------------------------------------------------------------------------#
+
+#-------------------------------------------------------------------------------------- #
+# Compute the spatialization across the regions                                         #
+#-------------------------------------------------------------------------------------- #
+
+def spatialization_exposure_regions(ds_regions,flags,co2_emissions,tcre,year_start_as,year_end_as,year_start_as_ref,year_end_as_ref,output_name):
 
     # -------------------------------------------- Regional Level ----------------------------------------- #
 
     print("")
     print(" ---------------------------- ")
-    print("| Q.(2.1) - Regional Level   |")
+    print("|       Regional Level       |")
     print(" ---------------------------- ")
     print("")
+
+    all_extremes = [
+            'burntarea', 
+            'cropfailedarea', 
+            'driedarea', 
+            'floodedarea', 
+            'heatwavedarea', 
+            'tropicalcyclonedarea'
+        ]
+
+    hazards_name = [
+        'Wild Fires', 
+        'Crop Failures', 
+        'Droughts', 
+        'River Floods', 
+        'Heatwaves', 
+        'Tropical Cyclones'
+    ]
 
     # Define the list of geographical regions
     region_int_ind = [0, 1, 3, 6, 7, 8, 9, 11] 
@@ -687,8 +489,8 @@ def reference_pulse():
 
             # Exposures for current birth cohort
             valc_nr_region, slope_expo_region = emissions2npeople_region(
-                CO2_emissions=CO2_emissions_Reference_Pulse,
-                TCRE=TCRE_init,
+                CO2_emissions=co2_emissions,
+                TCRE=tcre,
                 ds_le=ds_le_perregion,
                 region_ind=region_idx,
                 year_start=year_start_as,
@@ -700,8 +502,8 @@ def reference_pulse():
 
             # Exposures for reference birth cohort
             valc_nr_ref_region, slope_expo_ref_region = emissions2npeople_region(
-                CO2_emissions=CO2_emissions_Reference_Pulse,
-                TCRE=TCRE_init,
+                CO2_emissions=co2_emissions,
+                TCRE=tcre,
                 ds_le=ds_le_perregion,
                 region_ind=region_idx,
                 year_start=year_start_as_ref,
@@ -766,17 +568,17 @@ def reference_pulse():
         list_da_valc_slope_ref_regions.append(da_slope_ref_regions)
 
     # Convert lists into stacked DataArrays using region names as coordinate
-    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions = xr.concat(list_da_valc_nr_regions, dim="region")
-    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions["region"] = region_names
+    da_valc_nr_children_facing_extra_hazard_Emissions_regions = xr.concat(list_da_valc_nr_regions, dim="region")
+    da_valc_nr_children_facing_extra_hazard_Emissions_regions["region"] = region_names
 
-    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions = xr.concat(list_da_valc_nr_ref_regions, dim="region")
-    da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions["region"] = region_names
+    da_valc_nr_children_facing_extra_hazard_Emissions_ref_regions = xr.concat(list_da_valc_nr_ref_regions, dim="region")
+    da_valc_nr_children_facing_extra_hazard_Emissions_ref_regions["region"] = region_names
 
-    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions = xr.concat(list_da_valc_total_regions, dim="region")
-    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions["region"] = region_names
+    da_valc_total_nr_children_facing_extra_hazard_Emissions_regions = xr.concat(list_da_valc_total_regions, dim="region")
+    da_valc_total_nr_children_facing_extra_hazard_Emissions_regions["region"] = region_names
 
-    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions = xr.concat(list_da_valc_total_ref_regions, dim="region")
-    da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions["region"] = region_names
+    da_valc_total_nr_children_facing_extra_hazard_Emissions_ref_regions = xr.concat(list_da_valc_total_ref_regions, dim="region")
+    da_valc_total_nr_children_facing_extra_hazard_Emissions_ref_regions["region"] = region_names
 
     da_valc_slope_exposure_regions = xr.concat(list_da_valc_slope_regions, dim="region")
     da_valc_slope_exposure_regions["region"] = region_names
@@ -785,16 +587,697 @@ def reference_pulse():
     da_valc_slope_exposure_ref_regions["region"] = region_names
 
     # Assemble the final dataset with named regions
-    ds_S2S_Reference_Pulse_Regions = xr.Dataset(
+    ds_S2S_Emissions_Regions = xr.Dataset(
         {
-            "valc_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions,
-            "valc_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions,
-            "valc_total_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions,
-            "valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions,
+            "valc_nr_children_facing_extra_hazard_Emissions": da_valc_nr_children_facing_extra_hazard_Emissions_regions,
+            "valc_nr_children_facing_extra_hazard_Emissions_ref": da_valc_nr_children_facing_extra_hazard_Emissions_ref_regions,
+            "valc_total_nr_children_facing_extra_hazard_Emissions_Pulse": da_valc_total_nr_children_facing_extra_hazard_Emissions_regions,
+            "valc_total_nr_children_facing_extra_hazard_Emissions_Pulse_ref": da_valc_total_nr_children_facing_extra_hazard_Emissions_ref_regions,
             "valc_slope_exposure": da_valc_slope_exposure_regions,
             "valc_slope_exposure_ref": da_valc_slope_exposure_ref_regions
         }
     )
+
+    # -------------------------------- Save as Pickles ---------------------------------- #
+
+    if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+        if co2_emissions == 1000e6:
+        
+            with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+        elif co2_emissions == 207e6:
+
+            with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_Neptun_Deep_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+        else:
+
+            with open(data_dir+'{}/source2suffering/Others/ds_S2S_{}_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],output_name,flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+    elif flags['rm'] == 'rm' and flags['rm_config'] =='21':
+
+        if co2_emissions == 1000e6:
+        
+            with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+        elif co2_emissions == 207e6:
+
+            with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_Neptun_Deep_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+        else:
+
+            with open(data_dir+'{}/source2suffering/Others/ds_S2S_{}_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],output_name,flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+    elif flags['rm'] == 'no_rm':
+
+        if co2emissions == 1000e6:
+        
+            with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+        elif co2emissions == 207e6:
+
+            with open(data_dir+'{}/source2suffering/assessment/Neptun_Deep/ds_S2S_Neptun_Deep_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+        else:
+
+            with open(data_dir+'{}/source2suffering/Others/ds_S2S_{}_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],output_name,flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+                pk.dump(ds_S2S_Emissions_Regions,f)
+
+
+
+#-------------------------------------------------------------------------------------- #
+# Compute the spatialization across the countries                                       #
+#-------------------------------------------------------------------------------------- #
+
+def spatialization_exposure_countries():
+
+    pass
+
+
+
+
+
+#%%-----------------------------------------------------------------------------------------------------------------------------#
+#                                        Source2Suffering Uncertainty Assessment Functions                                      #
+#-------------------------------------------------------------------------------------------------------------------------------#
+
+
+#-------------------------------------------------------------------------------------- #
+# Compute heat-related mortality associated with the emissions using the                #
+# concept of 'mortality cost of carbon' from Bessler et al.(2021) in Nature Com.        #
+#-------------------------------------------------------------------------------------- #
+
+def mortality_cost_carbon(CO2_emissions):
+
+    # 4,434 metric tons of carbon dioxide in 2020 cfr. (Bressler, 2021) 
+    # causes one excess death globally in expectation between 2020-2100 
+
+    mortality_cost_carbon_val = 4434 
+
+    valc_mortality = (CO2_emissions / mortality_cost_carbon_val // 1000) * 1000
+
+    return valc_mortality
+
+#-------------------------------------------------------------------------------------- #
+# Compute the PDFs of the emissions                                                     #
+#-------------------------------------------------------------------------------------- #
+
+def pdf_emissions(best_estimate,std_dev):
+
+    """
+    Returns a probability density function (PDF) of a normal distribution
+    based on the given best estimate (mean) and standard deviation.
+
+    Parameters
+    ----------
+    best_estimate : float
+        The central value (mean) of the normal distribution.
+    std_dev : float
+        The standard deviation of the normal distribution.
+
+    Returns
+    -------
+    pdf : function
+        A function that takes a numeric input x and returns the PDF value at x.
+    """
+
+    from scipy.stats import norm
+
+    # Create the scipy.stats.norm object
+    distribution = norm(loc=best_estimate, scale=std_dev)
+
+    pdf_emissions = distribution.pdf
+
+    # ---------------------------- Save as Pickles ------------------------------ #
+    with open(data_dir+'{}/source2suffering/pdf/emissions/pdf_emissions_norm_test.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(pdf_emissions,f)
+
+    # Return the PDF function
+    return pdf_emissions
+
+
+
+
+#-------------------------------------------------------------------------------------- #
+# Compute the PDFs of the TCRE                                                          #
+#-------------------------------------------------------------------------------------- #
+
+def pdf_tcre(best_estimate,std_dev):
+    
+    """
+    Returns a probability density function (PDF) of a normal distribution
+    based on the given best estimate (mean) and standard deviation.
+
+    Parameters
+    ----------
+    best_estimate : float
+        The central value (mean) of the normal distribution.
+    std_dev : float
+        The standard deviation of the normal distribution.
+
+    Returns
+    -------
+    pdf : function
+        A function that takes a numeric input x and returns the PDF value at x.
+    """
+
+    from scipy.stats import norm
+
+    # Create the scipy.stats.norm object
+    distribution = norm(loc=best_estimate, scale=std_dev)
+
+    pdf_tcre = distribution.pdf
+
+    # ---------------------------- Save as Pickles ------------------------------ #
+    with open(data_dir+'{}/source2suffering/pdf/tcre/pdf_tcre_norm_test.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(pdf_tcre,f)
+
+    # Return the PDF function
+    return pdf_tcre
+
+
+#-------------------------------------------------------------------------------------- #
+# Compute the PDFs of the exposure slope                                                #
+#-------------------------------------------------------------------------------------- #
+
+def pdf_exposure_slope(best_estimate,std_dev):
+    
+    """
+    Returns a probability density function (PDF) of a normal distribution
+    based on the given best estimate (mean) and standard deviation.
+
+    Parameters
+    ----------
+    best_estimate : float
+        The central value (mean) of the normal distribution.
+    std_dev : float
+        The standard deviation of the normal distribution.
+
+    Returns
+    -------
+    pdf : function
+        A function that takes a numeric input x and returns the PDF value at x.
+    """
+
+    from scipy.stats import norm
+
+    # Create the scipy.stats.norm object
+    distribution = norm(loc=best_estimate, scale=std_dev)
+
+    pdf_exposure_slope = distribution.pdf
+
+    # ---------------------------- Save as Pickles ------------------------------ #
+    with open(data_dir+'{}/source2suffering/pdf/exposure_slope/pdf_exposure_slope_norm_test.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(pdf_exposure_slope,f)
+
+    # Return the PDF function
+    return pdf_exposure_slope
+
+
+#-------------------------------------------------------------------------------------- #
+# Compute the PDFs of the birth cohort                                                  #
+#-------------------------------------------------------------------------------------- #
+
+def pdf_cohort_size(best_estimate,std_dev):
+    
+    """
+    Returns a probability density function (PDF) of a normal distribution
+    based on the given best estimate (mean) and standard deviation.
+
+    Parameters
+    ----------
+    best_estimate : float
+        The central value (mean) of the normal distribution.
+    std_dev : float
+        The standard deviation of the normal distribution.
+
+    Returns
+    -------
+    pdf : function
+        A function that takes a numeric input x and returns the PDF value at x.
+    """
+
+    from scipy.stats import norm
+
+    # Create the scipy.stats.norm object
+    distribution = norm(loc=best_estimate, scale=std_dev)
+
+    pdf_cohort_size = distribution.pdf
+
+    # ---------------------------- Save as Pickles ------------------------------ #
+    with open(data_dir+'{}/source2suffering/pdf/birth_cohort/pdf_cohort_size_norm_test.pkl'.format(flags['version']), 'wb') as f:
+        pk.dump(pdf_cohort_size,f)
+
+    # Return the PDF function
+    return pdf_cohort_size
+
+
+
+#%%-----------------------------------------------------------------------------------------------------------------------------#
+#                                     Source2Suffering Applications for Laridon et al.(2025)                                    #
+#-------------------------------------------------------------------------------------------------------------------------------#
+
+def reference_pulse():
+
+    print("\n ---------------------------------------------------------")
+    print("|          Assessment for a Reference Pulse               |")
+    print("|                      of 1 GtCO2                         |")
+    print(" ---------------------------------------------------------")
+
+    # -------------------------------------------------------------------------- #
+    # Define Total emissions of the reference fossil fuel project under study    #
+    # -------------------------------------------------------------------------- #
+    
+    # TOTAL emissions reference pulse (MtCO2e: add E6 to express as tCO2e) #
+    CO2_emissions_Reference_Pulse = 1000e6
+
+    # -------------------------------------------------------------------------- #
+    # Define Transient Climate response to cumulative emission                   #
+    # -------------------------------------------------------------------------- #
+
+    # Use of the reference value given by the inital expert advice (27/03/24)
+
+    TCRE_init = 0.45 / 1e12 # 1.65°C / 3.7 = 0,45°C per 1000 Gt CO2eq
+    
+    # -------------------------------------------------------------------------- #
+    # GMT produce by Reference Pulse using the TCRE                              #
+    # -------------------------------------------------------------------------- #
+
+    print("\nCO2 emissions of the Reference Pulse = {} MtCO2eq\n".format(CO2_emissions_Reference_Pulse/10**6))
+
+    print("Value used for TCRE = 0.45 °C per 1000 Gt CO2eq\n")
+
+    print("GMT produce by Reference Pulse = {} °C".format(TCRE_init*CO2_emissions_Reference_Pulse))
+
+    # -------------------------------------------------------------------------- #
+    # Baseline Question : How many additional hazards will the 2010-2020         #
+    # birth cohort experience due to the emissions of the Reference Pulse        # 
+    # compared to the reference birth cohorts of 1960-1970                       #
+    # -------------------------------------------------------------------------- #
+
+    print("")
+    print(" --------------------------------------------------------------------------------------------------------------------")
+    print("| Q.(1) - Number of children in the world facing an additional hazard due to the total emissions the Reference Pulse |")
+    print(" --------------------------------------------------------------------------------------------------------------------")
+    print("")
+
+    year_start_as = 2010
+    year_end_as = 2020
+    year_start_as_ref = 1960
+    year_end_as_ref = 1970
+
+    # all_extremes = [
+    #         'burntarea', 
+    #         'cropfailedarea', 
+    #         'driedarea', 
+    #         'floodedarea', 
+    #         'heatwavedarea', 
+    #         'tropicalcyclonedarea'
+    #     ]
+
+    # hazards_name = [
+    #     'Wild Fires', 
+    #     'Crop Failures', 
+    #     'Droughts', 
+    #     'River Floods', 
+    #     'Heatwaves', 
+    #     'Tropical Cyclones'
+    # ]
+
+    # # Dictionary to store values for each extreme hazard type at the regional level
+    # d_valc = {}
+    # d_valc_ref = {}
+    # d_valc_total = {}
+    # d_valc_total_ref = {}
+    # d_valc_slope_exposure = {}
+    # d_valc_slope_exposure_ref = {}
+
+    # n = 0
+    # # Loop over all extreme hazard types
+    # for extr in all_extremes:
+
+    #     extr_name = hazards_name[n]
+    #     print("---------- Hazard = {} ----------\n".format(extr_name))
+    #     n+=1
+
+    #     if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+    #         # Load the corresponding exposure dataset with the different rm configuration
+    #         with open(data_dir+'{}/rm_config/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+    #             ds_le_perregion = pk.load(f)
+        
+    #     else:
+
+    #         # Load the corresponding exposure dataset with new demography and the rm configuration of Grant et al.(2025)
+    #         with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+    #             ds_le_perregion = pk.load(f)
+
+    #     # Load the absolute cohort sizes at the regional level with the new demography
+    #     with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'rb') as f:
+    #         da_valp_cohort_size_abs = pk.load(f)
+
+    #     # Compute the number of children exposed to the extra hazard under the Reference Pulse
+    #     valc_nr_children_facing_extra_hazard_Reference_Pulse, S2S_slope_exposure = emissions2npeople_region(
+    #         CO2_emissions=CO2_emissions_Reference_Pulse,
+    #         TCRE=TCRE_init,
+    #         ds_le=ds_le_perregion,
+    #         region_ind=11,
+    #         year_start=year_start_as,
+    #         year_end=year_end_as,
+    #         df_GMT_strj=df_GMT_strj,
+    #         da_valp_cohort_size_abs=da_valp_cohort_size_abs,
+    #         rounding=2
+    #     )
+
+    #     # Compute the number of children exposed to the extra hazard under the Reference Pulse scenario for the reference birth cohorts
+    #     valc_nr_children_facing_extra_hazard_Reference_Pulse_ref, S2S_slope_exposure_ref = emissions2npeople_region(
+    #         CO2_emissions=CO2_emissions_Reference_Pulse,
+    #         TCRE=TCRE_init,
+    #         ds_le=ds_le_perregion,
+    #         region_ind=11,
+    #         year_start=year_start_as_ref,
+    #         year_end=year_end_as_ref,
+    #         df_GMT_strj=df_GMT_strj,
+    #         da_valp_cohort_size_abs=da_valp_cohort_size_abs,
+    #         rounding=2
+    #     )
+
+    #     nr_total = valc_nr_children_facing_extra_hazard_Reference_Pulse[-1]
+    #     nr_total_ref = valc_nr_children_facing_extra_hazard_Reference_Pulse_ref[-1]
+
+    #     # Store the value of the total number of people exposed
+    #     d_valc_total[extr] = nr_total
+    #     d_valc_total_ref[extr] = nr_total_ref
+
+    #     # Exclude the last value along the only dimension (since the array is 1D)
+    #     da_trimmed = valc_nr_children_facing_extra_hazard_Reference_Pulse[:-1]
+    #     da_ref_trimmed = valc_nr_children_facing_extra_hazard_Reference_Pulse_ref[:-1]
+
+    #     # Reverse the values
+    #     da_reversed = da_trimmed[::-1]
+    #     da_ref_reversed = da_ref_trimmed[::-1]
+
+    #     # Store the result in the dictionary under the key 'extr'
+    #     d_valc[extr] = da_reversed
+    #     d_valc_ref[extr] = da_ref_reversed
+
+    #     # Reverse the values for the slope exposure
+    #     da_reversed_slope = S2S_slope_exposure[::-1]
+    #     da_ref_reversed_slope = S2S_slope_exposure_ref[::-1]
+
+    #     # Store the value of slope exposure for each hazard
+    #     d_valc_slope_exposure[extr] = da_reversed_slope
+    #     d_valc_slope_exposure_ref[extr] = da_ref_reversed_slope
+
+    #     # Generate list of birth years in descending order
+    #     years_loop = list(range(year_end_as, year_start_as - 1, -1))
+    #     nbirthyears = len(years_loop)
+    #     years_loop_ref = list(range(year_end_as_ref, year_start_as_ref - 1, -1))
+    #     nbirthyears_ref = len(years_loop_ref)
+
+    #     # Print number of exposed children per birth year
+    #     for i in range(nbirthyears):
+    #         print("For birth year {} = {} children".format(
+    #             years_loop[i], int(valc_nr_children_facing_extra_hazard_Reference_Pulse[i])))
+
+    #     # Print total number of exposed children across all birth years
+    #     print("For total birth of the {}–{} period = {} children \n".format(
+    #         year_start_as, year_end_as, int(valc_nr_children_facing_extra_hazard_Reference_Pulse[-1]))
+    #     )
+    #     # Print total number of exposed children across all birth years for the reference period
+    #     print("For total birth of the {}–{} period = {} people \n".format(
+    #         year_start_as_ref, year_end_as_ref, int(valc_nr_children_facing_extra_hazard_Reference_Pulse_ref[-1]))
+    #     )
+
+    # # ----------------------- Creating DataArray and DataSet ---------------------------- #
+
+    # # Create a DataArray containing all values for each hazard and birth year
+    # da_valc_nr_children_facing_extra_hazard_Reference_Pulse = xr.DataArray(
+    #     data=[d_valc[extr] for extr in all_extremes],
+    #     coords={
+    #         "hazard": all_extremes,
+    #         "birth_year": list(range(year_start_as, year_end_as + 1))  # in ascending order
+    #     },
+    #     dims=["hazard", "birth_year"],
+    #     name="valc_nr_children_facing_extra_hazard_Reference_Pulse"
+    # )
+
+    # da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref = xr.DataArray(
+    #     data=[d_valc_ref[extr] for extr in all_extremes],
+    #     coords={
+    #         "hazard": all_extremes,
+    #         "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))  # in ascending order
+    #     },
+    #     dims=["hazard", "birth_year"],
+    #     name="valc_nr_children_facing_extra_hazard_Reference_Pulse_ref"
+    # )
+
+    # # Create a DataArray containing the values of the total of people exposed for each hazard
+    # da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse = xr.DataArray(
+    #     data=[d_valc_total[extr] for extr in all_extremes],
+    #     coords={
+    #         "hazard": all_extremes,
+    #     },
+    #     dims=["hazard"],
+    #     name="valc_total_nr_children_facing_extra_hazard_Reference_Pulse"
+    # )
+
+    # da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref = xr.DataArray(
+    #     data=[d_valc_total_ref[extr] for extr in all_extremes],
+    #     coords={
+    #         "hazard": all_extremes,
+    #     },
+    #     dims=["hazard"],
+    #     name="valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref"
+    # )
+
+    # # Create a DataArray containing the values of the slope exposure for each hazard
+
+    # da_valc_slope_exposure = xr.DataArray(
+    #     data=[d_valc_slope_exposure[extr] for extr in all_extremes],
+    #     coords={
+    #         "hazard": all_extremes,
+    #         "birth_year": list(range(year_start_as, year_end_as + 1))  # in ascending order
+    #     },
+    #     dims=["hazard", "birth_year"],
+    #     name="valc_slope_exposure"
+    # )
+
+    # da_valc_slope_exposure_ref = xr.DataArray(
+    #     data=[d_valc_slope_exposure_ref[extr] for extr in all_extremes],
+    #     coords={
+    #         "hazard": all_extremes,
+    #         "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))  # in ascending order
+    #     },
+    #     dims=["hazard", "birth_year"],
+    #     name="valc_slope_exposure_ref"
+    # )
+
+    # ds_S2S_Reference_Pulse_World = xr.Dataset(
+    # {
+    #     "valc_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_nr_children_facing_extra_hazard_Reference_Pulse,
+    #     "valc_total_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse,
+    #     "valc_slope_exposure": da_valc_slope_exposure,
+    #     "valc_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref,
+    #     "valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref,
+    #     "valc_slope_exposure_ref": da_valc_slope_exposure_ref
+
+    # }
+    # )
+
+    # -------------------------------------------------------------------------- #
+    # Spatialization Question : How many does the exposure spread among space ?  #
+    # -------------------------------------------------------------------------- #
+
+    print("")
+    print(" ---------------------------------------------------- ")
+    print("| Q.(2) - How does the exposure spread among space ? |")
+    print(" ---------------------------------------------------- ")
+    print("")
+
+    spatialization_exposure_regions(
+        ds_regions=ds_regions,
+        flags=flags,
+        co2_emissions=CO2_emissions_Reference_Pulse,
+        tcre=TCRE_init,
+        year_start_as=year_start_as,
+        year_end_as=year_end_as,
+        year_start_as_ref=year_start_as_ref,
+        year_end_as_ref=year_end_as_ref,
+        output_name="Reference_Pulse"
+    )
+
+    # # -------------------------------------------- Regional Level ----------------------------------------- #
+
+    # print("")
+    # print(" ---------------------------- ")
+    # print("| Q.(2.1) - Regional Level   |")
+    # print(" ---------------------------- ")
+    # print("")
+
+    # # Define the list of geographical regions
+    # region_int_ind = [0, 1, 3, 6, 7, 8, 9, 11] 
+    # region_names = ds_regions['name'].sel(region=region_int_ind).values
+
+    # # Prepare empty lists to store datasets for each region
+    # list_da_valc_nr_regions = []
+    # list_da_valc_nr_ref_regions = []
+    # list_da_valc_total_regions = []
+    # list_da_valc_total_ref_regions = []
+    # list_da_valc_slope_regions = []
+    # list_da_valc_slope_ref_regions = []
+
+    # for region_idx, region_name in zip(region_int_ind, region_names):
+    #     print(f"\n------------------------------------------------")
+    #     print(f"   Computing for REGION = {region_name}")
+    #     print(f"------------------------------------------------\n")
+
+    #     d_valc_regions = {}
+    #     d_valc_ref_regions = {}
+    #     d_valc_total_regions = {}
+    #     d_valc_total_ref_regions = {}
+    #     d_valc_slope_exposure_regions = {}
+    #     d_valc_slope_exposure_ref_regions = {}
+
+    #     n = 0
+    #     for extr in all_extremes:
+    #         extr_name = hazards_name[n]
+    #         print(f"Hazard = {extr_name}\n")
+    #         n += 1
+
+    #         if flags['rm'] == 'rm' and flags['rm_config'] =='11':
+
+    #             # Load the corresponding exposure dataset with the different rm configuration
+    #             with open(data_dir+'{}/rm_config/{}/ds_le_perregion_gmt_{}_{}.pkl'.format('pickles_sandbox',extr,flags['gmt'],flags['rm']), 'rb') as f:
+    #                 ds_le_perregion = pk.load(f)
+            
+    #         else: 
+
+    #             # Load the corresponding exposure dataset with the different rm configuration of Grant et al.(2025) 
+    #             with open(data_dir+'{}/{}/ds_le_perregion_gmt_{}_{}.pkl'.format(flags['version'],extr,flags['gmt'],flags['rm']), 'rb') as f:
+    #                 ds_le_perregion = pk.load(f)
+
+    #         with open(data_dir + '{}/country/da_valp_cohort_size_abs.pkl'.format(flags['version']), 'rb') as f:
+    #             da_valp_cohort_size_abs = pk.load(f)
+
+    #         # Exposures for current birth cohort
+    #         valc_nr_region, slope_expo_region = emissions2npeople_region(
+    #             CO2_emissions=CO2_emissions_Reference_Pulse,
+    #             TCRE=TCRE_init,
+    #             ds_le=ds_le_perregion,
+    #             region_ind=region_idx,
+    #             year_start=year_start_as,
+    #             year_end=year_end_as,
+    #             df_GMT_strj=df_GMT_strj,
+    #             da_valp_cohort_size_abs=da_valp_cohort_size_abs,
+    #             rounding=3
+    #         )
+
+    #         # Exposures for reference birth cohort
+    #         valc_nr_ref_region, slope_expo_ref_region = emissions2npeople_region(
+    #             CO2_emissions=CO2_emissions_Reference_Pulse,
+    #             TCRE=TCRE_init,
+    #             ds_le=ds_le_perregion,
+    #             region_ind=region_idx,
+    #             year_start=year_start_as_ref,
+    #             year_end=year_end_as_ref,
+    #             df_GMT_strj=df_GMT_strj,
+    #             da_valp_cohort_size_abs=da_valp_cohort_size_abs,
+    #             rounding=3
+    #         )
+
+    #         d_valc_total_regions[extr] = valc_nr_region[-1]
+    #         d_valc_total_ref_regions[extr] = valc_nr_ref_region[-1]
+
+    #         # Apply reversed before storing 
+    #         d_valc_regions[extr] = valc_nr_region[:-1][::-1]
+    #         d_valc_ref_regions[extr] = valc_nr_ref_region[:-1][::-1]
+    #         d_valc_slope_exposure_regions[extr] = slope_expo_region[::-1]
+    #         d_valc_slope_exposure_ref_regions[extr] = slope_expo_ref_region[::-1]
+
+
+    #     # Create DataArrays for this region
+    #     da_valc_nr_regions = xr.DataArray(
+    #         data=[d_valc_regions[extr] for extr in all_extremes],
+    #         coords={"hazard": all_extremes, "birth_year": list(range(year_start_as, year_end_as + 1))},
+    #         dims=["hazard", "birth_year"]
+    #     )
+
+    #     da_valc_nr_ref_regions = xr.DataArray(
+    #         data=[d_valc_ref_regions[extr] for extr in all_extremes],
+    #         coords={"hazard": all_extremes, "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))},
+    #         dims=["hazard", "birth_year"]
+    #     )
+
+    #     da_valc_total_regions = xr.DataArray(
+    #         data=[d_valc_total_regions[extr] for extr in all_extremes],
+    #         coords={"hazard": all_extremes},
+    #         dims=["hazard"]
+    #     )
+
+    #     da_valc_total_ref_regions = xr.DataArray(
+    #         data=[d_valc_total_ref_regions[extr] for extr in all_extremes],
+    #         coords={"hazard": all_extremes},
+    #         dims=["hazard"]
+    #     )
+
+    #     da_slope_regions = xr.DataArray(
+    #         data=[d_valc_slope_exposure_regions[extr] for extr in all_extremes],
+    #         coords={"hazard": all_extremes, "birth_year": list(range(year_start_as, year_end_as + 1))},
+    #         dims=["hazard", "birth_year"]
+    #     )
+
+    #     da_slope_ref_regions = xr.DataArray(
+    #         data=[d_valc_slope_exposure_ref_regions[extr] for extr in all_extremes],
+    #         coords={"hazard": all_extremes, "birth_year": list(range(year_start_as_ref, year_end_as_ref + 1))},
+    #         dims=["hazard", "birth_year"]
+    #     )
+
+    #     list_da_valc_nr_regions.append(da_valc_nr_regions)
+    #     list_da_valc_nr_ref_regions.append(da_valc_nr_ref_regions)
+    #     list_da_valc_total_regions.append(da_valc_total_regions)
+    #     list_da_valc_total_ref_regions.append(da_valc_total_ref_regions)
+    #     list_da_valc_slope_regions.append(da_slope_regions)
+    #     list_da_valc_slope_ref_regions.append(da_slope_ref_regions)
+
+    # # Convert lists into stacked DataArrays using region names as coordinate
+    # da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions = xr.concat(list_da_valc_nr_regions, dim="region")
+    # da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions["region"] = region_names
+
+    # da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions = xr.concat(list_da_valc_nr_ref_regions, dim="region")
+    # da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions["region"] = region_names
+
+    # da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions = xr.concat(list_da_valc_total_regions, dim="region")
+    # da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions["region"] = region_names
+
+    # da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions = xr.concat(list_da_valc_total_ref_regions, dim="region")
+    # da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions["region"] = region_names
+
+    # da_valc_slope_exposure_regions = xr.concat(list_da_valc_slope_regions, dim="region")
+    # da_valc_slope_exposure_regions["region"] = region_names
+
+    # da_valc_slope_exposure_ref_regions = xr.concat(list_da_valc_slope_ref_regions, dim="region")
+    # da_valc_slope_exposure_ref_regions["region"] = region_names
+
+    # # Assemble the final dataset with named regions
+    # ds_S2S_Reference_Pulse_Regions = xr.Dataset(
+    #     {
+    #         "valc_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_regions,
+    #         "valc_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions,
+    #         "valc_total_nr_children_facing_extra_hazard_Reference_Pulse": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_regions,
+    #         "valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref": da_valc_total_nr_children_facing_extra_hazard_Reference_Pulse_ref_regions,
+    #         "valc_slope_exposure": da_valc_slope_exposure_regions,
+    #         "valc_slope_exposure_ref": da_valc_slope_exposure_ref_regions
+    #     }
+    # )
 
     # -------------------------------------------- Country Level ----------------------------------------- #
 
@@ -966,8 +1449,8 @@ def reference_pulse():
         with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_World_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
             pk.dump(ds_S2S_Reference_Pulse_World,f)
 
-        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
-            pk.dump(ds_S2S_Reference_Pulse_Regions,f)
+        # with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
+        #     pk.dump(ds_S2S_Reference_Pulse_Regions,f)
 
         with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Countries_gmt_{}_{}_config_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm'],flags['rm_config']), 'wb') as f:
             pk.dump(ds_S2S_Reference_Pulse_Countries,f)
@@ -978,8 +1461,8 @@ def reference_pulse():
         with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_World_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_S2S_Reference_Pulse_World,f)
 
-        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_S2S_Reference_Pulse_Regions,f)
+        # with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+        #     pk.dump(ds_S2S_Reference_Pulse_Regions,f)
 
         with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Countries_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_S2S_Reference_Pulse_Countries,f)
@@ -990,14 +1473,14 @@ def reference_pulse():
         with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_World_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_S2S_Reference_Pulse_World,f)
 
-        with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
-            pk.dump(ds_S2S_Reference_Pulse_Regions,f)
+        # with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Regions_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
+        #     pk.dump(ds_S2S_Reference_Pulse_Regions,f)
 
         with open(data_dir+'{}/source2suffering/reference_pulse/ds_S2S_Reference_Pulse_Countries_gmt_{}_{}.pkl'.format(flags['version'],flags['gmt'],flags['rm']), 'wb') as f:
             pk.dump(ds_S2S_Reference_Pulse_Countries,f)
 
 
-#-------------------------------------------------------------------------------------------------------------------------------#
+#%%-----------------------------------------------------------------------------------------------------------------------------#
 #                                      Source2Suffering Applications for Assessment Reports                                     #
 #-------------------------------------------------------------------------------------------------------------------------------#
 
